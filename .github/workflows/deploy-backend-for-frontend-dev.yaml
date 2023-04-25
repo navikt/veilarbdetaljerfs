@@ -1,0 +1,29 @@
+name: Deploy Backend for Frontend for veilarbdetaljerfs til dev
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '.github/workflows/deploy-backend-for-frontend-dev.yaml'
+      - '.nais/obo-nais-dev.yaml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy_backend_for_frontend_dev
+  cancel-in-progress: true
+
+env:
+  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/obo-nais-dev.yaml
