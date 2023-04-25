@@ -13,5 +13,5 @@ if (erLokal) {
         </React.StrictMode>,
     )
 } else {
-    NAVSPA.eksporter('veilarbdetaljerfs', App);
+    NAVSPA.eksporter('veilarbdetaljer', App);
 }
