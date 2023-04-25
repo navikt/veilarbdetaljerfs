@@ -4,9 +4,7 @@ import App from './App.tsx'
 import NAVSPA from "@navikt/navspa"
 
 
-const erLokal = true;
-
-if (erLokal) {
+if (erMock()) {
     ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <React.StrictMode>
             <App/>
@@ -14,4 +12,8 @@ if (erLokal) {
     )
 } else {
     NAVSPA.eksporter('veilarbdetaljer', App);
+}
+
+function erMock() {
+    return import.meta.env.MODE === 'development';
 }
