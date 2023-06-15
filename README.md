@@ -1,6 +1,7 @@
 veilarbdetaljerfs
 ================
 
+heihå
 Klientapplikasjon som på sikt skal ta over for "Detaljer" i Modia arbeidsrettet oppfølging.
 
 Applikasjonen startes/utvikles som en del av et sommerprosjekt for studenter i Team OBO 2023.
