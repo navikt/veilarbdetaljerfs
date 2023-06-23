@@ -8,10 +8,3 @@ export const worker = setupWorker(...allHandlers)
 		// eslint-disable-next-line no-console
 		console.error('Unable to setup mocked API endpoints', e);
 	});
-
-setupWorker(...allHandlers)
-	.start({ serviceWorker: { url: process.env.PUBLIC_URL + '/mockServiceWorker.js' } })
-	.catch(e => {
-		// eslint-disable-next-line no-console
-		console.error('Unable to setup mocked API endpoints', e);
-	});
