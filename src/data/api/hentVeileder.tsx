@@ -1,7 +1,7 @@
 
-const hentVeileder = () =>  {
+const hentVeileder = (veilederId: string) =>  {
 
-const url = `/veilarbveileder/api/veileder/1`;
+const url = `/veilarbveileder/api/veileder/${veilederId}`;
 const options = {
   method: "GET",
   headers: {
