@@ -1,5 +1,5 @@
 
-const hentVeileder = (veilederId: string) =>  {
+const hentVeileder =  (veilederId: string) =>  {
 
 const url = `/veilarbveileder/api/veileder/${veilederId}`;
 const options = {
@@ -10,10 +10,7 @@ const options = {
   },
 };
 fetch(url, options)
-  .then((response) => response.json())
-  .then((data) => {
-    return data
-  });
 }
 
 export default hentVeileder;
+

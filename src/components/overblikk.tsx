@@ -6,8 +6,23 @@ import { VeilederData } from "../data/datatyper/veileder";
 
 const Overblikk = () => {
 
+
+//   Fix async/await, promise stuff with this function
   const ident = hentVeileder('Z123456')
-  console.log(ident)
+//   .then(data => {
+//     console.log("SATTAN", data)
+//   })
+
+
+//   .then(function(result){
+//     console.log(result)
+//   })
+//   console.log("HEREERER", ident)
+
+
+//   ident.then(function(result) {
+//     console.log("JATTAAA", result);
+//   })
 
   return (
     <Panel border  className="Panel">
