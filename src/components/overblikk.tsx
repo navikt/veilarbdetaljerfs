@@ -10,18 +10,18 @@ const Overblikk = () => {
 //   Fix async/await, promise stuff with this function
   const ident = hentVeileder('Z123456')
 //   .then(data => {
-//     console.log("SATTAN", data)
+//     console.log("HERE 1", data)
 //   })
 
 
 //   .then(function(result){
 //     console.log(result)
 //   })
-//   console.log("HEREERER", ident)
+//   console.log("HERE 2", ident)
 
 
 //   ident.then(function(result) {
-//     console.log("JATTAAA", result);
+//     console.log("HERE 3", result);
 //   })
 
   return (
