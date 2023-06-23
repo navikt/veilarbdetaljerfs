@@ -9,11 +9,8 @@ const Overblikk = () => {
         Overblikk
       </Heading>
       <BodyLong>
-        Du kan søke om det du trenger økonomisk støtte til. Det er bare ett
-        søknadsskjema, og du beskriver selv hva du vil søke om. NAV-kontoret vil
-        gjøre en konkret og individuell vurdering av din søknad. Har du sendt en
-        søknad og ønsker å sende dokumentasjon, kan du gjøre dette under dine
-        søknader.
+        <h3>Navn:</h3>
+        <p>Dream team</p>
       </BodyLong>
     </Panel>
   );
