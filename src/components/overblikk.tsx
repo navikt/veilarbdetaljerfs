@@ -11,6 +11,8 @@ import hentOppfolgning from "../data/api/hentOppfolgning";
 import hentRegistrering from "../data/api/hentRegistrering";
 import { YtelseData } from "../data/api/datatyper/ytelse";
 import hentYtelser from "../data/api/hentYtelser";
+import { TilrettelagtKommunikasjonData } from "../data/api/datatyper/tilrettelagtKommunikasjon";
+import hentTolk from "../data/api/hentTolk";
 
 
 const Overblikk = () => {
@@ -20,6 +22,7 @@ const Overblikk = () => {
     const [oppfolgning, setOppfolgning] = useState<OppfolgingsstatusData | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
     const [ytelser, setYtelser] = useState<YtelseData | null>(null);
+    const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
 
 
     useEffect(() => {
@@ -49,6 +52,11 @@ const Overblikk = () => {
         setYtelser(data)
       });
     },[]);
+    useEffect(() => {
+      hentTolk('10108000398').then(data => {
+        setTolk(data)
+      });
+    },[]);
     
 
   return (
@@ -56,27 +64,57 @@ const Overblikk = () => {
       <Heading spacing level="2" size="large" >
         Overblikk
       </Heading>
-      <BodyLong>
+      <BodyLong className="overblikkContainer">
+        <div>
         <h3>Telefon: </h3>
         <p>{person?.telefon?.[0]?.telefonNr}</p>
-        <h3>Sivilstatus: </h3>
-        <p>{person?.sivilstandliste?.[0]?.sivilstand}</p>
+        </div>
+        <div>
         <h3>Barn fødsesldato: </h3>
         <p>{person?.barn?.[0]?.fodselsdato}</p>
+        </div>
+        <div>
         <h3>Veileder: </h3>
         <p>{veileder?.navn}</p>
+        </div>
+        <div>
         <h3>Oppfølgningsenhet: </h3>
         <p>{oppfolgning?.oppfolgingsenhet?.enhetId} {oppfolgning?.oppfolgingsenhet?.navn}</p>
-        <h3>Geografisk enhet: </h3>
-        <p>{person?.geografiskEnhet?.enhetsnummer} {person?.geografiskEnhet?.navn}</p>
+        </div>
+        <div>
         <h3>Registrert av: </h3>
         <p>{registrering?.registrering?.manueltRegistrertAv?.enhet?.navn}</p>
+        </div>
+        <div>
+        <h3>Tilrettelagt kommunikasjon</h3>
+        <p>{tolk?.talespraak}</p>
+        </div>
+        
+        <div>
+        <h3>Sivilstatus: </h3>
+        <p>{person?.sivilstandliste?.[0]?.sivilstand}</p>
+        </div>
+        
+        <div>
         <h3>Brukers mål: </h3>
         <p>{oppfolgning?.hovedmaalkode}</p>
+        </div>
+        <div>
         <h3>Ytelse(r): </h3>
         <p>{ytelser?.vedtaksliste?.[0]?.aktivitetsfase}</p>
-        <h3>Trenger tolk: </h3>
+        </div>
+        <div>
+        <h3>Geografisk enhet: </h3>
+        <p>{person?.geografiskEnhet?.enhetsnummer} {person?.geografiskEnhet?.navn}</p>
+        </div>
+        <div>
+        <h3>Registrert: </h3>
+        <p>{registrering?.registrering?.opprettetDato}</p>
+        </div>
+        <div>
+        <h3>Språk: </h3>
         <p>{person?.malform}</p>
+        </div>
       </BodyLong>
     </Panel>
   );
