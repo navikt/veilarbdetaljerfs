@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { RequestHandler } from 'msw';
-import { VeilederData } from '../../datatyper/veileder';
+import { VeilederData } from '../../api/datatyper/veileder';
 
 const veileder: VeilederData = {
 	etternavn: 'Veiledersen',
