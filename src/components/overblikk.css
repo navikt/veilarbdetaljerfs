@@ -3,4 +3,5 @@
 
 .Panel {
     margin: 20px;
+    background-color: var(--a-surface-action-subtle-hover);
 }
