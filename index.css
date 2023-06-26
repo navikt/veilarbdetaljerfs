@@ -1,1 +1,20 @@
 @import '@navikt/ds-css' layer(aksel);
+
+html,
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #veilarbpersonflatefs-root {
+            width: 100%;
+            min-height: 174px;
+        }
