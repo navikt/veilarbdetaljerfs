@@ -1,5 +1,7 @@
+import { StringOrNothing } from "../../utils/felles-typer";
+import { VeilederData } from "./datatyper/veileder";
 
-const hentVeileder = async (veilederId: string): Promise<any> =>  {
+const hentVeileder = async (veilederId: StringOrNothing): Promise<VeilederData> =>  {
 
 const url = `/veilarbveileder/api/veileder/${veilederId}`;
 const options = {

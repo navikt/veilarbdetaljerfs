@@ -3,22 +3,42 @@ import {useState, useEffect } from "react";
 import "./overblikk.css"
 import hentVeileder from "../data/api/hentVeileder";
 import { VeilederData } from "../data/api/datatyper/veileder";
+import { useAppStore } from "../stores/app-store";
+import hentOppfolgingsstatus from "../data/api/hentOppfølgingsstatus";
+import { OppfolgingsstatusData } from "../data/api/datatyper/oppfolgingsstatus";
+
 
 
 const Overblikk = () => {
 
-    const [veileder, setVeileder] = useState<VeilederData>()
+    const { fnr } = useAppStore()
 
+    const [veileder, setVeileder] = useState<VeilederData>()
+    //const veilederId = veileder ? veileder.ident : "";
+
+    //const oppfolgingsstatus = hentOppfolgingsstatus(fnr);
+    
+    //const veilederId = oppfolgingsstatus ? oppfolgingsstatus.veilederId : null;
+    const [oppfolgingsstatus, setOppfolingsstatus] = useState<OppfolgingsstatusData>()
 
     useEffect(() => {
+      if (fnr != null) {
+        hentOppfolgingsstatus(fnr).then(data => {
+          setOppfolingsstatus(data)
+        });
+      }
+    },[fnr]);
+  
 
-      hentVeileder('Z123456').then(data => {
-        setVeileder(data)
-      });
-    },[]);
+    useEffect(() => {
+      if (oppfolgingsstatus?.veilederId != null) {
+        hentVeileder(oppfolgingsstatus?.veilederId).then(data => {
+          setVeileder(data)
+        });
+      }
+    },[oppfolgingsstatus?.veilederId]);
     
-
-
+    
 
 
   return (
