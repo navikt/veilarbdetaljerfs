@@ -1,7 +1,7 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react';
 import { useState, useEffect } from 'react';
 import './overblikk.css';
-import hentVeileder from '../data/api/hentVeileder';
+import { hentVeileder } from '../data/api/hentVeileder';
 import { VeilederData } from '../data/api/datatyper/veileder';
 
 const Overblikk = () => {
