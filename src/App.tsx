@@ -1,13 +1,22 @@
-import Overblikk from './components/overblikk';
+// import  Oversikt  from "./components/oversikt"
+import Overblikk from "./components/overblikk"
+import StoreProvider from "./stores/store-provider";
 
-function App() {
-    return (
-        <div>
-            <h1>Hello from veilarbdetaljerfs!</h1>
+export interface AppProps {
+	fnr: string;
+	enhet?: string;
+}
 
-            <Overblikk />
-        </div>
-    );
+const App = (props: AppProps) => {
+
+  return (
+    <main className="app veilarbdetaljerfs">
+			<StoreProvider fnr={props.fnr}>
+					<Overblikk />
+			</StoreProvider>
+		</main>
+    
+  )
 }
 
 export default App;
