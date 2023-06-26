@@ -7,7 +7,7 @@ import { VeilederData } from "../data/api/datatyper/veileder";
 
 const Overblikk = () => {
 
-    const [veileder, setVeileder] = useState(0)
+    const [veileder, setVeileder] = useState<VeilederData>()
 
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Overblikk = () => {
         Overblikk
       </Heading>
       <BodyLong>
-        <h3>Veileder: {veileder.navn} </h3>
+        <h3>Veileder: {veileder?.navn} </h3>
       </BodyLong>
     </Panel>
   );
