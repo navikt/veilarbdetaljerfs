@@ -5,24 +5,31 @@ import { hentVeileder } from '../data/api/hentVeileder';
 import { VeilederData } from '../data/api/datatyper/veileder';
 
 const Overblikk = () => {
-    const [veileder, setVeileder] = useState<VeilederData | null>(null);
+
+    const [veileder, setVeileder] = useState<VeilederData>()
+
 
     useEffect(() => {
-        hentVeileder('Z123456').then((data) => {
-            setVeileder(data);
-        });
-    }, []);
 
-    return (
-        <Panel border className="Panel">
-            <Heading spacing level="2" size="large">
-                Overblikk
-            </Heading>
-            <BodyLong>
-                <h3>Veileder: {veileder?.navn} </h3>
-            </BodyLong>
-        </Panel>
-    );
+      hentVeileder('Z123456').then(data => {
+        setVeileder(data)
+      });
+    },[]);
+    
+
+
+
+
+  return (
+    <Panel border  className="Panel">
+      <Heading spacing level="2" size="large">
+        Overblikk
+      </Heading>
+      <BodyLong>
+        <h3>Veileder: {veileder?.navn} </h3>
+      </BodyLong>
+    </Panel>
+  );
 };
 
 export default Overblikk;
