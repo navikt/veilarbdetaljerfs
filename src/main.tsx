@@ -9,6 +9,7 @@ if (erMock()) {
     // worker.start()
     ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <React.StrictMode>
+            <img src="public/internflate20211122.png" id="veilarbpersonflatefs-root" />
             <App />
         </React.StrictMode>
     );
