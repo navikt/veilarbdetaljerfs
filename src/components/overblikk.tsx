@@ -1,4 +1,5 @@
 import { BodyLong, Heading, Panel } from "@navikt/ds-react";
+import {useState, useEffect } from "react";
 import "./overblikk.css"
 import hentVeileder from "../data/api/hentVeileder";
 import { VeilederData } from "../data/datatyper/veileder";
@@ -6,23 +7,19 @@ import { VeilederData } from "../data/datatyper/veileder";
 
 const Overblikk = () => {
 
-
-//   Fix async/await, promise stuff with this function
-  const ident = hentVeileder('Z123456')
-//   .then(data => {
-//     console.log("HERE 1", data)
-//   })
+    const [veileder, setVeileder] = useState(0)
 
 
-//   .then(function(result){
-//     console.log(result)
-//   })
-//   console.log("HERE 2", ident)
+    useEffect(() => {
+
+      hentVeileder('Z123456').then(data => {
+        setVeileder(data)
+      });
+    },[]);
+    
 
 
-//   ident.then(function(result) {
-//     console.log("HERE 3", result);
-//   })
+
 
   return (
     <Panel border  className="Panel">
@@ -30,7 +27,7 @@ const Overblikk = () => {
         Overblikk
       </Heading>
       <BodyLong>
-        <h3>Veileder:</h3>
+        <h3>Veileder: {veileder.navn} </h3>
       </BodyLong>
     </Panel>
   );
