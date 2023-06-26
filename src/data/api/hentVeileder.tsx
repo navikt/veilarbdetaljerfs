@@ -1,3 +1,5 @@
+import { GEToptions } from './datatyper/apiGetOptions';
+const hentVeileder = async (veilederId: string): Promise<any> =>  {
 
 import { GEToptions } from './datatyper/apiGetOptions';
 
