@@ -10,7 +10,7 @@ const veileder: VeilederData = {
 };
 
 export const veilarbveilederHandlers: RequestHandler[] = [
-	rest.get('/veilarbveileder/api/veileder/:veilederId', (req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(veileder));
-	})
+    rest.get('/veilarbveileder/api/veileder/:veilederId', (_, res, ctx) => {
+        return res(ctx.delay(500), ctx.json(veileder));
+    })
 ];
