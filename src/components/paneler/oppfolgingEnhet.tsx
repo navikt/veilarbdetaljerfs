@@ -13,9 +13,9 @@ const OppfolgingEnhet = () => {
 
   return (
     <div>
-        <h3>Brukers mål: </h3>
-        <p>{oppfolging?.hovedmaalkode}</p>
-        </div>
+        <h3>Oppfølgingsenhet: </h3>
+        <p>{oppfolging?.oppfolgingsenhet?.enhetId} {oppfolging?.oppfolgingsenhet?.navn}</p>
+    </div>
   );
   
 };

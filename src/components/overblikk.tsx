@@ -11,6 +11,7 @@ import OppfolgningMal from "./paneler/oppfolgingMal";
 import Tolk from "./paneler/tolk";
 import Registrert from "./paneler/registert";
 import RegistrertAv from "./paneler/registertAv";
+import Ytelser from "./paneler/ytelser";
 
 
 const Overblikk = () => {
@@ -28,6 +29,7 @@ const Overblikk = () => {
         <Tolk/>
         <PersonSivilstand/>
         <OppfolgningMal/>
+        <Ytelser/>
         <PersonGeoEnhet/>
         <Registrert/>
         <PersonMalform/>
