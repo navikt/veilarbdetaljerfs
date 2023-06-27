@@ -5,7 +5,7 @@ import { hentVeileder } from '../data/api/hentVeileder';
 import { VeilederData } from '../data/api/datatyper/veileder';
 
 const Overblikk = () => {
-    const [veileder, setVeileder] = useState(0);
+    const [veileder, setVeileder] = useState<VeilederData | null>(null);
 
     useEffect(() => {
         hentVeileder('Z123456').then((data) => {
@@ -19,7 +19,7 @@ const Overblikk = () => {
                 Overblikk
             </Heading>
             <BodyLong>
-                <h3>Veileder: {veileder.navn} </h3>
+                <h3>Veileder: {veileder?.navn} </h3>
             </BodyLong>
         </Panel>
     );
