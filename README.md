@@ -1,5 +1,4 @@
-veilarbdetaljerfs
-================
+# veilarbdetaljerfs
 
 Klientapplikasjon som på sikt skal ta over for "Detaljer" i Modia arbeidsrettet oppfølging.
 
@@ -14,6 +13,7 @@ npm run dev
 ```
 
 **Bygge applikasjonen:**
+
 ```shell
 npm run build
 ```
