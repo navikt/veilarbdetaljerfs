@@ -1,4 +1,4 @@
-// import  Oversikt  from "./components/oversikt"
+import React from "react";
 import Overblikk from "./components/overblikk"
 
 function App() {

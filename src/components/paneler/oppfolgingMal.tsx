@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import hentOppfolging from '../../data/api/hentOppfolging';
 import { OppfolgingsstatusData } from '../../data/api/datatyper/oppfolgingsstatus';

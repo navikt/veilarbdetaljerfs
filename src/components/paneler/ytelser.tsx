@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import hentYtelser from '../../data/api/hentYtelser';
 import { YtelseData } from '../../data/api/datatyper/ytelse';
+import React from 'react';
 
 const Ytelser = () => {
   const [ytelser, setYtelser] = useState<YtelseData | null>(null);

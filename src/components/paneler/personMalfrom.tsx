@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PersonaliaV2Info } from '../../data/api/datatyper/personalia';
 import hentPersonalia from '../../data/api/hentPersonalia';
+import React from 'react';
 
 const PersonMalform = () => {
   const [person, setPerson] = useState<PersonaliaV2Info | null>(null);

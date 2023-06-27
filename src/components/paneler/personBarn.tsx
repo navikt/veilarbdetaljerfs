@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { PersonaliaV2Info } from '../../data/api/datatyper/personalia';
 import hentPersonalia from '../../data/api/hentPersonalia';
