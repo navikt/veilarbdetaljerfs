@@ -12,13 +12,7 @@ import { OppfolgingsstatusData } from "../data/api/datatyper/oppfolgingsstatus";
 const Overblikk = () => {
 
     const { fnr } = useAppStore()
-
     const [veileder, setVeileder] = useState<VeilederData>()
-    //const veilederId = veileder ? veileder.ident : "";
-
-    //const oppfolgingsstatus = hentOppfolgingsstatus(fnr);
-    
-    //const veilederId = oppfolgingsstatus ? oppfolgingsstatus.veilederId : null;
     const [oppfolgingsstatus, setOppfolingsstatus] = useState<OppfolgingsstatusData>()
 
     useEffect(() => {
@@ -38,8 +32,6 @@ const Overblikk = () => {
       }
     },[oppfolgingsstatus?.veilederId]);
     
-    
-
 
   return (
     <Panel border  className="Panel">
