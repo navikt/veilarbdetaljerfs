@@ -12,10 +12,10 @@ const VeilederInfo = () => {
     }, []);
   
     return (
-      <div>
-        <h3>Veileder:</h3>
-        <p>{veileder?.navn}</p>
-      </div>
+    <dl>
+      <dt className='overblikkTittel'>Veileder </dt>
+      <dd className='overblikkUndertittel'>{veileder?.navn}</dd>
+    </dl>
     );
 };
 

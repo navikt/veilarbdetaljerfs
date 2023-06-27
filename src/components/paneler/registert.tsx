@@ -12,10 +12,10 @@ const Registrert = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Registrert: </h3>
-        <p>{registrering?.registrering?.opprettetDato}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Registrert </dt>
+      <dd className='overblikkUndertittel'>{registrering?.registrering?.opprettetDato}</dd>
+    </dl>
   );
   
 };

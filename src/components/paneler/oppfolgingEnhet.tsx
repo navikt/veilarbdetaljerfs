@@ -12,10 +12,10 @@ const OppfolgingEnhet = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Oppfølgingsenhet: </h3>
-        <p>{oppfolging?.oppfolgingsenhet?.enhetId} {oppfolging?.oppfolgingsenhet?.navn}</p>
-    </div>
+    <dl>
+      <dt className='overblikkTittel'>Oppfølgingsenhet </dt>
+      <dd className='overblikkUndertittel'>{oppfolging?.oppfolgingsenhet?.enhetId} {oppfolging?.oppfolgingsenhet?.navn}</dd>
+    </dl>
   );
   
 };

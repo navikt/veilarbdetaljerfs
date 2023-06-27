@@ -12,10 +12,10 @@ const PersonSivilstand = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Sivilstatus: </h3>
-        <p>{person?.sivilstandliste?.[0]?.sivilstand}</p>
-      </div>
+    <dl>
+      <dt className='overblikkTittel'>Sivilstatus</dt>
+      <dd className='overblikkUndertittel'>{person?.sivilstandliste?.[0]?.sivilstand}</dd>
+    </dl>
   );
   
 };

@@ -12,10 +12,10 @@ const Ytelser = () => {
     },[]);
 
   return (
-    <div>
-        <h3>Ytelse(r): </h3>
-        <p>{ytelser?.vedtaksliste?.[0]?.aktivitetsfase}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Ytelse(r): </dt>
+      <dd className='overblikkUndertittel'>{ytelser?.vedtaksliste?.[0]?.aktivitetsfase}</dd>
+    </dl>
   );
   
 };

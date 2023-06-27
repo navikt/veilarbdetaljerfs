@@ -16,7 +16,7 @@ import Ytelser from "./paneler/ytelser";
 
 const Overblikk = () => {
   return (
-    <Panel border className="Panel">
+    <Panel border className="overblikkPanel">
       <Heading spacing level="2" size="large" >
         Overblikk
       </Heading>

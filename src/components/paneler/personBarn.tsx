@@ -12,10 +12,10 @@ const PersonBarn = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Barn fødselsdato: </h3>
-        <p>{person?.barn?.[0]?.fodselsdato}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Barn fødselsdato </dt>
+      <dd className='overblikkUndertittel'>{person?.barn?.[0]?.fodselsdato}</dd>
+    </dl>
   );
   
 };

@@ -12,10 +12,10 @@ const OppfolgingMal = () => {
   },[]);
 
   return (
-    <div>
-      <h3>Brukers mål: </h3>
-      <p>{oppfolging?.hovedmaalkode}</p>
-    </div>
+    <dl>
+    <dt className='overblikkTittel'>Brukers mål: </dt>
+    <dd className='overblikkUndertittel'>{oppfolging?.hovedmaalkode}</dd>
+</dl>
   );
   
 };

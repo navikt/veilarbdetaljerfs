@@ -1,4 +1,4 @@
-.Panel {
+.overblikkPanel {
     margin: 20px;
     background-color: var(--a-surface-action-subtle-hover);
 }
@@ -9,9 +9,11 @@
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
 }
-div > h3 {
-    margin-bottom: 0;
+.overblikkTittel {
+ font-weight: var(--a-font-weight-bold);
+ font-size: var(--a-font-size-heading-small);
 }
-div > p {
-    margin-top: 10px;
+.overblikkUndertittel{
+    margin-inline-start: 0;
+    padding-top: 5px;
 }

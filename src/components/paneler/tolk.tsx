@@ -12,10 +12,10 @@ const Tolk = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Tilrettelagt kommunikasjon</h3>
-        <p>{tolk?.talespraak}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Tilrettelagt kommunikasjon</dt>
+      <dd className='overblikkUndertittel'>{tolk?.talespraak}</dd>
+    </dl>
   );
   
 };

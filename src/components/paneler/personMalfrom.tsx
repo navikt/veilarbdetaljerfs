@@ -12,10 +12,10 @@ const PersonMalform = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Språk: </h3>
-        <p>{person?.malform}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Språk </dt>
+      <dd className='overblikkUndertittel'>{person?.malform}</dd>
+    </dl>
   );
   
 };

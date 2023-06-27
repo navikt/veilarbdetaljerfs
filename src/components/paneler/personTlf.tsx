@@ -12,10 +12,10 @@ const PersonTlf = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Telefon: </h3>
-        <p>{person?.telefon?.[0]?.telefonNr}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Telefon </dt>
+      <dd className='overblikkUndertittel'>{person?.telefon?.[0]?.telefonNr}</dd>
+    </dl>
   );
   
 };

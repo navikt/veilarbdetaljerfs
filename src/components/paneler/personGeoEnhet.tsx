@@ -12,10 +12,10 @@ const PersonGeoEnhet = () => {
   },[]);
 
   return (
-    <div>
-        <h3>Geografisk enhet: </h3>
-        <p>{person?.geografiskEnhet?.enhetsnummer} {person?.geografiskEnhet?.navn}</p>
-        </div>
+    <dl>
+      <dt className='overblikkTittel'>Geografisk enhet: </dt>
+      <dd className='overblikkUndertittel'>{person?.geografiskEnhet?.enhetsnummer} {person?.geografiskEnhet?.navn}</dd>
+    </dl>
   );
   
 };
