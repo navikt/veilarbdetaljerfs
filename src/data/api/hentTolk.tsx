@@ -1,7 +1,7 @@
 
-const hentOppfolgning = async (fnr: string): Promise<any> =>  {
+const hentTolk = async (fnr: string): Promise<any> =>  {
 
-    const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
+    const url = `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`;
     const options = {
       method: "GET",
       headers: {
@@ -15,6 +15,6 @@ const hentOppfolgning = async (fnr: string): Promise<any> =>  {
     
     }
     
-    export default hentOppfolgning;
+    export default hentTolk;
     
     

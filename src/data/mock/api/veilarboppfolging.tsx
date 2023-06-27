@@ -9,7 +9,7 @@ const oppfolging: UnderOppfolgingData = {
 	underOppfolging: true
 };
 
-const oppfolingstatus: OppfolgingsstatusData = {
+const oppfolgingstatus: OppfolgingsstatusData = {
 	oppfolgingsenhet: {
 		navn: 'NAV TestHeim',
 		enhetId: '007'
@@ -63,7 +63,7 @@ const ytelsestatus: YtelseData = {
 
 export const veilarboppfolgingHandlers: RequestHandler[] = [
 	rest.get('/veilarboppfolging/api/person/:fnr/oppfolgingsstatus', (req, res, ctx) => {
-		return res(ctx.delay(500), ctx.json(oppfolingstatus));
+		return res(ctx.delay(500), ctx.json(oppfolgingstatus));
 	}),
 	rest.get('/veilarboppfolging/api/person/:fnr/ytelser', (req, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(ytelsestatus));
