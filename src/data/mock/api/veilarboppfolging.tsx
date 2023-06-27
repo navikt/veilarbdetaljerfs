@@ -62,13 +62,13 @@ const ytelsestatus: YtelseData = {
 };
 
 export const veilarboppfolgingHandlers: RequestHandler[] = [
-	rest.get('/veilarboppfolging/api/person/:fnr/oppfolgingsstatus', (req, res, ctx) => {
+	rest.get('/veilarboppfolging/api/person/:fnr/oppfolgingsstatus', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(oppfolgingstatus));
 	}),
-	rest.get('/veilarboppfolging/api/person/:fnr/ytelser', (req, res, ctx) => {
+	rest.get('/veilarboppfolging/api/person/:fnr/ytelser', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(ytelsestatus));
 	}),
-	rest.get('/veilarboppfolging/api/underoppfolging', (req, res, ctx) => {
+	rest.get('/veilarboppfolging/api/underoppfolging', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(oppfolging));
 	})
 ];

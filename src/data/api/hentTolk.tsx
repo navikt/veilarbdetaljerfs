@@ -16,5 +16,3 @@ const hentTolk = async (fnr: string): Promise<any> =>  {
     }
     
     export default hentTolk;
-    
-    

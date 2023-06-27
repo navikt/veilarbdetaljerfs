@@ -679,22 +679,22 @@ const sykmeldtRegistering: RegistreringsData = {
 };
 
 export const veilarbpersonHandlers: RequestHandler[] = [
-	rest.get('/veilarbperson/api/person/cv_jobbprofil', (req, res, ctx) => {
+	rest.get('/veilarbperson/api/person/cv_jobbprofil', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(cvOgJobbonsker));
 	}),
-	rest.get('/veilarbperson/api/person/aktorid', (req, res, ctx) => {
+	rest.get('/veilarbperson/api/person/aktorid', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(aktorId));
 	}),
-	rest.get('/veilarbperson/api/person/registrering', (req, res, ctx) => {
+	rest.get('/veilarbperson/api/person/registrering', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(ordinaerRegistering));
 	}),
-	rest.get('/veilarbperson/api/v2/person', (req, res, ctx) => {
+	rest.get('/veilarbperson/api/v2/person', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(personalia));
 	}),
-	rest.get('/veilarbperson/api/v2/person/vergeOgFullmakt', (req, res, ctx) => {
+	rest.get('/veilarbperson/api/v2/person/vergeOgFullmakt', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockVergeOgFullmakt));
 	}),
-	rest.get('/veilarbperson/api/v2/person/tolk', (req, res, ctx) => {
+	rest.get('/veilarbperson/api/v2/person/tolk', (_, res, ctx) => {
 		return res(ctx.delay(500), ctx.json(mockTilrettelagtKommunikasjon));
 	})
 ];
