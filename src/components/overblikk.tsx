@@ -1,3 +1,4 @@
+import React from "react";
 import { BodyLong, Heading, Panel } from "@navikt/ds-react";
 import "./overblikk.css"
 import VeilederInfo from "./paneler/veilderInfo";
