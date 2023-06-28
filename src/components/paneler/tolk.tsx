@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import hentTolk from '../../data/api/hentTolk';
 import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
+import React from 'react';
 
 const Tolk = () => {
   const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);

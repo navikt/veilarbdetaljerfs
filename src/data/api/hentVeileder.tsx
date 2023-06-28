@@ -7,8 +7,3 @@ export const hentVeileder = async (veilederId: string): Promise<any> => {
     const data = await response.json();
     return data;
 };
-
-    const response = await fetch(url, GEToptions);
-    const data = await response.json();
-    return data;
-};

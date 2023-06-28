@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import hentRegistrering from '../../data/api/hentRegistrering';
 import { RegistreringsData } from '../../data/api/datatyper/registreringsData';
+import React from 'react';
 
 const Registrert = () => {
   const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
