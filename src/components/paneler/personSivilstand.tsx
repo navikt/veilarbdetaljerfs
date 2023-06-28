@@ -6,10 +6,10 @@ const PersonSivilstand = () => {
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
 
     useEffect(() => {
-        hentPersonalia('10108000398').then(data => {
-            setPerson(data)
+        hentPersonalia('10108000398').then((data) => {
+            setPerson(data);
         });
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -17,7 +17,6 @@ const PersonSivilstand = () => {
             <p>{person?.sivilstandliste?.[0]?.sivilstand}</p>
         </div>
     );
-
 };
 
 export default PersonSivilstand;

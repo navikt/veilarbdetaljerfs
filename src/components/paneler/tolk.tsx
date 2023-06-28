@@ -6,10 +6,10 @@ const Tolk = () => {
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
 
     useEffect(() => {
-        hentTolk('10108000398').then(data => {
-            setTolk(data)
+        hentTolk('10108000398').then((data) => {
+            setTolk(data);
         });
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -17,8 +17,6 @@ const Tolk = () => {
             <p>{tolk?.talespraak}</p>
         </div>
     );
-
 };
 
 export default Tolk;
-

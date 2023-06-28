@@ -6,5 +6,5 @@ import { RequestHandler } from 'msw';
 export const allHandlers: RequestHandler[] = [
     ...veilarbveilederHandlers,
     ...veilarbpersonHandlers,
-    ...veilarboppfolgingHandlers,
+    ...veilarboppfolgingHandlers
 ];

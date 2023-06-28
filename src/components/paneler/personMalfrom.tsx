@@ -6,10 +6,10 @@ const PersonMalform = () => {
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
 
     useEffect(() => {
-        hentPersonalia('10108000398').then(data => {
-            setPerson(data)
+        hentPersonalia('10108000398').then((data) => {
+            setPerson(data);
         });
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -17,7 +17,6 @@ const PersonMalform = () => {
             <p>{person?.malform}</p>
         </div>
     );
-
 };
 
 export default PersonMalform;

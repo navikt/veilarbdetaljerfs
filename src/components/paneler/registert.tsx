@@ -6,10 +6,10 @@ const Registrert = () => {
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
 
     useEffect(() => {
-        hentRegistrering('10108000398').then(data => {
-            setRegistrering(data)
+        hentRegistrering('10108000398').then((data) => {
+            setRegistrering(data);
         });
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -17,7 +17,6 @@ const Registrert = () => {
             <p>{registrering?.registrering?.opprettetDato}</p>
         </div>
     );
-
 };
 
 export default Registrert;

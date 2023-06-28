@@ -6,10 +6,10 @@ const RegistrertAv = () => {
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
 
     useEffect(() => {
-        hentRegistrering('10108000398').then(data => {
-            setRegistrering(data)
+        hentRegistrering('10108000398').then((data) => {
+            setRegistrering(data);
         });
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -17,7 +17,6 @@ const RegistrertAv = () => {
             <p>{registrering?.registrering?.manueltRegistrertAv?.enhet?.navn}</p>
         </div>
     );
-
 };
 
 export default RegistrertAv;

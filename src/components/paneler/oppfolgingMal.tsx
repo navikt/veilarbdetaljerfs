@@ -6,10 +6,10 @@ const OppfolgingMal = () => {
     const [oppfolging, setOppfolging] = useState<OppfolgingsstatusData | null>(null);
 
     useEffect(() => {
-        hentOppfolging('10108000398').then(data => {
-            setOppfolging(data)
+        hentOppfolging('10108000398').then((data) => {
+            setOppfolging(data);
         });
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -17,7 +17,6 @@ const OppfolgingMal = () => {
             <p>{oppfolging?.hovedmaalkode}</p>
         </div>
     );
-
 };
 
 export default OppfolgingMal;
