@@ -1,11 +1,23 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react';
-import { useState, useEffect } from 'react';
 import './overblikk.css';
 import hentVeileder from '../data/api/hentVeileder';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
 import hentOppfolgingsstatus from '../data/api/hentOppfølgingsstatus';
 import { OppfolgingsstatusData } from '../data/api/datatyper/oppfolgingsstatus';
+import VeilederInfo from './paneler/veilderInfo';
+import PersonTlf from './paneler/personTlf';
+import PersonBarn from './paneler/personBarn';
+import PersonSivilstand from './paneler/personSivilstand';
+import PersonGeoEnhet from './paneler/personGeoEnhet';
+import PersonMalform from './paneler/personMalfrom';
+import OppfolgningEnhet from './paneler/oppfolgingEnhet';
+import OppfolgningMal from './paneler/oppfolgingMal';
+import Tolk from './paneler/tolk';
+import Registrert from './paneler/registert';
+import RegistrertAv from './paneler/registertAv';
+import Ytelser from './paneler/ytelser';
+import { useEffect, useState } from 'react';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
@@ -33,8 +45,20 @@ const Overblikk = () => {
             <Heading spacing level="2" size="large">
                 Overblikk
             </Heading>
-            <BodyLong>
+            <BodyLong className="overblikkContainer">
                 <h3>Veileder: {veileder?.navn} </h3>
+                <PersonTlf />
+                <PersonBarn />
+                <VeilederInfo />
+                <OppfolgningEnhet />
+                <RegistrertAv />
+                <Tolk />
+                <PersonSivilstand />
+                <OppfolgningMal />
+                <Ytelser />
+                <PersonGeoEnhet />
+                <Registrert />
+                <PersonMalform />
             </BodyLong>
         </Panel>
     );
