@@ -1,10 +1,9 @@
-import { StringOrNothing } from '../../utils/felles-typer';
-import { VeilederData } from './datatyper/veileder';
+import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 
 const APP_NAME = 'veilarbdetaljerfs';
 
-const hentVeileder = async (veilederId: StringOrNothing): Promise<VeilederData> => {
-    const url = `/veilarbveileder/api/veileder/${veilederId}`;
+const hentOppfolgingsstatus = async (fnr: String): Promise<OppfolgingsstatusData> => {
+    const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
     const options = {
         method: 'GET',
         headers: {
@@ -13,9 +12,10 @@ const hentVeileder = async (veilederId: StringOrNothing): Promise<VeilederData> 
             'Content-Type': 'application/json;charset=UTF-8'
         }
     };
+
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
 };
 
-export default hentVeileder;
+export default hentOppfolgingsstatus;
