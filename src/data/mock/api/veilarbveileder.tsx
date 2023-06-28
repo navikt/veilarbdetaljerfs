@@ -4,9 +4,9 @@ import { VeilederData } from '../../api/datatyper/veileder';
 
 const veileder: VeilederData = {
     etternavn: 'Veiledersen',
-    fornavn: 'TJ',
-    ident: 'Z123456',
-    navn: 'TJ Veiledersen'
+    fornavn: 'Iskrem',
+    ident: 'Z123999',
+    navn: 'Iskrem Veiledersen'
 };
 
 export const veilarbveilederHandlers: RequestHandler[] = [

@@ -1,11 +1,19 @@
 import Overblikk from './components/overblikk';
+import StoreProvider from './stores/store-provider';
 
-function App() {
-    return (
-        <div>
-            <Overblikk />
-        </div>
-    );
+export interface AppProps {
+    fnr: string;
+    enhet?: string;
 }
+
+const App = (props: AppProps) => {
+    return (
+        <main className="app veilarbdetaljerfs">
+            <StoreProvider fnr={props.fnr}>
+                <Overblikk />
+            </StoreProvider>
+        </main>
+    );
+};
 
 export default App;
