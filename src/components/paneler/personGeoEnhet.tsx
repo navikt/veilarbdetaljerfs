@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PersonaliaV2Info } from '../../data/api/datatyper/personalia';
-import hentPersonalia from '../../data/api/hentPersonalia';
+import { hentPersonalia } from '../../data/api/fetch';
 
 const PersonGeoEnhet = () => {
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);

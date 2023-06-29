@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import hentTolk from '../../data/api/hentTolk';
+import { hentTolk } from '../../data/api/fetch';
 import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
 
 const Tolk = () => {

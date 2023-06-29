@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import hentYtelser from '../../data/api/hentYtelser';
+import { hentYtelser } from '../../data/api/fetch';
 import { YtelseData } from '../../data/api/datatyper/ytelse';
 
 const Ytelser = () => {
