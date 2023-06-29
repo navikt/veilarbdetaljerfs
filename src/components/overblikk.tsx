@@ -1,9 +1,8 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react';
 import './overblikk.css';
-import hentVeileder from '../data/api/hentVeileder';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
-import hentOppfolgingsstatus from '../data/api/hentOppfølgingsstatus';
+import { hentOppfolgingsstatus, hentVeileder } from '../data/api/fetch';
 import { OppfolgingsstatusData } from '../data/api/datatyper/oppfolgingsstatus';
 import VeilederInfo from './paneler/veilderInfo';
 import PersonTlf from './paneler/personTlf';

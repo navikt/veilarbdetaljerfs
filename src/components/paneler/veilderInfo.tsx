@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { VeilederData } from '../../data/api/datatyper/veileder';
-import hentVeileder from '../../data/api/hentVeileder';
+import { hentVeileder } from '../../data/api/fetch';
 
 const VeilederInfo = () => {
     const [veileder, setVeileder] = useState<VeilederData | null>(null);

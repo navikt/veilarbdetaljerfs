@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import hentRegistrering from '../../data/api/hentRegistrering';
+import { hentRegistrering } from '../../data/api/fetch';
 import { RegistreringsData } from '../../data/api/datatyper/registreringsData';
 
 const Registrert = () => {
