@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Heading, Panel } from '@navikt/ds-react';
+import { BodyLong, Heading, Panel } from '@navikt/ds-react';
 import './overblikk.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
