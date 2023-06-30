@@ -7,7 +7,7 @@ import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
 import { YtelseData } from './datatyper/ytelse';
 
-export const hentOppfolgingsstatus = async (fnr: String): Promise<OppfolgingsstatusData> => {
+export const hentOppfolgingsstatus = async (fnr: string): Promise<OppfolgingsstatusData> => {
     const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
     const response = await fetch(url, GEToptions);
     const data = await response.json();
