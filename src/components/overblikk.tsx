@@ -17,7 +17,6 @@ import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
-// import { compose } from 'msw';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
@@ -33,35 +32,15 @@ const Overblikk = () => {
             hentOppfolgingsstatus(fnr).then((data) => {
                 setOppfolingsstatus(data);
             });
-        }
-    }, [fnr]);
-
-    useEffect(() => {
-        if (fnr != null) {
             hentPersonalia(fnr).then((data) => {
                 setPerson(data);
             });
-        }
-    }, [fnr]);
-
-    useEffect(() => {
-        if (fnr != null) {
             hentRegistrering(fnr).then((data) => {
                 setRegistrering(data);
             });
-        }
-    }, [fnr]);
-
-    useEffect(() => {
-        if (fnr != null) {
             hentTolk(fnr).then((data) => {
                 setTolk(data);
             });
-        }
-    }, [fnr]);
-
-    useEffect(() => {
-        if (fnr != null) {
             hentYtelser(fnr).then((data) => {
                 setYtelser(data);
             });
@@ -76,15 +55,15 @@ const Overblikk = () => {
         }
     }, [oppfolgingsstatus?.veilederId]);
 
+    // Midlertidig data i overblikk, må endres etterhvert som vi får bedre innsikt i hva som trengs i oversikten
     const veilederNavn: StringOrNothing = veileder?.navn;
     const telefon: StringOrNothing = person?.telefon?.[0].telefonNr; // Henter kun ut 1 tlfnr, flere kan være registrert
     const antallBarn: StringOrNothing = person?.barn?.length.toString();
-    // const listeAvBarn = person?.barn.map()
     const oppfolgingsenhet: OppfolgingEnhet | undefined = oppfolgingsstatus?.oppfolgingsenhet;
     const talespraak: StringOrNothing = tolk?.talespraak;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0].sivilstand;
     const brukersMaal: StringOrNothing = oppfolgingsstatus?.hovedmaalkode;
-    const ytelserAktivitetsFase: StringOrNothing = ytelser?.vedtaksliste?.[0].aktivitetsfase;
+    const ytelserAktivitetsFase: StringOrNothing = ytelser?.vedtaksliste?.[0].aktivitetsfase; // Henter kun ut 1 ytelse, flere kan være registrert
     const geografiskEnhet: OrNothing<Enhet> = person?.geografiskEnhet;
     const regiatrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
