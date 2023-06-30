@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Heading, Panel } from '@navikt/ds-react';
 import './overblikk.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
@@ -17,11 +17,12 @@ import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
+import { EnkeltInformasjon } from './felles/enkeltInfo';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
     const [veileder, setVeileder] = useState<VeilederData>();
-    const [oppfolgingsstatus, setOppfolingsstatus] = useState<OppfolgingsstatusData>();
+    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData>();
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
@@ -30,7 +31,7 @@ const Overblikk = () => {
     useEffect(() => {
         if (fnr != null) {
             hentOppfolgingsstatus(fnr).then((data) => {
-                setOppfolingsstatus(data);
+                setOppfolgingsstatus(data);
             });
             hentPersonalia(fnr).then((data) => {
                 setPerson(data);
@@ -65,32 +66,31 @@ const Overblikk = () => {
     const brukersMaal: StringOrNothing = oppfolgingsstatus?.hovedmaalkode;
     const ytelserAktivitetsFase: StringOrNothing = ytelser?.vedtaksliste?.[0]?.aktivitetsfase; // Henter kun ut 1 ytelse, flere kan være registrert
     const geografiskEnhet: OrNothing<Enhet> = person?.geografiskEnhet;
-    const regiatrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const spraak: StringOrNothing = person?.malform;
 
+    const oppfolgingsenhetIDNAVN: StringOrNothing = oppfolgingsenhet?.enhetId + ' ' + oppfolgingsenhet?.navn;
+    const geografiskenhetIDNAVN: StringOrNothing = geografiskEnhet?.enhetsnummer + ' ' + geografiskEnhet?.navn;
+
     return (
-        <Panel border className="Panel">
+        <Panel border className="overblikkPanel">
             <Heading spacing level="2" size="large">
                 Overblikk
             </Heading>
             <BodyLong className="overblikkContainer">
-                <h3>Veileder: {veilederNavn} </h3>
-                <h3>Telefon: {telefon} </h3>
-                <h3>Antall barn: {antallBarn} </h3>
-                <h3>
-                    Oppfølgingsenhet: {oppfolgingsenhet?.enhetId} {oppfolgingsenhet?.navn}
-                </h3>
-                <h3>Tilrettelagt kommunikasjon: {talespraak} </h3>
-                <h3>Sivilstatus: {sivilstatus} </h3>
-                <h3>Brukers mål: {brukersMaal} </h3>
-                <h3>Ytelse(r): {ytelserAktivitetsFase} </h3>
-                <h3>
-                    Geografisk enhet: {geografiskEnhet?.enhetsnummer} {geografiskEnhet?.navn}
-                </h3>
-                <h3>Registrert av: {regiatrertAv} </h3>
-                <h3>Registrert: {datoRegistrert} </h3>
-                <h3>Språk: {spraak} </h3>
+                <EnkeltInformasjon header="Veileder" value={veilederNavn} />
+                <EnkeltInformasjon header="Telefon" value={telefon} />
+                <EnkeltInformasjon header="Antall barn" value={antallBarn} />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={oppfolgingsenhetIDNAVN} />
+                <EnkeltInformasjon header="Talespråk" value={talespraak} />
+                <EnkeltInformasjon header="Sivilstatus" value={sivilstatus} />
+                <EnkeltInformasjon header="Brukers mål" value={brukersMaal} />
+                <EnkeltInformasjon header="Ytelse(r)" value={ytelserAktivitetsFase} />
+                <EnkeltInformasjon header="Geografisk enhet" value={geografiskenhetIDNAVN} />
+                <EnkeltInformasjon header="Registrert av" value={registrertAv} />
+                <EnkeltInformasjon header="Dato registrert" value={datoRegistrert} />
+                <EnkeltInformasjon header="Språk" value={spraak} />
             </BodyLong>
         </Panel>
     );
