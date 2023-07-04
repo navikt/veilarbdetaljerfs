@@ -10,19 +10,33 @@ import {
     hentVeileder,
     hentYtelser
 } from '../data/api/fetch';
-import { OppfolgingsstatusData, OppfolgingEnhet } from '../data/api/datatyper/oppfolgingsstatus';
+import {
+    OppfolgingsstatusData,
+    ArenaHovedmalKode,
+    ArenaServicegruppeKode
+} from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
-import { Enhet, PersonaliaV2Info } from '../data/api/datatyper/personalia';
+import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
+import {
+    hentGeografiskEnhetTekst,
+    hentOppfolgingsEnhetTekst,
+    hentVeilederTekst,
+    mapHovedmalTilTekst,
+    mapServicegruppeTilTekst
+} from '../utils/text-mapper';
+import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
+import EMDASH from '../utils/emdash';
+import { formaterDato } from '../utils/formater';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
     const [veileder, setVeileder] = useState<VeilederData>();
-    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData>();
+    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null | undefined>();
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
@@ -57,21 +71,20 @@ const Overblikk = () => {
     }, [oppfolgingsstatus?.veilederId]);
 
     // Midlertidig data i overblikk, må endres etterhvert som vi får bedre innsikt i hva som trengs i oversikten
-    const veilederNavn: StringOrNothing = veileder?.navn;
-    const telefon: StringOrNothing = person?.telefon?.[0]?.telefonNr; // Henter kun ut 1 tlfnr, flere kan være registrert
+    const veilederData: VeilederData | null | undefined = veileder;
+    const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const antallBarn: StringOrNothing = person?.barn?.length.toString();
-    const oppfolgingsenhet: OppfolgingEnhet | undefined = oppfolgingsstatus?.oppfolgingsenhet;
-    const talespraak: StringOrNothing = tolk?.talespraak;
+    const taletolk: StringOrNothing = tolk?.talespraak;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
-    const brukersMaal: StringOrNothing = oppfolgingsstatus?.hovedmaalkode;
-    const ytelserAktivitetsFase: StringOrNothing = ytelser?.vedtaksliste?.[0]?.aktivitetsfase; // Henter kun ut 1 ytelse, flere kan være registrert
-    const geografiskEnhet: OrNothing<Enhet> = person?.geografiskEnhet;
+    const brukersMaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
+    const ytelserVedtakstype: StringOrNothing | undefined = ytelser?.vedtaksliste
+        ?.map((obj) => obj.vedtakstype)
+        .join(', ');
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
-    const spraak: StringOrNothing = person?.malform;
+    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
 
-    const oppfolgingsenhetIDNAVN: StringOrNothing = oppfolgingsenhet?.enhetId + ' ' + oppfolgingsenhet?.navn;
-    const geografiskenhetIDNAVN: StringOrNothing = geografiskEnhet?.enhetsnummer + ' ' + geografiskEnhet?.navn;
+    const tilrettelagtKommunikasjon: StringOrNothing = 'Tolk: ' + taletolk;
 
     return (
         <Panel border className="overblikkPanel">
@@ -79,18 +92,21 @@ const Overblikk = () => {
                 Overblikk
             </Heading>
             <BodyLong className="overblikkContainer">
-                <EnkeltInformasjon header="Veileder" value={veilederNavn} />
-                <EnkeltInformasjon header="Telefon" value={telefon} />
-                <EnkeltInformasjon header="Antall barn" value={antallBarn} />
-                <EnkeltInformasjon header="Oppfølgingsenhet" value={oppfolgingsenhetIDNAVN} />
-                <EnkeltInformasjon header="Talespråk" value={talespraak} />
-                <EnkeltInformasjon header="Sivilstatus" value={sivilstatus} />
-                <EnkeltInformasjon header="Brukers mål" value={brukersMaal} />
-                <EnkeltInformasjon header="Ytelse(r)" value={ytelserAktivitetsFase} />
-                <EnkeltInformasjon header="Geografisk enhet" value={geografiskenhetIDNAVN} />
-                <EnkeltInformasjon header="Registrert av" value={registrertAv} />
-                <EnkeltInformasjon header="Dato registrert" value={datoRegistrert} />
-                <EnkeltInformasjon header="Språk" value={spraak} />
+                <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
+                <EnkeltInformasjon header="Antall barn under 21 år" value={antallBarn ? antallBarn : EMDASH} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
+                <EnkeltInformasjon
+                    header="Tilrettelagt kommunikasjon"
+                    value={tilrettelagtKommunikasjon ? tilrettelagtKommunikasjon : EMDASH}
+                />
+                <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
+                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(brukersMaal)} />
+                <EnkeltInformasjon header="Aktive ytelse(r)" value={ytelserVedtakstype ? ytelserVedtakstype : EMDASH} />
+                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
+                <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
+                <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </BodyLong>
         </Panel>
     );
