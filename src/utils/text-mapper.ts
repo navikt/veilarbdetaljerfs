@@ -5,9 +5,10 @@ import {
     OppfolgingsstatusData,
     ArenaServicegruppeKode
 } from '../data/api/datatyper/oppfolgingsstatus';
-import { OrNothing, StringOrNothing } from './felles-typer';
+import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
+import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -129,4 +130,28 @@ export function hentVeilederTekst(veileder: VeilederData | null | undefined): St
     }
 
     return `${veileder.navn}, ${veileder.ident}`;
+}
+
+export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | null | undefined) {
+    // const { talespraak, tegnspraak } = tilrettelagtKommunikasjon;
+
+    if (isNullOrUndefined(tilrettelagtKommunikasjon?.talespraak) && isNullOrUndefined(tilrettelagtKommunikasjon?.tegnspraak)) {
+        return EMDASH;
+    }
+    if (!tilrettelagtKommunikasjon) {
+        return EMDASH;
+    }
+    if (!tilrettelagtKommunikasjon.talespraak && !tilrettelagtKommunikasjon.tegnspraak) {
+        return EMDASH;
+    }
+
+    if (!tilrettelagtKommunikasjon.talespraak) {
+        return "Tegnspråk: " + `${tilrettelagtKommunikasjon.tegnspraak}`;
+    }
+
+    if (!tilrettelagtKommunikasjon.tegnspraak) {
+        return "Tolk:" + `${tilrettelagtKommunikasjon.talespraak}`;
+    }
+
+    return "Tolk: " + `${tilrettelagtKommunikasjon.talespraak}` + ", Tegnspråk: " + `${tilrettelagtKommunikasjon.tegnspraak}`;
 }

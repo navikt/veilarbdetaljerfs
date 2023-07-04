@@ -25,6 +25,7 @@ import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
+    hentTolkTekst,
     hentVeilederTekst,
     mapHovedmalTilTekst,
     mapServicegruppeTilTekst
@@ -74,7 +75,7 @@ const Overblikk = () => {
     const veilederData: VeilederData | null | undefined = veileder;
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const antallBarn: StringOrNothing = person?.barn?.length.toString();
-    const taletolk: StringOrNothing = tolk?.talespraak;
+    const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const brukersMaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
     const ytelserVedtakstype: StringOrNothing | undefined = ytelser?.vedtaksliste
@@ -84,7 +85,7 @@ const Overblikk = () => {
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
 
-    const tilrettelagtKommunikasjon: StringOrNothing = 'Tolk: ' + taletolk;
+    // const tilrettelagtKommunikasjon: StringOrNothing = 'Tolk: ' + taletolk;
 
     return (
         <Panel border className="overblikkPanel">
@@ -99,7 +100,7 @@ const Overblikk = () => {
                 <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
                 <EnkeltInformasjon
                     header="Tilrettelagt kommunikasjon"
-                    value={tilrettelagtKommunikasjon ? tilrettelagtKommunikasjon : EMDASH}
+                    value={hentTolkTekst(taletolk)}
                 />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(brukersMaal)} />
