@@ -9,11 +9,10 @@ import { YtelseData } from './datatyper/ytelse';
 
 
 export const hentOppfolgingsstatus = async (fnr: string): Promise<OppfolgingsstatusData> => {
-    
     const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
     const response = await fetch(url, GEToptions);
     const data = await response.json();
-    return data;        
+    return data;
 };
 
 export const hentPersonalia = async (fnr: string): Promise<PersonaliaV2Info> => {

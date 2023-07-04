@@ -6,6 +6,7 @@ export const Laster = () => (
         <Loader size="3xlarge" />
     </div>
 );
+
 export const Errormelding = () => (
     <div className="midtStill">
         <Alert variant="error">Noe gikk galt! Prøv igjen om noen minutter.</Alert>
