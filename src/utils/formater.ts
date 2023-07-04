@@ -29,3 +29,8 @@ export function formaterDato(datoObjekt: DatoType | string | undefined | null, o
 
     return lokalDato.toLocaleDateString('no-NO', options);
 }
+
+export function kalkulerAlder(fodselsdato: Date): number {
+    const diff = Date.now() - fodselsdato.getTime();
+    return new Date(diff).getUTCFullYear() - 1970;
+}

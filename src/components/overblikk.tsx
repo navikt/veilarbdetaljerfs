@@ -16,7 +16,7 @@ import {
     ArenaServicegruppeKode
 } from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
-import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
+import { PersonaliaV2Info, PersonsBarn } from '../data/api/datatyper/personalia';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { YtelseData } from '../data/api/datatyper/ytelse';
@@ -32,7 +32,7 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
-import { formaterDato } from '../utils/formater';
+import { formaterDato, kalkulerAlder } from '../utils/formater';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
@@ -71,10 +71,8 @@ const Overblikk = () => {
         }
     }, [oppfolgingsstatus?.veilederId]);
 
-    // Midlertidig data i overblikk, må endres etterhvert som vi får bedre innsikt i hva som trengs i oversikten
     const veilederData: VeilederData | null | undefined = veileder;
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
-    const antallBarn: StringOrNothing = person?.barn?.length.toString();
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const brukersMaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
@@ -84,8 +82,8 @@ const Overblikk = () => {
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
-
-    // const tilrettelagtKommunikasjon: StringOrNothing = 'Tolk: ' + taletolk;
+    const MAX_ALDER_BARN = 21;
+    const barn: PersonsBarn[] = person?.barn && person.barn.filter(enkeltBarn => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN) || [];
 
     return (
         <Panel border className="overblikkPanel">
@@ -94,7 +92,7 @@ const Overblikk = () => {
             </Heading>
             <BodyLong className="overblikkContainer">
                 <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
-                <EnkeltInformasjon header="Antall barn under 21 år" value={antallBarn ? antallBarn : EMDASH} />
+                <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
