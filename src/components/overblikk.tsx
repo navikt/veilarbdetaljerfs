@@ -18,6 +18,7 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
+import { PilotAlert } from './pilotAlert';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
@@ -74,7 +75,7 @@ const Overblikk = () => {
     const geografiskenhetIDNAVN: StringOrNothing = geografiskEnhet?.enhetsnummer + ' ' + geografiskEnhet?.navn;
 
     return (
-        <Panel border className="overblikkPanel">
+        <><Panel border className="overblikkPanel">
             <Heading spacing level="2" size="large">
                 Overblikk
             </Heading>
@@ -92,7 +93,7 @@ const Overblikk = () => {
                 <EnkeltInformasjon header="Dato registrert" value={datoRegistrert} />
                 <EnkeltInformasjon header="Språk" value={spraak} />
             </BodyLong>
-        </Panel>
+        </Panel><PilotAlert /></>
     );
 };
 
