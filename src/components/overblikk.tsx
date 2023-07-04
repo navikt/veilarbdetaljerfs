@@ -22,6 +22,11 @@ import { EnkeltInformasjon } from './felles/enkeltInfo';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
+
+    const [lasterData, setLasterData] = useState<boolean>(false);
+    const [harFeil, setHarFeil] = useState<boolean>(false);
+    const [skalLasteVeileder, setSkalLasteVeileder] = useState<boolean>(false);
+
     const [veileder, setVeileder] = useState<VeilederData>();
     // const [oppfolgingsstatus, setOppfolgingsstatus] = useState<ReturnData<OppfolgingsstatusData>>();
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData>();
@@ -32,33 +37,42 @@ const Overblikk = () => {
 
     useEffect(() => {
         if (fnr != null) {
-            hentOppfolgingsstatus(fnr).then((data) => {
-                setOppfolgingsstatus(data);
-            });
-            hentPersonalia(fnr).then((data) => {
-                setPerson(data);
-            });
-            hentRegistrering(fnr).then((data) => {
-                setRegistrering(data);
-            });
-            hentTolk(fnr).then((data) => {
-                setTolk(data);
-            });
-            hentYtelser(fnr).then((data) => {
-                setYtelser(data);
-            });
+            setLasterData(true);
+
+            Promise.all([
+                hentOppfolgingsstatus(fnr).then((data) => {
+                    setOppfolgingsstatus(data);
+                    return data;
+                }),
+                hentPersonalia(fnr).then((data) => {
+                    setPerson(data);
+                }),
+                hentRegistrering(fnr).then((data) => {
+                    setRegistrering(data);
+                }),
+                hentTolk(fnr).then((data) => {
+                    setTolk(data);
+                }),
+                hentYtelser(fnr).then((data) => {
+                    setYtelser(data);
+                })
+            ])
+                .then((data) => {
+                    if (data[0]?.veilederId !== null) {
+                        hentVeileder(oppfolgingsstatus?.veilederId)
+                            .then((data) => {
+                                setVeileder(data);
+                            })
+                            .catch(() => setHarFeil(true))
+                            .finally(() => setLasterData(false));
+                    }
+                })
+                .catch(() => {
+                    setLasterData(false);
+                    setHarFeil(true);
+                });
         }
     }, [fnr]);
-
-    useEffect(() => {
-        if (oppfolgingsstatus?.veilederId != null) {
-            hentVeileder(oppfolgingsstatus?.veilederId).then((data) => {
-                setVeileder(data);
-            });
-        }
-    }, [oppfolgingsstatus?.veilederId]);
-
-    // Set loader her.
 
     // Midlertidig data i overblikk, må endres etterhvert som vi får bedre innsikt i hva som trengs i oversikten
     const veilederNavn: StringOrNothing = veileder?.navn;
@@ -76,6 +90,14 @@ const Overblikk = () => {
 
     const oppfolgingsenhetIDNAVN: StringOrNothing = oppfolgingsenhet?.enhetId + ' ' + oppfolgingsenhet?.navn;
     const geografiskenhetIDNAVN: StringOrNothing = geografiskEnhet?.enhetsnummer + ' ' + geografiskEnhet?.navn;
+
+    if (lasterData) {
+        return <p>Laster ...</p>;
+    }
+
+    if (harFeil) {
+        return <p>Feilet!</p>;
+    }
 
     return (
         <Panel border className="overblikkPanel">
