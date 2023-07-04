@@ -150,7 +150,7 @@ export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasj
     }
 
     if (!tilrettelagtKommunikasjon.tegnspraak) {
-        return "Tolk:" + `${tilrettelagtKommunikasjon.talespraak}`;
+        return "Tolk: " + `${tilrettelagtKommunikasjon.talespraak}`;
     }
 
     return "Tolk: " + `${tilrettelagtKommunikasjon.talespraak}` + ", Tegnspråk: " + `${tilrettelagtKommunikasjon.tegnspraak}`;
