@@ -1,4 +1,5 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { Laster, Errormelding } from './felles/minikomkomponenter';
 import './overblikk.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
@@ -9,7 +10,6 @@ import {
     hentTolk,
     hentVeileder,
     hentYtelser
-    // ReturnData
 } from '../data/api/fetch';
 import { OppfolgingsstatusData, OppfolgingEnhet } from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
@@ -25,10 +25,8 @@ const Overblikk = () => {
 
     const [lasterData, setLasterData] = useState<boolean>(false);
     const [harFeil, setHarFeil] = useState<boolean>(false);
-    const [skalLasteVeileder, setSkalLasteVeileder] = useState<boolean>(false);
 
     const [veileder, setVeileder] = useState<VeilederData>();
-    // const [oppfolgingsstatus, setOppfolgingsstatus] = useState<ReturnData<OppfolgingsstatusData>>();
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData>();
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
@@ -36,42 +34,35 @@ const Overblikk = () => {
     const [ytelser, setYtelser] = useState<YtelseData | null>(null);
 
     useEffect(() => {
-        if (fnr != null) {
-            setLasterData(true);
+        const hentOverblikkData = async () => {
+            try {
+                setLasterData(true);
+                const [_oppfolgingsstatus, _personalia, _registrering, _tolk, _ytelser] = await Promise.all([
+                    hentOppfolgingsstatus(fnr),
+                    hentPersonalia(fnr),
+                    hentRegistrering(fnr),
+                    hentTolk(fnr),
+                    hentYtelser(fnr)
+                ]);
 
-            Promise.all([
-                hentOppfolgingsstatus(fnr).then((data) => {
-                    setOppfolgingsstatus(data);
-                    return data;
-                }),
-                hentPersonalia(fnr).then((data) => {
-                    setPerson(data);
-                }),
-                hentRegistrering(fnr).then((data) => {
-                    setRegistrering(data);
-                }),
-                hentTolk(fnr).then((data) => {
-                    setTolk(data);
-                }),
-                hentYtelser(fnr).then((data) => {
-                    setYtelser(data);
-                })
-            ])
-                .then((data) => {
-                    if (data[0]?.veilederId !== null) {
-                        hentVeileder(oppfolgingsstatus?.veilederId)
-                            .then((data) => {
-                                setVeileder(data);
-                            })
-                            .catch(() => setHarFeil(true))
-                            .finally(() => setLasterData(false));
-                    }
-                })
-                .catch(() => {
-                    setLasterData(false);
-                    setHarFeil(true);
-                });
-        }
+                if (_oppfolgingsstatus?.veilederId !== null) {
+                    const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
+                    setVeileder(_veileder);
+                }
+
+                setOppfolgingsstatus(_oppfolgingsstatus);
+                setPerson(_personalia);
+                setRegistrering(_registrering);
+                setTolk(_tolk);
+                setYtelser(_ytelser);
+            } catch (err) {
+                setHarFeil(true);
+            } finally {
+                setLasterData(false);
+            }
+        };
+
+        hentOverblikkData();
     }, [fnr]);
 
     // Midlertidig data i overblikk, må endres etterhvert som vi får bedre innsikt i hva som trengs i oversikten
@@ -92,11 +83,19 @@ const Overblikk = () => {
     const geografiskenhetIDNAVN: StringOrNothing = geografiskEnhet?.enhetsnummer + ' ' + geografiskEnhet?.navn;
 
     if (lasterData) {
-        return <p>Laster ...</p>;
+        return (
+            <Panel border className="overblikkPanel">
+                <Laster />
+            </Panel>
+        );
     }
 
     if (harFeil) {
-        return <p>Feilet!</p>;
+        return (
+            <Panel border className="overblikkPanel">
+                <Errormelding />
+            </Panel>
+        );
     }
 
     return (
