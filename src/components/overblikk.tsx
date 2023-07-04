@@ -9,6 +9,7 @@ import {
     hentTolk,
     hentVeileder,
     hentYtelser
+    // ReturnData
 } from '../data/api/fetch';
 import { OppfolgingsstatusData, OppfolgingEnhet } from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ import { EnkeltInformasjon } from './felles/enkeltInfo';
 const Overblikk = () => {
     const { fnr } = useAppStore();
     const [veileder, setVeileder] = useState<VeilederData>();
+    // const [oppfolgingsstatus, setOppfolgingsstatus] = useState<ReturnData<OppfolgingsstatusData>>();
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData>();
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
@@ -55,6 +57,8 @@ const Overblikk = () => {
             });
         }
     }, [oppfolgingsstatus?.veilederId]);
+
+    // Set loader her.
 
     // Midlertidig data i overblikk, må endres etterhvert som vi får bedre innsikt i hva som trengs i oversikten
     const veilederNavn: StringOrNothing = veileder?.navn;

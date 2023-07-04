@@ -7,11 +7,32 @@ import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
 import { YtelseData } from './datatyper/ytelse';
 
+
+export interface ReturnData<T> {
+    status: "SUCCSESS" | "FAILURE"
+    data: T | null;
+}
+
+
+// export const hentOppfolgingsstatusv2 = async (fnr: string): Promise<ReturnData<OppfolgingsstatusData>> => {
+    
+//     const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
+
+//     try {
+//         const response = await fetch(url, GEToptions);
+//         const data = await response.json();
+//         return {status: "SUCCSESS",data: data as OppfolgingsstatusData}
+        
+//     } catch (error) {
+//         return {status: "SUCCSESS",data: null}
+//     }
+// };
 export const hentOppfolgingsstatus = async (fnr: string): Promise<OppfolgingsstatusData> => {
+    
     const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
     const response = await fetch(url, GEToptions);
     const data = await response.json();
-    return data;
+    return data;        
 };
 
 export const hentPersonalia = async (fnr: string): Promise<PersonaliaV2Info> => {
