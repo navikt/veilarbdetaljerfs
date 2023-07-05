@@ -1,6 +1,6 @@
 @import '@navikt/ds-css' layer(aksel);
 
-.mainGrid {
+.main_grid {
     display: grid;
     grid-template-columns: 49.1% 49.1%;
     margin: 20px;
