@@ -7,29 +7,26 @@ import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
 import { YtelseData } from './datatyper/ytelse';
 
-
 export const hentOppfolgingsstatus = async (fnr: string): Promise<OppfolgingsstatusData | null> => {
     const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
     const response = await fetch(url, GEToptions);
 
     if (response.status >= 400) {
-
-      const APIerror = new Error(response.statusText)
-      console.log("hentOppfolgingsstatus", APIerror)
-      throw new Error(response.statusText)
+        const APIerror = new Error(response.statusText);
+        console.log('hentOppfolgingsstatus', APIerror);
+        throw new Error(response.statusText);
     }
-  if( response.status === 204){
-    return null
-  }
+    if (response.status === 204) {
+        return null;
+    }
 
-  try {
-    const data = await response.json();
-    return data;
-    
-  } catch (error) {
-    console.log("Error ved parsing:", error)
-    return null
-  }
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error ved parsing:', error);
+        return null;
+    }
 };
 
 export const hentPersonalia = async (fnr: string): Promise<PersonaliaV2Info | null> => {
@@ -37,23 +34,21 @@ export const hentPersonalia = async (fnr: string): Promise<PersonaliaV2Info | nu
     const response = await fetch(url, GEToptions);
 
     if (response.status >= 400) {
-
-      const APIerror = new Error(response.statusText)
-      console.log("hentPersonalia", APIerror)
-      throw new Error(response.statusText)
+        const APIerror = new Error(response.statusText);
+        console.log('hentPersonalia', APIerror);
+        throw new Error(response.statusText);
     }
-  if( response.status === 204){
-    return null
-  }
+    if (response.status === 204) {
+        return null;
+    }
 
-  try {
-    const data = await response.json();
-    return data;
-    
-  } catch (error) {
-    console.log("Error ved parsing:", error)
-    return null
-  }
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error ved parsing:', error);
+        return null;
+    }
 };
 
 export const hentRegistrering = async (fnr: string): Promise<RegistreringsData | null> => {
@@ -61,23 +56,21 @@ export const hentRegistrering = async (fnr: string): Promise<RegistreringsData |
     const response = await fetch(url, GEToptions);
 
     if (response.status >= 400) {
-
-      const APIerror = new Error(response.statusText)
-      console.log("hentRegistrering", APIerror)
-      throw new Error(response.statusText)
+        const APIerror = new Error(response.statusText);
+        console.log('hentRegistrering', APIerror);
+        throw new Error(response.statusText);
     }
-  if( response.status === 204){
-    return null
-  }
+    if (response.status === 204) {
+        return null;
+    }
 
-  try {
-    const data = await response.json();
-    return data;
-    
-  } catch (error) {
-    console.log("Error ved parsing:", error)
-    return null
-  }
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error ved parsing:', error);
+        return null;
+    }
 };
 
 export const hentTolk = async (fnr: string): Promise<TilrettelagtKommunikasjonData | null> => {
@@ -85,24 +78,21 @@ export const hentTolk = async (fnr: string): Promise<TilrettelagtKommunikasjonDa
     const response = await fetch(url, GEToptions);
 
     if (response.status >= 400) {
-
-        const APIerror = new Error(response.statusText)
-        console.log("hentTolk", APIerror)
-        throw new Error(response.statusText)
-      }
-    if( response.status === 204){
-      return null
+        const APIerror = new Error(response.statusText);
+        console.log('hentTolk', APIerror);
+        throw new Error(response.statusText);
+    }
+    if (response.status === 204) {
+        return null;
     }
 
     try {
-      const data = await response.json();
-      return data;
-      
+        const data = await response.json();
+        return data;
     } catch (error) {
-      console.log("Error ved parsing:", error)
-      return null
+        console.log('Error ved parsing:', error);
+        return null;
     }
-    
 };
 
 export const hentVeileder = async (veilederId: StringOrNothing): Promise<VeilederData | null> => {
@@ -110,23 +100,21 @@ export const hentVeileder = async (veilederId: StringOrNothing): Promise<Veilede
     const response = await fetch(url, GEToptions);
 
     if (response.status >= 400) {
-
-      const APIerror = new Error(response.statusText)
-      console.log("hentVeileder", APIerror)
-      throw new Error(response.statusText)
+        const APIerror = new Error(response.statusText);
+        console.log('hentVeileder', APIerror);
+        throw new Error(response.statusText);
     }
-  if( response.status === 204){
-    return null
-  }
+    if (response.status === 204) {
+        return null;
+    }
 
-  try {
-    const data = await response.json();
-    return data;
-    
-  } catch (error) {
-    console.log("Error ved parsing:", error)
-    return null
-  }
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error ved parsing:', error);
+        return null;
+    }
 };
 
 export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
@@ -134,21 +122,19 @@ export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
     const response = await fetch(url, GEToptions);
 
     if (response.status >= 400) {
-
-      const APIerror = new Error(response.statusText)
-      console.log("hentYtelser", APIerror)
-      throw new Error(response.statusText)
+        const APIerror = new Error(response.statusText);
+        console.log('hentYtelser', APIerror);
+        throw new Error(response.statusText);
     }
-  if( response.status === 204){
-    return null
-  }
+    if (response.status === 204) {
+        return null;
+    }
 
-  try {
-    const data = await response.json();
-    return data;
-    
-  } catch (error) {
-    console.log("Error ved parsing:", error)
-    return null
-  }
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log('Error ved parsing:', error);
+        return null;
+    }
 };
