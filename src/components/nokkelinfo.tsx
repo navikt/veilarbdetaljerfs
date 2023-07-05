@@ -60,7 +60,7 @@ const Nokkelinfo = () => {
                     hentYtelser(fnr)
                 ]);
 
-                if (_oppfolgingsstatus?.veilederId !== null) {
+                if (_oppfolgingsstatus !== null && _oppfolgingsstatus?.veilederId !== null) {
                     const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
                     setVeileder(_veileder);
                 }
