@@ -33,6 +33,7 @@ import {
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato, kalkulerAlder } from '../utils/formater';
+import { PilotAlert } from './pilotAlert';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
@@ -85,28 +86,30 @@ const Nokkelinfo = () => {
     const barn: PersonsBarn[] = person?.barn && person.barn.filter(enkeltBarn => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN) || [];
 
     return (
-        <Panel border className="nokkelinfoPanel">
-            <Heading spacing level="2" size="large">
-                Nøkkelinfo
-            </Heading>
-            <BodyLong className="nokkelinfoContainer">
-                <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
-                <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
-                <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
-                <EnkeltInformasjon
-                    header="Tilrettelagt kommunikasjon"
-                    value={hentTolkTekst(taletolk)}
-                />
-                <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
-                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                <EnkeltInformasjon header="Aktive ytelse(r)" value={ytelserVedtakstype ? ytelserVedtakstype : EMDASH} />
-                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
-                <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
-            </BodyLong>
-        </Panel>
+        <>
+            <Panel border className="nokkelinfoPanel">
+                <Heading spacing level="2" size="large">
+                    Nøkkelinfo
+                </Heading>
+                <BodyLong className="nokkelinfoContainer">
+                    <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
+                    <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
+                    <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
+                    <EnkeltInformasjon
+                        header="Tilrettelagt kommunikasjon"
+                        value={hentTolkTekst(taletolk)}
+                    />
+                    <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
+                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                    <EnkeltInformasjon header="Aktive ytelse(r)" value={ytelserVedtakstype ? ytelserVedtakstype : EMDASH} />
+                    <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
+                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
+                    <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
+                </BodyLong>
+            </Panel>
+            <PilotAlert /></>
     );
 };
 
