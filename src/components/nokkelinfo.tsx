@@ -1,5 +1,5 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react';
-import './overblikk.css';
+import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
 import {
@@ -34,7 +34,7 @@ import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato, kalkulerAlder } from '../utils/formater';
 
-const Overblikk = () => {
+const Nokkelinfo = () => {
     const { fnr } = useAppStore();
     const [veileder, setVeileder] = useState<VeilederData | null | undefined>();
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null | undefined>();
@@ -87,7 +87,7 @@ const Overblikk = () => {
     return (
         <Panel border className="overblikkPanel">
             <Heading spacing level="2" size="large">
-                Overblikk
+                Nøkkelinfo
             </Heading>
             <BodyLong className="overblikkContainer">
                 <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
@@ -110,4 +110,4 @@ const Overblikk = () => {
     );
 };
 
-export default Overblikk;
+export default Nokkelinfo;

@@ -1,4 +1,4 @@
-import '../overblikk.css';
+import '../nokkelinfo.css';
 import { StringOrNothing } from '../../utils/felles-typer';
 import { BodyShort } from '@navikt/ds-react';
 
