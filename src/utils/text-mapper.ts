@@ -9,6 +9,8 @@ import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
+import { VedtakType } from '../data/api/datatyper/ytelse';
+import { VEDTAKSSTATUSER } from '../utils/konstanter';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -131,4 +133,14 @@ export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasj
     }
 
     return `Tolk: ${tilrettelagtKommunikasjon?.talespraak}, tegnspråk: ${tilrettelagtKommunikasjon?.tegnspraak}`;
+}
+
+export function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
+    if (isNullOrUndefined(vedtaksliste) || vedtaksliste?.length === 0) {
+        return EMDASH;
+    }
+    return vedtaksliste
+        ?.filter((vedtak) => vedtak.status === VEDTAKSSTATUSER.iverksatt)
+        .map((vedtak) => vedtak.vedtakstype)
+        .join(', ');
 }

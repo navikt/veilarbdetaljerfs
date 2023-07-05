@@ -24,6 +24,7 @@ import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
+    getVedtakForVisning,
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
     hentTolkTekst,
@@ -85,7 +86,6 @@ const Nokkelinfo = () => {
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const ytelserVedtakstype: StringOrNothing = ytelser?.vedtaksliste?.map((obj) => obj.vedtakstype).join(', ');
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
@@ -119,23 +119,21 @@ const Nokkelinfo = () => {
                 </Heading>
                 <BodyLong className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
-                    <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
+                    <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                     <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
                     <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
-                    <EnkeltInformasjon
-                        header="Tilrettelagt kommunikasjon"
-                        value={hentTolkTekst(taletolk)}
-                    />
+                    <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                     <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Aktive ytelse(r)" value={ytelserVedtakstype ? ytelserVedtakstype : EMDASH} />
+                    <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                     <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
                     <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
                 </BodyLong>
             </Panel>
-            <PilotAlert /></>
+            <PilotAlert />
+        </>
     );
 };
 
