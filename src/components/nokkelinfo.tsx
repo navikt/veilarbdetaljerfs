@@ -1,4 +1,5 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { Laster, Errormelding } from './felles/minikomkomponenter';
 import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
@@ -36,6 +37,10 @@ import { formaterDato, kalkulerAlder } from '../utils/formater';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
+
+    const [lasterData, setLasterData] = useState<boolean>(false);
+    const [harFeil, setHarFeil] = useState<boolean>(false);
+
     const [veileder, setVeileder] = useState<VeilederData | null>(null);
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null>(null);
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
@@ -44,45 +49,66 @@ const Nokkelinfo = () => {
     const [ytelser, setYtelser] = useState<YtelseData | null>(null);
 
     useEffect(() => {
-        if (fnr != null) {
-            hentOppfolgingsstatus(fnr).then((data) => {
-                setOppfolgingsstatus(data);
-            });
-            hentPersonalia(fnr).then((data) => {
-                setPerson(data);
-            });
-            hentRegistrering(fnr).then((data) => {
-                setRegistrering(data);
-            });
-            hentTolk(fnr).then((data) => {
-                setTolk(data);
-            });
-            hentYtelser(fnr).then((data) => {
-                setYtelser(data);
-            });
-        }
-    }, [fnr]);
+        const hentOverblikkData = async () => {
+            try {
+                setLasterData(true);
+                const [_oppfolgingsstatus, _personalia, _registrering, _tolk, _ytelser] = await Promise.all([
+                    hentOppfolgingsstatus(fnr),
+                    hentPersonalia(fnr),
+                    hentRegistrering(fnr),
+                    hentTolk(fnr),
+                    hentYtelser(fnr)
+                ]);
 
-    useEffect(() => {
-        if (oppfolgingsstatus?.veilederId != null) {
-            hentVeileder(oppfolgingsstatus?.veilederId).then((data) => {
-                setVeileder(data);
-            });
-        }
-    }, [oppfolgingsstatus?.veilederId]);
+                if (_oppfolgingsstatus?.veilederId !== null) {
+                    const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
+                    setVeileder(_veileder);
+                }
+
+                setOppfolgingsstatus(_oppfolgingsstatus);
+                setPerson(_personalia);
+                setRegistrering(_registrering);
+                setTolk(_tolk);
+                setYtelser(_ytelser);
+            } catch (err) {
+                setHarFeil(true);
+            } finally {
+                setLasterData(false);
+            }
+        };
+
+        hentOverblikkData();
+    }, [fnr]);
 
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const ytelserVedtakstype: StringOrNothing = ytelser?.vedtaksliste
-        ?.map((obj) => obj.vedtakstype)
-        .join(', ');
+    const ytelserVedtakstype: StringOrNothing = ytelser?.vedtaksliste?.map((obj) => obj.vedtakstype).join(', ');
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
     const MAX_ALDER_BARN = 21;
-    const barn: PersonsBarn[] = person?.barn && person.barn.filter(enkeltBarn => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN) || [];
+    const barn: PersonsBarn[] =
+        (person?.barn &&
+            person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
+        [];
+
+    if (lasterData) {
+        return (
+            <Panel border className="nokkelinfoPanel">
+                <Laster />
+            </Panel>
+        );
+    }
+
+    if (harFeil) {
+        return (
+            <Panel border className="nokkelinfoPanel">
+                <Errormelding />
+            </Panel>
+        );
+    }
 
     return (
         <Panel border className="nokkelinfoPanel">
@@ -91,14 +117,11 @@ const Nokkelinfo = () => {
             </Heading>
             <BodyLong className="nokkelinfoContainer">
                 <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
-                <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
+                <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
-                <EnkeltInformasjon
-                    header="Tilrettelagt kommunikasjon"
-                    value={hentTolkTekst(taletolk)}
-                />
+                <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={ytelserVedtakstype ? ytelserVedtakstype : EMDASH} />
