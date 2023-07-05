@@ -11,6 +11,6 @@ const veileder: VeilederData = {
 
 export const veilarbveilederHandlers: RequestHandler[] = [
     rest.get('/veilarbveileder/api/veileder/:veilederId', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(veileder));
+        return res(ctx.delay(500), ctx.json(veileder), ctx.status(301));
     })
 ];

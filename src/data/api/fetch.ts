@@ -12,7 +12,9 @@ export const hentOppfolgingsstatus = async (fnr: string): Promise<Oppfolgingssta
     const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
     const response = await fetch(url, GEToptions);
 
-    if (!response.ok) {
+    if (response.status >= 400) {
+        const APIerror = new Error(response.statusText)
+        console.log("hentOppfolgingsstatus", APIerror)
         throw new Error(response.statusText)
       }
 
@@ -24,7 +26,10 @@ export const hentPersonalia = async (fnr: string): Promise<PersonaliaV2Info> => 
     const url = `/veilarbperson/api/v2/person?fnr=${fnr}`;
     const response = await fetch(url, GEToptions);
 
-    if (!response.ok) {
+    if (response.status >= 400) {
+
+        const APIerror = new Error(response.statusText)
+        console.log("hentPersonalia", APIerror)
         throw new Error(response.statusText)
       }
 
@@ -36,7 +41,10 @@ export const hentRegistrering = async (fnr: string): Promise<RegistreringsData> 
     const url = `/veilarbperson/api/person/registrering?fnr=${fnr}`;
     const response = await fetch(url, GEToptions);
 
-    if (!response.ok) {
+    if (response.status >= 400) {
+
+        const APIerror = new Error(response.statusText)
+        console.log("hentRegistrering", APIerror)
         throw new Error(response.statusText)
       }
     
@@ -48,7 +56,10 @@ export const hentTolk = async (fnr: string): Promise<TilrettelagtKommunikasjonDa
     const url = `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`;
     const response = await fetch(url, GEToptions);
 
-    if (!response.ok) {
+    if (response.status >= 400) {
+
+        const APIerror = new Error(response.statusText)
+        console.log("hentTolk", APIerror)
         throw new Error(response.statusText)
       }
     
@@ -60,7 +71,9 @@ export const hentVeileder = async (veilederId: StringOrNothing): Promise<Veilede
     const url = `/veilarbveileder/api/veileder/${veilederId}`;
     const response = await fetch(url, GEToptions);
 
-    if (!response.ok) {
+    if (response.status >= 400) {
+        const APIerror = new Error(response.statusText)
+        console.log("hentVeileder", APIerror)
         throw new Error(response.statusText)
       }
     
@@ -72,7 +85,10 @@ export const hentYtelser = async (fnr: string): Promise<YtelseData> => {
     const url = `/veilarboppfolging/api/person/${fnr}/ytelser`;
     const response = await fetch(url, GEToptions);
 
-    if (!response.ok) {
+    if (response.status >= 400) {
+
+        const APIerror = new Error(response.statusText)
+        console.log("hentYtelser", APIerror)
         throw new Error(response.statusText)
       }
     
