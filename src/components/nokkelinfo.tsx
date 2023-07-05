@@ -38,7 +38,7 @@ import { formaterDato, kalkulerAlder } from '../utils/formater';
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
 
-    const [lasterData, setLasterData] = useState<boolean>(false);
+    const [lasterData, setLasterData] = useState<boolean>(true);
     const [harFeil, setHarFeil] = useState<boolean>(false);
 
     const [veileder, setVeileder] = useState<VeilederData | null>(null);
