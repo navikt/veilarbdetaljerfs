@@ -71,6 +71,7 @@ const Nokkelinfo = () => {
                 setTolk(_tolk);
                 setYtelser(_ytelser);
             } catch (err) {
+                console.log('Catch error in nokkelinfo', err);
                 setHarFeil(true);
             } finally {
                 setLasterData(false);
