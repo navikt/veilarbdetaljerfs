@@ -136,8 +136,8 @@ export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasj
 }
 
 export function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
-    if (isNullOrUndefined(vedtaksliste)) {
-        return null;
+    if (isNullOrUndefined(vedtaksliste) || vedtaksliste?.length === 0) {
+        return EMDASH;
     }
     return vedtaksliste
         ?.filter((vedtak) => vedtak.status === VEDTAKSSTATUSER.iverksatt)

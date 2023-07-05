@@ -87,7 +87,6 @@ const Nokkelinfo = () => {
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const aktivVedtak: StringOrNothing = getVedtakForVisning(ytelser?.vedtaksliste);
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
     const MAX_ALDER_BARN = 21;
@@ -95,7 +94,6 @@ const Nokkelinfo = () => {
         (person?.barn &&
             person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
         [];
-
 
     if (lasterData) {
         return (
@@ -128,7 +126,7 @@ const Nokkelinfo = () => {
                     <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                     <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Aktive ytelse(r)" value={aktivVedtak ? aktivVedtak : EMDASH} />
+                    <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                     <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
                     <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
