@@ -65,31 +65,6 @@ export function mapInnsatsgruppeTilTekst(innsatsgruppe: OrNothing<Innsatsgruppe 
             return EMDASH;
     }
 }
-
-// export function hentOppfolgingsEnhetTekst(
-//     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
-// ): StringOrNothing {
-//     if (!oppfolgingsstatus || !oppfolgingsstatus.oppfolgingsenhet) {
-//         return null;
-//     }
-
-//     const {
-//         oppfolgingsenhet: { enhetId, navn }
-//     } = oppfolgingsstatus;
-
-//     if (!`${enhetId}` && !`${navn}`) {
-//         return EMDASH;
-//     }
-//     if (!`${enhetId}`) {
-//         return `${navn}`;
-//     }
-
-//     if (!`${navn}`) {
-//         return `${enhetId}`;
-//     }
-
-//     return `${enhetId} ${navn}`;
-// }
 export function hentOppfolgingsEnhetTekst(
     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
 ): StringOrNothing {
@@ -146,7 +121,6 @@ export function hentVeilederTekst(veileder: VeilederData | null | undefined): St
 }
 
 export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | null | undefined) {
-    // const { talespraak, tegnspraak } = tilrettelagtKommunikasjon;
 
     if (isNullOrUndefined(tilrettelagtKommunikasjon?.talespraak) && isNullOrUndefined(tilrettelagtKommunikasjon?.tegnspraak)) {
         return EMDASH;
