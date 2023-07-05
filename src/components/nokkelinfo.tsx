@@ -21,9 +21,10 @@ import { PersonaliaV2Info, PersonsBarn } from '../data/api/datatyper/personalia'
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { YtelseData } from '../data/api/datatyper/ytelse';
-import { OrNothing, StringOrNothing, isNullOrUndefined } from '../utils/felles-typer';
+import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
+    getVedtakForVisning,
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
     hentTolkTekst,
@@ -35,8 +36,6 @@ import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato, kalkulerAlder } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
-import { VEDTAKSSTATUSER } from '../utils/konstanter';
-import { VedtakType } from '../data/api/datatyper/ytelse';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
@@ -87,8 +86,8 @@ const Nokkelinfo = () => {
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    //const ytelserVedtakstype: StringOrNothing = ytelser?.vedtaksliste?.map((obj) => obj.vedtakstype).join(', ');
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const aktivVedtak: StringOrNothing = getVedtakForVisning(ytelser?.vedtaksliste);
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
     const MAX_ALDER_BARN = 21;
@@ -97,17 +96,6 @@ const Nokkelinfo = () => {
             person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
         [];
 
-    function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
-        if (isNullOrUndefined(vedtaksliste)) {
-            return null;
-        }
-        return vedtaksliste
-            ?.filter((vedtak) => vedtak.status === VEDTAKSSTATUSER.iverksatt)
-            .map((vedtak) => vedtak.vedtakstype)
-            .join(', ');
-    }
-
-    const aktivVedtak: StringOrNothing = getVedtakForVisning(ytelser?.vedtaksliste);
 
     if (lasterData) {
         return (
@@ -140,7 +128,7 @@ const Nokkelinfo = () => {
                     <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                     <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Aktive ytelse(r)" value={aktivVedtak} />
+                    <EnkeltInformasjon header="Aktive ytelse(r)" value={aktivVedtak ? aktivVedtak : EMDASH} />
                     <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
                     <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
