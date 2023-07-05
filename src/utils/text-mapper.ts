@@ -66,48 +66,61 @@ export function mapInnsatsgruppeTilTekst(innsatsgruppe: OrNothing<Innsatsgruppe 
     }
 }
 
+// export function hentOppfolgingsEnhetTekst(
+//     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
+// ): StringOrNothing {
+//     if (!oppfolgingsstatus || !oppfolgingsstatus.oppfolgingsenhet) {
+//         return null;
+//     }
+
+//     const {
+//         oppfolgingsenhet: { enhetId, navn }
+//     } = oppfolgingsstatus;
+
+//     if (!`${enhetId}` && !`${navn}`) {
+//         return EMDASH;
+//     }
+//     if (!`${enhetId}`) {
+//         return `${navn}`;
+//     }
+
+//     if (!`${navn}`) {
+//         return `${enhetId}`;
+//     }
+
+//     return `${enhetId} ${navn}`;
+// }
 export function hentOppfolgingsEnhetTekst(
     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
 ): StringOrNothing {
-    if (!oppfolgingsstatus || !oppfolgingsstatus.oppfolgingsenhet) {
-        return null;
-    }
+    const enhetId = oppfolgingsstatus?.oppfolgingsenhet?.enhetId;
+    const navn = oppfolgingsstatus?.oppfolgingsenhet?.navn;
 
-    const {
-        oppfolgingsenhet: { enhetId, navn }
-    } = oppfolgingsstatus;
-
-    if (!`${enhetId}` && !`${navn}`) {
+    if (!enhetId && !navn) {
         return EMDASH;
     }
-    if (!`${enhetId}`) {
+    if (!enhetId) {
         return `${navn}`;
     }
-
-    if (!`${navn}`) {
+    if (!navn) {
         return `${enhetId}`;
     }
-
     return `${enhetId} ${navn}`;
 }
 
-export function hentGeografiskEnhetTekst(personalia: PersonaliaV2Info | null): StringOrNothing {
-    if (!personalia || !personalia.geografiskEnhet) {
-        return null;
-    }
+export function hentGeografiskEnhetTekst(
+    personalia: PersonaliaV2Info | null | undefined
+): StringOrNothing {
+    const enhetsnummer = personalia?.geografiskEnhet?.enhetsnummer;
+    const navn = personalia?.geografiskEnhet?.navn;
 
-    const {
-        geografiskEnhet: { enhetsnummer, navn }
-    } = personalia;
-
-    if (!`${enhetsnummer}` && !`${navn}`) {
+    if (!enhetsnummer && !navn) {
         return EMDASH;
     }
-    if (!`${enhetsnummer}`) {
+    if (!enhetsnummer) {
         return `${navn}`;
     }
-
-    if (!`${navn}`) {
+    if (!navn) {
         return `${enhetsnummer}`;
     }
     return `${enhetsnummer} ${navn}`;
@@ -146,12 +159,12 @@ export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasj
     }
 
     if (!tilrettelagtKommunikasjon.talespraak) {
-        return "Tegnspråk: " + `${tilrettelagtKommunikasjon.tegnspraak}`;
+        return `Tegnspråk: ${tilrettelagtKommunikasjon.tegnspraak}`;
     }
 
     if (!tilrettelagtKommunikasjon.tegnspraak) {
-        return "Tolk: " + `${tilrettelagtKommunikasjon.talespraak}`;
+        return `Tolk: ${tilrettelagtKommunikasjon.talespraak}`;
     }
 
-    return "Tolk: " + `${tilrettelagtKommunikasjon.talespraak}` + ", Tegnspråk: " + `${tilrettelagtKommunikasjon.tegnspraak}`;
+    return `Tolk: ${tilrettelagtKommunikasjon.talespraak}, tegnspråk: ${tilrettelagtKommunikasjon.tegnspraak}`;
 }

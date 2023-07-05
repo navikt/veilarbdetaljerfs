@@ -36,7 +36,7 @@ import { formaterDato, kalkulerAlder } from '../utils/formater';
 
 const Overblikk = () => {
     const { fnr } = useAppStore();
-    const [veileder, setVeileder] = useState<VeilederData>();
+    const [veileder, setVeileder] = useState<VeilederData | null | undefined>();
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null | undefined>();
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
@@ -71,12 +71,11 @@ const Overblikk = () => {
         }
     }, [oppfolgingsstatus?.veilederId]);
 
-    const veilederData: VeilederData | null | undefined = veileder;
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
-    const brukersMaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const ytelserVedtakstype: StringOrNothing | undefined = ytelser?.vedtaksliste
+    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
+    const ytelserVedtakstype: StringOrNothing = ytelser?.vedtaksliste
         ?.map((obj) => obj.vedtakstype)
         .join(', ');
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
@@ -93,7 +92,7 @@ const Overblikk = () => {
             <BodyLong className="overblikkContainer">
                 <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
                 <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
                 <EnkeltInformasjon
@@ -101,7 +100,7 @@ const Overblikk = () => {
                     value={hentTolkTekst(taletolk)}
                 />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
-                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(brukersMaal)} />
+                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={ytelserVedtakstype ? ytelserVedtakstype : EMDASH} />
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
                 <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
