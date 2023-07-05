@@ -39,7 +39,7 @@ import { PilotAlert } from './pilotAlert';
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
 
-    const [lasterData, setLasterData] = useState<boolean>(false);
+    const [lasterData, setLasterData] = useState<boolean>(true);
     const [harFeil, setHarFeil] = useState<boolean>(false);
 
     const [veileder, setVeileder] = useState<VeilederData | null>(null);
@@ -61,7 +61,7 @@ const Nokkelinfo = () => {
                     hentYtelser(fnr)
                 ]);
 
-                if (_oppfolgingsstatus?.veilederId !== null) {
+                if (_oppfolgingsstatus !== null && _oppfolgingsstatus?.veilederId !== null) {
                     const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
                     setVeileder(_veileder);
                 }

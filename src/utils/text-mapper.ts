@@ -83,9 +83,7 @@ export function hentOppfolgingsEnhetTekst(
     return `${enhetId} ${navn}`;
 }
 
-export function hentGeografiskEnhetTekst(
-    personalia: PersonaliaV2Info | null | undefined
-): StringOrNothing {
+export function hentGeografiskEnhetTekst(personalia: PersonaliaV2Info | null | undefined): StringOrNothing {
     const enhetsnummer = personalia?.geografiskEnhet?.enhetsnummer;
     const navn = personalia?.geografiskEnhet?.navn;
 
@@ -102,7 +100,6 @@ export function hentGeografiskEnhetTekst(
 }
 
 export function hentVeilederTekst(veileder: VeilederData | null | undefined): StringOrNothing {
-
     if (!veileder?.navn && !veileder?.ident) {
         return EMDASH;
     }
@@ -118,8 +115,10 @@ export function hentVeilederTekst(veileder: VeilederData | null | undefined): St
 }
 
 export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | null | undefined) {
-
-    if (isNullOrUndefined(tilrettelagtKommunikasjon?.talespraak) && isNullOrUndefined(tilrettelagtKommunikasjon?.tegnspraak)) {
+    if (
+        isNullOrUndefined(tilrettelagtKommunikasjon?.talespraak) &&
+        isNullOrUndefined(tilrettelagtKommunikasjon?.tegnspraak)
+    ) {
         return EMDASH;
     }
 
