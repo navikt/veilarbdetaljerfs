@@ -8,7 +8,7 @@ interface Props {
 
 export function EnkeltInformasjon(props: Props) {
     return (
-        <span className='EnkeltinformasjonSpan'>
+        <span className="EnkeltinformasjonSpan">
             <span className="nokkelinfoTittel">{props.header}:</span>
             <span className="nokkelinfoUndertittel">{props?.value}</span>
         </span>
