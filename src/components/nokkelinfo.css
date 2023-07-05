@@ -1,4 +1,4 @@
-.nokkelinfoPanel {
+.nokkelinfo_panel {
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 20px;
@@ -6,7 +6,7 @@
     background-color: var(--a-surface-action-subtle-hover);
 }
 
-.nokkelinfoContainer {
+.nokkelinfo_container {
     grid-row: row 2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -15,28 +15,28 @@
     line-height: var(--a-font-line-height-medium);
 }
 
-.nokkelinfoTittel {
+.nokkelinfo_tittel {
     font-weight: var(--a-font-weight-bold);
     font-size: var(--a-font-size-heading-xsmall);
     margin-bottom: 10px;
     display: block;
 }
 
-.EnkeltinformasjonSpan {
+.enkeltinformasjon_span {
     margin: 10px;
 }
 
-.nokkelinfoUndertittel {
+.nokkelinfo_undertittel {
     font-size: var(--a-font-size-medium);
 }
 
-.PilotAlert {
+.pilot_alert {
     margin-left: 60%;
     margin-right: 40px;
 }
 
 @media only screen and (max-width: 950px) {
-    .nokkelinfoContainer {
+    .nokkelinfo_container {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }

@@ -5,7 +5,7 @@ import {
 
 export const PilotAlert = () => {
     return (
-        <Alert variant="warning" className="PilotAlert">
+        <Alert variant="warning" className="pilot_alert">
             <Heading spacing size="small" level="3">
                 Testside for Overblikk
             </Heading>

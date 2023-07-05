@@ -97,7 +97,7 @@ const Nokkelinfo = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="nokkelinfoPanel">
+            <Panel border className="nokkelinfo_panel">
                 <Laster />
             </Panel>
         );
@@ -105,7 +105,7 @@ const Nokkelinfo = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="nokkelinfoPanel">
+            <Panel border className="nokkelinfo_panel">
                 <Errormelding />
             </Panel>
         );
@@ -113,11 +113,11 @@ const Nokkelinfo = () => {
 
     return (
         <>
-            <Panel border className="nokkelinfoPanel">
+            <Panel border className="nokkelinfo_panel">
                 <Heading spacing level="2" size="large">
                     Nøkkelinfo
                 </Heading>
-                <BodyLong className="nokkelinfoContainer">
+                <BodyLong className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
