@@ -102,13 +102,10 @@ export function hentGeografiskEnhetTekst(
 }
 
 export function hentVeilederTekst(veileder: VeilederData | null | undefined): StringOrNothing {
-    if (!veileder) {
-        return null;
-    }
-    if (!veileder.navn && !veileder.ident) {
+
+    if (!veileder?.navn && !veileder?.ident) {
         return EMDASH;
     }
-
     if (!veileder.navn) {
         return veileder.ident;
     }
@@ -125,20 +122,14 @@ export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasj
     if (isNullOrUndefined(tilrettelagtKommunikasjon?.talespraak) && isNullOrUndefined(tilrettelagtKommunikasjon?.tegnspraak)) {
         return EMDASH;
     }
-    if (!tilrettelagtKommunikasjon) {
-        return EMDASH;
-    }
-    if (!tilrettelagtKommunikasjon.talespraak && !tilrettelagtKommunikasjon.tegnspraak) {
-        return EMDASH;
+
+    if (!tilrettelagtKommunikasjon?.talespraak) {
+        return `Tegnspråk: ${tilrettelagtKommunikasjon?.tegnspraak}`;
     }
 
-    if (!tilrettelagtKommunikasjon.talespraak) {
-        return `Tegnspråk: ${tilrettelagtKommunikasjon.tegnspraak}`;
+    if (!tilrettelagtKommunikasjon?.tegnspraak) {
+        return `Tolk: ${tilrettelagtKommunikasjon?.talespraak}`;
     }
 
-    if (!tilrettelagtKommunikasjon.tegnspraak) {
-        return `Tolk: ${tilrettelagtKommunikasjon.talespraak}`;
-    }
-
-    return `Tolk: ${tilrettelagtKommunikasjon.talespraak}, tegnspråk: ${tilrettelagtKommunikasjon.tegnspraak}`;
+    return `Tolk: ${tilrettelagtKommunikasjon?.talespraak}, tegnspråk: ${tilrettelagtKommunikasjon?.tegnspraak}`;
 }

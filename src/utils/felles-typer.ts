@@ -7,5 +7,5 @@ export function isNullOrUndefined(param: string | object | null | undefined): bo
 }
 
 export function isNotEmptyArray(param: any[]): boolean {
-    return param && param.length !== 0;
+    return param && param.length > 0;
 }

@@ -36,8 +36,8 @@ import { formaterDato, kalkulerAlder } from '../utils/formater';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
-    const [veileder, setVeileder] = useState<VeilederData | null | undefined>();
-    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null | undefined>();
+    const [veileder, setVeileder] = useState<VeilederData | null>(null);
+    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null>(null);
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
@@ -85,11 +85,11 @@ const Nokkelinfo = () => {
     const barn: PersonsBarn[] = person?.barn && person.barn.filter(enkeltBarn => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN) || [];
 
     return (
-        <Panel border className="overblikkPanel">
+        <Panel border className="nokkelinfoPanel">
             <Heading spacing level="2" size="large">
                 Nøkkelinfo
             </Heading>
-            <BodyLong className="overblikkContainer">
+            <BodyLong className="nokkelinfoContainer">
                 <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
                 <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || "0"} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
