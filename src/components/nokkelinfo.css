@@ -30,6 +30,11 @@
     font-size: var(--a-font-size-medium);
 }
 
+.PilotAlert {
+    margin-left: 60%;
+    margin-right: 20px;
+}
+
 @media only screen and (max-width: 950px) {
     .nokkelinfoContainer {
         grid-template-columns: 1fr 1fr 1fr;
