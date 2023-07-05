@@ -1,5 +1,8 @@
 .overblikkPanel {
-    margin: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     background-color: var(--a-surface-action-subtle-hover);
 }
 
@@ -7,21 +10,30 @@
     grid-row: row 2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
 }
 
 .overblikkTittel {
     font-weight: var(--a-font-weight-bold);
-    font-size: var(--a-font-size-heading-small);
+    font-size: var(--a-font-size-heading-xsmall);
+    margin-bottom: 0px;
 }
 
 .overblikkUndertittel {
     margin-inline-start: 0;
-    padding-top: 5px;
+    margin-top: 0px;
+    font-size: var(--a-font-size-medium);
 }
 
 .PilotAlert {
     margin-left: 60%;
     margin-right: 20px;
+}
+
+@media only screen and (max-width: 910px) {
+    .overblikkContainer {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
