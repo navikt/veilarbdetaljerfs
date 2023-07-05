@@ -9,6 +9,7 @@
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "prettier:check": "prettier --check src --config .prettierrc.json",
+        "prettier:write": "prettier --write src --config .prettierrc.json",
         "test": "vitest"
     },
     "dependencies": {
