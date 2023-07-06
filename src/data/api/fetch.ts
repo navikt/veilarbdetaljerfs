@@ -6,6 +6,9 @@ import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunika
 import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
 import { YtelseData } from './datatyper/ytelse';
+import { ArenaPerson } from './datatyper/arenaperson';
+import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
+import { AktorId } from './datatyper/aktor-id';
 
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
@@ -61,6 +64,25 @@ export const hentVeileder = async (veilederId: StringOrNothing): Promise<Veilede
 
 export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
     const url = `/veilarboppfolging/api/person/${fnr}/ytelser`;
+    const respons = await fetch(url, GEToptions);
+
+    return handterRespons(respons);
+};
+
+export const hentCvOgJobbonsker = async (fnr: string): Promise<ArenaPerson | null> => {
+    const url = `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`;
+    const respons = await fetch(url, GEToptions);
+
+    return handterRespons(respons);
+};
+export const hentUnderOppfolging = async (fnr: string): Promise<UnderOppfolgingData | null> => {
+    const url = `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`;
+    const respons = await fetch(url, GEToptions);
+
+    return handterRespons(respons);
+};
+export const hentAktorId = async (fnr: string): Promise<AktorId | null> => {
+    const url = `/veilarbperson/api/person/aktorid?fnr=${fnr}`;
     const respons = await fetch(url, GEToptions);
 
     return handterRespons(respons);
