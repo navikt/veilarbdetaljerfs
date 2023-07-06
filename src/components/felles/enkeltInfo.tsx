@@ -1,5 +1,5 @@
-import '../nokkelinfo.css';
 import { StringOrNothing } from '../../utils/felles-typer';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 interface Props {
     header: string;
@@ -8,9 +8,11 @@ interface Props {
 
 export function EnkeltInformasjon(props: Props) {
     return (
-        <span className="enkeltinformasjon_span">
-            <span className="nokkelinfo_tittel">{props.header}:</span>
-            <span className="nokkelinfo_undertittel">{props?.value}</span>
+        <span>
+            <Heading level="5" size="xsmall">
+                {props.header}:
+            </Heading>
+            <BodyShort size="small">{props?.value}</BodyShort>
         </span>
     );
 }
