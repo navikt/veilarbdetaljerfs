@@ -9,15 +9,17 @@ interface Props {
 export function DobbeltInformasjon(props: Props) {
     return (
         <span>
-            <Heading level="5" size="xsmall">{props.header}:</Heading>
-            <span>{props.values?.map((value, index) => (
-                <BodyShort key={index} size="small">
-                    {value}
-                </BodyShort>
-            ))}</span>
+            <Heading level="5" size="xsmall">
+                {props.header}:
+            </Heading>
+            <span>
+                {props.values?.map((value, index) => (
+                    <BodyShort key={index} size="small">
+                        {value}
+                    </BodyShort>
+                ))}
+            </span>
             {props.children}
         </span>
     );
 }
-
-

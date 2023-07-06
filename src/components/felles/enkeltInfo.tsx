@@ -9,7 +9,9 @@ interface Props {
 export function EnkeltInformasjon(props: Props) {
     return (
         <span>
-            <Heading level="5" size="xsmall">{props.header}:</Heading>
+            <Heading level="5" size="xsmall">
+                {props.header}:
+            </Heading>
             <BodyShort size="small">{props?.value}</BodyShort>
         </span>
     );

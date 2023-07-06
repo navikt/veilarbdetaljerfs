@@ -1,11 +1,8 @@
-import { Panel, Heading } from "@navikt/ds-react"
-import { DobbeltInformasjon } from "./felles/dobbelinfo"
-
-
+import { Panel, Heading } from '@navikt/ds-react';
+import { DobbeltInformasjon } from './felles/dobbelinfo';
 
 export const InfoBoks = () => {
-
-    const values = ["Value 1", "Value 2", "Value 3",];
+    const values = ['Value 1', 'Value 2', 'Value 3'];
 
     return (
         <Panel border className="info_panel">
@@ -17,4 +14,4 @@ export const InfoBoks = () => {
             </span>
         </Panel>
     );
-}
+};
