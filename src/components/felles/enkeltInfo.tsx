@@ -1,4 +1,4 @@
-import '../nokkelinfo.css';
+import '../info.css';
 import { StringOrNothing } from '../../utils/felles-typer';
 
 interface Props {
@@ -8,9 +8,9 @@ interface Props {
 
 export function EnkeltInformasjon(props: Props) {
     return (
-        <span className='enkeltinformasjon_span'>
-            <span className="nokkelinfo_tittel">{props.header}:</span>
-            <span className="nokkelinfo_undertittel">{props?.value}</span>
+        <span className='info_span'>
+            <span className="tittel">{props.header}:</span>
+            <span className="undertittel">{props?.value}</span>
         </span>
     );
 }

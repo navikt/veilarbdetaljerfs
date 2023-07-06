@@ -1,3 +1,4 @@
+import { InfoBoks } from './components/infoboks';
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
 
@@ -12,6 +13,7 @@ const App = (props: AppProps) => {
             <StoreProvider fnr={props.fnr}>
                 <Nokkelinfo />
                 <div className='main_grid'>
+                    <InfoBoks />
                 </div>
             </StoreProvider>
         </main>
