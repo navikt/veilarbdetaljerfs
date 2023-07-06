@@ -1,4 +1,4 @@
-name: Last opp statiske filer til Google Cloud Storage
+name: 'dev: Last opp statiske filer til Google Cloud Storage'
 on:
     workflow_dispatch:
     push:
