@@ -1,4 +1,4 @@
-import { BodyLong, Panel, Heading, BodyShort } from "@navikt/ds-react"
+import { Panel, Heading } from "@navikt/ds-react"
 import { DobbeltInformasjon } from "./felles/dobbelinfo"
 
 

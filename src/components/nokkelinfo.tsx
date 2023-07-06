@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomkomponenter';
 import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';

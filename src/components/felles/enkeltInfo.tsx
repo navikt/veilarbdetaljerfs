@@ -1,4 +1,3 @@
-import '../info.css';
 import { StringOrNothing } from '../../utils/felles-typer';
 import { BodyShort, Heading } from '@navikt/ds-react';
 
