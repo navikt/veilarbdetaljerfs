@@ -1,5 +1,6 @@
 import { InfoBoks } from './components/infoboks';
 import Nokkelinfo from './components/nokkelinfo';
+import PersonaliaBoks from './components/personalia/personalia-boks';
 import StoreProvider from './stores/store-provider';
 
 export interface AppProps {
@@ -14,7 +15,9 @@ const App = (props: AppProps) => {
                 <Nokkelinfo />
                 <div className="main_grid">
                     <InfoBoks />
+                    <PersonaliaBoks />
                 </div>
+                
             </StoreProvider>
         </main>
     );
