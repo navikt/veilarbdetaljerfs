@@ -59,7 +59,7 @@ const PersonaliaBoks = () => {
         barn && barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN);
 
     const partner: PersonaliaPartner | undefined = personalia?.partner;
-    const sivilstandliste: PersonaliaSivilstandNy[] | undefinedç = personalia?.sivilstandliste;
+    const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.sivilstandliste;
 
     if (lasterData) {
         return (
