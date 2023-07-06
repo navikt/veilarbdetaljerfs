@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomkomponenter';
 import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
@@ -117,7 +117,7 @@ const Nokkelinfo = () => {
                 <Heading spacing level="2" size="large">
                     Nøkkelinfo
                 </Heading>
-                <BodyLong className="nokkelinfo_container">
+                <span className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
@@ -130,7 +130,7 @@ const Nokkelinfo = () => {
                     <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
                     <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
-                </BodyLong>
+                </span>
             </Panel>
             <PilotAlert />
         </>

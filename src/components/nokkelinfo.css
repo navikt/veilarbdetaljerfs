@@ -15,21 +15,6 @@
     line-height: var(--a-font-line-height-medium);
 }
 
-.nokkelinfo_tittel {
-    font-weight: var(--a-font-weight-bold);
-    font-size: var(--a-font-size-heading-xsmall);
-    margin-bottom: 10px;
-    display: block;
-}
-
-.enkeltinformasjon_span {
-    margin: 10px;
-}
-
-.nokkelinfo_undertittel {
-    font-size: var(--a-font-size-medium);
-}
-
 .pilot_alert {
     margin-left: 60%;
     margin-right: 40px;
