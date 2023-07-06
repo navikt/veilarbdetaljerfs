@@ -1,6 +1,6 @@
 import { InfoBoks } from './components/infoboks';
 import Nokkelinfo from './components/nokkelinfo';
-import { Registrering } from './components/regboks';
+import { Registrering } from './components/registreringsInfo';
 import StoreProvider from './stores/store-provider';
 
 export interface AppProps {
