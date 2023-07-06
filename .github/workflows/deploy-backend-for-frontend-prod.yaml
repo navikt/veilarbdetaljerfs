@@ -1,4 +1,4 @@
-name: Deploy Backend for Frontend for veilarbdetaljerfs til prod
+name: 'prod: Deploy Backend for Frontend for veilarbdetaljerfs'
 
 on:
   push:
