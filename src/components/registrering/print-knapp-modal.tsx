@@ -1,6 +1,5 @@
 import { Button } from '@navikt/ds-react';
-
-import './reg.css';
+import './registrering.css';
 
 export function PrintKnappModal() {
     const printModal = () => {

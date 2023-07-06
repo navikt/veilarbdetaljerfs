@@ -1,6 +1,6 @@
 import { BodyShort, Ingress, Panel } from '@navikt/ds-react';
 import { InnsatsgruppeType, OrdinaerRegistrering, Registrering } from '../../data/api/datatyper/registreringsData';
-import './reg.css';
+import './registrering.css';
 
 interface Props {
     registrering: Registrering | undefined | null;

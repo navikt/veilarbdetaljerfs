@@ -1,5 +1,5 @@
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
-import './reg.css';
+import './registrering.css';
 
 function PersonverninformasjonSykmeldt() {
     return (

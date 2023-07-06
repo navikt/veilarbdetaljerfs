@@ -6,7 +6,7 @@ import { PrinterSmallIcon, PrinterSmallFillIcon } from '@navikt/aksel-icons';
 import { RegistreringType } from '../../data/api/datatyper/registreringsData';
 import { PrintKnappModal } from './print-knapp-modal';
 import Show from '../felles/show';
-import './reg.css';
+import './registrering.css';
 
 function erSykmeldt(type?: RegistreringType) {
     return type && type === 'SYKMELDT';
