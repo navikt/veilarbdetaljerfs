@@ -1,5 +1,6 @@
 import '../info.css';
 import { StringOrNothing } from '../../utils/felles-typer';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 interface Props {
     header: string;
@@ -8,16 +9,15 @@ interface Props {
 }
 export function DobbeltInformasjon(props: Props) {
     return (
-        <div className="info_span">
-            <span className="tittel">{props.header}:</span>
-            <span className='infoboks_container'>
-                {props.values?.map((value, index) => (
-                    <span key={index} className="undertittel">
-                        {value}
-                    </span>
-                ))}</span>
+        <span>
+            <Heading level="5" size="xsmall">{props.header}:</Heading>
+            <span>{props.values?.map((value, index) => (
+                <BodyShort key={index} size="small">
+                    {value}
+                </BodyShort>
+            ))}</span>
             {props.children}
-        </div>
+        </span>
     );
 }
 
