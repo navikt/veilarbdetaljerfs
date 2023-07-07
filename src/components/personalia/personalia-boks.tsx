@@ -7,7 +7,6 @@ import {
     Bostedsadresse,
     Kontaktadresse,
     Oppholdsadresse,
-    PersonaliaEpost,
     PersonaliaPartner,
     PersonaliaSivilstandNy,
     PersonaliaTelefon,
@@ -20,6 +19,7 @@ import Adresser from './adresser';
 import { kalkulerAlder } from '../../utils/date-utils';
 import Barn from './barn';
 import Sivilstand from './sivilstand';
+import StatsborgerskapInfo from './statsborgerskapinfo';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
@@ -60,6 +60,7 @@ const PersonaliaBoks = () => {
 
     const partner: PersonaliaPartner | undefined = personalia?.partner;
     const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.sivilstandliste;
+    const 
 
     if (lasterData) {
         return (
@@ -92,6 +93,7 @@ const PersonaliaBoks = () => {
                     />
                     <Barn barn={filtrertBarneListe} />
                     <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
+                    <StatsborgerskapInfo statsborgerskap={}
                 </span>
             </Panel>
         </>
