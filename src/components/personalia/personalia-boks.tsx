@@ -1,5 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { OrNothing } from '../../utils/felles-typer';
+import { OrNothing, StringOrNothing } from '../../utils/felles-typer';
 import { useAppStore } from '../../stores/app-store';
 import { hentPersonalia } from '../../data/api/fetch';
 import { useEffect, useState } from 'react';
@@ -60,7 +60,7 @@ const PersonaliaBoks = () => {
 
     const partner: PersonaliaPartner | undefined = personalia?.partner;
     const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.sivilstandliste;
-    const 
+    const statsborgerskap: string[] = personalia?.statsborgerskap!; //kanskje ikke bra at man bruker ! ?
 
     if (lasterData) {
         return (
@@ -93,7 +93,7 @@ const PersonaliaBoks = () => {
                     />
                     <Barn barn={filtrertBarneListe} />
                     <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
-                    <StatsborgerskapInfo statsborgerskap={}
+                    <StatsborgerskapInfo statsborgerskap={statsborgerskap} />
                 </span>
             </Panel>
         </>
