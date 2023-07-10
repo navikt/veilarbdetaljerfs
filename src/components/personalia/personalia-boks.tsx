@@ -73,7 +73,7 @@ const PersonaliaBoks = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="nokkelinfo_panel">
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -81,7 +81,7 @@ const PersonaliaBoks = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="nokkelinfo_panel">
+            <Panel border className="info_panel">
                 <Errormelding />
             </Panel>
         );
