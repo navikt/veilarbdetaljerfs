@@ -53,7 +53,7 @@ const CvInnhold = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="cv_panel">
+            <Panel border className="cv-panel">
                 <Laster />
             </Panel>
         );
@@ -61,7 +61,7 @@ const CvInnhold = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="cv_panel">
+            <Panel border className="cv-panel">
                 <Heading spacing level="2" size="large">
                     CV
                 </Heading>
@@ -102,16 +102,18 @@ const CvInnhold = () => {
                     CV
                 </Heading>
                 <Sammendrag sammendrag={sammendrag} />
-                <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
-                <Utdanning utdanning={utdanning} />
-                <AnnenErfaring annenErfaring={annenErfaring} />
-                <Godkjenninger godkjenninger={godkjenninger} />
-                <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
-                <Kurs kurs={kurs} />
-                <Forerkort forerkort={forerkort} />
-                <Sprak sprak={sprak} />
-                <Kompetanser kompetanse={jobbprofil?.kompetanse} />
-                <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
+                <div className="cv-container">
+                    <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
+                    <Utdanning utdanning={utdanning} />
+                    <AnnenErfaring annenErfaring={annenErfaring} />
+                    <Godkjenninger godkjenninger={godkjenninger} />
+                    <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
+                    <Kurs kurs={kurs} />
+                    <Forerkort forerkort={forerkort} />
+                    <Sprak sprak={sprak} />
+                    <Kompetanser kompetanse={jobbprofil?.kompetanse} />
+                    <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
+                </div>
             </Panel>
         );
     }
