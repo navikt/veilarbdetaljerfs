@@ -11,6 +11,7 @@ const App = (props: AppProps) => {
         <main className="app veilarbdetaljerfs">
             <StoreProvider fnr={props.fnr}>
                 <Nokkelinfo />
+
                 <div className="main_grid"></div>
             </StoreProvider>
         </main>
