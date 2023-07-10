@@ -53,7 +53,7 @@ export const Registrering = () => {
     }
 
     const registrertAvNavn: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const registrertAvID: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.id;
+    const registrertAvEnhetID: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.id;
     const registrertAvIdent: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.ident;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
 
@@ -92,7 +92,7 @@ export const Registrering = () => {
     );
     const AnnetSvar: StringOrNothing = regDataAnnet?.svar;
 
-    const regIdNavn = 'Registrert av: ' + registrertAvID + ' ' + registrertAvNavn;
+    const regIdNavn = registrertAvEnhetID + ' ' + registrertAvNavn;
     const regDato = 'Registrert: ' + formaterDato(datoRegistrert);
     const regAv = 'Registrert av: ' + registrertAvIdent + ', ' + regIdNavn;
 
@@ -106,7 +106,10 @@ export const Registrering = () => {
             <Heading spacing level="2" size="large">
                 Registering
             </Heading>
-            <DobbeltInformasjon header={regIdNavn ? regIdNavn : EMDASH} values={regValues ? regValues : [EMDASH]} />
+            <DobbeltInformasjon
+                header={`Registrert av ${registrertAvNavn ? registrertAvNavn : EMDASH}`}
+                values={regValues ? regValues : [EMDASH]}
+            />
             <span className="registrering_container">
                 <EnkeltInformasjon header="Hvorfor registrerer du deg?" value={hvorforSvar ? hvorforSvar : EMDASH} />
                 <EnkeltInformasjon header="Din siste jobb" value={sisteStillingSvar ? sisteStillingSvar : EMDASH} />

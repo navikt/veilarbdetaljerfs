@@ -10,7 +10,7 @@ export function DobbeltInformasjon(props: Props) {
     return (
         <span>
             <Heading level="5" size="xsmall">
-                {props.header}:
+                {props.header}
             </Heading>
             <span>
                 {props.values?.map((value, index) => (
