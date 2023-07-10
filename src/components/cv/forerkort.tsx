@@ -5,8 +5,7 @@ import { CarIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 
-const Forerkort = (props: Pick<ArenaPerson, 'forerkort'>) => {
-    const { forerkort } = props;
+const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
     const forerkortListe = safeMap(forerkort, (enkeltForerkort, index) => (
         <BodyShort key={`forerkort-${index}`}>
             Klasse {enkeltForerkort?.klasse ? enkeltForerkort?.klasse : EMDASH}

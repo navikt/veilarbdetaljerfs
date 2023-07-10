@@ -5,9 +5,8 @@ import { safeMap, safeSort } from '../../utils';
 import { PersonSuitIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 
-const Utdanning = (props: Pick<ArenaPerson, 'utdanning'>) => {
-    const { utdanning: arenaUtdanning } = props;
-    const sortedUtdanning = arenaUtdanning.sort((a, b) => safeSort(b.tilDato, a.tilDato));
+const Utdanning = ({ utdanning }: Pick<ArenaPerson, 'utdanning'>) => {
+    const sortedUtdanning = utdanning.sort((a, b) => safeSort(b.tilDato, a.tilDato));
     const utdanninger = safeMap(sortedUtdanning, (utdanning, index) => (
         <div key={`utdanning-${index}`} className="underinformasjon">
             <Label size="small" as="p">

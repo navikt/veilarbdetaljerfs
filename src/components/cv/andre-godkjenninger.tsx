@@ -6,8 +6,7 @@ import { FolderPlusIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 
-const AndreGodkjenninger = (props: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
-    const { andreGodkjenninger } = props;
+const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
     const annenGodkjenningListe = safeMap(andreGodkjenninger, (annenGodkjenning, index) => (
         <div key={`andregodkjenninger-${index}`} className="underinformasjon">
             <Label size="small" as="p" key={`andregodkjenninger-${index}`}>

@@ -6,8 +6,7 @@ import { SealCheckmarkIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 
-const Godkjenninger = (props: Pick<ArenaPerson, 'godkjenninger'>) => {
-    const { godkjenninger } = props;
+const Godkjenninger = ({ godkjenninger }: Pick<ArenaPerson, 'godkjenninger'>) => {
     const godkjenningListe = safeMap(godkjenninger, (godkjenning, index) => (
         <div key={`godkjenninger-${index}`} className="underinformasjon">
             <Label size="small" as="p" key={`godkjenninger-${index}`}>

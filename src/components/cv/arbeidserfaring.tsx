@@ -5,9 +5,8 @@ import { safeMap, safeSort } from '../../utils';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { Buldings3Icon } from '@navikt/aksel-icons';
 
-const Arbeidserfaring = (props: Pick<ArenaPerson, 'arbeidserfaring'>) => {
-    const { arbeidserfaring: arenaErfaring } = props;
-    const sortedErfaringer = arenaErfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
+const Arbeidserfaring = ({ arbeidserfaring }: Pick<ArenaPerson, 'arbeidserfaring'>) => {
+    const sortedErfaringer = arbeidserfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
     const erfaringer = safeMap(sortedErfaringer, (erfaring, index) => (
         <div key={`arbeidserfaring-${index}`} className="underinformasjon">
             <Label size="small" as="p">

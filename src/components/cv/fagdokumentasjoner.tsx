@@ -33,8 +33,7 @@ const mapFagdokumentasjonerTilViews = (fagdokumentasjoner: Fagdokumentasjon[]) =
     );
 };
 
-const Fagdokumentasjoner = (props: Pick<ArenaPerson, 'fagdokumentasjoner'>) => {
-    const { fagdokumentasjoner } = props;
+const Fagdokumentasjoner = ({ fagdokumentasjoner }: Pick<ArenaPerson, 'fagdokumentasjoner'>) => {
     const dokumentasjoner =
         fagdokumentasjoner && fagdokumentasjoner.length > 0
             ? mapFagdokumentasjonerTilViews(fagdokumentasjoner)

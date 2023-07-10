@@ -4,12 +4,10 @@ import CvInfo from '../felles/cvinfo';
 import { BulletListIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 
-const Sammendrag = (props: Pick<ArenaPerson, 'sammendrag'>) => {
+const Sammendrag = ({ sammendrag }: Pick<ArenaPerson, 'sammendrag'>) => {
     return (
         <CvInfo header="Sammendrag" icon={<BulletListIcon />}>
-            <BodyShort className="underinformasjon cv-sammendrag">
-                {props.sammendrag ? props.sammendrag : EMDASH}
-            </BodyShort>
+            <BodyShort className="underinformasjon cv-sammendrag">{sammendrag ? sammendrag : EMDASH}</BodyShort>
         </CvInfo>
     );
 };

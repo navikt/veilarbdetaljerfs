@@ -5,10 +5,9 @@ import { safeMap, safeSort } from '../../utils';
 import { TasklistIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 
-const Kurs = (props: Pick<ArenaPerson, 'kurs'>) => {
-    const { kurs: arenaKurs } = props;
-    const sortedKurs = arenaKurs.sort((a, b) => safeSort(b.tidspunkt, a.tidspunkt));
-    const kurs = safeMap(sortedKurs, (enkeltKurs, index) => (
+const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
+    const sortedKurs = kurs.sort((a, b) => safeSort(b.tidspunkt, a.tidspunkt));
+    const mappedKurs = safeMap(sortedKurs, (enkeltKurs, index) => (
         <div key={`kurs-${index}`} className="underinformasjon">
             <Label size="small" as="p">
                 {enkeltKurs.tittel}
@@ -22,7 +21,7 @@ const Kurs = (props: Pick<ArenaPerson, 'kurs'>) => {
 
     return (
         <CvInfo header="Kurs" icon={<TasklistIcon />}>
-            {kurs}
+            {mappedKurs}
         </CvInfo>
     );
 };

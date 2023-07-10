@@ -22,10 +22,8 @@ function mapSprakNivaTilTekst(sprakNiva: SprakNiva | string): string {
     return sprakNiva;
 }
 
-const Sprak = (props: Pick<ArenaPerson, 'sprak'>) => {
-    const { sprak: arenaSprak } = props;
-
-    const sprak = safeMap(arenaSprak, (enkeltSprak, index) => (
+const Sprak = ({ sprak }: Pick<ArenaPerson, 'sprak'>) => {
+    const mappedSprak = safeMap(sprak, (enkeltSprak, index) => (
         <div key={`kompetanse-${index}`} className="underinformasjon">
             <Label size="small" as="p">
                 {enkeltSprak.sprak}
@@ -37,7 +35,7 @@ const Sprak = (props: Pick<ArenaPerson, 'sprak'>) => {
 
     return (
         <CvInfo header="Språk" icon={<Chat2Icon />}>
-            {sprak}
+            {mappedSprak}
         </CvInfo>
     );
 };
