@@ -88,26 +88,24 @@ const PersonaliaBoks = () => {
     }
 
     return (
-        <>
-            <Panel border>
-                <Heading spacing level="2" size="large">
-                    Personalia
-                </Heading>
-                <span className="info_container">
-                    <Telefon telefon={telefon} />
-                    <Adresser
-                        bostedsadresse={bostedsadresse}
-                        oppholdsadresse={oppholdsadresse}
-                        kontaktadresser={kontaktadresser}
-                    />
-                    <Barn barn={filtrertBarneListe} />
-                    <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
-                    <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
-                    <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
-                    <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
-                </span>
-            </Panel>
-        </>
+        <Panel border>
+            <Heading spacing level="2" size="large">
+                Personalia
+            </Heading>
+            <span className="info_container">
+                <Telefon telefon={telefon} />
+                <Adresser
+                    bostedsadresse={bostedsadresse}
+                    oppholdsadresse={oppholdsadresse}
+                    kontaktadresser={kontaktadresser}
+                />
+                <Barn barn={filtrertBarneListe} />
+                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
+                <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
+                <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
+                <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
+            </span>
+        </Panel>
     );
 };
 
