@@ -4,7 +4,6 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 interface Props {
     header: string;
     values?: StringOrNothing[];
-    children?: React.ReactNode;
 }
 export function DobbeltInformasjon(props: Props) {
     return (
@@ -19,7 +18,6 @@ export function DobbeltInformasjon(props: Props) {
                     </BodyShort>
                 ))}
             </span>
-            {props.children}
         </span>
     );
 }

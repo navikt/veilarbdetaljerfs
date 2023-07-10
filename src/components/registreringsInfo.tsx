@@ -10,7 +10,7 @@ import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { formaterDato } from '../utils/formater';
 import { ForeslattProfilering } from './registrering/foreslatt-profilering';
-import { JobbetSammenhengende } from './jobbetsammenhengende';
+import { JobbetSammenhengende } from './registrering/jobbetsammenhengende';
 import Show from './felles/show';
 import PersonverninformasjonUtskrift from './registrering/personverninformasjon-utskrift';
 
@@ -24,7 +24,7 @@ export const Registrering = () => {
         const hentRegistreringsData = async () => {
             try {
                 setLasterRegistreringsdata(true);
-                const [_registrering] = await Promise.all([hentRegistrering(fnr)]);
+                const _registrering = await hentRegistrering(fnr);
                 setRegistrering(_registrering);
             } catch (err) {
                 setRegistreringHarFeil(true);
@@ -61,36 +61,46 @@ export const Registrering = () => {
         (item) => item.sporsmalId === 'dinSituasjon'
     );
     const hvorforSvar: StringOrNothing = regDataHvorfor?.svar;
+    const hvorforSpor: StringOrNothing = regDataHvorfor?.sporsmal || 'Hvorfor registrerer du deg?';
 
     const regDataSisteStilling = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'sisteStilling'
     );
     const sisteStillingSvar: StringOrNothing = regDataSisteStilling?.svar;
+    const sisteStillingSpor: StringOrNothing = regDataSisteStilling?.sporsmal || 'Din siste jobb';
 
     const regDataUtdanning = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanning'
     );
-    const UtdanningSvar: StringOrNothing = regDataUtdanning?.svar;
+    const utdanningSvar: StringOrNothing = regDataUtdanning?.svar;
+    const utdanningSpor: StringOrNothing = regDataUtdanning?.sporsmal || 'Hva er din høyeste fullførte utdanning?';
 
     const regDataUtdanningGodkjent = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanningGodkjent'
     );
     const UtdanningGodkjentSvar: StringOrNothing = regDataUtdanningGodkjent?.svar;
+    const UtdanningGodkjentSpor: StringOrNothing =
+        regDataUtdanningGodkjent?.sporsmal || 'Er utdanningen din godkjent i Norge?';
 
     const regDataUtdanningBestatt = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanningBestatt'
     );
     const UtdanningBestattSvar: StringOrNothing = regDataUtdanningBestatt?.svar;
+    const UtdanningBestattSpor: StringOrNothing = regDataUtdanningBestatt?.sporsmal || 'Er utdanningen din bestått?';
 
     const regDataHelse = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'helseHinder'
     );
     const HelseSvar: StringOrNothing = regDataHelse?.svar;
+    const HelseSpor: StringOrNothing =
+        regDataHelse?.sporsmal || 'Trenger du oppfølging i forbindelse med helseutfordringer?';
 
     const regDataAnnet = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'andreForhold'
     );
     const AnnetSvar: StringOrNothing = regDataAnnet?.svar;
+    const AnnetSpor: StringOrNothing =
+        regDataAnnet?.sporsmal || 'Trenger du oppfølging i forbindelse med andre utfordringer?';
 
     const regIdNavn = registrertAvEnhetID + ' ' + registrertAvNavn;
     const regDato = 'Registrert: ' + formaterDato(datoRegistrert);
@@ -111,28 +121,19 @@ export const Registrering = () => {
                 values={regValues ? regValues : [EMDASH]}
             />
             <span className="registrering_container">
-                <EnkeltInformasjon header="Hvorfor registrerer du deg?" value={hvorforSvar ? hvorforSvar : EMDASH} />
-                <EnkeltInformasjon header="Din siste jobb" value={sisteStillingSvar ? sisteStillingSvar : EMDASH} />
+                <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar ? hvorforSvar : EMDASH} />
+                <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar ? sisteStillingSvar : EMDASH} />
+                <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar ? utdanningSvar : EMDASH} />
                 <EnkeltInformasjon
-                    header="Hva er din høyeste fullførte utdanning?"
-                    value={UtdanningSvar ? UtdanningSvar : EMDASH}
-                />
-                <EnkeltInformasjon
-                    header="Er utdanningen din godkjent i Norge?"
+                    header={UtdanningGodkjentSpor}
                     value={UtdanningGodkjentSvar ? UtdanningGodkjentSvar : EMDASH}
                 />
                 <EnkeltInformasjon
-                    header="Er utdanningen din bestått?"
+                    header={UtdanningBestattSpor}
                     value={UtdanningBestattSvar ? UtdanningBestattSvar : EMDASH}
                 />
-                <EnkeltInformasjon
-                    header="Trenger du oppfølging i forbindelse med helseutfordringer?"
-                    value={HelseSvar ? HelseSvar : EMDASH}
-                />
-                <EnkeltInformasjon
-                    header="Trenger du oppfølging i forbindelse med andre utfordringer?"
-                    value={AnnetSvar ? AnnetSvar : EMDASH}
-                />
+                <EnkeltInformasjon header={HelseSpor} value={HelseSvar ? HelseSvar : EMDASH} />
+                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar ? AnnetSvar : EMDASH} />
             </span>
             <span className="registrering_nedre_container">
                 <JobbetSammenhengende registrering={brukerRegistrering} />

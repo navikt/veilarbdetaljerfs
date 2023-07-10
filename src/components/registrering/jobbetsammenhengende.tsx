@@ -1,5 +1,5 @@
 import { BodyShort, Label, Ingress } from '@navikt/ds-react';
-import { OrdinaerRegistrering, Registrering } from '../data/api/datatyper/registreringsData';
+import { OrdinaerRegistrering, Registrering } from '../../data/api/datatyper/registreringsData';
 
 interface Props {
     registrering: Registrering | undefined;
