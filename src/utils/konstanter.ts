@@ -1,4 +1,5 @@
 import { Gradering, RelasjonsBosted } from '../data/api/datatyper/personalia';
+import EMDASH from './emdash';
 import { OrNothing } from './felles-typer';
 
 export const VEDTAKSSTATUSER = {
@@ -55,4 +56,19 @@ export function hentBorMedBarnBeskrivelse(relasjonsBosted: RelasjonsBosted | nul
 
 export function egenAnsattTekst() {
     return 'Partner er skjermet for innsyn';
+}
+
+export function hentMalform(malform: OrNothing<String>) {
+	switch (malform) {
+		case 'nn':
+			return 'Nynorsk';
+		case 'nb':
+			return 'Bokmål';
+		case 'en':
+			return 'Engelsk';
+		case 'se':
+			return 'Nordsamisk';
+		default:
+			return EMDASH;
+	}
 }

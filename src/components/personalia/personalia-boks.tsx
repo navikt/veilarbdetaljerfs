@@ -1,7 +1,7 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { OrNothing, StringOrNothing } from '../../utils/felles-typer';
+import { OrNothing } from '../../utils/felles-typer';
 import { useAppStore } from '../../stores/app-store';
-import { hentPersonalia } from '../../data/api/fetch';
+import { hentPersonalia, hentTolk } from '../../data/api/fetch';
 import { useEffect, useState } from 'react';
 import {
     Bostedsadresse,
@@ -20,6 +20,10 @@ import { kalkulerAlder } from '../../utils/date-utils';
 import Barn from './barn';
 import Sivilstand from './sivilstand';
 import StatsborgerskapInfo from './statsborgerskapinfo';
+import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
+import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
+import { EnkeltInformasjon } from '../felles/enkeltInfo';
+import { hentMalform } from '../../utils/konstanter';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
@@ -28,13 +32,16 @@ const PersonaliaBoks = () => {
     const [harFeil, setHarFeil] = useState<boolean>(false);
 
     const [personalia, setPersonalia] = useState<PersonaliaV2Info | null>(null);
+    const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
 
     useEffect(() => {
         const hentPersonaliaData = async () => {
             try {
                 setLasterData(true);
-                const _personalia = await hentPersonalia(fnr);
+                const [_personalia, _tolk] = await Promise.all([hentPersonalia(fnr), hentTolk(fnr)]);
+
                 setPersonalia(_personalia);
+                setTolk(_tolk);
             } catch (err) {
                 setHarFeil(true);
             } finally {
@@ -48,7 +55,7 @@ const PersonaliaBoks = () => {
     const bostedsadresse: OrNothing<Bostedsadresse> = personalia?.bostedsadresse;
     const telefon: PersonaliaTelefon[] = personalia?.telefon!;
     const oppholdsadresse: OrNothing<Oppholdsadresse> = personalia?.oppholdsadresse;
-    const kontaktadresser: Kontaktadresse[] = personalia?.kontaktadresser!;
+    const kontaktadresser: Kontaktadresse[] = personalia?.kontaktadresser ?? [];
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
@@ -60,7 +67,9 @@ const PersonaliaBoks = () => {
 
     const partner: PersonaliaPartner | undefined = personalia?.partner;
     const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.sivilstandliste;
-    const statsborgerskap: string[] = personalia?.statsborgerskap!; //kanskje ikke bra at man bruker ! ?
+    const statsborgerskap: string[] = personalia?.statsborgerskap ?? [];
+    const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolk;
+    const maalform: OrNothing<String> = personalia?.malform;
 
     if (lasterData) {
         return (
@@ -93,7 +102,9 @@ const PersonaliaBoks = () => {
                     />
                     <Barn barn={filtrertBarneListe} />
                     <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
-                    <StatsborgerskapInfo statsborgerskap={statsborgerskap} />
+                    <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
+                    <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
+                    <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
                 </span>
             </Panel>
         </>

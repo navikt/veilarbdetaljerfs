@@ -6,6 +6,7 @@ import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunika
 import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
 import { YtelseData } from './datatyper/ytelse';
+import { VergeOgFullmaktData } from './datatyper/vergeOgFullmakt';
 
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
@@ -58,6 +59,13 @@ export const hentVeileder = async (veilederId: StringOrNothing): Promise<Veilede
 
     return handterRespons(respons);
 };
+
+export const hentVergeOgFullmakt = async (fnr: string): Promise<VergeOgFullmaktData | null> => {
+    const url = `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`;
+    const respons = await fetch(url, GEToptions);
+
+    return handterRespons(respons);
+}
 
 export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
     const url = `/veilarboppfolging/api/person/${fnr}/ytelser`;

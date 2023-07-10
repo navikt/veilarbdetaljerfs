@@ -1,22 +1,28 @@
 import { BodyShort } from '@navikt/ds-react';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { isNullOrUndefined } from '../../utils/felles-typer';
 import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
+import EMDASH from '../../utils/emdash';
+import { isNullOrUndefined } from '../../utils/felles-typer';
 
-function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData }) {
+function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | null }) {
     const { tilrettelagtKommunikasjon, ...rest } = props;
-    const { talespraak, tegnspraak } = tilrettelagtKommunikasjon;
 
-    if (isNullOrUndefined(talespraak) && isNullOrUndefined(tegnspraak)) {
-        return null;
+    if (tilrettelagtKommunikasjon) {
+        const { talespraak, tegnspraak } = tilrettelagtKommunikasjon;
+
+        if (!isNullOrUndefined(talespraak))
+            return (
+                <Informasjonsbolk header="Tilrettelagt kommunikasjon" {...rest}>
+                    <div className="innrykk">
+                        {talespraak && <BodyShort>Språktolk: {talespraak}</BodyShort>}
+                        {tegnspraak && <BodyShort>Tegnspråktolk</BodyShort>}
+                    </div>
+                </Informasjonsbolk>
+            );
     }
-
     return (
         <Informasjonsbolk header="Tilrettelagt kommunikasjon" {...rest}>
-            <div className="innrykk">
-                {talespraak && <BodyShort>Språktolk: {talespraak}</BodyShort>}
-                {tegnspraak && <BodyShort>Tegnspråktolk</BodyShort>}
-            </div>
+            <div className="innrykk">{<BodyShort>Språktolk: {EMDASH}</BodyShort>}</div>
         </Informasjonsbolk>
     );
 }
