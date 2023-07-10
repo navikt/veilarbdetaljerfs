@@ -32,3 +32,13 @@
 .profilering_boks {
     margin-top: 20px;
 }
+.registrering_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    padding-top: 20px;
+}
+
+.registrering_nedre_container {
+    padding: 20px;
+}

@@ -21,7 +21,7 @@ export const Registrering = () => {
     const [registreringHarFeil, setRegistreringHarFeil] = useState<boolean>(false);
 
     useEffect(() => {
-        const hentOverblikkData = async () => {
+        const hentRegistreringsData = async () => {
             try {
                 setLasterRegistreringsdata(true);
                 const [_registrering] = await Promise.all([hentRegistrering(fnr)]);
@@ -33,7 +33,7 @@ export const Registrering = () => {
             }
         };
 
-        hentOverblikkData();
+        hentRegistreringsData();
     }, [fnr]);
 
     if (lasterRegistreringsdata) {
@@ -92,7 +92,7 @@ export const Registrering = () => {
     );
     const AnnetSvar: StringOrNothing = regDataAnnet?.svar;
 
-    const regIdNavn = registrertAvID + ' ' + registrertAvNavn;
+    const regIdNavn = 'Registrert av: ' + registrertAvID + ' ' + registrertAvNavn;
     const regDato = 'Registrert: ' + formaterDato(datoRegistrert);
     const regAv = 'Registrert av: ' + registrertAvIdent + ', ' + regIdNavn;
 
@@ -106,8 +106,8 @@ export const Registrering = () => {
             <Heading spacing level="2" size="large">
                 Registering
             </Heading>
-            <DobbeltInformasjon header={regAv ? regAv : EMDASH} values={regValues ? regValues : [EMDASH]} />
-            <span className="info_container">
+            <DobbeltInformasjon header={regIdNavn ? regIdNavn : EMDASH} values={regValues ? regValues : [EMDASH]} />
+            <span className="registrering_container">
                 <EnkeltInformasjon header="Hvorfor registrerer du deg?" value={hvorforSvar ? hvorforSvar : EMDASH} />
                 <EnkeltInformasjon header="Din siste jobb" value={sisteStillingSvar ? sisteStillingSvar : EMDASH} />
                 <EnkeltInformasjon
@@ -130,14 +130,14 @@ export const Registrering = () => {
                     header="Trenger du oppfølging i forbindelse med andre utfordringer?"
                     value={AnnetSvar ? AnnetSvar : EMDASH}
                 />
-                <br />
+            </span>
+            <span className="registrering_nedre_container">
                 <JobbetSammenhengende registrering={brukerRegistrering} />
-                <br />
                 <Show if={brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null}>
                     <PersonverninformasjonUtskrift type={type} />
                 </Show>
+                <ForeslattProfilering registrering={brukerRegistrering} />
             </span>
-            <ForeslattProfilering registrering={brukerRegistrering} />
         </Panel>
     );
 };
