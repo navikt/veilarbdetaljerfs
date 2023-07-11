@@ -7,7 +7,7 @@ import { RedigerCV } from './rediger-cv';
 import { byggPamUrl } from '../../utils';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../../data/api/fetch';
 import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster } from '../felles/minikomkomponenter';
+import { Errormelding, Laster, IngenCv } from '../felles/minikomkomponenter';
 import SistEndret from '../felles/sist-endret';
 import Sammendrag from './sammendrag';
 import Arbeidserfaring from './arbeidserfaring';
@@ -116,8 +116,11 @@ const CvInnhold = () => {
         );
     }
     return (
-        <Panel>
-            <Errormelding />
+        <Panel border className="cv-panel">
+            <Heading spacing level="2" size="large">
+                CV
+            </Heading>
+            <IngenCv />
         </Panel>
     );
 };
