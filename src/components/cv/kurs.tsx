@@ -1,5 +1,5 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato, formaterVarighet } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { TasklistIcon } from '@navikt/aksel-icons';
@@ -20,9 +20,9 @@ const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
     ));
 
     return (
-        <CvInfo header="Kurs" icon={<TasklistIcon />}>
+        <Informasjonsbolk header="Kurs" icon={<TasklistIcon />} headerTypo="ingress">
             {mappedKurs}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 

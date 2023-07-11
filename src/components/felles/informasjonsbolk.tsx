@@ -6,13 +6,12 @@ interface Props {
     header: string;
     headerTypo?: 'ingress' | 'element';
     children: React.ReactNode;
-    className?: string;
     icon?: React.ReactNode;
 }
 
-function Informasjonsbolk({ header, headerTypo = 'element', children, className, icon, ...rest }: Props) {
+function Informasjonsbolk({ header, headerTypo = 'element', children, icon }: Props) {
     return (
-        <div className={'informasjonsbolk'} {...rest}>
+        <div className={'informasjonsbolk'}>
             <span className="informasjonsbolk-tittel">
                 {icon}
                 {headerTypo === 'ingress' && (

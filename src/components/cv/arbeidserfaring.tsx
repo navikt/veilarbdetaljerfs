@@ -1,5 +1,5 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { BodyShort, Label } from '@navikt/ds-react';
@@ -28,9 +28,9 @@ const Arbeidserfaring = ({ arbeidserfaring }: Pick<ArenaPerson, 'arbeidserfaring
     ));
 
     return (
-        <CvInfo header="Arbeidsforhold" icon={<Buldings3Icon />}>
+        <Informasjonsbolk header="Arbeidsforhold" icon={<Buldings3Icon />} headerTypo="ingress">
             {erfaringer}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 
