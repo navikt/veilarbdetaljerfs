@@ -7,20 +7,16 @@ import { isNullOrUndefined } from '../../utils/felles-typer';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 
 function Epost(props: { epost: OrNothing<PersonaliaEpost> }) {
-    const { epost, ...rest } = props;
+    const { epost } = props;
 
     if (isNullOrUndefined(epost?.epostAdresse)) {
-        return (
-            <Informasjonsbolk header="Epost" {...rest}>
-                {EMDASH}
-            </Informasjonsbolk>
-        );
+        return <Informasjonsbolk header="Epost">{EMDASH}</Informasjonsbolk>;
     }
 
     const { epostAdresse, epostSistOppdatert, master } = epost!;
 
     return (
-        <Informasjonsbolk header="Epost" {...rest}>
+        <Informasjonsbolk header="Epost">
             <BodyShort className="innrykk wrap-anywhere flex-align-center">{epostAdresse}</BodyShort>
             <Detail className="kilde-tekst">
                 <span>
