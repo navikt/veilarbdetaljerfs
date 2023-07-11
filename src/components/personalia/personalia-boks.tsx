@@ -24,7 +24,11 @@ import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrette
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
 import { hentMalform } from '../../utils/konstanter';
-import { VergeOgFullmaktData, VergemaalEllerFremtidsfullmakt } from '../../data/api/datatyper/vergeOgFullmakt';
+import {
+    Fullmakter,
+    VergeOgFullmaktData,
+    VergemaalEllerFremtidsfullmakt
+} from '../../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './vergemaal';
 import Fullmakt from './fullmakt';
 
@@ -79,9 +83,9 @@ const PersonaliaBoks = () => {
     const statsborgerskap: string[] = personalia?.statsborgerskap ?? [];
     const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const maalform: OrNothing<String> = personalia?.malform;
-    const vergemaalEllerFremtidsfullmakt: OrNothing<VergeOgFullmaktData> =
-        vergeOgFullmakt?.vergemaalEllerFremtidsfullmakt;
-    const fullmakt: OrNothing<VergeOgFullmaktData> = vergeOgFullmakt?.fullmakt;
+    const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
+        vergeOgFullmakt?.vergemaalEllerFremtidsfullmakt ?? [];
+    const fullmakt: Fullmakter[] = vergeOgFullmakt?.fullmakt ?? [];
 
     if (lasterData) {
         return (
@@ -116,8 +120,10 @@ const PersonaliaBoks = () => {
                 <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
                 <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
                 <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
-                <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalEllerFremtidsfullmakt} />
-                <Fullmakt fullmakt={fullmakt} />
+                <div>
+                    <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
+                    <Fullmakt fullmakt={fullmakt} />
+                </div>
             </span>
         </Panel>
     );

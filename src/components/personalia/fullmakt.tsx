@@ -2,6 +2,7 @@ import { BodyShort, Detail } from '@navikt/ds-react';
 import { Fullmakter, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato, isNotEmptyArray } from '../../utils/formater';
+import EMDASH from '../../utils/emdash';
 
 function FullmaktigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     const { motpartsPersonident, motpartsPersonNavn, motpartsRolle, omraader, gyldigFraOgMed, gyldigTilOgMed } =
@@ -15,7 +16,7 @@ function FullmaktigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
             <div className="underinformasjon innrykk">
                 <Detail>
                     <b>
-                        F{motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
+                        {motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
                     </b>
                 </Detail>
                 <BodyShort>{`${fornavn} ${mellomnavn || ''} ${etternavn}`}</BodyShort>
@@ -28,7 +29,7 @@ function FullmaktigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
 }
 
 function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
-    const { fullmakt, ...rest } = props;
+    const { fullmakt } = props;
 
     let fullmaktListe;
 
@@ -37,14 +38,10 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
             <FullmaktigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
         ));
     } else {
-        return null;
+        return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
     }
 
-    return (
-        <Informasjonsbolk header="Fullmakter" {...rest}>
-            {fullmaktListe}
-        </Informasjonsbolk>
-    );
+    return <Informasjonsbolk header="Fullmakter">{fullmaktListe}</Informasjonsbolk>;
 }
 
 export default Fullmakt;

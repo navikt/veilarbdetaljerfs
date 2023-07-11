@@ -8,8 +8,8 @@ import {
 import { BodyShort, Detail } from '@navikt/ds-react';
 import { formaterDato, isNotEmptyArray } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import EMDASH from '../../utils/emdash';
 import { isNullOrUndefined } from '../../utils/felles-typer';
+import EMDASH from '../../utils/emdash';
 
 function vergetypeBeskrivelse(vergeType: Vergetype) {
     switch (vergeType) {
@@ -79,7 +79,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
     const { type, embete, vergeEllerFullmektig, folkeregistermetadata } = props.vergemaal;
     const { ajourholdstidspunkt, gyldighetstidspunkt } = folkeregistermetadata;
 
-    if (!isNullOrUndefined(folkeregistermetadata)) {
+    if (!isNullOrUndefined(props)) {
         return (
             <div className="underinformasjon innrykk">
                 <BodyShort>{vergetypeBeskrivelse(type)}</BodyShort>
@@ -100,7 +100,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
 }
 
 function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullmakt'>) {
-    const { vergemaalEllerFremtidsfullmakt, ...rest } = props;
+    const { vergemaalEllerFremtidsfullmakt } = props;
 
     let vergemaalListe;
 
@@ -109,14 +109,10 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
             <Verge vergemaal={vergemaal} key={index} />
         ));
     } else {
-        return null;
+        return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
     }
 
-    return (
-        <Informasjonsbolk header="Bruker er under vergemål" {...rest}>
-            {vergemaalListe}
-        </Informasjonsbolk>
-    );
+    return <Informasjonsbolk header="Bruker er under vergemål">{vergemaalListe}</Informasjonsbolk>;
 }
 
 export default Vergemaal;
