@@ -9,9 +9,7 @@ import {
     Ukjentbosted,
     Utenlandskadresse,
     UtenlandskadresseIFrittFormat,
-    Vegadresse,
-    Oppholdsadresse,
-    Bostedsadresse
+    Vegadresse
 } from '../../data/api/datatyper/personalia';
 import { OrNothing, isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
 
