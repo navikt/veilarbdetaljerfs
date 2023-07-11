@@ -17,7 +17,7 @@ export const Ytelser = () => {
         const hentYtelserData = async () => {
             try {
                 setLasterYtelserdata(true);
-                const [_ytelser] = await Promise.all([hentYtelser(fnr)]);
+                const _ytelser = await hentYtelser(fnr);
                 setYtelser(_ytelser);
             } catch (err) {
                 setYtelserHarFeil(true);
