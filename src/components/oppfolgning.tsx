@@ -30,15 +30,15 @@ import {
     hentTolkTekst,
     hentVeilederTekst,
     mapHovedmalTilTekst,
+    mapInnsatsgruppeTilTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
-import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
+import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato, kalkulerAlder } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
-import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 
-const Nokkelinfo = () => {
+const Oppfolgning = () => {
     const { fnr } = useAppStore();
 
     const [lasterData, setLasterData] = useState<boolean>(true);
@@ -47,24 +47,15 @@ const Nokkelinfo = () => {
     const [veileder, setVeileder] = useState<VeilederData | null>(null);
     const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null>(null);
     const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
-    const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
-    const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
-    const [ytelser, setYtelser] = useState<YtelseData | null>(null);
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
 
     useEffect(() => {
-        const hentOverblikkData = async () => {
+        const hentOppfolgningsData = async () => {
             try {
                 setLasterData(true);
-                const [_oppfolgingsstatus, _personalia, _registrering, _tolk, _ytelser, _cvOgJobbonsker] =
-                    await Promise.all([
-                        hentOppfolgingsstatus(fnr),
-                        hentPersonalia(fnr),
-                        hentRegistrering(fnr),
-                        hentTolk(fnr),
-                        hentYtelser(fnr),
-                        hentCvOgJobbonsker(fnr)
-                    ]);
+                const [_oppfolgingsstatus, _personalia] = await Promise.all([
+                    hentOppfolgingsstatus(fnr),
+                    hentPersonalia(fnr)
+                ]);
 
                 if (_oppfolgingsstatus !== null && _oppfolgingsstatus?.veilederId !== null) {
                     const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
@@ -73,10 +64,6 @@ const Nokkelinfo = () => {
 
                 setOppfolgingsstatus(_oppfolgingsstatus);
                 setPerson(_personalia);
-                setRegistrering(_registrering);
-                setTolk(_tolk);
-                setYtelser(_ytelser);
-                setCvOgJobbonsker(_cvOgJobbonsker);
             } catch (err) {
                 setHarFeil(true);
             } finally {
@@ -84,25 +71,16 @@ const Nokkelinfo = () => {
             }
         };
 
-        hentOverblikkData();
+        hentOppfolgningsData();
     }, [fnr]);
 
-    const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
-    const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
-    const onsketYrkeTitles: string[] = cvOgJobbonsker?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
-    const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
-    const MAX_ALDER_BARN = 21;
-    const barn: PersonsBarn[] =
-        (person?.barn &&
-            person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
-        [];
+    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
+    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
 
     if (lasterData) {
         return (
-            <Panel border className="nokkelinfo_panel">
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -110,7 +88,7 @@ const Nokkelinfo = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="nokkelinfo_panel">
+            <Panel border className="info_panel">
                 <Errormelding />
             </Panel>
         );
@@ -118,21 +96,17 @@ const Nokkelinfo = () => {
 
     return (
         <>
-            <Panel border className="nokkelinfo_panel">
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="large">
-                    Nøkkelinfo
+                    Oppfølgning
                 </Heading>
-                <span className="nokkelinfo_container">
-                    <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
-                    <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
+                <span className="info_container">
+                    <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
+                    <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
-                    <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
-                    <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
+                    <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
+                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
-                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                    <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
                 </span>
             </Panel>
             <PilotAlert />
@@ -140,4 +114,4 @@ const Nokkelinfo = () => {
     );
 };
 
-export default Nokkelinfo;
+export default Oppfolgning;
