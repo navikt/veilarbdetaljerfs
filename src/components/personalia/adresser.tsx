@@ -15,24 +15,24 @@ import {
 } from '../../data/api/datatyper/personalia';
 import { OrNothing, isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
 
-function adresseForVisning(props: Oppholdsadresse | Bostedsadresse | Kontaktadresse) {
-    if (props.vegadresse) {
-        return <VegAdresse adresse={props.vegadresse} />;
-    } else if ('matrikkeladresse' in props && props.matrikkeladresse) {
-        return <MatrikkelAdresse adresse={props.matrikkeladresse} />;
-    } else if (props.utenlandskAdresse) {
-        return <UtenlandskAdresse adresse={props.utenlandskAdresse} />;
-    } else if ('ukjentBosted' in props && props?.ukjentBosted) {
-        return <UkjentBosted adresse={props.ukjentBosted} />;
-    } else if ('postboksadresse' in props && props.postboksadresse) {
-        return <PostboksAdresse adresse={props.postboksadresse} />;
-    } else if ('postadresseIFrittFormat' in props && props.postadresseIFrittFormat) {
-        return <PostAdresseIFrittFormat adresse={props.postadresseIFrittFormat} />;
-    } else if ('utenlandskAdresseIFrittFormat' in props && props.utenlandskAdresseIFrittFormat) {
-        return <UtenlandskAdresseIFrittFormat adresse={props.utenlandskAdresseIFrittFormat} />;
-    }
-    return null;
-}
+//function adresseForVisning(props: Oppholdsadresse | Bostedsadresse | Kontaktadresse) {
+//if (props.vegadresse) {
+//return <VegAdresse adresse={props.vegadresse} />;
+//} else if ('matrikkeladresse' in props && props.matrikkeladresse) {
+//return <MatrikkelAdresse adresse={props.matrikkeladresse} />;
+//} else if (props.utenlandskAdresse) {
+//return <UtenlandskAdresse adresse={props.utenlandskAdresse} />;
+//} else if ('ukjentBosted' in props && props?.ukjentBosted) {
+//return <UkjentBosted adresse={props.ukjentBosted} />;
+//} else if ('postboksadresse' in props && props.postboksadresse) {
+//return <PostboksAdresse adresse={props.postboksadresse} />;
+//} else if ('postadresseIFrittFormat' in props && props.postadresseIFrittFormat) {
+//return <PostAdresseIFrittFormat adresse={props.postadresseIFrittFormat} />;
+//} else if ('utenlandskAdresseIFrittFormat' in props && props.utenlandskAdresseIFrittFormat) {
+//return <UtenlandskAdresseIFrittFormat adresse={props.utenlandskAdresseIFrittFormat} />;
+//}
+//return null;
+//}
 
 function BostedsAdresse(props: Pick<PersonaliaV2Info, 'bostedsadresse'>) {
     if (isNullOrUndefined(props.bostedsadresse)) {
