@@ -9,13 +9,10 @@ import {
     hentRegistrering,
     hentTolk,
     hentVeileder,
-    hentYtelser
+    hentYtelser,
+    hentCvOgJobbonsker
 } from '../data/api/fetch';
-import {
-    OppfolgingsstatusData,
-    ArenaHovedmalKode,
-    ArenaServicegruppeKode
-} from '../data/api/datatyper/oppfolgingsstatus';
+import { OppfolgingsstatusData, ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
 import { PersonaliaV2Info, PersonsBarn } from '../data/api/datatyper/personalia';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
@@ -23,15 +20,7 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import {
-    getVedtakForVisning,
-    hentGeografiskEnhetTekst,
-    hentOppfolgingsEnhetTekst,
-    hentTolkTekst,
-    hentVeilederTekst,
-    mapHovedmalTilTekst,
-    mapServicegruppeTilTekst
-} from '../utils/text-mapper';
+import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato } from '../utils/formater';
@@ -77,6 +66,7 @@ const Nokkelinfo = () => {
                 setRegistrering(_registrering);
                 setTolk(_tolk);
                 setYtelser(_ytelser);
+                setCvOgJobbonsker(_cvOgJobbonsker);
                 setCvOgJobbonsker(_cvOgJobbonsker);
             } catch (err) {
                 setHarFeil(true);
@@ -126,14 +116,14 @@ const Nokkelinfo = () => {
                 <span className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
+                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
                     <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                     <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
-                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
+                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
+                    <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                 </span>
             </Panel>
             <PilotAlert />
