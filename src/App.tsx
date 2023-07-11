@@ -13,9 +13,7 @@ const App = (props: AppProps) => {
             <StoreProvider fnr={props.fnr}>
                 <Nokkelinfo />
 
-                <div className="main_grid">
-                    <Oppfolgning />
-                </div>
+                <div className="main_grid"></div>
             </StoreProvider>
         </main>
     );
