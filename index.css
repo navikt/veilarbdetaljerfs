@@ -8,3 +8,43 @@
     margin-right: 40px;
     grid-gap: 20px;
 }
+
+.underinformasjon {
+    margin-bottom: 1rem;
+}
+
+.innrykk {
+    padding-left: 0.5rem;
+}
+
+.info_panel {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: var(--a-font-line-height-medium);
+}
+
+.informasjonsbolk {
+    margin: 1rem 0 1rem 0;
+}
+
+.informasjonsbolk-tittel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: var(--a-spacing-1);
+}
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.kilde-tekst {
+    max-width: 20rem;
+    padding: 0 0.5rem;
+
+    color: var(--a-gray-600);
+    line-height: 1rem;
+}

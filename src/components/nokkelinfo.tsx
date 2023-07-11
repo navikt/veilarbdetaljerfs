@@ -34,9 +34,10 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
-import { formaterDato, kalkulerAlder } from '../utils/formater';
+import { formaterDato } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
 import { ArenaPerson } from '../data/api/datatyper/arenaperson';
+import { kalkulerAlder } from '../utils/date-utils';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();

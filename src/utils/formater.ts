@@ -1,6 +1,6 @@
 import { KursVarighetEnhet, Kursvarighet } from '../data/api/datatyper/arenaperson';
 import EMDASH from './emdash';
-import { isNullOrUndefined } from './felles-typer';
+import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 
 export interface DatoType {
     year: string;
@@ -31,9 +31,52 @@ export function formaterDato(datoObjekt: DatoType | string | undefined | null, o
     return lokalDato.toLocaleDateString('no-NO', options);
 }
 
-export function kalkulerAlder(fodselsdato: Date): number {
-    const diff = Date.now() - fodselsdato.getTime();
-    return new Date(diff).getUTCFullYear() - 1970;
+export function isNotEmptyArray(param: any[]): boolean {
+    return param && param.length !== 0;
+}
+
+export function removeWhitespace(input: string) {
+    return input.replace(/ /g, '');
+}
+
+export function formatNumber(format: string, streng: string) {
+    let result = '';
+    let strengIndex = 0;
+
+    for (let i = 0; i < format.length; i++) {
+        if (streng[strengIndex] === undefined) {
+            break;
+        }
+        if (format[i] === '#') {
+            result += streng[strengIndex++];
+        } else {
+            result += format[i];
+        }
+    }
+
+    return result;
+}
+
+export function formaterTelefonnummer(landkode: StringOrNothing, telefonnummer: string) {
+    const utenSpace = removeWhitespace(telefonnummer);
+    const formatertLandkode = landkode ? landkode + ' ' : '';
+
+    if (utenSpace.length !== 8) {
+        return telefonnummer;
+    } else if (utenSpace.substring(0, 3) === '800') {
+        return formatertLandkode + formatNumber('### ## ###', utenSpace);
+    } else {
+        return formatertLandkode + formatNumber('## ## ## ##', utenSpace);
+    }
+}
+export function formateStringInUpperAndLowerCase(str: OrNothing<string>) {
+    return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : EMDASH;
+}
+
+export function formatStringInUpperAndLowerCaseUnderscore(str: OrNothing<string>) {
+    return str
+        ? str.replaceAll('_', ' ').charAt(0).toUpperCase() + str.replaceAll('_', ' ').slice(1).toLowerCase()
+        : EMDASH;
 }
 
 export function formaterVarighet(varighet: Kursvarighet): string {
