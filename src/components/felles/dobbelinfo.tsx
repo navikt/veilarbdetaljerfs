@@ -4,13 +4,12 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 interface Props {
     header: string;
     values?: StringOrNothing[];
-    children?: React.ReactNode;
 }
 export function DobbeltInformasjon(props: Props) {
     return (
         <span>
             <Heading level="5" size="xsmall">
-                {props.header}:
+                {props.header}
             </Heading>
             <span>
                 {props.values?.map((value, index) => (
@@ -19,7 +18,6 @@ export function DobbeltInformasjon(props: Props) {
                     </BodyShort>
                 ))}
             </span>
-            {props.children}
         </span>
     );
 }

@@ -1,3 +1,4 @@
+import { KursVarighetEnhet, Kursvarighet } from '../data/api/datatyper/arenaperson';
 import EMDASH from './emdash';
 import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 
@@ -76,4 +77,31 @@ export function formatStringInUpperAndLowerCaseUnderscore(str: OrNothing<string>
     return str
         ? str.replaceAll('_', ' ').charAt(0).toUpperCase() + str.replaceAll('_', ' ').slice(1).toLowerCase()
         : EMDASH;
+}
+
+export function formaterVarighet(varighet: Kursvarighet): string {
+    if (varighet.varighet == null || varighet.tidsenhet == null) {
+        return EMDASH;
+    }
+    const storreEnnEn = varighet.varighet > 1;
+    let enhetTekst = '';
+
+    switch (varighet.tidsenhet) {
+        case KursVarighetEnhet.TIME:
+            enhetTekst = storreEnnEn ? 'timer' : 'time';
+            break;
+        case KursVarighetEnhet.DAG:
+            enhetTekst = storreEnnEn ? 'dager' : 'dag';
+            break;
+        case KursVarighetEnhet.UKE:
+            enhetTekst = storreEnnEn ? 'uker' : 'uke';
+            break;
+        case KursVarighetEnhet.MND:
+            enhetTekst = storreEnnEn ? 'måneder' : 'måned';
+            break;
+        default:
+            return EMDASH;
+    }
+
+    return `${varighet.varighet} ${enhetTekst}`;
 }
