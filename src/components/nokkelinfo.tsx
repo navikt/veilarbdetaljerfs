@@ -24,7 +24,6 @@ import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTe
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato } from '../utils/formater';
-import { PilotAlert } from './pilotAlert';
 import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { kalkulerAlder } from '../utils/date-utils';
 
@@ -66,7 +65,6 @@ const Nokkelinfo = () => {
                 setRegistrering(_registrering);
                 setTolk(_tolk);
                 setYtelser(_ytelser);
-                setCvOgJobbonsker(_cvOgJobbonsker);
                 setCvOgJobbonsker(_cvOgJobbonsker);
             } catch (err) {
                 setHarFeil(true);
@@ -126,7 +124,6 @@ const Nokkelinfo = () => {
                     <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                 </span>
             </Panel>
-            <PilotAlert />
         </>
     );
 };
