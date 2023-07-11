@@ -10,7 +10,7 @@ export function EnkeltInformasjon(props: Props) {
     return (
         <span>
             <Heading level="5" size="xsmall">
-                {props.header}:
+                {props.header}
             </Heading>
             <BodyShort size="small">{props?.value}</BodyShort>
         </span>
