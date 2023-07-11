@@ -59,16 +59,16 @@ export function egenAnsattTekst() {
 }
 
 export function hentMalform(malform: OrNothing<String>) {
-	switch (malform) {
-		case 'nn':
-			return 'Nynorsk';
-		case 'nb':
-			return 'Bokmål';
-		case 'en':
-			return 'Engelsk';
-		case 'se':
-			return 'Nordsamisk';
-		default:
-			return EMDASH;
-	}
+    switch (malform) {
+        case 'nn':
+            return 'Nynorsk';
+        case 'nb':
+            return 'Bokmål';
+        case 'en':
+            return 'Engelsk';
+        case 'se':
+            return 'Nordsamisk';
+        default:
+            return EMDASH;
+    }
 }

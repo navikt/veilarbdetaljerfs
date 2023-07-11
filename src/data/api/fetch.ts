@@ -68,7 +68,7 @@ export const hentVergeOgFullmakt = async (fnr: string): Promise<VergeOgFullmaktD
     const respons = await fetch(url, GEToptions);
 
     return handterRespons(respons);
-}
+};
 
 export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
     const url = `/veilarboppfolging/api/person/${fnr}/ytelser`;

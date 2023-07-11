@@ -70,7 +70,7 @@ export function formaterTelefonnummer(landkode: StringOrNothing, telefonnummer: 
     }
 }
 export function formateStringInUpperAndLowerCase(str: OrNothing<string>) {
-	return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : EMDASH;
+    return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : EMDASH;
 }
 
 export function formatStringInUpperAndLowerCaseUnderscore(str: OrNothing<string>) {
