@@ -36,18 +36,12 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
     );
 }
 
-function Telefon(props: Pick<PersonaliaV2Info, 'telefon'>) {
-    const { telefon, ...rest } = props;
-
+function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
     const telefonListe = isNotEmptyArray(telefon)
         ? telefon.map((telefon, index) => <TelefonNrMedKilde telefon={telefon} key={index} />)
         : EMDASH;
 
-    return (
-        <Informasjonsbolk header="Telefon" {...rest}>
-            {telefonListe}
-        </Informasjonsbolk>
-    );
+    return <Informasjonsbolk header="Telefon">{telefonListe}</Informasjonsbolk>;
 }
 
 export default Telefon;

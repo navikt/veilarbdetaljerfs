@@ -10,34 +10,9 @@
     line-height: var(--a-font-line-height-medium);
 }
 
-.cv-tittel {
-    font-weight: var(--a-font-weight-bold);
-    font-size: var(--a-font-size-heading-xsmall);
-    margin-bottom: 100px;
-    display: block;
-}
 
 @media only screen and (max-width: 1500px) {
     .cv-container {
         grid-template-columns: 1fr;
     }
-}
-
-.cv-info {
-    margin: 1rem 10px;
-}
-
-.cv-info-tittel {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: var(--a-spacing-1);
-}
-
-.cv-sammendrag {
-    width: 100%;
-}
-
-.underinformasjon {
-    margin-bottom: 1rem;
 }

@@ -1,5 +1,5 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
 import { SealCheckmarkIcon } from '@navikt/aksel-icons';
@@ -24,9 +24,9 @@ const Godkjenninger = ({ godkjenninger }: Pick<ArenaPerson, 'godkjenninger'>) =>
     ));
 
     return (
-        <CvInfo header="Offentlige godkjenninger" icon={<SealCheckmarkIcon />}>
+        <Informasjonsbolk header="Offentlige godkjenninger" icon={<SealCheckmarkIcon />} headerTypo="ingress">
             {godkjenningListe}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 

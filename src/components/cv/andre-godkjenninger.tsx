@@ -1,5 +1,6 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import CvInfo from '../felles/cvinfo';
+
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
 import { FolderPlusIcon } from '@navikt/aksel-icons';
@@ -24,9 +25,9 @@ const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodk
     ));
 
     return (
-        <CvInfo header="Andre godkjenninger" icon={<FolderPlusIcon />}>
+        <Informasjonsbolk header="Andre godkjenninger" icon={<FolderPlusIcon />} headerTypo="ingress">
             {annenGodkjenningListe}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 

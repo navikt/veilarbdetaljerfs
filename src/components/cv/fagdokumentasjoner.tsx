@@ -1,6 +1,6 @@
 import { ArenaPerson, Fagdokumentasjon, FagdokumentType } from '../../data/api/datatyper/arenaperson';
 import EMDASH from '../../utils/emdash';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { WrenchIcon } from '@navikt/aksel-icons';
 import { BodyShort, Label } from '@navikt/ds-react';
 
@@ -40,9 +40,9 @@ const Fagdokumentasjoner = ({ fagdokumentasjoner }: Pick<ArenaPerson, 'fagdokume
             : EMDASH;
 
     return (
-        <CvInfo header="Fagbrev" icon={<WrenchIcon />}>
+        <Informasjonsbolk header="Fagbrev" icon={<WrenchIcon />} headerTypo="ingress">
             {dokumentasjoner}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 

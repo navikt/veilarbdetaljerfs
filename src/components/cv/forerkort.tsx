@@ -1,5 +1,5 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { safeMap } from '../../utils';
 import { CarIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
@@ -13,9 +13,9 @@ const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
     ));
 
     return (
-        <CvInfo header="Førerkort" icon={<CarIcon />}>
+        <Informasjonsbolk header="Førerkort" icon={<CarIcon />} headerTypo="ingress">
             {forerkortListe}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 
