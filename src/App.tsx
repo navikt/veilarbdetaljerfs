@@ -1,5 +1,6 @@
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
+import CvInnhold from './components/cv/cv-innhold';
 
 export interface AppProps {
     fnr: string;
@@ -12,7 +13,9 @@ const App = (props: AppProps) => {
             <StoreProvider fnr={props.fnr}>
                 <Nokkelinfo />
 
-                <div className="main_grid"></div>
+                <div className="main_grid">
+                    <CvInnhold />
+                </div>
             </StoreProvider>
         </main>
     );
