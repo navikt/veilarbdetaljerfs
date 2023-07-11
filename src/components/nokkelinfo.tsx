@@ -9,13 +9,10 @@ import {
     hentRegistrering,
     hentTolk,
     hentVeileder,
-    hentYtelser
+    hentYtelser,
+    hentCvOgJobbonsker
 } from '../data/api/fetch';
-import {
-    OppfolgingsstatusData,
-    ArenaHovedmalKode,
-    ArenaServicegruppeKode
-} from '../data/api/datatyper/oppfolgingsstatus';
+import { OppfolgingsstatusData, ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
 import { PersonaliaV2Info, PersonsBarn } from '../data/api/datatyper/personalia';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
@@ -23,19 +20,12 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import {
-    getVedtakForVisning,
-    hentGeografiskEnhetTekst,
-    hentOppfolgingsEnhetTekst,
-    hentTolkTekst,
-    hentVeilederTekst,
-    mapHovedmalTilTekst,
-    mapServicegruppeTilTekst
-} from '../utils/text-mapper';
+import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import EMDASH from '../utils/emdash';
 import { formaterDato } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
+import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { kalkulerAlder } from '../utils/date-utils';
 
 const Nokkelinfo = () => {
@@ -50,18 +40,21 @@ const Nokkelinfo = () => {
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
     const [ytelser, setYtelser] = useState<YtelseData | null>(null);
+    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
 
     useEffect(() => {
         const hentOverblikkData = async () => {
             try {
                 setLasterData(true);
-                const [_oppfolgingsstatus, _personalia, _registrering, _tolk, _ytelser] = await Promise.all([
-                    hentOppfolgingsstatus(fnr),
-                    hentPersonalia(fnr),
-                    hentRegistrering(fnr),
-                    hentTolk(fnr),
-                    hentYtelser(fnr)
-                ]);
+                const [_oppfolgingsstatus, _personalia, _registrering, _tolk, _ytelser, _cvOgJobbonsker] =
+                    await Promise.all([
+                        hentOppfolgingsstatus(fnr),
+                        hentPersonalia(fnr),
+                        hentRegistrering(fnr),
+                        hentTolk(fnr),
+                        hentYtelser(fnr),
+                        hentCvOgJobbonsker(fnr)
+                    ]);
 
                 if (_oppfolgingsstatus !== null && _oppfolgingsstatus?.veilederId !== null) {
                     const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
@@ -73,6 +66,8 @@ const Nokkelinfo = () => {
                 setRegistrering(_registrering);
                 setTolk(_tolk);
                 setYtelser(_ytelser);
+                setCvOgJobbonsker(_cvOgJobbonsker);
+                setCvOgJobbonsker(_cvOgJobbonsker);
             } catch (err) {
                 setHarFeil(true);
             } finally {
@@ -85,11 +80,11 @@ const Nokkelinfo = () => {
 
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
+    const onsketYrkeTitles: string[] = cvOgJobbonsker?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
-    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
         (person?.barn &&
@@ -121,16 +116,14 @@ const Nokkelinfo = () => {
                 <span className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
+                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
-                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
                     <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                     <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                    <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
+                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
                     <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
-                    <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
-                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                    <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
                 </span>
             </Panel>
             <PilotAlert />
