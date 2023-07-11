@@ -51,6 +51,7 @@ const Oppfolgning = () => {
                 setOppfolgingsstatus(_oppfolgingsstatus);
                 setPerson(_personalia);
             } catch (err) {
+                setLasterData(false);
                 setHarFeil(true);
             } finally {
                 setLasterData(false);
