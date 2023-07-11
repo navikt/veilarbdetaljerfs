@@ -1,5 +1,5 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { NewspaperIcon } from '@navikt/aksel-icons';
@@ -22,9 +22,9 @@ const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) =>
     ));
 
     return (
-        <CvInfo header="Andre erfaringer" icon={<NewspaperIcon />}>
+        <Informasjonsbolk header="Andre erfaringer" icon={<NewspaperIcon />} headerTypo="ingress">
             {erfaringer}
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 
