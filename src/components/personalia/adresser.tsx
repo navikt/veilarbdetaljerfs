@@ -44,8 +44,6 @@ function BostedsAdresse(props: Pick<PersonaliaV2Info, 'bostedsadresse'>) {
     const utenlandskadresse = props.bostedsadresse?.utenlandskAdresse;
     const ukjentbosted = props.bostedsadresse?.ukjentBosted;
     const coAdressenavn = props.bostedsadresse?.coAdressenavn;
-
-    adresseForVisning(vegadresse, props);
     let adresseVisning = null;
 
     if (vegadresse) {
