@@ -1,7 +1,7 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { OrNothing } from '../../utils/felles-typer';
 import { useAppStore } from '../../stores/app-store';
-import { hentPersonalia, hentTolk } from '../../data/api/fetch';
+import { hentPersonalia, hentTolk, hentVergeOgFullmakt } from '../../data/api/fetch';
 import { useEffect, useState } from 'react';
 import {
     Bostedsadresse,
@@ -24,6 +24,9 @@ import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrette
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
 import { hentMalform } from '../../utils/konstanter';
+import { VergeOgFullmaktData, VergemaalEllerFremtidsfullmakt } from '../../data/api/datatyper/vergeOgFullmakt';
+import Vergemaal from './vergemaal';
+import Fullmakt from './fullmakt';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
@@ -33,15 +36,21 @@ const PersonaliaBoks = () => {
 
     const [personalia, setPersonalia] = useState<PersonaliaV2Info | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
+    const [vergeOgFullmakt, setVergeOgFullmakt] = useState<VergeOgFullmaktData | null>(null);
 
     useEffect(() => {
         const hentPersonaliaData = async () => {
             try {
                 setLasterData(true);
-                const [_personalia, _tolk] = await Promise.all([hentPersonalia(fnr), hentTolk(fnr)]);
+                const [_personalia, _tolk, _vergeOgFullmakt] = await Promise.all([
+                    hentPersonalia(fnr),
+                    hentTolk(fnr),
+                    hentVergeOgFullmakt(fnr)
+                ]);
 
                 setPersonalia(_personalia);
                 setTolk(_tolk);
+                setVergeOgFullmakt(_vergeOgFullmakt);
             } catch (err) {
                 setHarFeil(true);
             } finally {
@@ -70,6 +79,9 @@ const PersonaliaBoks = () => {
     const statsborgerskap: string[] = personalia?.statsborgerskap ?? [];
     const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const maalform: OrNothing<String> = personalia?.malform;
+    const vergemaalEllerFremtidsfullmakt: OrNothing<VergeOgFullmaktData> =
+        vergeOgFullmakt?.vergemaalEllerFremtidsfullmakt;
+    const fullmakt: OrNothing<VergeOgFullmaktData> = vergeOgFullmakt?.fullmakt;
 
     if (lasterData) {
         return (
@@ -104,6 +116,8 @@ const PersonaliaBoks = () => {
                 <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
                 <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
                 <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
+                <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalEllerFremtidsfullmakt} />
+                <Fullmakt fullmakt={fullmakt} />
             </span>
         </Panel>
     );
