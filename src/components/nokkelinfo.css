@@ -9,7 +9,7 @@
 .nokkelinfo_container {
     grid-row: row 2;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
