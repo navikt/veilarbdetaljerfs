@@ -2,7 +2,6 @@ import CvInnhold from './components/cv/cv-innhold';
 import Nokkelinfo from './components/nokkelinfo';
 import Oppfolgning from './components/oppfolgning';
 import PersonaliaBoks from './components/personalia/personalia-boks';
-import { PilotAlert } from './components/pilotAlert';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
 import StoreProvider from './stores/store-provider';
