@@ -7,7 +7,7 @@ import { RedigerCV } from './rediger-cv';
 import { byggPamUrl } from '../../utils';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../../data/api/fetch';
 import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster, IngenCv } from '../felles/minikomkomponenter';
+import { Errormelding, Laster, IngenCv } from '../felles/minikomponenter';
 import SistEndret from '../felles/sist-endret';
 import Sammendrag from './sammendrag';
 import Arbeidserfaring from './arbeidserfaring';
@@ -73,7 +73,6 @@ const CvInnhold = () => {
     const erManuell = underOppfolging?.erManuell;
 
     const endreCvUrl = byggPamUrl(fnr);
-    const lastNedCvUrl = byggPamUrl(fnr, '/cv/pdf');
 
     if (cvOgJobbonsker) {
         const {
@@ -96,7 +95,7 @@ const CvInnhold = () => {
                 <Heading spacing level="2" size="large">
                     CV
                 </Heading>
-                <LastNedCV erManuell={erManuell} lastNedCvLenke={lastNedCvUrl} />
+                <LastNedCV erManuell={erManuell} fnr={fnr} />
                 <RedigerCV erManuell={erManuell} cvRegistreringsLenke={endreCvUrl} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
                 <Sammendrag sammendrag={sammendrag} />

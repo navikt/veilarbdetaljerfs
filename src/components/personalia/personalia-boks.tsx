@@ -13,7 +13,7 @@ import {
     PersonaliaV2Info,
     PersonsBarn
 } from '../../data/api/datatyper/personalia';
-import { Errormelding, Laster } from '../felles/minikomkomponenter';
+import { Errormelding, Laster } from '../felles/minikomponenter';
 import Telefon from './telefon';
 import Adresser from './adresser';
 import { kalkulerAlder } from '../../utils/date-utils';
