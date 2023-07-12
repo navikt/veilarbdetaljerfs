@@ -403,11 +403,6 @@ const personalia: PersonaliaV2Info = {
             master: 'PDL'
         }
     ],
-    epost: {
-        epostAdresse: 'tester.scrambling@registre.no',
-        epostSistOppdatert: '10.04.2010',
-        master: 'KRR'
-    },
     statsborgerskap: ['NORGE', 'POLEN'],
     partner: {
         gradering: Gradering.STRENGT_FORTROLIG_UTLAND,
