@@ -238,12 +238,12 @@ type Props = Pick<PersonaliaV2Info, 'bostedsadresse'> &
     Pick<PersonaliaV2Info, 'kontaktadresser'>;
 
 function Adresser(props: Props) {
-    const { bostedsadresse, oppholdsadresse, kontaktadresser, ...rest } = props;
+    const { bostedsadresse, oppholdsadresse, kontaktadresser } = props;
     const kontaktadresseList = isNotEmptyArray(kontaktadresser)
         ? kontaktadresser.map((kontaktadresse, index) => <KontaktAdresse kontaktadresse={kontaktadresse} key={index} />)
         : EMDASH;
     return (
-        <div {...rest}>
+        <div>
             <BostedsAdresse bostedsadresse={bostedsadresse} />
             <OppholdsAdresse oppholdsadresse={oppholdsadresse} />
             {kontaktadresseList}
