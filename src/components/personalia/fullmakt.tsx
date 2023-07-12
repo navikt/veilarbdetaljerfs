@@ -4,7 +4,7 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato, isNotEmptyArray } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 
-function FullmaktigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
+function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     const { motpartsPersonident, motpartsPersonNavn, motpartsRolle, omraader, gyldigFraOgMed, gyldigTilOgMed } =
         props.fullmakt;
     const { fornavn, mellomnavn, etternavn } = motpartsPersonNavn;
@@ -35,7 +35,7 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
 
     if (isNotEmptyArray(fullmakt)) {
         fullmaktListe = fullmakt.map((fullmakt, index) => (
-            <FullmaktigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
+            <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
         ));
     } else {
         return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
