@@ -117,23 +117,17 @@ export const Registrering = () => {
                 Registering
             </Heading>
             <DobbeltInformasjon
-                header={`Registrert av ${registrertAvNavn ? registrertAvNavn : EMDASH}`}
+                header={`Registrert av ${registrertAvNavn}`}
                 values={regValues ? regValues : [EMDASH]}
             />
             <span className="registrering_container">
-                <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar ? hvorforSvar : EMDASH} />
-                <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar ? sisteStillingSvar : EMDASH} />
-                <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar ? utdanningSvar : EMDASH} />
-                <EnkeltInformasjon
-                    header={UtdanningGodkjentSpor}
-                    value={UtdanningGodkjentSvar ? UtdanningGodkjentSvar : EMDASH}
-                />
-                <EnkeltInformasjon
-                    header={UtdanningBestattSpor}
-                    value={UtdanningBestattSvar ? UtdanningBestattSvar : EMDASH}
-                />
-                <EnkeltInformasjon header={HelseSpor} value={HelseSvar ? HelseSvar : EMDASH} />
-                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar ? AnnetSvar : EMDASH} />
+                <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar} />
+                <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
+                <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
+                <EnkeltInformasjon header={UtdanningGodkjentSpor} value={UtdanningGodkjentSvar} />
+                <EnkeltInformasjon header={UtdanningBestattSpor} value={UtdanningBestattSvar} />
+                <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
+                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
             </span>
             <span className="registrering_nedre_container">
                 <JobbetSammenhengende registrering={brukerRegistrering} />
