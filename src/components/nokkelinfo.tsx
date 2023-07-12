@@ -1,4 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react';
+import { BodyShort, CopyButton, Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomkomponenter';
 import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
@@ -118,7 +118,15 @@ const Nokkelinfo = () => {
                     Nøkkelinfo
                 </Heading>
                 <span className="nokkelinfo_container">
-                    <EnkeltInformasjon header="Telefon" value={telefon} />
+                    <BodyShort>
+                        <Heading level="5" size="xsmall" style={{ marginRight: '5px' }}>
+                            Telefon:
+                        </Heading>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <BodyShort size="small">{telefon}</BodyShort>
+                            <CopyButton copyText={telefon!} />
+                        </div>
+                    </BodyShort>
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                     <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
