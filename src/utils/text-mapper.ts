@@ -11,6 +11,7 @@ import { VeilederData } from '../data/api/datatyper/veileder';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { VedtakType } from '../data/api/datatyper/ytelse';
 import { VEDTAKSSTATUSER } from '../utils/konstanter';
+import { InnsatsgruppeType } from '../data/api/datatyper/registreringsData';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -44,6 +45,19 @@ export function mapHovedmalTilTekst(hovedmal: OrNothing<Hovedmal | ArenaHovedmal
             return 'Skaffe arbeid';
         default:
             return EMDASH;
+    }
+}
+
+export function innsatsgruppeBeskrivelse(innsatsgruppe: InnsatsgruppeType) {
+    switch (innsatsgruppe) {
+        case 'STANDARD_INNSATS':
+            return 'Antatt rask overgang til arbeid: Vurdér om brukeren har gode muligheter til å beholde eller komme i jobb på egenhånd.';
+        case 'SITUASJONSBESTEMT_INNSATS':
+            return 'Antatt behov for veiledning: Vurdér brukerens jobbmuligheter og behov for veiledning.';
+        case 'BEHOV_FOR_ARBEIDSEVNEVURDERING':
+            return 'Brukeren har oppgitt hindringer: Vurdér brukerens jobbmuligheter og behov for veiledning.';
+        default:
+            return '';
     }
 }
 
