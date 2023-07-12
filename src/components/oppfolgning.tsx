@@ -1,5 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { Laster, Errormelding } from './felles/minikomkomponenter';
+import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';

@@ -2,7 +2,7 @@ import { Panel, Heading } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { hentYtelser } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
-import { Errormelding, Laster } from './felles/minikomkomponenter';
+import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { YtelseData } from '../data/api/datatyper/ytelse';

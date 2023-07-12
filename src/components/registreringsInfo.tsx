@@ -4,7 +4,7 @@ import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { useEffect, useState } from 'react';
 import { hentRegistrering } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
-import { Errormelding, Laster } from './felles/minikomkomponenter';
+import { Errormelding, Laster } from './felles/minikomponenter';
 import { StringOrNothing } from '../utils/felles-typer';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
