@@ -5,14 +5,14 @@ import EMDASH from '../../utils/emdash';
 import { isNullOrUndefined } from '../../utils/felles-typer';
 
 function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | null }) {
-    const { tilrettelagtKommunikasjon, ...rest } = props;
+    const { tilrettelagtKommunikasjon } = props;
 
     if (tilrettelagtKommunikasjon) {
         const { talespraak, tegnspraak } = tilrettelagtKommunikasjon;
 
         if (!isNullOrUndefined(talespraak))
             return (
-                <Informasjonsbolk header="Tilrettelagt kommunikasjon" {...rest}>
+                <Informasjonsbolk header="Tilrettelagt kommunikasjon">
                     <div className="innrykk">
                         {talespraak && <BodyShort>Språktolk: {talespraak}</BodyShort>}
                         {tegnspraak && <BodyShort>Tegnspråktolk</BodyShort>}
@@ -21,7 +21,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
             );
     }
     return (
-        <Informasjonsbolk header="Tilrettelagt kommunikasjon" {...rest}>
+        <Informasjonsbolk header="Tilrettelagt kommunikasjon">
             <div className="innrykk">{<BodyShort>Språktolk: {EMDASH}</BodyShort>}</div>
         </Informasjonsbolk>
     );
