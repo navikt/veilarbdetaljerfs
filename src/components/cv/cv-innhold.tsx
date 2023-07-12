@@ -4,7 +4,6 @@ import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
 import { UnderOppfolgingData } from '../../data/api/datatyper/underOppfolgingData';
 import { LastNedCV } from './last-ned-cv';
 import { RedigerCV } from './rediger-cv';
-import { byggPamUrl } from '../../utils';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../../data/api/fetch';
 import { Heading, Panel } from '@navikt/ds-react';
 import { Errormelding, Laster, IngenCv } from '../felles/minikomponenter';
