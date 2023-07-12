@@ -1,12 +1,11 @@
 @import '@navikt/ds-css' layer(aksel);
 
 .main_grid {
-    display: grid;
-    grid-template-columns: 49.3% 49.3%;
-    margin: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
-    grid-gap: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+.main_column {
+    flex-basis: 50%;
 }
 
 .underinformasjon {
