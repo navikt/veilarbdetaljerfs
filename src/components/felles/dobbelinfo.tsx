@@ -6,13 +6,13 @@ interface Props {
     header: string;
     values?: StringOrNothing[];
 }
-export function DobbeltInformasjon(props: Props) {
-    const values = props.values || [];
+
+export function DobbeltInformasjon({ header, values = [] }: Props) {
     const renderedValues = values.length > 0 ? values : [EMDASH];
     return (
         <span>
             <Heading level="5" size="xsmall">
-                {props.header}
+                {header}
             </Heading>
             <span>
                 {renderedValues.map((value, index) => (

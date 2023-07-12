@@ -7,12 +7,11 @@ interface Props {
     value?: StringOrNothing;
 }
 
-export function EnkeltInformasjon(props: Props) {
-    const value = props?.value !== undefined ? props.value : EMDASH;
+export function EnkeltInformasjon({ header, value = EMDASH }: Props) {
     return (
         <span>
             <Heading level="5" size="xsmall">
-                {props.header}
+                {header}
             </Heading>
             <BodyShort size="small">{value}</BodyShort>
         </span>
