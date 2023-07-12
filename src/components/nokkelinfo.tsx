@@ -117,12 +117,13 @@ const Nokkelinfo = () => {
                 <span className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon} />
                     <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
+                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
-                    <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                     <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                     <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                    <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
+                    <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                     <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                 </span>
             </Panel>
