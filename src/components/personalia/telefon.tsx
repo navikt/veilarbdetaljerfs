@@ -1,4 +1,4 @@
-import { BodyShort, Detail } from '@navikt/ds-react';
+import { BodyShort, CopyButton, Detail } from '@navikt/ds-react';
 import { PersonaliaV2Info, PersonaliaTelefon } from '../../data/api/datatyper/personalia';
 import EMDASH from '../../utils/emdash';
 import { formaterTelefonnummer, isNotEmptyArray } from '../../utils/formater';
@@ -25,6 +25,7 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
         <div className="underinformasjon">
             <BodyShort className="innrykk flex-align-center">
                 {formaterTelefonnummer(landkode, telefonnummer)}
+                <CopyButton copyText={telefonnummer} />
             </BodyShort>
             {telefonNr && (
                 <Detail className="kilde-tekst">
@@ -36,18 +37,12 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
     );
 }
 
-function Telefon(props: Pick<PersonaliaV2Info, 'telefon'>) {
-    const { telefon, ...rest } = props;
-
+function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
     const telefonListe = isNotEmptyArray(telefon)
         ? telefon.map((telefon, index) => <TelefonNrMedKilde telefon={telefon} key={index} />)
         : EMDASH;
 
-    return (
-        <Informasjonsbolk header="Telefon" {...rest}>
-            {telefonListe}
-        </Informasjonsbolk>
-    );
+    return <Informasjonsbolk header="Telefon">{telefonListe}</Informasjonsbolk>;
 }
 
 export default Telefon;

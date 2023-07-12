@@ -22,7 +22,6 @@ import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
-import EMDASH from '../utils/emdash';
 import { formaterDato } from '../utils/formater';
 import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { kalkulerAlder } from '../utils/date-utils';
@@ -116,15 +115,14 @@ const Nokkelinfo = () => {
                     Nøkkelinfo
                 </Heading>
                 <span className="nokkelinfo_container">
-                    <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
+                    <EnkeltInformasjon header="Telefon" value={telefon} />
                     <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                    <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                     <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
-                    <EnkeltInformasjon header="Sivilstand" value={sivilstatus ? sivilstatus : EMDASH} />
-                    <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
-                    <EnkeltInformasjon header="Registrert av" value={registrertAv ? registrertAv : EMDASH} />
+                    <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
+                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                     <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                 </span>
             </Panel>

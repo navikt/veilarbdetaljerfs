@@ -1,6 +1,6 @@
 import { Jobbprofil } from '../../data/api/datatyper/arenaperson';
 import EMDASH from '../../utils/emdash';
-import CvInfo from '../felles/cvinfo';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 import { FolderFileIcon } from '@navikt/aksel-icons';
 
 const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
@@ -8,9 +8,9 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
         kompetanse && kompetanse.length > 0 ? kompetanse?.map((kompetansen) => <li>{kompetansen.tittel}</li>) : EMDASH;
 
     return (
-        <CvInfo header="Kompetanser" icon={<FolderFileIcon />}>
+        <Informasjonsbolk header="Kompetanser" icon={<FolderFileIcon />} headerTypo="ingress">
             <ul>{kompetanser}</ul>
-        </CvInfo>
+        </Informasjonsbolk>
     );
 };
 
