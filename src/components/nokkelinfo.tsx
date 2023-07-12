@@ -1,4 +1,4 @@
-import { BodyShort, CopyButton, Heading, Panel } from '@navikt/ds-react';
+import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomkomponenter';
 import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
@@ -36,6 +36,7 @@ import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import { formaterDato } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
 import { kalkulerAlder } from '../utils/date-utils';
+import { TelefonNokkelInfo } from './telefonNokkelinfo';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
@@ -118,15 +119,7 @@ const Nokkelinfo = () => {
                     Nøkkelinfo
                 </Heading>
                 <span className="nokkelinfo_container">
-                    <BodyShort>
-                        <Heading level="5" size="xsmall" style={{ marginRight: '5px' }}>
-                            Telefon:
-                        </Heading>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <BodyShort size="small">{telefon}</BodyShort>
-                            <CopyButton copyText={telefon!} />
-                        </div>
-                    </BodyShort>
+                    <TelefonNokkelInfo header="Telefonnummer" value={telefon} />
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                     <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
