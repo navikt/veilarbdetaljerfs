@@ -84,10 +84,14 @@ const Nokkelinfo = () => {
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
     const MAX_ALDER_BARN = 21;
-    const barn: PersonsBarn[] =
+    const barnUnder21: PersonsBarn[] =
         (person?.barn &&
             person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
         [];
+
+    const barnNavn: string = barnUnder21
+        .map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`)
+        .join(', ');
 
     if (lasterData) {
         return (
@@ -113,7 +117,7 @@ const Nokkelinfo = () => {
                 </Heading>
                 <span className="nokkelinfo_container">
                     <EnkeltInformasjon header="Telefon" value={telefon ? telefon : EMDASH} />
-                    <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
+                    <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                     <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
