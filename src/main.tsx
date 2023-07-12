@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import NAVSPA from '@navikt/navspa';
+import { erMock } from './utils/miljo-utils.ts';
 
 if (erMock()) {
     //@ts-ignore
@@ -15,8 +16,4 @@ if (erMock()) {
     });
 } else {
     NAVSPA.eksporter('veilarbdetaljer', App);
-}
-
-function erMock() {
-    return import.meta.env.MODE === 'development';
 }

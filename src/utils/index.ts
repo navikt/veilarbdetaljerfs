@@ -1,5 +1,6 @@
 import { StringOrNothing } from './felles-typer';
 import EMDASH from './emdash';
+import { finnInternNavDomene } from './miljo-utils';
 
 // export function visEmdashHvisNull(verdi: StringOrNothing) {
 // 	return verdi ? verdi : EMDASH;
@@ -26,4 +27,8 @@ export function safeSort(a: StringOrNothing, b: StringOrNothing) {
     } else {
         return 0;
     }
+}
+
+export function byggPamUrl(fnr: string, path = '/cv') {
+    return `https://pam-personbruker-veileder.${finnInternNavDomene()}${path}?fnr=${fnr}`;
 }
