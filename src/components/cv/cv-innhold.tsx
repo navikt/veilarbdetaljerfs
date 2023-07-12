@@ -72,8 +72,6 @@ const CvInnhold = () => {
 
     const erManuell = underOppfolging?.erManuell;
 
-    const endreCvUrl = byggPamUrl(fnr);
-
     if (cvOgJobbonsker) {
         const {
             fagdokumentasjoner,
@@ -96,20 +94,20 @@ const CvInnhold = () => {
                     CV
                 </Heading>
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
-                <RedigerCV erManuell={erManuell} cvRegistreringsLenke={endreCvUrl} />
+                <RedigerCV erManuell={erManuell} fnr={fnr} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
                 <Sammendrag sammendrag={sammendrag} />
                 <div className="cv-container">
-                    <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
                     <Utdanning utdanning={utdanning} />
+                    <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
+                    <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
                     <AnnenErfaring annenErfaring={annenErfaring} />
+                    <Kompetanser kompetanse={jobbprofil?.kompetanse} />
                     <Godkjenninger godkjenninger={godkjenninger} />
                     <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
-                    <Kurs kurs={kurs} />
-                    <Forerkort forerkort={forerkort} />
                     <Sprak sprak={sprak} />
-                    <Kompetanser kompetanse={jobbprofil?.kompetanse} />
-                    <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
+                    <Forerkort forerkort={forerkort} />
+                    <Kurs kurs={kurs} />
                 </div>
             </Panel>
         );
