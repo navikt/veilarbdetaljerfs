@@ -147,18 +147,11 @@ export interface Kontaktadresse {
     utenlandskAdresseIFrittFormat: OrNothing<UtenlandskadresseIFrittFormat>;
 }
 
-export interface PersonaliaEpost {
-    epostAdresse: StringOrNothing;
-    epostSistOppdatert: StringOrNothing;
-    master: StringOrNothing;
-}
-
 export interface PersonaliaV2Info extends GrunnPersonalia {
     barn: PersonsBarn[];
     kontonummer: string;
     geografiskEnhet: OrNothing<Enhet>;
     telefon: PersonaliaTelefon[];
-    epost: OrNothing<PersonaliaEpost>;
     statsborgerskap: string[];
     partner?: PersonaliaPartner;
     sivilstandliste?: PersonaliaSivilstandNy[];

@@ -55,17 +55,13 @@ function EnkeltBarn(props: { barn: PersonsBarn }) {
 }
 
 function Barn(props: Pick<PersonaliaV2Info, 'barn'>) {
-    const { barn, ...rest } = props;
+    const { barn } = props;
 
     const barnListe = isNotEmptyArray(barn)
         ? barn.map((ettBarn, index) => <EnkeltBarn barn={ettBarn} key={index} />)
         : EMDASH;
 
-    return (
-        <Informasjonsbolk header="Barn under 21 år" {...rest}>
-            {barnListe}
-        </Informasjonsbolk>
-    );
+    return <Informasjonsbolk header="Barn under 21 år">{barnListe}</Informasjonsbolk>;
 }
 
 export default Barn;

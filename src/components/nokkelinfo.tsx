@@ -33,7 +33,6 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
-import EMDASH from '../utils/emdash';
 import { formaterDato } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
 import { kalkulerAlder } from '../utils/date-utils';
