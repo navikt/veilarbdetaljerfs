@@ -12,6 +12,7 @@ import {
     Vegadresse
 } from '../../data/api/datatyper/personalia';
 import { OrNothing, isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 
 //function adresseForVisning(props: Oppholdsadresse | Bostedsadresse | Kontaktadresse) {
 //if (props.vegadresse) {
@@ -243,11 +244,11 @@ function Adresser(props: Props) {
         ? kontaktadresser.map((kontaktadresse, index) => <KontaktAdresse kontaktadresse={kontaktadresse} key={index} />)
         : EMDASH;
     return (
-        <div>
+        <Informasjonsbolk header="Adresser">
             <BostedsAdresse bostedsadresse={bostedsadresse} />
             <OppholdsAdresse oppholdsadresse={oppholdsadresse} />
             {kontaktadresseList}
-        </div>
+        </Informasjonsbolk>
     );
 }
 

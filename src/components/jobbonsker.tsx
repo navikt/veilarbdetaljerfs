@@ -5,7 +5,7 @@ import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { RedigerCV } from './cv/rediger-cv';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
 import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster, Warning } from './felles/minikomponenter';
+import { Errormelding, Info, Laster, Warning } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
@@ -142,7 +142,7 @@ const Jobbonsker = () => {
             <Heading spacing level="2" size="large">
                 Jobbønsker
             </Heading>
-            <Warning melding="Ingen jobbønsker registrert" />
+            <Info melding="Ingen jobbønsker registrert" />
         </Panel>
     );
 };

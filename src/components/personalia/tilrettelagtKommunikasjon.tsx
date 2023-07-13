@@ -22,7 +22,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
     }
     return (
         <Informasjonsbolk header="Tilrettelagt kommunikasjon">
-            <div className="innrykk">{<BodyShort>Språktolk: {EMDASH}</BodyShort>}</div>
+            <div className="innrykk">{<BodyShort>{EMDASH}</BodyShort>}</div>
         </Informasjonsbolk>
     );
 }

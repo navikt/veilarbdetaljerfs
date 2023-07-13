@@ -1,6 +1,7 @@
 import { BodyShort } from '@navikt/ds-react';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { formateStringInUpperAndLowerCase } from '../../utils/formater';
+import { formateStringInUpperAndLowerCase, isNotEmptyArray } from '../../utils/formater';
+import EMDASH from '../../utils/emdash';
 
 function StatsborgerskapInfo(props: { statsborgerskapData: string[] }) {
     const content = props.statsborgerskapData.map((statsborgerskap) => {
@@ -11,7 +12,7 @@ function StatsborgerskapInfo(props: { statsborgerskapData: string[] }) {
         );
     });
 
-    return <Informasjonsbolk header="Statsborgerskap">{content}</Informasjonsbolk>;
+    return <Informasjonsbolk header="Statsborgerskap">{isNotEmptyArray(content) ? content : EMDASH}</Informasjonsbolk>;
 }
 
 export default StatsborgerskapInfo;

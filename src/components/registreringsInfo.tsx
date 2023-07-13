@@ -1,4 +1,4 @@
-import { Panel, Heading } from '@navikt/ds-react';
+import { Panel, Heading, BodyShort } from '@navikt/ds-react';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { useEffect, useState } from 'react';
@@ -57,12 +57,6 @@ export const Registrering = () => {
     const registrertAvIdent: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.ident;
     const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
 
-    const regDataHvorfor = registrering?.registrering?.teksterForBesvarelse.find(
-        (item) => item.sporsmalId === 'dinSituasjon'
-    );
-    const hvorforSvar: StringOrNothing = regDataHvorfor?.svar;
-    const hvorforSpor: StringOrNothing = regDataHvorfor?.sporsmal || 'Hvorfor registrerer du deg?';
-
     const regDataSisteStilling = registrering?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'sisteStilling'
     );
@@ -111,6 +105,17 @@ export const Registrering = () => {
     const brukerRegistrering = registrering?.registrering;
     const type = registrering?.type;
 
+    if (!registrering) {
+        return (
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="large">
+                    Registering
+                </Heading>
+                <BodyShort>Brukeren har ikke registrert seg.</BodyShort>
+            </Panel>
+        );
+    }
+
     return (
         <Panel border className="info_panel">
             <Heading spacing level="2" size="large">
@@ -121,7 +126,6 @@ export const Registrering = () => {
                 values={regValues ? regValues : [EMDASH]}
             />
             <span className="registrering_container">
-                <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar} />
                 <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
                 <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
                 <EnkeltInformasjon header={UtdanningGodkjentSpor} value={UtdanningGodkjentSvar} />

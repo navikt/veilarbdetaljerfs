@@ -18,3 +18,9 @@ export const Warning = (props: { melding: string }) => (
         <Alert variant="warning">{props.melding}</Alert>
     </div>
 );
+
+export const Info = (props: { melding: string }) => (
+    <div>
+        <Alert variant="info">{props.melding}</Alert>
+    </div>
+);

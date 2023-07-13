@@ -16,8 +16,9 @@
 }
 
 .pilot_alert {
-    margin-left: 60%;
-    margin-right: 40px;
+    margin: 10px 40px 0px 40px;
+    /* margin-left: 0%; */
+    /* margin-right: 40px; */
 }
 
 @media only screen and (max-width: 950px) {
