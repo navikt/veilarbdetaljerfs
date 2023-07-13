@@ -6,7 +6,7 @@ import { LastNedCV } from './last-ned-cv';
 import { RedigerCV } from './rediger-cv';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../../data/api/fetch';
 import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster, IngenCv } from '../felles/minikomponenter';
+import { Errormelding, Laster, Warning } from '../felles/minikomponenter';
 import SistEndret from '../felles/sist-endret';
 import Sammendrag from './sammendrag';
 import Arbeidserfaring from './arbeidserfaring';
@@ -19,7 +19,6 @@ import Forerkort from './forerkort';
 import Sprak from './sprak';
 import Kompetanser from './kompetanser';
 import Fagdokumentasjoner from './fagdokumentasjoner';
-import './cv-innhold.css';
 
 const CvInnhold = () => {
     const { fnr } = useAppStore();
@@ -96,7 +95,7 @@ const CvInnhold = () => {
                 <RedigerCV erManuell={erManuell} fnr={fnr} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
                 <Sammendrag sammendrag={sammendrag} />
-                <div className="cv-container">
+                <div className="info_container">
                     <Utdanning utdanning={utdanning} />
                     <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
                     <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
@@ -116,7 +115,7 @@ const CvInnhold = () => {
             <Heading spacing level="2" size="large">
                 CV
             </Heading>
-            <IngenCv />
+            <Warning melding="Ingen CV registrert" />
         </Panel>
     );
 };

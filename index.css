@@ -21,6 +21,32 @@
     padding-bottom: 80px;
 }
 
+.info_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-evenly;
+    line-height: var(--a-font-line-height-medium);
+}
+
+@media only screen and (max-width: 1500px) {
+    .info_container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.info_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-evenly;
+    line-height: var(--a-font-line-height-medium);
+}
+
+@media only screen and (max-width: 1500px) {
+    .info_container {
+        grid-template-columns: 1fr;
+    }
+}
+
 .informasjonsbolk {
     margin: 1rem 10px;
 }
@@ -43,4 +69,9 @@
 
     color: var(--a-gray-600);
     line-height: 1rem;
+}
+
+.lenke-brukerprofil {
+    display: flex;
+    justify-content: flex-end;
 }
