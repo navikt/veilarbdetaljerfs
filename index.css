@@ -18,11 +18,21 @@
 }
 
 .info_panel {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 10px;
     background-color: var(--a-font-line-height-medium);
+}
+
+.info_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-evenly;
+    line-height: var(--a-font-line-height-medium);
+}
+
+@media only screen and (max-width: 1500px) {
+    .info_container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .informasjonsbolk {
