@@ -1,7 +1,7 @@
 import { BodyShort } from '@navikt/ds-react';
 import { Fullmakter, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { formaterDato, isNotEmptyArray } from '../../utils/formater';
+import { formateStringInUpperAndLowerCase, formaterDato, isNotEmptyArray } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 
 function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
@@ -15,7 +15,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
         <div className="PersonaliaVerge">
             <BodyShort size="small" className="BodyHeader">
                 <b>
-                    F{motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
+                    {formateStringInUpperAndLowerCase(motpartsRolle)}: {motpartsPersonident}
                 </b>
             </BodyShort>
             <BodyShort size="small">{`${fornavn} ${mellomnavn || ''} ${etternavn}`}</BodyShort>
