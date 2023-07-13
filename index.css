@@ -2,9 +2,8 @@
 
 .main_grid {
     column-count: 2;
-}
-.main_column {
-    flex-basis: 50%;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .underinformasjon {
@@ -16,9 +15,6 @@
 }
 
 .info_panel {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
     margin-bottom: 40px;
     background-color: var(--a-font-line-height-medium);
     break-inside: avoid-column;
