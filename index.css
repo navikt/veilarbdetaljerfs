@@ -58,3 +58,8 @@
     color: var(--a-gray-600);
     line-height: 1rem;
 }
+
+.lenke-brukerprofil {
+    display: flex;
+    justify-content: flex-end;
+}
