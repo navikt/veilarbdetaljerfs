@@ -1,4 +1,4 @@
-import { GEToptions } from './datatyper/apiGetOptions';
+import { GEToptions, createPOSToptions } from './datatyper/apiOptions';
 import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 import { PersonaliaV2Info } from './datatyper/personalia';
 import { RegistreringsData } from './datatyper/registreringsData';
@@ -10,14 +10,15 @@ import { VergeOgFullmaktData } from './datatyper/vergeOgFullmakt';
 import { ArenaPerson } from './datatyper/arenaperson';
 import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
+import { FrontendEvent } from '../../utils/logger';
 
 const handterRespons = async (respons: Response) => {
-    if (respons.status >= 400) {
-        throw new Error(respons.statusText);
+    if (respons.status === 204 || respons.status === 404) {
+        return respons.ok;
     }
 
-    if (respons.status === 204) {
-        return null;
+    if (respons.status >= 400) {
+        throw new Error(respons.statusText);
     }
 
     try {
@@ -92,6 +93,12 @@ export const hentUnderOppfolging = async (fnr: string): Promise<UnderOppfolgingD
 export const hentAktorId = async (fnr: string): Promise<AktorId | null> => {
     const url = `/veilarbperson/api/person/aktorid?fnr=${fnr}`;
     const respons = await fetch(url, GEToptions);
+
+    return handterRespons(respons);
+};
+export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<any> => {
+    const url = `/veilarbperson/api/logger/event`;
+    const respons = await fetch(url, createPOSToptions(event));
 
     return handterRespons(respons);
 };

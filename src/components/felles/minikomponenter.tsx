@@ -12,3 +12,9 @@ export const Errormelding = () => (
         <Alert variant="error">Noe gikk galt! Prøv igjen om noen minutter.</Alert>
     </div>
 );
+
+export const IngenCv = () => (
+    <div className="midtstill">
+        <Alert variant="warning">Ingen CV registrert</Alert>
+    </div>
+);
