@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useAppStore } from '../../stores/app-store';
-import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-import { UnderOppfolgingData } from '../../data/api/datatyper/underOppfolgingData';
-import { LastNedCV } from './last-ned-cv';
-import { RedigerCV } from './rediger-cv';
-import { hentCvOgJobbonsker, hentUnderOppfolging } from '../../data/api/fetch';
+import { useAppStore } from '../stores/app-store';
+import { ArenaPerson } from '../data/api/datatyper/arenaperson';
+import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
+import { LastNedCV } from './cv/last-ned-cv';
+import { RedigerCV } from './cv/rediger-cv';
+import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
 import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster, Warning } from '../felles/minikomponenter';
-import SistEndret from '../felles/sist-endret';
-import Sammendrag from './sammendrag';
-import Arbeidserfaring from './arbeidserfaring';
-import Utdanning from './utdanning';
-import AnnenErfaring from './annen-erfaring';
-import Godkjenninger from './godkjenninger';
-import AndreGodkjenninger from './andre-godkjenninger';
-import Kurs from './kurs';
-import Forerkort from './forerkort';
-import Sprak from './sprak';
-import Kompetanser from './kompetanser';
-import Fagdokumentasjoner from './fagdokumentasjoner';
+import { Errormelding, Laster, Warning } from './felles/minikomponenter';
+import SistEndret from './felles/sist-endret';
+import Sammendrag from './cv/sammendrag';
+import Arbeidserfaring from './cv/arbeidserfaring';
+import Utdanning from './cv/utdanning';
+import AnnenErfaring from './cv/annen-erfaring';
+import Godkjenninger from './cv/godkjenninger';
+import AndreGodkjenninger from './cv/andre-godkjenninger';
+import Kurs from './cv/kurs';
+import Forerkort from './cv/forerkort';
+import Sprak from './cv/sprak';
+import Kompetanser from './cv/kompetanser';
+import Fagdokumentasjoner from './cv/fagdokumentasjoner';
+import './fellesStyling.css';
 
 const CvInnhold = () => {
     const { fnr } = useAppStore();
@@ -88,7 +89,7 @@ const CvInnhold = () => {
 
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
@@ -112,7 +113,7 @@ const CvInnhold = () => {
     }
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+            <Heading spacing level="2" size="medium">
                 CV
             </Heading>
             <Warning melding="Ingen CV registrert" />

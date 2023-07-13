@@ -10,14 +10,18 @@ import EMDASH from '../../utils/emdash';
 const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
     const annenGodkjenningListe = safeMap(andreGodkjenninger, (annenGodkjenning, index) => (
         <div key={`andregodkjenninger-${index}`} className="underinformasjon">
-            <Label size="small" as="p" key={`andregodkjenninger-${index}`}>
+            <BodyShort size="small" className="BodyHeader" key={`andregodkjenninger-${index}`}>
                 {annenGodkjenning.tittel}
-            </Label>
+            </BodyShort>
 
-            <BodyShort>Utsteder: {annenGodkjenning.utsteder ? annenGodkjenning.utsteder : EMDASH}</BodyShort>
-            <BodyShort>Fullført: {formaterDato(annenGodkjenning.gjennomfortDato)}</BodyShort>
+            <BodyShort size="small">
+                Utsteder: {annenGodkjenning.utsteder ? annenGodkjenning.utsteder : EMDASH}
+            </BodyShort>
+            <BodyShort size="small" className="BodyShortItalic">
+                Fullført: {formaterDato(annenGodkjenning.gjennomfortDato)}
+            </BodyShort>
             {annenGodkjenning.utloperDato && (
-                <BodyShort>
+                <BodyShort size="small" className="BodyShortItalic">
                     Utløper: {annenGodkjenning.utloperDato ? formaterDato(annenGodkjenning.utloperDato) : EMDASH}
                 </BodyShort>
             )}

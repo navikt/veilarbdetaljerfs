@@ -1,7 +1,7 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { OrNothing } from '../../utils/felles-typer';
-import { useAppStore } from '../../stores/app-store';
-import { hentPersonalia, hentTolk, hentVergeOgFullmakt } from '../../data/api/fetch';
+import { OrNothing } from '../utils/felles-typer';
+import { useAppStore } from '../stores/app-store';
+import { hentPersonalia, hentTolk, hentVergeOgFullmakt } from '../data/api/fetch';
 import { useEffect, useState } from 'react';
 import {
     Bostedsadresse,
@@ -12,25 +12,22 @@ import {
     PersonaliaTelefon,
     PersonaliaV2Info,
     PersonsBarn
-} from '../../data/api/datatyper/personalia';
-import { Errormelding, Laster } from '../felles/minikomponenter';
-import Telefon from './telefon';
-import Adresser from './adresser';
-import { kalkulerAlder } from '../../utils/date-utils';
-import Barn from './barn';
-import Sivilstand from './sivilstand';
-import StatsborgerskapInfo from './statsborgerskapinfo';
-import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
-import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
-import { EnkeltInformasjon } from '../felles/enkeltInfo';
-import { hentMalform } from '../../utils/konstanter';
-import {
-    Fullmakter,
-    VergeOgFullmaktData,
-    VergemaalEllerFremtidsfullmakt
-} from '../../data/api/datatyper/vergeOgFullmakt';
-import Vergemaal from './vergemaal';
-import Fullmakt from './fullmakt';
+} from '../data/api/datatyper/personalia';
+import { Errormelding, Laster } from './felles/minikomponenter';
+import Telefon from './personalia/telefon';
+import Adresser from './personalia/adresser';
+import { kalkulerAlder } from '../utils/date-utils';
+import Barn from './personalia/barn';
+import Sivilstand from './personalia/sivilstand';
+import StatsborgerskapInfo from './personalia/statsborgerskapinfo';
+import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
+import TilrettelagtKommunikasjon from './personalia/tilrettelagtKommunikasjon';
+import { EnkeltInformasjon } from './felles/enkeltInfo';
+import { hentMalform } from '../utils/konstanter';
+import { Fullmakter, VergeOgFullmaktData, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import Vergemaal from './personalia/vergemaal';
+import Fullmakt from './personalia/fullmakt';
+import './fellesStyling.css';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
@@ -104,8 +101,8 @@ const PersonaliaBoks = () => {
     }
 
     return (
-        <Panel border>
-            <Heading spacing level="2" size="large">
+        <Panel border className="info_panel">
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Personalia
             </Heading>
             <span className="info_container">

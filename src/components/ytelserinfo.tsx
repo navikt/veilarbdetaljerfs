@@ -46,10 +46,10 @@ export const Ytelser = () => {
     }
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Ytelser
             </Heading>
-            <span className="registrering_container">
+            <span className="info_container">
                 {ytelser?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
                         <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />

@@ -2,7 +2,7 @@ import { ArenaPerson, Fagdokumentasjon, FagdokumentType } from '../../data/api/d
 import EMDASH from '../../utils/emdash';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { WrenchIcon } from '@navikt/aksel-icons';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 const fagdokumentTypeTilTekst = (fagdokumentType: FagdokumentType): string => {
     switch (fagdokumentType) {
@@ -23,10 +23,10 @@ const mapFagdokumentasjonerTilViews = (fagdokumentasjoner: Fagdokumentasjon[]) =
         fagdokumentasjoner.map((fagdokument, idx) => {
             return (
                 <div key={`fagdokument-${idx}`} className="underinformasjon">
-                    <Label size="small" as="p">
+                    <BodyShort size="small" className="BodyHeader">
                         {fagdokument.tittel}
-                    </Label>
-                    <BodyShort>{fagdokumentTypeTilTekst(fagdokument.type)}</BodyShort>
+                    </BodyShort>
+                    <BodyShort size="small">{fagdokumentTypeTilTekst(fagdokument.type)}</BodyShort>
                 </div>
             );
         })

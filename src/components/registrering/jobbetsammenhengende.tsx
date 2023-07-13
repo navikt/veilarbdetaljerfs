@@ -1,4 +1,4 @@
-import { BodyShort, Label, Ingress } from '@navikt/ds-react';
+import { BodyShort, Label, Ingress, Heading } from '@navikt/ds-react';
 import { OrdinaerRegistrering, Registrering } from '../../data/api/datatyper/registreringsData';
 
 interface Props {
@@ -20,7 +20,9 @@ export function JobbetSammenhengende(props: Props) {
         <>
             {' '}
             <div>
-                <Ingress>Hentet fra Aa-registeret</Ingress>
+                <Heading spacing level="2" size="small">
+                    Hentet fra Aa-registeret
+                </Heading>
                 <Label size="small" as="p">
                     Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder
                 </Label>

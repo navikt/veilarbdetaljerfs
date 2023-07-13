@@ -7,7 +7,7 @@ import EMDASH from '../../utils/emdash';
 
 const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
     const forerkortListe = safeMap(forerkort, (enkeltForerkort, index) => (
-        <BodyShort key={`forerkort-${index}`}>
+        <BodyShort size="small" key={`forerkort-${index}`}>
             Klasse {enkeltForerkort?.klasse ? enkeltForerkort?.klasse : EMDASH}
         </BodyShort>
     ));

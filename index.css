@@ -1,4 +1,7 @@
 @import '@navikt/ds-css' layer(aksel);
+.veilarbdetaljerfs {
+    background-color: var(--a-bg-subtle);
+}
 
 .main_grid {
     display: grid;
@@ -9,34 +12,10 @@
     grid-gap: 20px;
 }
 
-.underinformasjon {
-    margin-bottom: 1rem;
-}
-
-.innrykk {
-    padding-left: 0.5rem;
-}
-
-.info_panel {
-    margin: 10px;
-    background-color: var(--a-font-line-height-medium);
-}
-
-.info_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-evenly;
-    line-height: var(--a-font-line-height-medium);
-}
-
 @media only screen and (max-width: 1500px) {
     .info_container {
         grid-template-columns: 1fr;
     }
-}
-
-.informasjonsbolk {
-    margin: 1rem 10px;
 }
 
 .informasjonsbolk-tittel {
@@ -46,15 +25,11 @@
     margin-bottom: var(--a-spacing-1);
 }
 
-.flex-align-center {
+.telefonNrBolk {
     display: flex;
     align-items: center;
 }
 
 .kilde-tekst {
-    max-width: 20rem;
-    padding: 0 0.5rem;
-
-    color: var(--a-gray-600);
-    line-height: 1rem;
+    color: var(--a-text-subtle);
 }

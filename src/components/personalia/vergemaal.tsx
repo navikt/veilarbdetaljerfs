@@ -5,7 +5,7 @@ import {
     VergemaalEllerFremtidsfullmakt,
     VergemaalEllerFullmaktOmfangType
 } from '../../data/api/datatyper/vergeOgFullmakt';
-import { BodyShort, Detail } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 import { formaterDato, isNotEmptyArray } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNullOrUndefined } from '../../utils/felles-typer';
@@ -53,23 +53,25 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
     const { navn, motpartsPersonident, omfang } = props.vergeEllerFullmektig;
 
     return (
-        <div>
+        <div className="PersonaliaVerge">
             <div>
-                <Detail className="overinformasjon">
+                <BodyShort size="small" className="BodyHeader">
                     <b>Verge</b>
-                </Detail>
+                </BodyShort>
                 {navn && (
                     <div>
-                        <BodyShort>{`${navn.fornavn} ${navn.mellomnavn || ''} ${navn.etternavn}`}</BodyShort>
+                        <BodyShort size="small">{`${navn.fornavn} ${navn.mellomnavn || ''} ${
+                            navn.etternavn
+                        }`}</BodyShort>
                     </div>
                 )}
-                <BodyShort>{motpartsPersonident}</BodyShort>
+                <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
             <div>
-                <Detail className="overinformasjon">
+                <BodyShort size="small">
                     <b>Omfang</b>
-                </Detail>
-                <BodyShort>{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
+                </BodyShort>
+                <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
             </div>
         </div>
     );
@@ -81,14 +83,14 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
 
     if (!isNullOrUndefined(props)) {
         return (
-            <div className="underinformasjon innrykk">
-                <BodyShort>{vergetypeBeskrivelse(type)}</BodyShort>
+            <div className="PersonaliaVerge">
+                <BodyShort size="small">{vergetypeBeskrivelse(type)}</BodyShort>
                 <VergeEllerFullmakt vergeEllerFullmektig={vergeEllerFullmektig} />
-                <Detail className="overinformasjon">
+                <BodyShort size="small" className="BodyHeader">
                     <b>Fylkesmannsembete</b>
-                </Detail>
-                <BodyShort>{embete}</BodyShort>
-                <BodyShort>
+                </BodyShort>
+                <BodyShort size="small">{embete}</BodyShort>
+                <BodyShort size="small">
                     {`${ajourholdstidspunkt && formaterDato(ajourholdstidspunkt)} - ${
                         gyldighetstidspunkt ? formaterDato(gyldighetstidspunkt) : ''
                     }`}
@@ -109,10 +111,18 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
             <Verge vergemaal={vergemaal} key={index} />
         ));
     } else {
-        return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
+        return (
+            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
+                {EMDASH}
+            </Informasjonsbolk>
+        );
     }
 
-    return <Informasjonsbolk header="Bruker er under vergemål">{vergemaalListe}</Informasjonsbolk>;
+    return (
+        <Informasjonsbolk header="Bruker er under vergemål" headerTypo="ingress">
+            {vergemaalListe}
+        </Informasjonsbolk>
+    );
 }
 
 export default Vergemaal;

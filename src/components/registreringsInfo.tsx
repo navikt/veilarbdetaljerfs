@@ -113,14 +113,14 @@ export const Registrering = () => {
 
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Registering
             </Heading>
             <DobbeltInformasjon
                 header={`Registrert av ${registrertAvNavn}`}
                 values={regValues ? regValues : [EMDASH]}
             />
-            <span className="registrering_container">
+            <span className="info_container">
                 <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar} />
                 <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
                 <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />

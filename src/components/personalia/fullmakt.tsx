@@ -12,18 +12,20 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     const gjeldendeOmraader = omraader.map((omraade) => omraade.beskrivelse).join(', ');
 
     return (
-        <div>
-            <div className="underinformasjon innrykk">
-                <Detail>
-                    <b>
-                        F{motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
-                    </b>
-                </Detail>
-                <BodyShort>{`${fornavn} ${mellomnavn || ''} ${etternavn}`}</BodyShort>
-                <BodyShort>{`Gjelder ${gjeldendeOmraader}`}</BodyShort>
-                <BodyShort>Gyldig fra og med: {formaterDato(gyldigFraOgMed)}</BodyShort>
-                <BodyShort>Gyldig til og med: {formaterDato(gyldigTilOgMed)}</BodyShort>
-            </div>
+        <div className="PersonaliaVerge">
+            <BodyShort size="small" className="BodyHeader">
+                <b>
+                    F{motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
+                </b>
+            </BodyShort>
+            <BodyShort size="small">{`${fornavn} ${mellomnavn || ''} ${etternavn}`}</BodyShort>
+            <BodyShort size="small">{`Gjelder ${gjeldendeOmraader}`}</BodyShort>
+            <BodyShort size="small" className="BodyShortItalic">
+                Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
+            </BodyShort>
+            <BodyShort size="small" className="BodyShortItalic">
+                Gyldig til og med: {formaterDato(gyldigTilOgMed)}
+            </BodyShort>
         </div>
     );
 }
@@ -41,7 +43,13 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
         return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
     }
 
-    return <Informasjonsbolk header="Fullmakter">{fullmaktListe}</Informasjonsbolk>;
+    return (
+        <div className="Fullmakter">
+            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
+                {fullmaktListe}
+            </Informasjonsbolk>
+        </div>
+    );
 }
 
 export default Fullmakt;

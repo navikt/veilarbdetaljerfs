@@ -3,19 +3,27 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato, formaterVarighet } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { TasklistIcon } from '@navikt/aksel-icons';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
     const sortedKurs = kurs.sort((a, b) => safeSort(b.tidspunkt, a.tidspunkt));
     const mappedKurs = safeMap(sortedKurs, (enkeltKurs, index) => (
         <div key={`kurs-${index}`} className="underinformasjon">
-            <Label size="small" as="p">
+            <BodyShort size="small" className="BodyHeader">
                 {enkeltKurs.tittel}
-            </Label>
+            </BodyShort>
 
-            <BodyShort>{enkeltKurs.arrangor}</BodyShort>
-            {enkeltKurs.tidspunkt && <BodyShort>Fullført: {formaterDato(enkeltKurs.tidspunkt)}</BodyShort>}
-            {enkeltKurs.varighet && <BodyShort>Kurslengde: {formaterVarighet(enkeltKurs.varighet)}</BodyShort>}
+            <BodyShort size="small">{enkeltKurs.arrangor}</BodyShort>
+            {enkeltKurs.tidspunkt && (
+                <BodyShort size="small" className="BodyShortItalic">
+                    Fullført: {formaterDato(enkeltKurs.tidspunkt)}
+                </BodyShort>
+            )}
+            {enkeltKurs.varighet && (
+                <BodyShort size="small" className="BodyShortItalic">
+                    Kurslengde: {formaterVarighet(enkeltKurs.varighet)}
+                </BodyShort>
+            )}
         </div>
     ));
 

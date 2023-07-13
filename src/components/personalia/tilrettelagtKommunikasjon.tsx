@@ -12,17 +12,17 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
 
         if (!isNullOrUndefined(talespraak))
             return (
-                <Informasjonsbolk header="Tilrettelagt kommunikasjon">
-                    <div className="innrykk">
-                        {talespraak && <BodyShort>Språktolk: {talespraak}</BodyShort>}
-                        {tegnspraak && <BodyShort>Tegnspråktolk</BodyShort>}
+                <Informasjonsbolk header="Tilrettelagt kommunikasjon" headerTypo="ingress">
+                    <div>
+                        {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
+                        {tegnspraak && <BodyShort size="small">Tegnspråktolk</BodyShort>}
                     </div>
                 </Informasjonsbolk>
             );
     }
     return (
-        <Informasjonsbolk header="Tilrettelagt kommunikasjon">
-            <div className="innrykk">{<BodyShort>Språktolk: {EMDASH}</BodyShort>}</div>
+        <Informasjonsbolk header="Tilrettelagt kommunikasjon" headerTypo="ingress">
+            <div>{<BodyShort size="small">Språktolk: {EMDASH}</BodyShort>}</div>
         </Informasjonsbolk>
     );
 }
