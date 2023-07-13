@@ -31,3 +31,12 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
 }
+.copyHeader {
+    margin-right: '5px';
+    margin-bottom: -14px;
+}
+.copyBody {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: center;
+}

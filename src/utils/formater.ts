@@ -1,4 +1,5 @@
 import { KursVarighetEnhet, Kursvarighet } from '../data/api/datatyper/arenaperson';
+import { PersonaliaTelefon } from '../data/api/datatyper/personalia';
 import EMDASH from './emdash';
 import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 
@@ -57,18 +58,31 @@ export function formatNumber(format: string, streng: string) {
     return result;
 }
 
-export function formaterTelefonnummer(landkode: StringOrNothing, telefonnummer: string) {
-    const utenSpace = removeWhitespace(telefonnummer);
-    const formatertLandkode = landkode ? landkode + ' ' : '';
-
-    if (utenSpace.length !== 8) {
-        return telefonnummer;
-    } else if (utenSpace.substring(0, 3) === '800') {
-        return formatertLandkode + formatNumber('### ## ###', utenSpace);
-    } else {
-        return formatertLandkode + formatNumber('## ## ## ##', utenSpace);
+export function formaterTelefonnummer(telefon: PersonaliaTelefon | undefined | string) {
+    if (!telefon) {
+        return EMDASH;
     }
+    let telefonNr = telefon?.toString();
+    let landkode = '';
+
+    if (telefonNr?.startsWith('0047')) {
+        landkode = '+47';
+        telefonNr = telefonNr.slice(4);
+    } else if (telefonNr?.startsWith('+47')) {
+        landkode = telefonNr.slice(0, 3);
+        telefonNr = telefonNr.slice(3);
+    }
+
+    const tall = telefonNr?.split('');
+    const splittTall = [];
+
+    while (tall?.length) {
+        splittTall.push(tall.splice(0, 2).join(''));
+    }
+
+    return `${landkode} ${splittTall.join(' ')}`;
 }
+
 export function formateStringInUpperAndLowerCase(str: OrNothing<string>) {
     return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : EMDASH;
 }

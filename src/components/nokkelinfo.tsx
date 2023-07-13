@@ -33,10 +33,10 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
-import { formaterDato } from '../utils/formater';
+import { formaterDato, formaterTelefonnummer } from '../utils/formater';
 import { PilotAlert } from './pilotAlert';
 import { kalkulerAlder } from '../utils/date-utils';
-import { TelefonNokkelInfo } from './telefonNokkelinfo';
+import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
@@ -119,7 +119,7 @@ const Nokkelinfo = () => {
                     Nøkkelinfo
                 </Heading>
                 <span className="nokkelinfo_container">
-                    <TelefonNokkelInfo header="Telefonnummer" value={telefon} />
+                    <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
                     <EnkeltInformasjon header="Antall barn under 21 år" value={barn.length.toString() || '0'} />
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                     <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
