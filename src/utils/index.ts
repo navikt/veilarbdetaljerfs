@@ -32,3 +32,8 @@ export function safeSort(a: StringOrNothing, b: StringOrNothing) {
 export function byggPamUrl(fnr: string, path = '/cv') {
     return `https://pam-personbruker-veileder.${finnInternNavDomene()}${path}?fnr=${fnr}`;
 }
+
+export function lagPersonforvalterLenke(aktoerIdEllerFnr: string) {
+    //Personforvalteren skal takle både aktørid og fnr.
+    return `https://pdl-web.${finnInternNavDomene()}/endreperson?aktoerId=${aktoerIdEllerFnr}`;
+}
