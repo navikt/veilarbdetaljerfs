@@ -40,6 +40,9 @@ export const Ytelser = () => {
     if (ytelserHarFeil) {
         return (
             <Panel border className="info_panel">
+                <Heading spacing level="2" size="large">
+                    Ytelser
+                </Heading>
                 <Errormelding />
             </Panel>
         );
