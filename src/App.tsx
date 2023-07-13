@@ -17,15 +17,11 @@ const App = (props: AppProps) => {
             <StoreProvider fnr={props.fnr}>
                 <Nokkelinfo />
                 <div className="main_grid">
-                    <div className="main_column">
-                        <CvInnhold />
-                        <Ytelser />
-                    </div>
-                    <div className="main_column">
-                        <Oppfolgning />
-                        <PersonaliaBoks />
-                        <Registrering />
-                    </div>
+                    <CvInnhold />
+                    <Ytelser />
+                    <Oppfolgning />
+                    <PersonaliaBoks />
+                    <Registrering />
                 </div>
             </StoreProvider>
         </main>
