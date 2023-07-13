@@ -1,7 +1,4 @@
-import CvInnhold from './components/cv/cv-innhold';
 import Nokkelinfo from './components/nokkelinfo';
-import Oppfolgning from './components/oppfolgning';
-import PersonaliaBoks from './components/personalia/personalia-boks';
 
 import StoreProvider from './stores/store-provider';
 
