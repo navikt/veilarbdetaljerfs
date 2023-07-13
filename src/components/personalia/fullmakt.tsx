@@ -1,4 +1,4 @@
-import { BodyShort, Detail } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 import { Fullmakter, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato, isNotEmptyArray } from '../../utils/formater';

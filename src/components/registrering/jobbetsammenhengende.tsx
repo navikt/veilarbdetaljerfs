@@ -1,4 +1,4 @@
-import { BodyShort, Label, Ingress, Heading } from '@navikt/ds-react';
+import { BodyShort, Label, Heading } from '@navikt/ds-react';
 import { OrdinaerRegistrering, Registrering } from '../../data/api/datatyper/registreringsData';
 
 interface Props {
