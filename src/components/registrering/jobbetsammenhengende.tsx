@@ -17,19 +17,16 @@ export function JobbetSammenhengende(props: Props) {
     }
 
     return (
-        <>
-            {' '}
-            <div>
-                <Heading spacing level="2" size="small">
-                    Hentet fra Aa-registeret
-                </Heading>
-                <Label size="small" as="p">
-                    Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder
-                </Label>
-                <BodyShort size="small">
-                    {ordinaerRegistrering.profilering.jobbetSammenhengendeSeksAvTolvSisteManeder ? 'Ja' : 'Nei'}{' '}
-                </BodyShort>{' '}
-            </div>
-        </>
+        <div>
+            <Heading spacing level="2" size="small">
+                Hentet fra Aa-registeret
+            </Heading>
+            <Label size="small" as="p">
+                Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder
+            </Label>
+            <BodyShort size="small">
+                {ordinaerRegistrering.profilering.jobbetSammenhengendeSeksAvTolvSisteManeder ? 'Ja' : 'Nei'}{' '}
+            </BodyShort>{' '}
+        </div>
     );
 }
