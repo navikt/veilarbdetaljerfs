@@ -1,11 +1,11 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
-
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
 import { FolderPlusIcon } from '@navikt/aksel-icons';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
+import '../fellesStyling.css';
 
 const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
     const annenGodkjenningListe = safeMap(andreGodkjenninger, (annenGodkjenning, index) => (
