@@ -1,6 +1,7 @@
 import { BodyShort, CopyButton } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 import { StringOrNothing } from '../../utils/felles-typer';
+import '../fellesStyling.css';
 
 interface Props {
     header: string;
