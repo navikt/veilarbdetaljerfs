@@ -80,7 +80,7 @@ const Jobbonsker = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Jobbønsker
                 </Heading>
                 <Errormelding />
@@ -139,7 +139,7 @@ const Jobbonsker = () => {
     }
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium">
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Jobbønsker
             </Heading>
             <Warning melding="Ingen jobbønsker registrert" />

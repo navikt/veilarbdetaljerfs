@@ -1,3 +1,4 @@
+import { BodyShort } from '@navikt/ds-react';
 import { Jobbprofil } from '../../data/api/datatyper/arenaperson';
 import EMDASH from '../../utils/emdash';
 import Informasjonsbolk from '../felles/informasjonsbolk';
@@ -9,7 +10,9 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
 
     return (
         <Informasjonsbolk header="Kompetanser" icon={<FolderFileIcon />} headerTypo="ingress">
-            <ul>{kompetanser}</ul>
+            <ul>
+                <BodyShort>{kompetanser}</BodyShort>
+            </ul>
         </Informasjonsbolk>
     );
 };

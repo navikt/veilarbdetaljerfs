@@ -1,6 +1,7 @@
 @import '@navikt/ds-css' layer(aksel);
 .veilarbdetaljerfs {
     background-color: var(--a-bg-subtle);
+    padding-top: 20px;
 }
 
 .main_grid {
@@ -13,6 +14,9 @@
     .info_container {
         grid-template-columns: 1fr;
     }
+}
+.underinformasjon {
+    margin-bottom: 1rem;
 }
 
 .informasjonsbolk-tittel {

@@ -88,7 +88,7 @@ const CvInnhold = () => {
         } = cvOgJobbonsker;
 
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel_cv">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
@@ -113,7 +113,7 @@ const CvInnhold = () => {
     }
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium">
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>
             <Warning melding="Ingen CV registrert" />
