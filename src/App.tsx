@@ -1,4 +1,5 @@
 import Nokkelinfo from './components/nokkelinfo';
+
 import StoreProvider from './stores/store-provider';
 
 export interface AppProps {

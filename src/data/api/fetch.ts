@@ -13,7 +13,7 @@ import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 
 const handterRespons = async (respons: Response) => {
-    if (respons.status === 204 || respons.status === 404) {
+    if (respons.status === 204 || respons.status === 404 || respons.status === 403) {
         return respons.ok;
     }
 

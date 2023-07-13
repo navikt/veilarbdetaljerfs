@@ -22,7 +22,6 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
-import { PilotAlert } from './pilotAlert';
 
 const Oppfolgning = () => {
     const { fnr } = useAppStore();
@@ -95,7 +94,6 @@ const Oppfolgning = () => {
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                 </span>
             </Panel>
-            <PilotAlert />
         </>
     );
 };
