@@ -16,7 +16,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
             <div className="underinformasjon innrykk">
                 <Detail>
                     <b>
-                        {motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
+                        F{motpartsRolle?.substring(1).toLowerCase()}: {motpartsPersonident}
                     </b>
                 </Detail>
                 <BodyShort>{`${fornavn} ${mellomnavn || ''} ${etternavn}`}</BodyShort>
