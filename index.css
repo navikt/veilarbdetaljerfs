@@ -4,12 +4,9 @@
 }
 
 .main_grid {
-    display: grid;
-    grid-template-columns: 49.3% 49.3%;
-    margin: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
-    grid-gap: 20px;
+    column-count: 2;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 @media only screen and (max-width: 1500px) {
@@ -35,4 +32,14 @@
 
 .kilde-tekst {
     color: var(--a-text-subtle);
+}
+
+.lenke-brukerprofil {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.lenke-brukerprofil {
+    display: flex;
+    justify-content: flex-end;
 }

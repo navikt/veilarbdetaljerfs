@@ -112,7 +112,7 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
         ));
     } else {
         return (
-            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
+            <Informasjonsbolk header="Verge" headerTypo="ingress">
                 {EMDASH}
             </Informasjonsbolk>
         );
