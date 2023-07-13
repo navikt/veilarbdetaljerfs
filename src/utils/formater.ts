@@ -1,7 +1,7 @@
 import { KursVarighetEnhet, Kursvarighet } from '../data/api/datatyper/arenaperson';
 import { PersonaliaTelefon } from '../data/api/datatyper/personalia';
 import EMDASH from './emdash';
-import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
+import { OrNothing, isNullOrUndefined } from './felles-typer';
 
 export interface DatoType {
     year: string;
