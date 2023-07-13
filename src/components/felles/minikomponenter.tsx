@@ -13,8 +13,8 @@ export const Errormelding = () => (
     </div>
 );
 
-export const IngenCv = () => (
+export const Warning = (props: { melding: string }) => (
     <div className="midtstill">
-        <Alert variant="warning">Ingen CV registrert</Alert>
+        <Alert variant="warning">{props.melding}</Alert>
     </div>
 );
