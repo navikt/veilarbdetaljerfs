@@ -5,8 +5,8 @@ import { UnderOppfolgingData } from '../../data/api/datatyper/underOppfolgingDat
 import { LastNedCV } from './last-ned-cv';
 import { RedigerCV } from './rediger-cv';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../../data/api/fetch';
-import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster, Warning } from '../felles/minikomponenter';
+import { Alert, Heading, Panel } from '@navikt/ds-react';
+import { Errormelding, Laster } from '../felles/minikomponenter';
 import SistEndret from '../felles/sist-endret';
 import Sammendrag from './sammendrag';
 import Arbeidserfaring from './arbeidserfaring';
@@ -115,7 +115,7 @@ const CvInnhold = () => {
             <Heading spacing level="2" size="large">
                 CV
             </Heading>
-            <Warning melding="Ingen CV registrert" />
+            <Alert variant="info">Ingen CV registrert</Alert>
         </Panel>
     );
 };

@@ -11,7 +11,7 @@ export const PilotAlert = () => {
                 På denne siden vil det dukke opp nytt innhold fortløpende. Vi setter stor pris på dine tilbakemeldinger,
                 som du kan gi når som helst og så mange ganger du vil via skjemaet under. Takk for at du deltar!
             </p>
-            <a href="https://forms.office.com/e/xkbbUv07y0">
+            <a href="https://forms.office.com/e/w3jHFRCKEC">
                 Gi tilbakemeldinger i Forms <ExternalLinkIcon title="a11y-title" />
             </a>
         </Alert>
