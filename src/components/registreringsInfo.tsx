@@ -99,12 +99,6 @@ export const Registrering = () => {
     const AnnetSpor: StringOrNothing =
         regDataAnnet?.sporsmal || 'Trenger du oppfølging i forbindelse med andre utfordringer?';
 
-    const regIdNavn = registrertAvEnhetID + ' ' + registrertAvNavn;
-    const regDato = 'Registrert: ' + formaterDato(datoRegistrert);
-    const regAv = 'Registrert av: ' + registrertAvIdent + ', ' + regIdNavn;
-
-    const regValues = [`${regDato}`, `${regAv}`];
-
     const brukerRegistrering = registrering?.registrering;
     const type = registrering?.type;
 
@@ -118,16 +112,26 @@ export const Registrering = () => {
             </Panel>
         );
     }
+    const regIdNavn = registrering.registrering?.manueltRegistrertAv?.enhet
+        ? registrertAvEnhetID + ' ' + registrertAvNavn
+        : '';
+    const regDato = registrering.registrering?.opprettetDato ? 'Registrert: ' + formaterDato(datoRegistrert) : '';
+    const regAv = registrering.registrering?.manueltRegistrertAv?.enhet
+        ? 'Registrert av: ' + registrertAvIdent + ', ' + regIdNavn
+        : 'Registrert av: ' + registrertAvIdent;
+
+    const regValues = registrering.registrering?.manueltRegistrertAv ? [`${regDato}`, `${regAv}`] : [regDato];
+
+    const registrertAv = registrering.registrering?.manueltRegistrertAv?.enhet
+        ? `Registrert av ${registrertAvNavn}`
+        : 'Brukerens svar fra registreringen';
 
     return (
         <Panel border className="info_panel">
             <Heading spacing level="2" size="large">
                 Registering
             </Heading>
-            <DobbeltInformasjon
-                header={`Registrert av ${registrertAvNavn}`}
-                values={regValues ? regValues : [EMDASH]}
-            />
+            <DobbeltInformasjon header={registrertAv} values={regValues ? regValues : [EMDASH]} />
             <span className="registrering_container">
                 <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
                 <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
