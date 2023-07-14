@@ -1,4 +1,4 @@
-import { Panel, Heading } from '@navikt/ds-react';
+import { Panel, Heading, BodyShort } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { hentYtelser } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
@@ -40,7 +40,20 @@ export const Ytelser = () => {
     if (ytelserHarFeil) {
         return (
             <Panel border className="info_panel">
+                <Heading spacing level="2" size="large">
+                    Ytelser
+                </Heading>
                 <Errormelding />
+            </Panel>
+        );
+    }
+    if (!ytelser) {
+        return (
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="large">
+                    Ytelser
+                </Heading>
+                <BodyShort>Ingen ytelser å vise.</BodyShort>
             </Panel>
         );
     }

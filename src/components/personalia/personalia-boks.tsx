@@ -104,6 +104,9 @@ const PersonaliaBoks = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel">
+                <Heading spacing level="2" size="large">
+                    Personalia
+                </Heading>
                 <Errormelding />
             </Panel>
         );
