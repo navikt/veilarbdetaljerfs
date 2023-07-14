@@ -40,7 +40,11 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
             <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
         ));
     } else {
-        return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
+        return (
+            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
+                {EMDASH}
+            </Informasjonsbolk>
+        );
     }
 
     return (
