@@ -61,7 +61,7 @@ const CvInnhold = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="large">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
                 <Errormelding />

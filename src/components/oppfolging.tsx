@@ -74,7 +74,7 @@ const Oppfolgning = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
-                <Heading spacing level="2" size="large">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Oppfølging
                 </Heading>
                 <Errormelding />
@@ -85,9 +85,9 @@ const Oppfolgning = () => {
     return (
         <>
             <Panel border className="info_panel" tabIndex={3}>
-            <Heading spacing level="2" size="medium" className="PanelHeader">
-                Oppfølging
-            </Heading>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Oppfølging
+                </Heading>
                 <span className="info_container">
                     <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />

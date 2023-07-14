@@ -47,7 +47,7 @@ export const Registrering = () => {
     if (registreringHarFeil) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Registrering
                 </Heading>
                 <Errormelding />
@@ -105,7 +105,7 @@ export const Registrering = () => {
     if (!registrering) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Registering
                 </Heading>
                 <BodyShort>Brukeren har ikke registrert seg.</BodyShort>

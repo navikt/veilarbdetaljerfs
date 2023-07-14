@@ -40,7 +40,7 @@ export const Ytelser = () => {
     if (ytelserHarFeil) {
         return (
             <Panel border className="info_panel" tabIndex={7}>
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Ytelser
                 </Heading>
                 <Errormelding />
@@ -51,7 +51,7 @@ export const Ytelser = () => {
     if (!ytelser) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Ytelser
                 </Heading>
                 <BodyShort>Ingen ytelser å vise.</BodyShort>
