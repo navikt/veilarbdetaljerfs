@@ -116,7 +116,9 @@ const CvInnhold = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>
-            <Alert variant="info">Ingen CV registrert</Alert>
+            <Alert inline variant="info">
+                Ingen CV registrert
+            </Alert>
         </Panel>
     );
 };

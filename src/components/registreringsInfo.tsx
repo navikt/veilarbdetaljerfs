@@ -1,4 +1,4 @@
-import { Panel, Heading, BodyShort } from '@navikt/ds-react';
+import { Panel, Heading, BodyShort, Alert } from '@navikt/ds-react';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { useEffect, useState } from 'react';
@@ -108,7 +108,9 @@ export const Registrering = () => {
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     Registering
                 </Heading>
-                <BodyShort>Brukeren har ikke registrert seg.</BodyShort>
+                <Alert inline variant="info">
+                    Brukeren har ikke registrert seg
+                </Alert>
             </Panel>
         );
     }

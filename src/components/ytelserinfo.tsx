@@ -1,4 +1,4 @@
-import { Panel, Heading, BodyShort } from '@navikt/ds-react';
+import { Panel, Heading, BodyShort, Alert } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { hentYtelser } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
@@ -55,7 +55,9 @@ export const Ytelser = () => {
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     Ytelser
                 </Heading>
-                <BodyShort>Ingen ytelser å vise.</BodyShort>
+                <Alert inline variant="info">
+                    Ingen ytelser registrert
+                </Alert>
             </Panel>
         );
     }
