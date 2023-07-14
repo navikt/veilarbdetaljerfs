@@ -1,9 +1,9 @@
 .nokkelinfo_panel {
     margin-left: 40px;
     margin-right: 40px;
-    margin-top: 20px;
     margin-bottom: 20px;
     background-color: var(--a-surface-action-subtle-hover);
+    border-radius: 10px;
 }
 
 .nokkelinfo_container {
@@ -15,34 +15,8 @@
     line-height: var(--a-font-line-height-medium);
 }
 
-.pilot_alert {
-    margin: 10px 40px 0px 40px;
-}
-
 @media only screen and (max-width: 950px) {
     .nokkelinfo_container {
         grid-template-columns: 1fr 1fr 1fr;
     }
-}
-
-.registrering_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    padding-top: 20px;
-}
-
-.info_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 30px;
-}
-.copyHeader {
-    margin-right: '5px';
-    margin-bottom: -14px;
-}
-.copyBody {
-    display: inline-grid;
-    grid-auto-flow: column;
-    align-items: center;
 }

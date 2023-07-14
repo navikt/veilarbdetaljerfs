@@ -6,13 +6,17 @@ import EMDASH from '../../utils/emdash';
 function StatsborgerskapInfo(props: { statsborgerskapData: string[] }) {
     const content = props.statsborgerskapData.map((statsborgerskap) => {
         return (
-            <BodyShort className="innrykk" key={statsborgerskap}>
+            <BodyShort size="small" key={statsborgerskap}>
                 {formateStringInUpperAndLowerCase(statsborgerskap)}
             </BodyShort>
         );
     });
 
-    return <Informasjonsbolk header="Statsborgerskap">{isNotEmptyArray(content) ? content : EMDASH}</Informasjonsbolk>;
+    return (
+        <Informasjonsbolk header="Statsborgerskap" headerTypo="ingress">
+            {isNotEmptyArray(content) ? content : EMDASH}
+        </Informasjonsbolk>
+    );
 }
 
 export default StatsborgerskapInfo;

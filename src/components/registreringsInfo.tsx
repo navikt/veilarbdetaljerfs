@@ -38,7 +38,7 @@ export const Registrering = () => {
 
     if (lasterRegistreringsdata) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel" tabIndex={6}>
                 <Laster />
             </Panel>
         );
@@ -46,8 +46,8 @@ export const Registrering = () => {
 
     if (registreringHarFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+            <Panel border className="info_panel" tabIndex={6}>
+                <Heading spacing level="2" size="medium">
                     Registrering
                 </Heading>
                 <Errormelding />
@@ -105,7 +105,7 @@ export const Registrering = () => {
     if (!registrering) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+                <Heading spacing level="2" size="medium">
                     Registering
                 </Heading>
                 <BodyShort>Brukeren har ikke registrert seg.</BodyShort>
@@ -127,12 +127,12 @@ export const Registrering = () => {
         : 'Brukerens svar fra registreringen';
 
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+        <Panel border className="info_panel" tabIndex={6}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Registering
             </Heading>
             <DobbeltInformasjon header={registrertAv} values={regValues ? regValues : [EMDASH]} />
-            <span className="registrering_container">
+            <span className="info_container">
                 <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
                 <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
                 <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />

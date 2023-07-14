@@ -1,4 +1,9 @@
 @import '@navikt/ds-css' layer(aksel);
+.veilarbdetaljerfs {
+    background-color: var(--a-bg-subtle);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
 .main_grid {
     column-count: 2;
@@ -6,49 +11,13 @@
     padding-right: 40px;
 }
 
+@media only screen and (max-width: 1500px) {
+    .info_container {
+        grid-template-columns: 1fr;
+    }
+}
 .underinformasjon {
     margin-bottom: 1rem;
-}
-
-.innrykk {
-    padding-left: 0.5rem;
-}
-
-.info_panel {
-    margin-bottom: 40px;
-    background-color: var(--a-font-line-height-medium);
-    break-inside: avoid-column;
-    padding-bottom: 80px;
-}
-
-.info_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-evenly;
-    line-height: var(--a-font-line-height-medium);
-}
-
-@media only screen and (max-width: 1500px) {
-    .info_container {
-        grid-template-columns: 1fr;
-    }
-}
-
-.info_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-evenly;
-    line-height: var(--a-font-line-height-medium);
-}
-
-@media only screen and (max-width: 1500px) {
-    .info_container {
-        grid-template-columns: 1fr;
-    }
-}
-
-.informasjonsbolk {
-    margin: 1rem 10px;
 }
 
 .informasjonsbolk-tittel {
@@ -57,18 +26,17 @@
     gap: 0.5rem;
     margin-bottom: var(--a-spacing-1);
 }
-
-.flex-align-center {
-    display: flex;
-    align-items: center;
+.informasjonsbolk {
+    padding-bottom: 10px;
 }
 
 .kilde-tekst {
-    max-width: 20rem;
-    padding: 0 0.5rem;
+    color: var(--a-text-subtle);
+}
 
-    color: var(--a-gray-600);
-    line-height: 1rem;
+.lenke-brukerprofil {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .lenke-brukerprofil {

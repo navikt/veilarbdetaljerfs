@@ -9,14 +9,21 @@ import {
 } from '../../utils/konstanter';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formatStringInUpperAndLowerCaseUnderscore, formaterDato } from '../../utils/formater';
+import '../fellesStyling.css';
 
 function SivilstandBolk(props: { sivilstand: PersonaliaSivilstandNy }) {
     const { sivilstand, fraDato, skjermet, relasjonsBosted, gradering, master, registrertDato } = props.sivilstand;
 
     return (
         <div className="underinformasjon">
-            <BodyShort className="innrykk">{formatStringInUpperAndLowerCaseUnderscore(sivilstand)}</BodyShort>
-            {fraDato && <BodyShort className="innrykk">Fra: {formaterDato(fraDato)}</BodyShort>}
+            <BodyShort size="small" className="BodyHeader">
+                {formatStringInUpperAndLowerCaseUnderscore(sivilstand)}
+            </BodyShort>
+            {fraDato && (
+                <BodyShort size="small" className="BodyShortItalic">
+                    Fra: {formaterDato(fraDato)}
+                </BodyShort>
+            )}
             {sivilstand && (
                 <Detail className="kilde-tekst">
                     Registrert {registrertDato && formaterDato(registrertDato)}
@@ -24,24 +31,24 @@ function SivilstandBolk(props: { sivilstand: PersonaliaSivilstandNy }) {
                 </Detail>
             )}
             {relasjonsBosted && (
-                <BodyShort className="innrykk">{` ${hentBorMedPartnerBeskrivelse(relasjonsBosted)}`}</BodyShort>
+                <BodyShort size="small">{` ${hentBorMedPartnerBeskrivelse(relasjonsBosted)}`}</BodyShort>
             )}
             {gradering && gradering !== Gradering.UGRADERT && (
-                <BodyShort className="innrykk">{` ${graderingBeskrivelsePartner(gradering)}`}</BodyShort>
+                <BodyShort size="small">{` ${graderingBeskrivelsePartner(gradering)}`}</BodyShort>
             )}
-            {skjermet && <BodyShort className="innrykk">{` ${egenAnsattTekst()}`}</BodyShort>}
+            {skjermet && <BodyShort size="small">{` ${egenAnsattTekst()}`}</BodyShort>}
         </div>
     );
 }
 
 function Sivilstand(props: { partner?: PersonaliaPartner; sivilstandliste?: PersonaliaSivilstandNy[] }) {
-    const { partner, sivilstandliste, ...rest } = props;
+    const { sivilstandliste } = props;
     const sivilstandListe = sivilstandliste?.length
         ? sivilstandliste?.map((sivilstand, index) => <SivilstandBolk sivilstand={sivilstand} key={index} />)
         : EMDASH;
 
     return (
-        <Informasjonsbolk header="Sivilstand" {...rest}>
+        <Informasjonsbolk header="Sivilstand" headerTypo="ingress">
             {sivilstandListe}
         </Informasjonsbolk>
     );

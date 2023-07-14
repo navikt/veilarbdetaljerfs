@@ -1,6 +1,6 @@
 import React from 'react';
-
-import { Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import '../../../index.css';
 
 interface Props {
     header: string;
@@ -11,7 +11,7 @@ interface Props {
 
 function Informasjonsbolk({ header, headerTypo = 'element', children, icon }: Props) {
     return (
-        <div className={'informasjonsbolk'}>
+        <div className="informasjonsbolk">
             <span className="informasjonsbolk-tittel">
                 {icon}
                 {headerTypo === 'ingress' && (
@@ -19,7 +19,7 @@ function Informasjonsbolk({ header, headerTypo = 'element', children, icon }: Pr
                         {header}
                     </Heading>
                 )}
-                {headerTypo === 'element' && <Label size="small">{header}</Label>}
+                {headerTypo === 'element' && <BodyShort size="small">{header}</BodyShort>}
             </span>
             {children}
         </div>

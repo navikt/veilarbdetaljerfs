@@ -1,6 +1,6 @@
 import EMDASH from '../../utils/emdash';
 import { StringOrNothing } from '../../utils/felles-typer';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 interface Props {
     header: string;
@@ -10,10 +10,12 @@ interface Props {
 export function EnkeltInformasjon({ header, value = EMDASH }: Props) {
     return (
         <span>
-            <Heading level="5" size="xsmall">
+            <BodyShort size="small" className="BodyHeader">
                 {header}
-            </Heading>
-            <BodyShort size="small">{value}</BodyShort>
+            </BodyShort>
+            <BodyShort size="small" className="EnkeltInfoValue">
+                {value}
+            </BodyShort>
         </span>
     );
 }

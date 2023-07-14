@@ -1,7 +1,7 @@
-import { Heading, Link, Panel } from '@navikt/ds-react';
-import { OrNothing, StringOrNothing } from '../../utils/felles-typer';
-import { useAppStore } from '../../stores/app-store';
-import { hentAktorId, hentPersonalia, hentTolk, hentVergeOgFullmakt } from '../../data/api/fetch';
+import { Heading, Panel } from '@navikt/ds-react';
+import { OrNothing } from '../utils/felles-typer';
+import { useAppStore } from '../stores/app-store';
+import { hentPersonalia, hentTolk, hentVergeOgFullmakt } from '../data/api/fetch';
 import { useEffect, useState } from 'react';
 import {
     Bostedsadresse,
@@ -12,27 +12,22 @@ import {
     PersonaliaTelefon,
     PersonaliaV2Info,
     PersonsBarn
-} from '../../data/api/datatyper/personalia';
-import { Errormelding, Laster } from '../felles/minikomponenter';
-import Telefon from './telefon';
-import Adresser from './adresser';
-import { kalkulerAlder } from '../../utils/date-utils';
-import Barn from './barn';
-import Sivilstand from './sivilstand';
-import StatsborgerskapInfo from './statsborgerskapinfo';
-import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
-import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
-import { EnkeltInformasjon } from '../felles/enkeltInfo';
-import { hentMalform } from '../../utils/konstanter';
-import {
-    Fullmakter,
-    VergeOgFullmaktData,
-    VergemaalEllerFremtidsfullmakt
-} from '../../data/api/datatyper/vergeOgFullmakt';
-import Vergemaal from './vergemaal';
-import Fullmakt from './fullmakt';
-import { AktorId } from '../../data/api/datatyper/aktor-id';
-import { lagPersonforvalterLenke } from '../../utils';
+} from '../data/api/datatyper/personalia';
+import { Errormelding, Laster } from './felles/minikomponenter';
+import Telefon from './personalia/telefon';
+import Adresser from './personalia/adresser';
+import { kalkulerAlder } from '../utils/date-utils';
+import Barn from './personalia/barn';
+import Sivilstand from './personalia/sivilstand';
+import StatsborgerskapInfo from './personalia/statsborgerskapinfo';
+import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
+import TilrettelagtKommunikasjon from './personalia/tilrettelagtKommunikasjon';
+import { EnkeltInformasjon } from './felles/enkeltInfo';
+import { hentMalform } from '../utils/konstanter';
+import { Fullmakter, VergeOgFullmaktData, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import Vergemaal from './personalia/vergemaal';
+import Fullmakt from './personalia/fullmakt';
+import './fellesStyling.css';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
@@ -43,23 +38,20 @@ const PersonaliaBoks = () => {
     const [personalia, setPersonalia] = useState<PersonaliaV2Info | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
     const [vergeOgFullmakt, setVergeOgFullmakt] = useState<VergeOgFullmaktData | null>(null);
-    const [aktor, setAktor] = useState<AktorId | null>(null);
 
     useEffect(() => {
         const hentPersonaliaData = async () => {
             try {
                 setLasterData(true);
-                const [_personalia, _tolk, _vergeOgFullmakt, _aktor] = await Promise.all([
+                const [_personalia, _tolk, _vergeOgFullmakt] = await Promise.all([
                     hentPersonalia(fnr),
                     hentTolk(fnr),
-                    hentVergeOgFullmakt(fnr),
-                    hentAktorId(fnr)
+                    hentVergeOgFullmakt(fnr)
                 ]);
 
                 setPersonalia(_personalia);
                 setTolk(_tolk);
                 setVergeOgFullmakt(_vergeOgFullmakt);
-                setAktor(_aktor);
             } catch (err) {
                 setHarFeil(true);
             } finally {
@@ -91,11 +83,10 @@ const PersonaliaBoks = () => {
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmakt?.vergemaalEllerFremtidsfullmakt ?? [];
     const fullmakt: Fullmakter[] = vergeOgFullmakt?.fullmakt ?? [];
-    const aktorIdEllerFnr: StringOrNothing = aktor?.aktorId ? aktor?.aktorId : fnr;
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel" tabIndex={4}>
                 <Laster />
             </Panel>
         );
@@ -103,18 +94,15 @@ const PersonaliaBoks = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
-                    Personalia
-                </Heading>
+            <Panel border className="info_panel" tabIndex={4}>
                 <Errormelding />
             </Panel>
         );
     }
 
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+        <Panel border className="info_panel" tabIndex={4}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Personalia
             </Heading>
             <span className="info_container">
@@ -134,9 +122,6 @@ const PersonaliaBoks = () => {
                 </div>
                 <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
             </span>
-            <Link href={lagPersonforvalterLenke(aktorIdEllerFnr)} target="_blank" rel="noreferrer noopener">
-                Endre personopplysninger
-            </Link>
         </Panel>
     );
 };
