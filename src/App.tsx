@@ -20,9 +20,9 @@ const App = (props: AppProps) => {
                 <div className="main_grid">
                     <CvInnhold />
                     <Jobbonsker />
-                    <Registrering />
-                    <PersonaliaBoks />
                     <Oppfolging />
+                    <PersonaliaBoks />
+                    <Registrering />
                     <Ytelser />
                 </div>
             </StoreProvider>
