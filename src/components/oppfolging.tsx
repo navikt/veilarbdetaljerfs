@@ -83,21 +83,19 @@ const Oppfolgning = () => {
     }
 
     return (
-        <>
-            <Panel border className="info_panel" tabIndex={3}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
-                    Oppfølging
-                </Heading>
-                <span className="info_container">
-                    <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
-                    <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-                    <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
-                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                </span>
-            </Panel>
-        </>
+        <Panel border className="info_panel" tabIndex={3}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
+                Oppfølging
+            </Heading>
+            <span className="info_container">
+                <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
+                <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
+                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+            </span>
+        </Panel>
     );
 };
 
