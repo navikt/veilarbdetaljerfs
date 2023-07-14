@@ -99,13 +99,13 @@ const CvInnhold = () => {
                     <Utdanning utdanning={utdanning} />
                     <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
                     <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
-                    <AnnenErfaring annenErfaring={annenErfaring} />
                     <Kompetanser kompetanse={jobbprofil?.kompetanse} />
+                    <Sprak sprak={sprak} />
+                    <Kurs kurs={kurs} />
+                    <Forerkort forerkort={forerkort} />
+                    <AnnenErfaring annenErfaring={annenErfaring} />
                     <Godkjenninger godkjenninger={godkjenninger} />
                     <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
-                    <Sprak sprak={sprak} />
-                    <Forerkort forerkort={forerkort} />
-                    <Kurs kurs={kurs} />
                 </div>
             </Panel>
         );

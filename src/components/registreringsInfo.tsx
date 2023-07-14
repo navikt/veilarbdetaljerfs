@@ -133,12 +133,12 @@ export const Registrering = () => {
             </Heading>
             <DobbeltInformasjon header={registrertAv} values={regValues ? regValues : [EMDASH]} />
             <span className="registrering_container">
+                <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
+                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
                 <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
                 <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
                 <EnkeltInformasjon header={UtdanningGodkjentSpor} value={UtdanningGodkjentSvar} />
                 <EnkeltInformasjon header={UtdanningBestattSpor} value={UtdanningBestattSvar} />
-                <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
-                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
             </span>
             <span className="registrering_nedre_container">
                 <JobbetSammenhengende registrering={brukerRegistrering} />

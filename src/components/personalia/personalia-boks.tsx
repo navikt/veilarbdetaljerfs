@@ -124,15 +124,15 @@ const PersonaliaBoks = () => {
                     oppholdsadresse={oppholdsadresse}
                     kontaktadresser={kontaktadresser}
                 />
-                <Barn barn={filtrertBarneListe} />
-                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
                 <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
                 <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
-                <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
+                <Barn barn={filtrertBarneListe} />
+                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
                 <div>
                     <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                     <Fullmakt fullmakt={fullmakt} />
                 </div>
+                <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
             </span>
             <Link href={lagPersonforvalterLenke(aktorIdEllerFnr)} target="_blank" rel="noreferrer noopener">
                 Endre personopplysninger
