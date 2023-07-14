@@ -1,6 +1,7 @@
-import { BodyShort, CopyButton, Heading } from '@navikt/ds-react';
+import { BodyShort, CopyButton } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 import { StringOrNothing } from '../../utils/felles-typer';
+import '../fellesStyling.css';
 
 interface Props {
     header: string;
@@ -9,14 +10,14 @@ interface Props {
 
 export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
     return (
-        <BodyShort>
-            <Heading level="5" size="xsmall" className="copyHeader">
+        <span>
+            <BodyShort size="small" className="copyHeader">
                 {header}
-            </Heading>
+            </BodyShort>
             <span className="copyBody">
                 <BodyShort size="small">{value}</BodyShort>
                 <CopyButton copyText={value!} />
             </span>
-        </BodyShort>
+        </span>
     );
 }

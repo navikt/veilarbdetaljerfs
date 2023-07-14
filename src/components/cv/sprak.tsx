@@ -2,7 +2,7 @@ import { ArenaPerson, SprakNiva } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { safeMap } from '../../utils';
 import { Chat2Icon } from '@navikt/aksel-icons';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 // String er lagt til for bakoverkompatibilitet
 function mapSprakNivaTilTekst(sprakNiva: SprakNiva | string): string {
@@ -25,11 +25,11 @@ function mapSprakNivaTilTekst(sprakNiva: SprakNiva | string): string {
 const Sprak = ({ sprak }: Pick<ArenaPerson, 'sprak'>) => {
     const mappedSprak = safeMap(sprak, (enkeltSprak, index) => (
         <div key={`kompetanse-${index}`} className="underinformasjon">
-            <Label size="small" as="p">
+            <BodyShort size="small" className="BodyHeader">
                 {enkeltSprak.sprak}
-            </Label>
-            <BodyShort>Muntlig: {mapSprakNivaTilTekst(enkeltSprak.muntligNiva)}</BodyShort>
-            <BodyShort>Skriftlig: {mapSprakNivaTilTekst(enkeltSprak.skriftligNiva)}</BodyShort>
+            </BodyShort>
+            <BodyShort size="small">Muntlig: {mapSprakNivaTilTekst(enkeltSprak.muntligNiva)}</BodyShort>
+            <BodyShort size="small">Skriftlig: {mapSprakNivaTilTekst(enkeltSprak.skriftligNiva)}</BodyShort>
         </div>
     ));
 
