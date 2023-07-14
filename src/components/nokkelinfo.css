@@ -3,6 +3,7 @@
     margin-right: 40px;
     margin-bottom: 20px;
     background-color: var(--a-surface-action-subtle-hover);
+    border-radius: 10px;
 }
 
 .nokkelinfo_container {

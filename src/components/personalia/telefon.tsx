@@ -9,17 +9,19 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
     const { telefonNr, registrertDato, master } = props.telefon;
 
     return (
-        <div className="underinformasjon">
-            <BodyShort size="small" className="telefonNrBolk">
+        <div>
+            <BodyShort size="small" className="copyTlf">
                 {formaterTelefonnummer(telefonNr)}
                 <CopyButton copyText={telefonNr} />
             </BodyShort>
-            {telefonNr && (
-                <Detail className="kilde-tekst">
-                    Registrert {registrertDato && registrertDato}
-                    {` ${hentKilde(master)}`}
-                </Detail>
-            )}
+            <div className="tlf_registrert">
+                {telefonNr && (
+                    <Detail className="kilde-tekst">
+                        Registrert {registrertDato && registrertDato}
+                        {` ${hentKilde(master)}`}
+                    </Detail>
+                )}
+            </div>
         </div>
     );
 }

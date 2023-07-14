@@ -30,11 +30,6 @@
     padding-bottom: 10px;
 }
 
-.telefonNrBolk {
-    display: flex;
-    align-items: center;
-}
-
 .kilde-tekst {
     color: var(--a-text-subtle);
 }

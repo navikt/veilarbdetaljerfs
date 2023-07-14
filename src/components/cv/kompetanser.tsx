@@ -6,12 +6,18 @@ import { FolderFileIcon } from '@navikt/aksel-icons';
 
 const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
     const kompetanser =
-        kompetanse && kompetanse.length > 0 ? kompetanse?.map((kompetansen) => <li>{kompetansen.tittel}</li>) : EMDASH;
+        kompetanse && kompetanse.length > 0
+            ? kompetanse?.map((kompetansen) => (
+                  <li>
+                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>
+                  </li>
+              ))
+            : EMDASH;
 
     return (
         <Informasjonsbolk header="Kompetanser" icon={<FolderFileIcon />} headerTypo="ingress">
             <ul>
-                <BodyShort>{kompetanser}</BodyShort>
+                <BodyShort size="small">{kompetanser}</BodyShort>
             </ul>
         </Informasjonsbolk>
     );

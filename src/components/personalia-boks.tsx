@@ -86,49 +86,43 @@ const PersonaliaBoks = () => {
 
     if (lasterData) {
         return (
-            <div tabIndex={4}>
-                <Panel border className="info_panel">
-                    <Laster />
-                </Panel>
-            </div>
+            <Panel border className="info_panel" tabIndex={4}>
+                <Laster />
+            </Panel>
         );
     }
 
     if (harFeil) {
         return (
-            <div tabIndex={4}>
-                <Panel border className="info_panel">
-                    <Errormelding />
-                </Panel>
-            </div>
+            <Panel border className="info_panel" tabIndex={4}>
+                <Errormelding />
+            </Panel>
         );
     }
 
     return (
-        <div tabIndex={4}>
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
-                    Personalia
-                </Heading>
-                <span className="info_container">
-                    <Telefon telefon={telefon} />
-                    <Adresser
-                        bostedsadresse={bostedsadresse}
-                        oppholdsadresse={oppholdsadresse}
-                        kontaktadresser={kontaktadresser}
-                    />
-                    <Barn barn={filtrertBarneListe} />
-                    <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
-                    <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
-                    <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
-                    <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
-                    <div>
-                        <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                        <Fullmakt fullmakt={fullmakt} />
-                    </div>
-                </span>
-            </Panel>
-        </div>
+        <Panel border className="info_panel" tabIndex={4}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
+                Personalia
+            </Heading>
+            <span className="info_container">
+                <Telefon telefon={telefon} />
+                <Adresser
+                    bostedsadresse={bostedsadresse}
+                    oppholdsadresse={oppholdsadresse}
+                    kontaktadresser={kontaktadresser}
+                />
+                <Barn barn={filtrertBarneListe} />
+                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
+                <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
+                <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
+                <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
+                <div>
+                    <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
+                    <Fullmakt fullmakt={fullmakt} />
+                </div>
+            </span>
+        </Panel>
     );
 };
 

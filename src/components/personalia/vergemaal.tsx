@@ -56,7 +56,7 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
         <div className="PersonaliaVerge">
             <div>
                 <BodyShort size="small" className="BodyHeader">
-                    <b>Verge</b>
+                    Verge
                 </BodyShort>
                 {navn && (
                     <div>
@@ -68,9 +68,7 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
                 <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
             <div>
-                <BodyShort size="small">
-                    <b>Omfang</b>
-                </BodyShort>
+                <BodyShort size="small">Omfang</BodyShort>
                 <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
             </div>
         </div>
@@ -87,7 +85,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
                 <BodyShort size="small">{vergetypeBeskrivelse(type)}</BodyShort>
                 <VergeEllerFullmakt vergeEllerFullmektig={vergeEllerFullmektig} />
                 <BodyShort size="small" className="BodyHeader">
-                    <b>Fylkesmannsembete</b>
+                    Fylkesmannsembete
                 </BodyShort>
                 <BodyShort size="small">{embete}</BodyShort>
                 <BodyShort size="small">

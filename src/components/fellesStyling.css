@@ -10,6 +10,7 @@
     background: linear-gradient(to bottom, var(--a-surface-success-subtle) 55px, white 20px);
     break-inside: avoid-column;
     margin-bottom: 40px;
+    border-radius: 10px;
 }
 
 @media only screen and (max-width: 1500px) {
@@ -33,6 +34,14 @@
     display: inline-grid;
     grid-auto-flow: column;
     align-items: center;
+}
+.copyTlf {
+    display: flex;
+    align-items: center;
+}
+.tlf_registrert {
+    position: relative;
+    top: -10px;
 }
 .pilot_alert {
     margin-left: 60%;

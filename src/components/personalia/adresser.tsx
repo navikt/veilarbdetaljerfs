@@ -89,7 +89,7 @@ function OppholdsAdresse(props: Pick<PersonaliaV2Info, 'oppholdsadresse'>) {
             <BodyShort size="small" className="BodyHeader">
                 Oppholdsadresse
             </BodyShort>
-            <BodyShort className="innrykk">{coAdressenavn || ''}</BodyShort>
+            <BodyShort size="small">{coAdressenavn || ''}</BodyShort>
             {!isNullOrUndefined(adresseVisning) ? adresseVisning : EMDASH}
         </div>
     );
@@ -207,7 +207,7 @@ function UtenlandskAdresseIFrittFormat(props: { adresse: OrNothing<Utenlandskadr
         props.adresse as UtenlandskadresseIFrittFormat;
 
     return (
-        <div className="innrykk">
+        <div>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje1)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje2)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje3)} </BodyShort>
@@ -222,7 +222,7 @@ function PostAdresseIFrittFormat(props: { adresse: OrNothing<PostadresseIFrittFo
         props.adresse as PostadresseIFrittFormat;
 
     return (
-        <div className="innrykk">
+        <div>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje1)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje2)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje3)} </BodyShort>
