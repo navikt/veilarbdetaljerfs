@@ -23,7 +23,7 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 
-const Oppfolgning = () => {
+const Oppfolging = () => {
     const { fnr } = useAppStore();
 
     const [lasterData, setLasterData] = useState<boolean>(true);
@@ -99,4 +99,4 @@ const Oppfolgning = () => {
     );
 };
 
-export default Oppfolgning;
+export default Oppfolging;
