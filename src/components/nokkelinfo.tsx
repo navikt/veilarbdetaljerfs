@@ -95,22 +95,26 @@ const Nokkelinfo = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="nokkelinfo_panel">
-                <Laster />
-            </Panel>
+            <div tabIndex={1}>
+                <Panel border className="nokkelinfo_panel">
+                    <Laster />
+                </Panel>
+            </div>
         );
     }
 
     if (harFeil) {
         return (
-            <Panel border className="nokkelinfo_panel">
-                <Errormelding />
-            </Panel>
+            <div tabIndex={1}>
+                <Panel border className="nokkelinfo_panel">
+                    <Errormelding />
+                </Panel>
+            </div>
         );
     }
 
     return (
-        <>
+        <div tabIndex={1}>
             <Panel border className="nokkelinfo_panel">
                 <Heading spacing level="2" size="medium">
                     Nøkkelinfo
@@ -128,7 +132,7 @@ const Nokkelinfo = () => {
                     <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
                 </span>
             </Panel>
-        </>
+        </div>
     );
 };
 

@@ -52,20 +52,24 @@ const CvInnhold = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel">
-                <Laster />
-            </Panel>
+            <div tabIndex={2}>
+                <Panel border className="info_panel">
+                    <Laster />
+                </Panel>
+            </div>
         );
     }
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
-                    CV
-                </Heading>
-                <Errormelding />
-            </Panel>
+            <div tabIndex={2}>
+                <Panel border className="info_panel">
+                    <Heading spacing level="2" size="large">
+                        CV
+                    </Heading>
+                    <Errormelding />
+                </Panel>
+            </div>
         );
     }
 
@@ -88,36 +92,40 @@ const CvInnhold = () => {
         } = cvOgJobbonsker;
 
         return (
+            <div tabIndex={2}>
+                <Panel border className="info_panel">
+                    <Heading spacing level="2" size="medium" className="PanelHeader">
+                        CV
+                    </Heading>
+                    <LastNedCV erManuell={erManuell} fnr={fnr} />
+                    <RedigerCV erManuell={erManuell} fnr={fnr} />
+                    <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
+                    <Sammendrag sammendrag={sammendrag} />
+                    <div className="info_container">
+                        <Utdanning utdanning={utdanning} />
+                        <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
+                        <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
+                        <AnnenErfaring annenErfaring={annenErfaring} />
+                        <Kompetanser kompetanse={jobbprofil?.kompetanse} />
+                        <Godkjenninger godkjenninger={godkjenninger} />
+                        <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
+                        <Sprak sprak={sprak} />
+                        <Forerkort forerkort={forerkort} />
+                        <Kurs kurs={kurs} />
+                    </div>
+                </Panel>
+            </div>
+        );
+    }
+    return (
+        <div tabIndex={2}>
             <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
-                <LastNedCV erManuell={erManuell} fnr={fnr} />
-                <RedigerCV erManuell={erManuell} fnr={fnr} />
-                <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
-                <Sammendrag sammendrag={sammendrag} />
-                <div className="info_container">
-                    <Utdanning utdanning={utdanning} />
-                    <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
-                    <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
-                    <AnnenErfaring annenErfaring={annenErfaring} />
-                    <Kompetanser kompetanse={jobbprofil?.kompetanse} />
-                    <Godkjenninger godkjenninger={godkjenninger} />
-                    <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
-                    <Sprak sprak={sprak} />
-                    <Forerkort forerkort={forerkort} />
-                    <Kurs kurs={kurs} />
-                </div>
+                <Warning melding="Ingen CV registrert" />
             </Panel>
-        );
-    }
-    return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
-                CV
-            </Heading>
-            <Warning melding="Ingen CV registrert" />
-        </Panel>
+        </div>
     );
 };
 

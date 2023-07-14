@@ -2,6 +2,7 @@
 .veilarbdetaljerfs {
     background-color: var(--a-bg-subtle);
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .main_grid {

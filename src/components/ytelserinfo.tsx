@@ -31,41 +31,47 @@ export const Ytelser = () => {
 
     if (lasterYtelserdata) {
         return (
-            <Panel border className="info_panel">
-                <Laster />
-            </Panel>
+            <div tabIndex={7}>
+                <Panel border className="info_panel">
+                    <Laster />
+                </Panel>
+            </div>
         );
     }
 
     if (ytelserHarFeil) {
         return (
-            <Panel border className="info_panel">
-                <Errormelding />
-            </Panel>
+            <div tabIndex={7}>
+                <Panel border className="info_panel">
+                    <Errormelding />
+                </Panel>
+            </div>
         );
     }
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
-                Ytelser
-            </Heading>
-            <span className="info_container">
-                {ytelser?.vedtaksliste.map((vedtak, index) => (
-                    <div key={index}>
-                        <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />
-                        <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
-                        <EnkeltInformasjon header={'Aktivitetsfase'} value={vedtak.aktivitetsfase || EMDASH} />
-                        <EnkeltInformasjon
-                            header="Fradato / Tildato"
-                            value={`${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year} - ${
-                                vedtak.tildato
-                                    ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
-                                    : 'Ingen tildato'
-                            }`}
-                        />
-                    </div>
-                ))}
-            </span>
-        </Panel>
+        <div tabIndex={7}>
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Ytelser
+                </Heading>
+                <span className="info_container">
+                    {ytelser?.vedtaksliste.map((vedtak, index) => (
+                        <div key={index}>
+                            <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />
+                            <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
+                            <EnkeltInformasjon header={'Aktivitetsfase'} value={vedtak.aktivitetsfase || EMDASH} />
+                            <EnkeltInformasjon
+                                header="Fradato / Tildato"
+                                value={`${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year} - ${
+                                    vedtak.tildato
+                                        ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
+                                        : 'Ingen tildato'
+                                }`}
+                            />
+                        </div>
+                    ))}
+                </span>
+            </Panel>
+        </div>
     );
 };

@@ -64,22 +64,26 @@ const Oppfolging = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel">
-                <Laster />
-            </Panel>
+            <div tabIndex={3}>
+                <Panel border className="info_panel">
+                    <Laster />
+                </Panel>
+            </div>
         );
     }
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel">
-                <Errormelding />
-            </Panel>
+            <div tabIndex={3}>
+                <Panel border className="info_panel">
+                    <Errormelding />
+                </Panel>
+            </div>
         );
     }
 
     return (
-        <>
+        <div tabIndex={3}>
             <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     Oppfølging
@@ -93,7 +97,7 @@ const Oppfolging = () => {
                     <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                 </span>
             </Panel>
-        </>
+        </div>
     );
 };
 

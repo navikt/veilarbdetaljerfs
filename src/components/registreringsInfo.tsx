@@ -38,17 +38,21 @@ export const Registrering = () => {
 
     if (lasterRegistreringsdata) {
         return (
-            <Panel border className="info_panel">
-                <Laster />
-            </Panel>
+            <div tabIndex={6}>
+                <Panel border className="info_panel">
+                    <Laster />
+                </Panel>
+            </div>
         );
     }
 
     if (registreringHarFeil) {
         return (
-            <Panel border className="info_panel">
-                <Errormelding />
-            </Panel>
+            <div tabIndex={6}>
+                <Panel border className="info_panel">
+                    <Errormelding />
+                </Panel>
+            </div>
         );
     }
 
@@ -112,30 +116,32 @@ export const Registrering = () => {
     const type = registrering?.type;
 
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
-                Registering
-            </Heading>
-            <DobbeltInformasjon
-                header={`Registrert av ${registrertAvNavn}`}
-                values={regValues ? regValues : [EMDASH]}
-            />
-            <span className="info_container">
-                <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar} />
-                <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
-                <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
-                <EnkeltInformasjon header={UtdanningGodkjentSpor} value={UtdanningGodkjentSvar} />
-                <EnkeltInformasjon header={UtdanningBestattSpor} value={UtdanningBestattSvar} />
-                <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
-                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
-            </span>
-            <span className="registrering_nedre_container">
-                <JobbetSammenhengende registrering={brukerRegistrering} />
-                <Show if={brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null}>
-                    <PersonverninformasjonUtskrift type={type} />
-                </Show>
-                <ForeslattProfilering registrering={brukerRegistrering} />
-            </span>
-        </Panel>
+        <div tabIndex={6}>
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Registering
+                </Heading>
+                <DobbeltInformasjon
+                    header={`Registrert av ${registrertAvNavn}`}
+                    values={regValues ? regValues : [EMDASH]}
+                />
+                <span className="info_container">
+                    <EnkeltInformasjon header={hvorforSpor} value={hvorforSvar} />
+                    <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
+                    <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
+                    <EnkeltInformasjon header={UtdanningGodkjentSpor} value={UtdanningGodkjentSvar} />
+                    <EnkeltInformasjon header={UtdanningBestattSpor} value={UtdanningBestattSvar} />
+                    <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
+                    <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
+                </span>
+                <span className="registrering_nedre_container">
+                    <JobbetSammenhengende registrering={brukerRegistrering} />
+                    <Show if={brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null}>
+                        <PersonverninformasjonUtskrift type={type} />
+                    </Show>
+                    <ForeslattProfilering registrering={brukerRegistrering} />
+                </span>
+            </Panel>
+        </div>
     );
 };

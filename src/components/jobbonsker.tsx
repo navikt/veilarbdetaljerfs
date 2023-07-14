@@ -71,20 +71,24 @@ const Jobbonsker = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel">
-                <Laster />
-            </Panel>
+            <div tabIndex={5}>
+                <Panel border className="info_panel">
+                    <Laster />
+                </Panel>
+            </div>
         );
     }
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
-                    Jobbønsker
-                </Heading>
-                <Errormelding />
-            </Panel>
+            <div tabIndex={5}>
+                <Panel border className="info_panel">
+                    <Heading spacing level="2" size="medium" className="PanelHeader">
+                        Jobbønsker
+                    </Heading>
+                    <Errormelding />
+                </Panel>
+            </div>
         );
     }
 
@@ -117,33 +121,37 @@ const Jobbonsker = () => {
         const oppstartstid = [oppstartstypeTilTekst(oppstart)];
 
         return (
+            <div tabIndex={5}>
+                <Panel border className="info_panel">
+                    <Heading spacing level="2" size="medium" className="PanelHeader">
+                        Jobbønsker
+                    </Heading>
+                    <RedigerCV erManuell={erManuell} fnr={fnr} />
+                    <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
+                    <div className="info_container">
+                        <DobbeltInformasjon header="Jobber og yrker" values={yrker} />
+                        <DobbeltInformasjon header="Områder" values={arbeidssted} />
+                        <DobbeltInformasjon header="Heltid eller deltid" values={heltidDeltidList} />
+                        <DobbeltInformasjon
+                            header="Arbeidstider"
+                            values={[...arbeidstid, ...arbeidsdag, ...arbeidsskift]}
+                        />
+                        <DobbeltInformasjon header="Ansettelsesform" values={ansettelsesform} />
+                        <DobbeltInformasjon header="Oppstart" values={oppstartstid} />
+                    </div>
+                </Panel>
+            </div>
+        );
+    }
+    return (
+        <div tabIndex={5}>
             <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     Jobbønsker
                 </Heading>
-                <RedigerCV erManuell={erManuell} fnr={fnr} />
-                <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
-                <div className="info_container">
-                    <DobbeltInformasjon header="Jobber og yrker" values={yrker} />
-                    <DobbeltInformasjon header="Områder" values={arbeidssted} />
-                    <DobbeltInformasjon header="Heltid eller deltid" values={heltidDeltidList} />
-                    <DobbeltInformasjon
-                        header="Arbeidstider"
-                        values={[...arbeidstid, ...arbeidsdag, ...arbeidsskift]}
-                    />
-                    <DobbeltInformasjon header="Ansettelsesform" values={ansettelsesform} />
-                    <DobbeltInformasjon header="Oppstart" values={oppstartstid} />
-                </div>
+                <Warning melding="Ingen jobbønsker registrert" />
             </Panel>
-        );
-    }
-    return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
-                Jobbønsker
-            </Heading>
-            <Warning melding="Ingen jobbønsker registrert" />
-        </Panel>
+        </div>
     );
 };
 
