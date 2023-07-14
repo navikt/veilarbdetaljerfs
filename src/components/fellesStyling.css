@@ -35,6 +35,9 @@
     grid-auto-flow: column;
     align-items: center;
 }
+.withEMDASH {
+    margin-top: 14px;
+}
 .copyTlf {
     display: flex;
     align-items: center;

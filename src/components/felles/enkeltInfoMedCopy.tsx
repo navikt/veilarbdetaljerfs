@@ -8,15 +8,30 @@ interface Props {
     value?: StringOrNothing;
 }
 
+// export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
+//     return (
+//         <span>
+//             <BodyShort size="small" className="copyHeader">
+//                 {header}
+//             </BodyShort>
+//             <span className="copyBody">
+//                 <BodyShort size="small">{value}</BodyShort>
+//                 <CopyButton copyText={value!} />
+//             </span>
+//         </span>
+//     );
+// }
+
 export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
+    const showCopyButton = value !== EMDASH;
     return (
         <span>
             <BodyShort size="small" className="copyHeader">
                 {header}
             </BodyShort>
-            <span className="copyBody">
+            <span className={`copyBody ${showCopyButton ? 'withoutEMDASH' : 'withEMDASH'}`}>
                 <BodyShort size="small">{value}</BodyShort>
-                <CopyButton copyText={value!} />
+                {showCopyButton && <CopyButton copyText={value!} />}
             </span>
         </span>
     );
