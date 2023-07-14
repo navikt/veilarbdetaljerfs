@@ -55,7 +55,7 @@ const Nokkelinfo = () => {
                         hentCvOgJobbonsker(fnr)
                     ]);
 
-                if (_oppfolgingsstatus !== null && _oppfolgingsstatus?.veilederId !== null) {
+                if (!!_oppfolgingsstatus && !!_oppfolgingsstatus?.veilederId) {
                     const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
                     setVeileder(_veileder);
                 }

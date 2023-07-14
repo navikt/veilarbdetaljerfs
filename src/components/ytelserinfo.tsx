@@ -1,4 +1,4 @@
-import { Panel, Heading, BodyShort } from '@navikt/ds-react';
+import { Panel, Heading, Alert } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { hentYtelser } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
@@ -6,6 +6,7 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { YtelseData } from '../data/api/datatyper/ytelse';
+import { isNotEmptyArray } from '../utils/felles-typer';
 
 export const Ytelser = () => {
     const { fnr } = useAppStore();
@@ -40,7 +41,7 @@ export const Ytelser = () => {
     if (ytelserHarFeil) {
         return (
             <Panel border className="info_panel" tabIndex={7}>
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Ytelser
                 </Heading>
                 <Errormelding />
@@ -48,13 +49,15 @@ export const Ytelser = () => {
         );
     }
 
-    if (!ytelser) {
+    if (!ytelser || !isNotEmptyArray(ytelser.vedtaksliste)) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Ytelser
                 </Heading>
-                <BodyShort>Ingen ytelser å vise.</BodyShort>
+                <Alert inline variant="info">
+                    Ingen ytelser registrert
+                </Alert>
             </Panel>
         );
     }

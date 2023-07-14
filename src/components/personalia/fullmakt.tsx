@@ -1,8 +1,9 @@
 import { BodyShort } from '@navikt/ds-react';
 import { Fullmakter, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { formateStringInUpperAndLowerCase, formaterDato, isNotEmptyArray } from '../../utils/formater';
+import { formateStringInUpperAndLowerCase, formaterDato } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
+import { isNotEmptyArray } from '../../utils/felles-typer';
 
 function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     const { motpartsPersonident, motpartsPersonNavn, motpartsRolle, omraader, gyldigFraOgMed, gyldigTilOgMed } =
@@ -40,7 +41,11 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
             <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
         ));
     } else {
-        return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
+        return (
+            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
+                {EMDASH}
+            </Informasjonsbolk>
+        );
     }
 
     return (

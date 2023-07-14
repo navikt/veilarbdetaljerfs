@@ -95,6 +95,9 @@ const PersonaliaBoks = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Personalia
+                </Heading>
                 <Errormelding />
             </Panel>
         );
@@ -112,15 +115,15 @@ const PersonaliaBoks = () => {
                     oppholdsadresse={oppholdsadresse}
                     kontaktadresser={kontaktadresser}
                 />
-                <Barn barn={filtrertBarneListe} />
-                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
                 <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
                 <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
-                <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
+                <Barn barn={filtrertBarneListe} />
+                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
                 <div>
                     <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                     <Fullmakt fullmakt={fullmakt} />
                 </div>
+                <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />
             </span>
         </Panel>
     );

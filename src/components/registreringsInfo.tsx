@@ -1,4 +1,4 @@
-import { Panel, Heading, BodyShort } from '@navikt/ds-react';
+import { Panel, Heading, Alert } from '@navikt/ds-react';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { useEffect, useState } from 'react';
@@ -47,7 +47,7 @@ export const Registrering = () => {
     if (registreringHarFeil) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Registrering
                 </Heading>
                 <Errormelding />
@@ -105,10 +105,12 @@ export const Registrering = () => {
     if (!registrering) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Registering
                 </Heading>
-                <BodyShort>Brukeren har ikke registrert seg.</BodyShort>
+                <Alert inline variant="info">
+                    Brukeren har ikke registrert seg
+                </Alert>
             </Panel>
         );
     }
@@ -133,12 +135,12 @@ export const Registrering = () => {
             </Heading>
             <DobbeltInformasjon header={registrertAv} values={regValues ? regValues : [EMDASH]} />
             <span className="info_container">
+                <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
+                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
                 <EnkeltInformasjon header={sisteStillingSpor} value={sisteStillingSvar} />
                 <EnkeltInformasjon header={utdanningSpor} value={utdanningSvar} />
                 <EnkeltInformasjon header={UtdanningGodkjentSpor} value={UtdanningGodkjentSvar} />
                 <EnkeltInformasjon header={UtdanningBestattSpor} value={UtdanningBestattSvar} />
-                <EnkeltInformasjon header={HelseSpor} value={HelseSvar} />
-                <EnkeltInformasjon header={AnnetSpor} value={AnnetSvar} />
             </span>
             <span className="registrering_nedre_container">
                 <JobbetSammenhengende registrering={brukerRegistrering} />

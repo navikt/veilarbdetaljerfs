@@ -142,7 +142,9 @@ const Jobbonsker = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 Jobbønsker
             </Heading>
-            <Alert variant="info">Ingen jobbønsker registrert</Alert>
+            <Alert inline variant="info">
+                Ingen jobbønsker registrert
+            </Alert>
         </Panel>
     );
 };
