@@ -21,8 +21,8 @@ const App = (props: AppProps) => {
                     <CvInnhold />
                     <Jobbonsker />
                     <Registrering />
-                    <Oppfolging />
                     <PersonaliaBoks />
+                    <Oppfolging />
                     <Ytelser />
                 </div>
             </StoreProvider>

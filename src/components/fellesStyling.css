@@ -12,11 +12,10 @@
     margin-bottom: 40px;
     padding-bottom: 80px;
 }
-.info_panel_cv {
+.info_panel_ytelser {
     background: linear-gradient(to bottom, var(--a-surface-success-subtle) 55px, white 20px);
     break-inside: avoid-column;
-    margin-bottom: 40px;
-    margin-top: 40px;
+    margin-bottom: 50px;
 }
 @media only screen and (max-width: 1500px) {
     .info_container {

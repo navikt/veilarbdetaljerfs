@@ -52,7 +52,7 @@ const CvInnhold = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel_cv">
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -60,7 +60,7 @@ const CvInnhold = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel_cv">
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="large">
                     CV
                 </Heading>
@@ -88,7 +88,7 @@ const CvInnhold = () => {
         } = cvOgJobbonsker;
 
         return (
-            <Panel border className="info_panel_cv">
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
@@ -112,7 +112,7 @@ const CvInnhold = () => {
         );
     }
     return (
-        <Panel border className="info_panel_cv">
+        <Panel border className="info_panel">
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>

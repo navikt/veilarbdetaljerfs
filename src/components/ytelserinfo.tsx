@@ -31,7 +31,7 @@ export const Ytelser = () => {
 
     if (lasterYtelserdata) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel_ytelser">
                 <Laster />
             </Panel>
         );
@@ -39,13 +39,13 @@ export const Ytelser = () => {
 
     if (ytelserHarFeil) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel_ytelser">
                 <Errormelding />
             </Panel>
         );
     }
     return (
-        <Panel border className="info_panel">
+        <Panel border className="info_panel_ytelser">
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 Ytelser
             </Heading>
