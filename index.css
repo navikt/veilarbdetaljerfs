@@ -1,12 +1,9 @@
 @import '@navikt/ds-css' layer(aksel);
 
 .main_grid {
-    display: grid;
-    grid-template-columns: 49.3% 49.3%;
-    margin: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
-    grid-gap: 20px;
+    column-count: 2;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .underinformasjon {
@@ -18,8 +15,23 @@
 }
 
 .info_panel {
-    margin: 10px;
+    margin-bottom: 40px;
     background-color: var(--a-font-line-height-medium);
+    break-inside: avoid-column;
+    padding-bottom: 80px;
+}
+
+.info_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-evenly;
+    line-height: var(--a-font-line-height-medium);
+}
+
+@media only screen and (max-width: 1500px) {
+    .info_container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .info_container {

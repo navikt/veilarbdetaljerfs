@@ -109,7 +109,7 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
             <Verge vergemaal={vergemaal} key={index} />
         ));
     } else {
-        return <Informasjonsbolk header="Fullmakter">{EMDASH}</Informasjonsbolk>;
+        return <Informasjonsbolk header="Verge">{EMDASH}</Informasjonsbolk>;
     }
 
     return <Informasjonsbolk header="Bruker er under vergemål">{vergemaalListe}</Informasjonsbolk>;
