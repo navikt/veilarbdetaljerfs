@@ -1,6 +1,6 @@
 import { finnAlder } from '../../utils/date-utils';
 import { Gradering, PersonaliaV2Info, PersonsBarn } from '../../data/api/datatyper/personalia';
-import { formateStringInUpperAndLowerCase} from '../../utils/formater';
+import { formateStringInUpperAndLowerCase } from '../../utils/formater';
 import { graderingBeskrivelseBarn, hentBorMedBarnBeskrivelse } from '../../utils/konstanter';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';

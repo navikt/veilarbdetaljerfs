@@ -1,6 +1,6 @@
 import { BodyShort } from '@navikt/ds-react';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { formateStringInUpperAndLowerCase} from '../../utils/formater';
+import { formateStringInUpperAndLowerCase } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 

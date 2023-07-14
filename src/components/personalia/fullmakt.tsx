@@ -1,7 +1,7 @@
 import { BodyShort } from '@navikt/ds-react';
 import { Fullmakter, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { formateStringInUpperAndLowerCase, formaterDato} from '../../utils/formater';
+import { formateStringInUpperAndLowerCase, formaterDato } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 
