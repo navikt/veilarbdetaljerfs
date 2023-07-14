@@ -1,4 +1,4 @@
-import { Panel, Heading, BodyShort, Alert } from '@navikt/ds-react';
+import { Panel, Heading, Alert } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { hentYtelser } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';

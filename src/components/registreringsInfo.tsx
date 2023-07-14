@@ -1,4 +1,4 @@
-import { Panel, Heading, BodyShort, Alert } from '@navikt/ds-react';
+import { Panel, Heading, Alert } from '@navikt/ds-react';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { useEffect, useState } from 'react';
