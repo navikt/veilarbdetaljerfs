@@ -5,7 +5,6 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-
 import StoreProvider from './stores/store-provider';
 
 export interface AppProps {
