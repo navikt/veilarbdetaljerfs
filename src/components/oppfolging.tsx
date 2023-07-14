@@ -1,5 +1,6 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
+import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
 import { hentOppfolgingsstatus, hentPersonalia, hentVeileder } from '../data/api/fetch';
@@ -41,7 +42,7 @@ const Oppfolging = () => {
                     hentPersonalia(fnr)
                 ]);
 
-                if (_oppfolgingsstatus !== null && _oppfolgingsstatus?.veilederId !== null) {
+                if (!!_oppfolgingsstatus && !!_oppfolgingsstatus?.veilederId) {
                     const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
                     setVeileder(_veileder);
                 }
@@ -73,6 +74,9 @@ const Oppfolging = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Oppfølging
+                </Heading>
                 <Errormelding />
             </Panel>
         );

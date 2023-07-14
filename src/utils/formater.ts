@@ -32,10 +32,6 @@ export function formaterDato(datoObjekt: DatoType | string | undefined | null, o
     return lokalDato.toLocaleDateString('no-NO', options);
 }
 
-export function isNotEmptyArray(param: any[]): boolean {
-    return param && param.length !== 0;
-}
-
 export function removeWhitespace(input: string) {
     return input.replace(/ /g, '');
 }

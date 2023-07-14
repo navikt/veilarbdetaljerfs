@@ -1,11 +1,12 @@
 import { finnAlder } from '../../utils/date-utils';
 import { Gradering, PersonaliaV2Info, PersonsBarn } from '../../data/api/datatyper/personalia';
-import { formateStringInUpperAndLowerCase, isNotEmptyArray } from '../../utils/formater';
+import { formateStringInUpperAndLowerCase } from '../../utils/formater';
 import { graderingBeskrivelseBarn, hentBorMedBarnBeskrivelse } from '../../utils/konstanter';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
+import { isNotEmptyArray } from '../../utils/felles-typer';
 
 function BorSammen(props: { barn: PersonsBarn }) {
     const { dodsdato, relasjonsBosted } = props.barn;

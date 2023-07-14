@@ -1,9 +1,10 @@
 import { BodyShort, CopyButton, Detail } from '@navikt/ds-react';
 import { PersonaliaV2Info, PersonaliaTelefon } from '../../data/api/datatyper/personalia';
 import EMDASH from '../../utils/emdash';
-import { formaterTelefonnummer, isNotEmptyArray } from '../../utils/formater';
+import { formaterTelefonnummer } from '../../utils/formater';
 import { hentKilde } from '../../utils/konstanter';
 import Informasjonsbolk from '../felles/informasjonsbolk';
+import { isNotEmptyArray } from '../../utils/felles-typer';
 
 function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
     const { telefonNr, registrertDato, master } = props.telefon;

@@ -6,9 +6,9 @@ import {
     VergemaalEllerFullmaktOmfangType
 } from '../../data/api/datatyper/vergeOgFullmakt';
 import { BodyShort } from '@navikt/ds-react';
-import { formaterDato, isNotEmptyArray } from '../../utils/formater';
+import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { isNullOrUndefined } from '../../utils/felles-typer';
+import { isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
 import EMDASH from '../../utils/emdash';
 
 function vergetypeBeskrivelse(vergeType: Vergetype) {

@@ -61,7 +61,7 @@ const CvInnhold = () => {
     if (harFeil) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="large">
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
                 <Errormelding />
@@ -100,13 +100,13 @@ const CvInnhold = () => {
                     <Utdanning utdanning={utdanning} />
                     <Arbeidserfaring arbeidserfaring={arbeidserfaring} />
                     <Fagdokumentasjoner fagdokumentasjoner={fagdokumentasjoner} />
-                    <AnnenErfaring annenErfaring={annenErfaring} />
                     <Kompetanser kompetanse={jobbprofil?.kompetanse} />
+                    <Sprak sprak={sprak} />
+                    <Kurs kurs={kurs} />
+                    <Forerkort forerkort={forerkort} />
+                    <AnnenErfaring annenErfaring={annenErfaring} />
                     <Godkjenninger godkjenninger={godkjenninger} />
                     <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
-                    <Sprak sprak={sprak} />
-                    <Forerkort forerkort={forerkort} />
-                    <Kurs kurs={kurs} />
                 </div>
             </Panel>
         );
@@ -116,7 +116,9 @@ const CvInnhold = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>
-            <Alert variant="info">Ingen CV registrert</Alert>
+            <Alert inline variant="info">
+                Ingen CV registrert
+            </Alert>
         </Panel>
     );
 };
