@@ -31,7 +31,7 @@ export const Ytelser = () => {
 
     if (lasterYtelserdata) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel" tabIndex={7}>
                 <Laster />
             </Panel>
         );
@@ -39,18 +39,19 @@ export const Ytelser = () => {
 
     if (ytelserHarFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+            <Panel border className="info_panel" tabIndex={7}>
+                <Heading spacing level="2" size="medium">
                     Ytelser
                 </Heading>
                 <Errormelding />
             </Panel>
         );
     }
+
     if (!ytelser) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+                <Heading spacing level="2" size="medium">
                     Ytelser
                 </Heading>
                 <BodyShort>Ingen ytelser å vise.</BodyShort>
@@ -58,11 +59,11 @@ export const Ytelser = () => {
         );
     }
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+        <Panel border className="info_panel" tabIndex={7}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Ytelser
             </Heading>
-            <span className="registrering_container">
+            <span className="info_container">
                 {ytelser?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
                         <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />

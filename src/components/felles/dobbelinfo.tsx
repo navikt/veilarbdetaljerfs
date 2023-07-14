@@ -1,6 +1,6 @@
 import EMDASH from '../../utils/emdash';
 import { StringOrNothing } from '../../utils/felles-typer';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 
 interface Props {
     header: string;
@@ -11,9 +11,9 @@ export function DobbeltInformasjon({ header, values = [] }: Props) {
     const renderedValues = values.length > 0 ? values : [EMDASH];
     return (
         <span>
-            <Heading level="5" size="xsmall">
+            <BodyShort size="small" className="BodyHeader">
                 {header}
-            </Heading>
+            </BodyShort>
             <span>
                 {renderedValues.map((value, index) => (
                     <BodyShort key={index} size="small">

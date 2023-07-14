@@ -9,17 +9,19 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
     const { telefonNr, registrertDato, master } = props.telefon;
 
     return (
-        <div className="underinformasjon">
-            <BodyShort className="innrykk flex-align-center">
+        <div>
+            <BodyShort size="small" className="copyTlf">
                 {formaterTelefonnummer(telefonNr)}
                 <CopyButton copyText={telefonNr} />
             </BodyShort>
-            {telefonNr && (
-                <Detail className="kilde-tekst">
-                    Registrert {registrertDato && registrertDato}
-                    {` ${hentKilde(master)}`}
-                </Detail>
-            )}
+            <div className="tlf_registrert">
+                {telefonNr && (
+                    <Detail className="kilde-tekst">
+                        Registrert {registrertDato && registrertDato}
+                        {` ${hentKilde(master)}`}
+                    </Detail>
+                )}
+            </div>
         </div>
     );
 }
@@ -29,7 +31,11 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
         ? telefon.map((telefon, index) => <TelefonNrMedKilde telefon={telefon} key={index} />)
         : EMDASH;
 
-    return <Informasjonsbolk header="Telefon">{telefonListe}</Informasjonsbolk>;
+    return (
+        <Informasjonsbolk header="Telefon" headerTypo="ingress">
+            {telefonListe}
+        </Informasjonsbolk>
+    );
 }
 
 export default Telefon;

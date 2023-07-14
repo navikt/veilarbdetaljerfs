@@ -71,7 +71,7 @@ const Jobbonsker = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel" tabIndex={5}>
                 <Laster />
             </Panel>
         );
@@ -79,8 +79,8 @@ const Jobbonsker = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+            <Panel border className="info_panel" tabIndex={5}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Jobbønsker
                 </Heading>
                 <Errormelding />
@@ -117,8 +117,8 @@ const Jobbonsker = () => {
         const oppstartstid = [oppstartstypeTilTekst(oppstart)];
 
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
+            <Panel border className="info_panel" tabIndex={5}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
                     Jobbønsker
                 </Heading>
                 <RedigerCV erManuell={erManuell} fnr={fnr} />
@@ -138,8 +138,8 @@ const Jobbonsker = () => {
         );
     }
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="large">
+        <Panel border className="info_panel" tabIndex={5}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
                 Jobbønsker
             </Heading>
             <Alert variant="info">Ingen jobbønsker registrert</Alert>

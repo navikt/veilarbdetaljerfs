@@ -1,6 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
-import './nokkelinfo.css';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
 import { hentOppfolgingsstatus, hentPersonalia, hentVeileder } from '../data/api/fetch';
@@ -23,7 +22,7 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 
-const Oppfolgning = () => {
+const Oppfolging = () => {
     const { fnr } = useAppStore();
 
     const [lasterData, setLasterData] = useState<boolean>(true);
@@ -65,7 +64,7 @@ const Oppfolgning = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="info_panel">
+            <Panel border className="info_panel" tabIndex={3}>
                 <Laster />
             </Panel>
         );
@@ -73,32 +72,27 @@ const Oppfolgning = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
-                    Oppfølging
-                </Heading>
+            <Panel border className="info_panel" tabIndex={3}>
                 <Errormelding />
             </Panel>
         );
     }
 
     return (
-        <>
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="large">
-                    Oppfølgning
-                </Heading>
-                <span className="info_container">
-                    <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
-                    <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-                    <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
-                    <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                </span>
-            </Panel>
-        </>
+        <Panel border className="info_panel" tabIndex={3}>
+            <Heading spacing level="2" size="medium" className="PanelHeader">
+                Oppfølging
+            </Heading>
+            <span className="info_container">
+                <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
+                <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
+                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+            </span>
+        </Panel>
     );
 };
 
-export default Oppfolgning;
+export default Oppfolging;

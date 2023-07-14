@@ -95,7 +95,7 @@ const Nokkelinfo = () => {
 
     if (lasterData) {
         return (
-            <Panel border className="nokkelinfo_panel">
+            <Panel border className="nokkelinfo_panel" tabIndex={1}>
                 <Laster />
             </Panel>
         );
@@ -103,8 +103,8 @@ const Nokkelinfo = () => {
 
     if (harFeil) {
         return (
-            <Panel border className="nokkelinfo_panel">
-                <Heading spacing level="2" size="large">
+            <Panel border className="nokkelinfo_panel" tabIndex={1}>
+                <Heading spacing level="2" size="medium">
                     Nøkkelinfo
                 </Heading>
                 <Errormelding />
@@ -113,25 +113,23 @@ const Nokkelinfo = () => {
     }
 
     return (
-        <>
-            <Panel border className="nokkelinfo_panel">
-                <Heading spacing level="2" size="large">
-                    Nøkkelinfo
-                </Heading>
-                <span className="nokkelinfo_container">
-                    <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
-                    <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                    <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                    <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
-                    <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
-                    <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
-                    <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
-                    <EnkeltInformasjon header="Registrert av" value={registrertAv} />
-                    <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
-                </span>
-            </Panel>
-        </>
+        <Panel border className="nokkelinfo_panel" tabIndex={1}>
+            <Heading spacing level="2" size="medium">
+                Nøkkelinfo
+            </Heading>
+            <span className="nokkelinfo_container">
+                <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
+                <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
+                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+                <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
+                <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
+                <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
+                <EnkeltInformasjon header="Registrert av" value={registrertAv} />
+                <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
+            </span>
+        </Panel>
     );
 };
 
