@@ -4,8 +4,8 @@ import { ArenaPerson, JobbprofilOppstartstype } from '../data/api/datatyper/aren
 import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { RedigerCV } from './cv/rediger-cv';
 import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
-import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster, Warning } from './felles/minikomponenter';
+import { Alert, Heading, Panel } from '@navikt/ds-react';
+import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
@@ -142,7 +142,7 @@ const Jobbonsker = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 Jobbønsker
             </Heading>
-            <Warning melding="Ingen jobbønsker registrert" />
+            <Alert variant="info">Ingen jobbønsker registrert</Alert>
         </Panel>
     );
 };

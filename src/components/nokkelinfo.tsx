@@ -104,6 +104,9 @@ const Nokkelinfo = () => {
     if (harFeil) {
         return (
             <Panel border className="nokkelinfo_panel" tabIndex={1}>
+                <Heading spacing level="2" size="medium">
+                    Nøkkelinfo
+                </Heading>
                 <Errormelding />
             </Panel>
         );

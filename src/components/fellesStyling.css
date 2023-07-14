@@ -44,9 +44,9 @@
     top: -10px;
 }
 .pilot_alert {
-    margin-left: 60%;
-    margin-right: 40px;
+    margin: 10px 40px 0px 40px;
 }
+
 .BodyShortItalic {
     font-style: italic;
 }
