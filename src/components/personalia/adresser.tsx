@@ -244,7 +244,7 @@ function Adresser(props: Props) {
         ? kontaktadresser.map((kontaktadresse, index) => <KontaktAdresse kontaktadresse={kontaktadresse} key={index} />)
         : EMDASH;
     return (
-        <Informasjonsbolk header="Adresser">
+        <Informasjonsbolk header="Adresser" headerTypo="ingress">
             <BostedsAdresse bostedsadresse={bostedsadresse} />
             <OppholdsAdresse oppholdsadresse={oppholdsadresse} />
             {kontaktadresseList}
