@@ -3,7 +3,7 @@ import { useAppStore } from '../stores/app-store';
 import { ArenaPerson, JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { RedigerCV } from './cv/rediger-cv';
-import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
+import { ReturnData, hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
 import { Alert, Heading, Panel } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
@@ -45,7 +45,7 @@ const Jobbonsker = () => {
     const [lasterData, setLasterData] = useState<boolean>(true);
     const [harFeil, setHarFeil] = useState<boolean>(false);
 
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
+    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ReturnData<ArenaPerson> | null>(null);
     const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
 
     useEffect(() => {
@@ -90,7 +90,7 @@ const Jobbonsker = () => {
 
     const erManuell = underOppfolging?.erManuell;
 
-    if (cvOgJobbonsker?.jobbprofil) {
+    if (cvOgJobbonsker?.value?.jobbprofil) {
         const {
             sistEndret,
             onsketYrke,
@@ -101,7 +101,7 @@ const Jobbonsker = () => {
             onsketArbeidsdagordning,
             heltidDeltid,
             oppstart
-        } = cvOgJobbonsker.jobbprofil;
+        } = cvOgJobbonsker.value.jobbprofil;
 
         const arbeidssted = onsketArbeidssted.map((sted) => sted.stedsnavn);
         const yrker = onsketYrke.map((yrke) => yrke.tittel);

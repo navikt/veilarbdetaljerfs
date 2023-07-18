@@ -12,6 +12,34 @@ import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 
+export interface ReturnData<T> {
+    value?: T;
+    status: number;
+}
+
+const handterResponsv2 = async (respons: Response): Promise<ReturnData<any>> => {
+    if (respons.status >= 400 && !(respons.status === 401 || respons.status === 403 || respons.status === 404)) {
+        throw new Error(respons.statusText);
+    }
+    if (respons.status === 204 || respons.status === 401 || respons.status === 403 || respons.status === 404) {
+        const ReturnObject: ReturnData<any> = {
+            value: null,
+            status: respons.status
+        };
+        return ReturnObject;
+    }
+    try {
+        const data = await respons.json();
+        const ReturnObject: ReturnData<any> = {
+            value: data,
+            status: respons.status
+        };
+        return ReturnObject;
+    } catch (error) {
+        throw error;
+    }
+};
+
 const handterRespons = async (respons: Response) => {
     if (respons.status === 204 || respons.status === 404 || respons.status === 403) {
         return respons.ok;
@@ -78,11 +106,11 @@ export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
     return handterRespons(respons);
 };
 
-export const hentCvOgJobbonsker = async (fnr: string): Promise<ArenaPerson | null> => {
+export const hentCvOgJobbonsker = async (fnr: string): Promise<ReturnData<ArenaPerson> | null> => {
     const url = `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`;
     const respons = await fetch(url, GEToptions);
 
-    return handterRespons(respons);
+    return handterResponsv2(respons);
 };
 export const hentUnderOppfolging = async (fnr: string): Promise<UnderOppfolgingData | null> => {
     const url = `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`;

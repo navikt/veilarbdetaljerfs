@@ -4,7 +4,7 @@ import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
+import { ReturnData, hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
 import { Heading, Panel, Alert } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
@@ -26,7 +26,7 @@ const CvInnhold = () => {
     const [lasterData, setLasterData] = useState<boolean>(true);
     const [harFeil, setHarFeil] = useState<boolean>(false);
 
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
+    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ReturnData<ArenaPerson> | null>(null);
     const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
 
     useEffect(() => {
@@ -69,9 +69,35 @@ const CvInnhold = () => {
         );
     }
 
+    if (cvOgJobbonsker?.status === 401 || cvOgJobbonsker?.status === 403) {
+        return (
+            <Panel border className="info_panel" tabIndex={2}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    CV
+                </Heading>
+                <Alert inline variant="info">
+                    Du har ikke tilgang til CV
+                </Alert>
+            </Panel>
+        );
+    }
+
+    if (cvOgJobbonsker?.status === 204 || cvOgJobbonsker?.status === 404) {
+        return (
+            <Panel border className="info_panel" tabIndex={2}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    CV
+                </Heading>
+                <Alert inline variant="info">
+                    Ingen CV registrert
+                </Alert>
+            </Panel>
+        );
+    }
+
     const erManuell = underOppfolging?.erManuell;
 
-    if (cvOgJobbonsker) {
+    if (cvOgJobbonsker?.value && Object.keys(cvOgJobbonsker.value).length) {
         const {
             fagdokumentasjoner,
             sammendrag,
@@ -85,7 +111,7 @@ const CvInnhold = () => {
             kurs,
             sistEndret,
             jobbprofil
-        } = cvOgJobbonsker;
+        } = cvOgJobbonsker.value;
 
         return (
             <Panel border className="info_panel" tabIndex={2}>
@@ -116,9 +142,7 @@ const CvInnhold = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>
-            <Alert inline variant="info">
-                Ingen CV registrert
-            </Alert>
+            <Errormelding />
         </Panel>
     );
 };
