@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+// import { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 import { useAppStore } from '../stores/app-store';
 import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
+import { hentCvOgJobbonsker, hentUnderOppfolging, hentCvOgJobbonskerv2, ErrorTest } from '../data/api/fetch';
 import { Heading, Panel, Alert } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
@@ -21,36 +23,69 @@ import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import './fellesStyling.css';
 
+// function useCvOgJobbonsker(fnr: string) {
+//     // const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher)
+//     const { data, error, isLoading } = useSWR(fnr, hentCvOgJobbonskerv2);
+
+//     return {
+//         CvOgJobbonskerData: data,
+//         isLoading,
+//         isError: error
+//     };
+// }
+// function useUnderOppfolging(fnr: string) {
+//     // const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher)
+//     const { data, error, isLoading } = useSWR(fnr, hentUnderOppfolging);
+
+//     return {
+//         underOppfolgingData: data,
+//         isLoadingUnderOppfolging: isLoading,
+//         ErrorUnderOppfolging: error
+//     };
+// }
+
 const CvInnhold = () => {
     const { fnr } = useAppStore();
-    const [lasterData, setLasterData] = useState<boolean>(true);
-    const [harFeil, setHarFeil] = useState<boolean>(false);
+    // const [lasterData, setLasterData] = useState<boolean>(true);
+    // const [harFeil, setHarFeil] = useState<boolean>(false);
 
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
-    const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
+    // const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
+    // const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
 
-    useEffect(() => {
-        const hentCvData = async () => {
-            try {
-                setLasterData(true);
-                const [_cvOgJobbonsker, _underOppfolging] = await Promise.all([
-                    hentCvOgJobbonsker(fnr),
-                    hentUnderOppfolging(fnr)
-                ]);
+    // const fetcher: Fetcher<ArenaPerson, string> = (fnr) => hentCvOgJobbonskerv2(fnr);
 
-                setCvOgJobbonsker(_cvOgJobbonsker);
-                setUnderOppfolging(_underOppfolging);
-            } catch (error) {
-                setHarFeil(true);
-            } finally {
-                setLasterData(false);
-            }
-        };
+    // const { data, error, isLoading } = useSWR(fnr, hentCvOgJobbonsker);
+    // const { CvOgJobbonskerData, isLoading, isError } = useCvOgJobbonsker(fnr);
+    // console.log('TEST CV:', data, isLoading, error);
 
-        hentCvData();
-    }, [fnr]);
+    const cvOgJobbonsker = useSWR<ArenaPerson, ErrorTest>(fnr, hentCvOgJobbonsker, { shouldRetryOnError: false });
+    // console.log('TEST CV:', cvOgJobbonsker.data, cvOgJobbonsker.isLoading, cvOgJobbonsker.error?.status);
 
-    if (lasterData) {
+    const underOppfolging = useSWR(fnr, hentUnderOppfolging);
+    // console.log('TEST OPPFØLGNING:', underOppfolging.data, underOppfolging.isLoading, underOppfolging.error);
+
+    // useEffect(() => {
+    //     const hentCvData = async () => {
+    //         try {
+    //             setLasterData(true);
+    //             const [_cvOgJobbonsker, _underOppfolging] = await Promise.all([
+    //                 hentCvOgJobbonsker(fnr),
+    //                 hentUnderOppfolging(fnr)
+    //             ]);
+
+    //             setCvOgJobbonsker(_cvOgJobbonsker);
+    //             setUnderOppfolging(_underOppfolging);
+    //         } catch (error) {
+    //             setHarFeil(true);
+    //         } finally {
+    //             setLasterData(false);
+    //         }
+    //     };
+
+    //     hentCvData();
+    // }, [fnr]);
+
+    if (cvOgJobbonsker.isLoading || underOppfolging.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Laster />
@@ -58,7 +93,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (harFeil) {
+    if (cvOgJobbonsker.error || underOppfolging.error) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -69,9 +104,10 @@ const CvInnhold = () => {
         );
     }
 
-    const erManuell = underOppfolging?.erManuell;
+    // const erManuell = underOppfolging?.erManuell;
+    const erManuell = underOppfolging.data?.erManuell;
 
-    if (cvOgJobbonsker) {
+    if (cvOgJobbonsker.data) {
         const {
             fagdokumentasjoner,
             sammendrag,
@@ -85,7 +121,7 @@ const CvInnhold = () => {
             kurs,
             sistEndret,
             jobbprofil
-        } = cvOgJobbonsker;
+        } = cvOgJobbonsker.data;
 
         return (
             <Panel border className="info_panel" tabIndex={2}>
