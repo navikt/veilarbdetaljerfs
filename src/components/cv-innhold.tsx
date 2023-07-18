@@ -4,7 +4,7 @@ import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { ReturnData, hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
+import { ReturnData, hentUnderOppfolging } from '../data/api/fetch';
 import { Heading, Panel, Alert } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
@@ -21,24 +21,25 @@ import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import './fellesStyling.css';
 
-const CvInnhold = () => {
+interface Props {
+    cvOgJobbonsker: ReturnData<ArenaPerson> | null;
+    lasterDataCV: Boolean;
+    harFeilCV: Boolean;
+}
+
+const CvInnhold = (props: Props) => {
     const { fnr } = useAppStore();
     const [lasterData, setLasterData] = useState<boolean>(true);
     const [harFeil, setHarFeil] = useState<boolean>(false);
 
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ReturnData<ArenaPerson> | null>(null);
     const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
 
     useEffect(() => {
         const hentCvData = async () => {
             try {
                 setLasterData(true);
-                const [_cvOgJobbonsker, _underOppfolging] = await Promise.all([
-                    hentCvOgJobbonsker(fnr),
-                    hentUnderOppfolging(fnr)
-                ]);
+                const _underOppfolging = await hentUnderOppfolging(fnr);
 
-                setCvOgJobbonsker(_cvOgJobbonsker);
                 setUnderOppfolging(_underOppfolging);
             } catch (error) {
                 setHarFeil(true);
@@ -50,7 +51,7 @@ const CvInnhold = () => {
         hentCvData();
     }, [fnr]);
 
-    if (lasterData) {
+    if (lasterData || props.lasterDataCV) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Laster />
@@ -58,7 +59,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (harFeil) {
+    if (harFeil || props.harFeilCV) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -69,7 +70,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (cvOgJobbonsker?.status === 401 || cvOgJobbonsker?.status === 403) {
+    if (props.cvOgJobbonsker?.status === 401 || props.cvOgJobbonsker?.status === 403) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -82,7 +83,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (cvOgJobbonsker?.status === 204 || cvOgJobbonsker?.status === 404) {
+    if (props.cvOgJobbonsker?.status === 204 || props.cvOgJobbonsker?.status === 404) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -97,7 +98,7 @@ const CvInnhold = () => {
 
     const erManuell = underOppfolging?.erManuell;
 
-    if (cvOgJobbonsker?.value && Object.keys(cvOgJobbonsker.value).length) {
+    if (props.cvOgJobbonsker?.value && Object.keys(props.cvOgJobbonsker.value).length) {
         const {
             fagdokumentasjoner,
             sammendrag,
@@ -111,7 +112,7 @@ const CvInnhold = () => {
             kurs,
             sistEndret,
             jobbprofil
-        } = cvOgJobbonsker.value;
+        } = props.cvOgJobbonsker.value;
 
         return (
             <Panel border className="info_panel" tabIndex={2}>
