@@ -10,7 +10,8 @@ import {
     hentTolk,
     hentVeileder,
     hentYtelser,
-    hentCvOgJobbonsker
+    hentCvOgJobbonsker,
+    ReturnData
 } from '../data/api/fetch';
 import { OppfolgingsstatusData, ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { useEffect, useState } from 'react';
@@ -39,7 +40,7 @@ const Nokkelinfo = () => {
     const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
     const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
     const [ytelser, setYtelser] = useState<YtelseData | null>(null);
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
+    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ReturnData<ArenaPerson> | null>(null);
 
     useEffect(() => {
         const hentOverblikkData = async () => {
@@ -78,7 +79,7 @@ const Nokkelinfo = () => {
 
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
-    const onsketYrkeTitles: string[] = cvOgJobbonsker?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
+    const onsketYrkeTitles: string[] = cvOgJobbonsker?.value?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
