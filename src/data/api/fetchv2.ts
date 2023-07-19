@@ -30,6 +30,14 @@ const handterRespons = async (respons: Response) => {
         };
         throw error;
     }
+    if (respons.status === 204) {
+        const error: ErrorMessage = {
+            error: new Error('No content'),
+            status: respons.status,
+            info: null
+        };
+        throw error;
+    }
 
     try {
         return await respons.json();
