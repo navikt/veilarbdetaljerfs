@@ -15,35 +15,30 @@ import useSWR from 'swr';
 
 // FÅ PÅ SWR-CONFIG, IKKE FLERE RETRIES ETTER ERROR!
 
-export interface ErrorTest {
-    error: Error;
-    status: number;
+interface ErrorMessage {
+    error: Error | unknown;
+    status?: number | null;
     info: StringOrNothing;
 }
 
 const handterRespons = async (respons: Response) => {
-    // if (respons.status >= 400 && !(respons.status === 401 || respons.status === 403 || respons.status === 404)) {
     if (respons.status >= 400) {
-        const errorTest: ErrorTest = {
+        const error: ErrorMessage = {
             error: new Error('An error occurred while fetching the data.'),
             status: respons.status,
             info: await respons.json()
         };
-        throw errorTest;
+        throw error;
     }
-
-    // if (respons.status === 204 || respons.status === 401 || respons.status === 403 || respons.status === 404) {
-    //     const errorTest: ErrorTest = {
-    //         error: new Error('An error occurred while fetching the data.'),
-    //         status: respons.status,
-    //         info: await respons.json()
-    //     };
-    //     throw errorTest;
-    // }
 
     try {
         return await respons.json();
-    } catch (error) {
+    } catch (err) {
+        const error: ErrorMessage = {
+            error: err,
+            status: null,
+            info: null
+        };
         throw error;
     }
 };
@@ -62,7 +57,7 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<a
 };
 
 export const useCvOgJobbonsker = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<ArenaPerson>(
+    const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
         `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,
         fetcher
     );
@@ -71,7 +66,7 @@ export const useCvOgJobbonsker = (fnr: string) => {
 };
 
 export const useUnderOppfolging = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<UnderOppfolgingData>(
+    const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
         `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`,
         fetcher
     );
@@ -80,7 +75,7 @@ export const useUnderOppfolging = (fnr: string) => {
 };
 
 export const useOppfolgingsstatus = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<OppfolgingsstatusData>(
+    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
         `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
         fetcher
     );
@@ -89,13 +84,16 @@ export const useOppfolgingsstatus = (fnr: string) => {
 };
 
 export const usePersonalia = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<PersonaliaV2Info>(`/veilarbperson/api/v2/person?fnr=${fnr}`, fetcher);
+    const { data, error, isLoading } = useSWR<PersonaliaV2Info, ErrorMessage>(
+        `/veilarbperson/api/v2/person?fnr=${fnr}`,
+        fetcher
+    );
 
     return { data, isLoading, error };
 };
 
 export const useRegistrering = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<RegistreringsData>(
+    const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(
         `/veilarbperson/api/person/registrering?fnr=${fnr}`,
         fetcher
     );
@@ -104,7 +102,7 @@ export const useRegistrering = (fnr: string) => {
 };
 
 export const useTolk = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData>(
+    const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(
         `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`,
         fetcher
     );
@@ -113,7 +111,7 @@ export const useTolk = (fnr: string) => {
 };
 
 export const useVergeOgFullmakt = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<VergeOgFullmaktData>(
+    const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(
         `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`,
         fetcher
     );
@@ -122,19 +120,28 @@ export const useVergeOgFullmakt = (fnr: string) => {
 };
 
 export const useYtelser = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<YtelseData>(`/veilarboppfolging/api/person/${fnr}/ytelser`, fetcher);
+    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
+        `/veilarboppfolging/api/person/${fnr}/ytelser`,
+        fetcher
+    );
 
     return { data, isLoading, error };
 };
 
 export const useAktorId = (fnr: string) => {
-    const { data, error, isLoading } = useSWR<AktorId>(`/veilarbperson/api/person/aktorid?fnr=${fnr}`, fetcher);
+    const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(
+        `/veilarbperson/api/person/aktorid?fnr=${fnr}`,
+        fetcher
+    );
 
     return { data, isLoading, error };
 };
 
 export const useVeileder = (veilederId: string) => {
-    const { data, error, isLoading } = useSWR<VeilederData>(`/veilarbveileder/api/veileder/${veilederId}`, fetcher);
+    const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
+        `/veilarbveileder/api/veileder/${veilederId}`,
+        fetcher
+    );
 
     return { data, isLoading, error };
 };

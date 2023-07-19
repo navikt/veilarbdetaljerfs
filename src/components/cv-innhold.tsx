@@ -22,17 +22,38 @@ const CvInnhold = () => {
     const { fnr } = useAppStore();
 
     const cvOgJobbonsker = useCvOgJobbonsker(fnr);
-    console.log('TEST CV:', cvOgJobbonsker.data, cvOgJobbonsker.isLoading, cvOgJobbonsker.error);
-    console.log('ERROR CV:', cvOgJobbonsker.error?.info);
-
     const underOppfolging = useUnderOppfolging(fnr);
-    console.log('TEST OPPFØLGNING:', underOppfolging.data, underOppfolging.isLoading, underOppfolging.error);
-    console.log('ERROR OPPFØLGING:', underOppfolging.error?.info);
 
     if (cvOgJobbonsker.isLoading || underOppfolging.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Laster />
+            </Panel>
+        );
+    }
+
+    if (cvOgJobbonsker?.error?.status === 401 || cvOgJobbonsker?.error?.status === 403) {
+        return (
+            <Panel border className="info_panel" tabIndex={2}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    CV
+                </Heading>
+                <Alert inline variant="info">
+                    Du har ikke tilgang til CV
+                </Alert>
+            </Panel>
+        );
+    }
+
+    if (cvOgJobbonsker?.error?.status === 204 || cvOgJobbonsker?.error?.status === 404) {
+        return (
+            <Panel border className="info_panel" tabIndex={2}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    CV
+                </Heading>
+                <Alert inline variant="info">
+                    Ingen CV registrert
+                </Alert>
             </Panel>
         );
     }
@@ -49,8 +70,7 @@ const CvInnhold = () => {
     }
 
     const erManuell = underOppfolging.data?.erManuell;
-
-    if (cvOgJobbonsker.data) {
+    if (cvOgJobbonsker.data && Object.keys(cvOgJobbonsker.data).length) {
         const {
             fagdokumentasjoner,
             sammendrag,
@@ -95,9 +115,7 @@ const CvInnhold = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>
-            <Alert inline variant="info">
-                Ingen CV registrert
-            </Alert>
+            <Errormelding />
         </Panel>
     );
 };
