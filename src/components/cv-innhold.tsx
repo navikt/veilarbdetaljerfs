@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react';
-// import { useSWRConfig } from 'swr';
-import useSWR from 'swr';
 import { useAppStore } from '../stores/app-store';
-import { ArenaPerson } from '../data/api/datatyper/arenaperson';
-import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { hentCvOgJobbonsker, hentUnderOppfolging, hentCvOgJobbonskerv2, ErrorTest } from '../data/api/fetch';
+import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetchv2';
 import { Heading, Panel, Alert } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
@@ -23,67 +18,16 @@ import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import './fellesStyling.css';
 
-// function useCvOgJobbonsker(fnr: string) {
-//     // const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher)
-//     const { data, error, isLoading } = useSWR(fnr, hentCvOgJobbonskerv2);
-
-//     return {
-//         CvOgJobbonskerData: data,
-//         isLoading,
-//         isError: error
-//     };
-// }
-// function useUnderOppfolging(fnr: string) {
-//     // const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher)
-//     const { data, error, isLoading } = useSWR(fnr, hentUnderOppfolging);
-
-//     return {
-//         underOppfolgingData: data,
-//         isLoadingUnderOppfolging: isLoading,
-//         ErrorUnderOppfolging: error
-//     };
-// }
-
 const CvInnhold = () => {
     const { fnr } = useAppStore();
-    // const [lasterData, setLasterData] = useState<boolean>(true);
-    // const [harFeil, setHarFeil] = useState<boolean>(false);
 
-    // const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
-    // const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
+    const cvOgJobbonsker = useCvOgJobbonsker(fnr);
+    console.log('TEST CV:', cvOgJobbonsker.data, cvOgJobbonsker.isLoading, cvOgJobbonsker.error);
+    console.log('ERROR CV:', cvOgJobbonsker.error?.info);
 
-    // const fetcher: Fetcher<ArenaPerson, string> = (fnr) => hentCvOgJobbonskerv2(fnr);
-
-    // const { data, error, isLoading } = useSWR(fnr, hentCvOgJobbonsker);
-    // const { CvOgJobbonskerData, isLoading, isError } = useCvOgJobbonsker(fnr);
-    // console.log('TEST CV:', data, isLoading, error);
-
-    const cvOgJobbonsker = useSWR<ArenaPerson, ErrorTest>(fnr, hentCvOgJobbonsker, { shouldRetryOnError: false });
-    // console.log('TEST CV:', cvOgJobbonsker.data, cvOgJobbonsker.isLoading, cvOgJobbonsker.error?.status);
-
-    const underOppfolging = useSWR(fnr, hentUnderOppfolging);
-    // console.log('TEST OPPFØLGNING:', underOppfolging.data, underOppfolging.isLoading, underOppfolging.error);
-
-    // useEffect(() => {
-    //     const hentCvData = async () => {
-    //         try {
-    //             setLasterData(true);
-    //             const [_cvOgJobbonsker, _underOppfolging] = await Promise.all([
-    //                 hentCvOgJobbonsker(fnr),
-    //                 hentUnderOppfolging(fnr)
-    //             ]);
-
-    //             setCvOgJobbonsker(_cvOgJobbonsker);
-    //             setUnderOppfolging(_underOppfolging);
-    //         } catch (error) {
-    //             setHarFeil(true);
-    //         } finally {
-    //             setLasterData(false);
-    //         }
-    //     };
-
-    //     hentCvData();
-    // }, [fnr]);
+    const underOppfolging = useUnderOppfolging(fnr);
+    console.log('TEST OPPFØLGNING:', underOppfolging.data, underOppfolging.isLoading, underOppfolging.error);
+    console.log('ERROR OPPFØLGING:', underOppfolging.error?.info);
 
     if (cvOgJobbonsker.isLoading || underOppfolging.isLoading) {
         return (
@@ -104,7 +48,6 @@ const CvInnhold = () => {
         );
     }
 
-    // const erManuell = underOppfolging?.erManuell;
     const erManuell = underOppfolging.data?.erManuell;
 
     if (cvOgJobbonsker.data) {
