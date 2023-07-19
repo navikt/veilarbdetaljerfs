@@ -13,8 +13,6 @@ import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
 
-// FÅ PÅ SWR-CONFIG, IKKE FLERE RETRIES ETTER ERROR!
-
 interface ErrorMessage {
     error: Error | unknown;
     status?: number | null;
@@ -67,7 +65,8 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<a
 export const useCvOgJobbonsker = (fnr: string) => {
     const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
         `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -76,7 +75,8 @@ export const useCvOgJobbonsker = (fnr: string) => {
 export const useUnderOppfolging = (fnr: string) => {
     const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
         `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -85,7 +85,8 @@ export const useUnderOppfolging = (fnr: string) => {
 export const useOppfolgingsstatus = (fnr: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
         `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -94,7 +95,8 @@ export const useOppfolgingsstatus = (fnr: string) => {
 export const usePersonalia = (fnr: string) => {
     const { data, error, isLoading } = useSWR<PersonaliaV2Info, ErrorMessage>(
         `/veilarbperson/api/v2/person?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -103,7 +105,8 @@ export const usePersonalia = (fnr: string) => {
 export const useRegistrering = (fnr: string) => {
     const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(
         `/veilarbperson/api/person/registrering?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -112,7 +115,8 @@ export const useRegistrering = (fnr: string) => {
 export const useTolk = (fnr: string) => {
     const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(
         `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -121,7 +125,8 @@ export const useTolk = (fnr: string) => {
 export const useVergeOgFullmakt = (fnr: string) => {
     const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(
         `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -130,7 +135,8 @@ export const useVergeOgFullmakt = (fnr: string) => {
 export const useYtelser = (fnr: string) => {
     const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
         `/veilarboppfolging/api/person/${fnr}/ytelser`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -139,7 +145,8 @@ export const useYtelser = (fnr: string) => {
 export const useAktorId = (fnr: string) => {
     const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(
         `/veilarbperson/api/person/aktorid?fnr=${fnr}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
@@ -148,7 +155,8 @@ export const useAktorId = (fnr: string) => {
 export const useVeileder = (veilederId: string) => {
     const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
         `/veilarbveileder/api/veileder/${veilederId}`,
-        fetcher
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };
