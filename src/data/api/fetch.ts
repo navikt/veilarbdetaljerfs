@@ -12,12 +12,6 @@ import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 
-export interface ErrorTest {
-    error: Error;
-    status: number;
-    info: string;
-}
-
 const handterRespons = async (respons: Response) => {
     if (respons.status === 204 || respons.status === 404 || respons.status === 403) {
         return respons.ok;
@@ -32,41 +26,6 @@ const handterRespons = async (respons: Response) => {
     } catch (error) {
         console.log('Error ved parsing:', error);
         return null;
-    }
-};
-const handterResponsv2 = async (respons: Response) => {
-    if (respons.status >= 400 && !(respons.status === 401 || respons.status === 403 || respons.status === 404)) {
-        // throw new Error(respons.statusText);
-        // const error = new Error('An error occurred while fetching the data.');
-        const errorTest: ErrorTest = {
-            error: new Error('An error occurred while fetching the data.'),
-            status: respons.status,
-            info: await respons.json()
-        };
-        throw errorTest;
-        // Attach extra info to the error object.
-        // error.info = await res.json();
-        // error.status = res.status;
-        // throw error;
-    }
-
-    if (respons.status === 204 || respons.status === 401 || respons.status === 403 || respons.status === 404) {
-        const errorTest: ErrorTest = {
-            error: new Error('An error occurred while fetching the data.'),
-            status: respons.status,
-            info: await respons.json()
-        };
-        throw errorTest;
-        // const ReturnObject: ReturnData<any> = {
-        //     value: null,
-        //     status: respons.status
-        // };
-        // return ReturnObject;
-    }
-    try {
-        return await respons.json();
-    } catch (error) {
-        throw error;
     }
 };
 
@@ -119,29 +78,9 @@ export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
     return handterRespons(respons);
 };
 
-export const hentCvOgJobbonsker = async (fnr: string): Promise<ArenaPerson> => {
+export const hentCvOgJobbonsker = async (fnr: string): Promise<ArenaPerson | null> => {
     const url = `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`;
     const respons = await fetch(url, GEToptions);
-    // if (respons.status >= 400 && !(respons.status === 401 || respons.status === 403 || respons.status === 404)) {
-    //     // throw new Error(respons.statusText);
-    //     // const error = new Error('An error occurred while fetching the data.');
-    //     const error = new Error
-    //     // Attach extra info to the error object.
-    //     error.info = await respons.json();
-    //     error.status = respons.status;
-    //     throw error;
-    // }
-    // return respons.json();
-
-    return handterResponsv2(respons);
-};
-
-export const hentCvOgJobbonskerv2 = async (fnr: string): Promise<ArenaPerson | null> => {
-    const url = `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-    // const data = await respons.json();
-    // return data;
-    // return fetch(url, GEToptions).then((r) => r.json());
 
     return handterRespons(respons);
 };
