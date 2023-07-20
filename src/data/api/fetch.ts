@@ -153,10 +153,28 @@ export const useAktorId = (fnr: string) => {
 };
 
 export const useVeileder = (veilederId: StringOrNothing) => {
+    // const { data } = useSWR(shouldFetch ? '/api/data' : null, fetcher);
     const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
-        () => `/veilarbveileder/api/veileder/` + veilederId,
+        veilederId ? `/veilarbveileder/api/veileder/` + veilederId : null,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        {
+            shouldRetryOnError: false,
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false
+        }
     );
+
+    // const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
+    //     () => `/veilarbveileder/api/veileder/` + veilederId,
+    //     fetcher,
+    //     { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    // );
+
     return { data, isLoading, error };
+    // if(veilederId !== null){
+    // }
+    // else {
+
+    // }
 };
