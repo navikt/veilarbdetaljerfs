@@ -29,7 +29,7 @@ const Oppfolging = () => {
         data: veilederData,
         error: veilederError,
         isLoading: veilederLoading
-    } = useVeileder(() => oppfolgingsstatusData?.veilederId);
+    } = useVeileder(oppfolgingsstatusData?.veilederId);
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;

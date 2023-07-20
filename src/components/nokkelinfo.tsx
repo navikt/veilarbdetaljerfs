@@ -44,7 +44,7 @@ const Nokkelinfo = () => {
         data: veilederData,
         error: veilederError,
         isLoading: veilederLoading
-    } = useVeileder(() => oppfolgingsstatusData?.veilederId);
+    } = useVeileder(oppfolgingsstatusData?.veilederId);
 
     if (
         oppfolgingsstatusLoading ||

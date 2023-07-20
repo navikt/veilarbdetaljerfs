@@ -152,12 +152,17 @@ export const useAktorId = (fnr: string) => {
     return { data, isLoading, error };
 };
 
-export const useVeileder = (veilederId: () => StringOrNothing) => {
+export const useVeileder = (veilederId: StringOrNothing) => {
+    // const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
+    //     `/veilarbveileder/api/veileder/${veilederId}`,
+    //     fetcher,
+    //     { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    // );
     const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
-        `/veilarbveileder/api/veileder/${veilederId}`,
+        () => `/veilarbveileder/api/veileder/` + veilederId,
         fetcher,
         { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
-
+    // const { data: projects } = useSWR(() => '/api/projects?uid=' + user.id)
     return { data, isLoading, error };
 };
