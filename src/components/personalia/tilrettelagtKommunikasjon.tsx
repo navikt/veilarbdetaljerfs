@@ -4,7 +4,7 @@ import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrette
 import EMDASH from '../../utils/emdash';
 import { isNullOrUndefined } from '../../utils/felles-typer';
 
-function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | null }) {
+function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: TilrettelagtKommunikasjonData | undefined }) {
     const { tilrettelagtKommunikasjon } = props;
 
     if (tilrettelagtKommunikasjon) {
