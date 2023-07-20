@@ -1,8 +1,6 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { OrNothing } from '../utils/felles-typer';
 import { useAppStore } from '../stores/app-store';
-import { hentPersonalia, hentTolk, hentVergeOgFullmakt } from '../data/api/fetch';
-import { useEffect, useState } from 'react';
 import {
     Bostedsadresse,
     Kontaktadresse,
@@ -10,7 +8,6 @@ import {
     PersonaliaPartner,
     PersonaliaSivilstandNy,
     PersonaliaTelefon,
-    PersonaliaV2Info,
     PersonsBarn
 } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
@@ -24,67 +21,44 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import TilrettelagtKommunikasjon from './personalia/tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { hentMalform } from '../utils/konstanter';
-import { Fullmakter, VergeOgFullmaktData, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import { Fullmakter, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
 import Fullmakt from './personalia/fullmakt';
 import './fellesStyling.css';
+import { usePersonalia, useTolk, useVergeOgFullmakt } from '../data/api/fetchv2';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
 
-    const [lasterData, setLasterData] = useState<boolean>(true);
-    const [harFeil, setHarFeil] = useState<boolean>(false);
+    const personalia = usePersonalia(fnr);
+    const tolk = useTolk(fnr);
+    const vergeOgFullmakt = useVergeOgFullmakt(fnr);
 
-    const [personalia, setPersonalia] = useState<PersonaliaV2Info | null>(null);
-    const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
-    const [vergeOgFullmakt, setVergeOgFullmakt] = useState<VergeOgFullmaktData | null>(null);
-
-    useEffect(() => {
-        const hentPersonaliaData = async () => {
-            try {
-                setLasterData(true);
-                const [_personalia, _tolk, _vergeOgFullmakt] = await Promise.all([
-                    hentPersonalia(fnr),
-                    hentTolk(fnr),
-                    hentVergeOgFullmakt(fnr)
-                ]);
-
-                setPersonalia(_personalia);
-                setTolk(_tolk);
-                setVergeOgFullmakt(_vergeOgFullmakt);
-            } catch (err) {
-                setHarFeil(true);
-            } finally {
-                setLasterData(false);
-            }
-        };
-
-        hentPersonaliaData();
-    }, [fnr]);
-
-    const bostedsadresse: OrNothing<Bostedsadresse> = personalia?.bostedsadresse;
-    const telefon: PersonaliaTelefon[] = personalia?.telefon!;
-    const oppholdsadresse: OrNothing<Oppholdsadresse> = personalia?.oppholdsadresse;
-    const kontaktadresser: Kontaktadresse[] = personalia?.kontaktadresser ?? [];
+    const bostedsadresse: OrNothing<Bostedsadresse> = personalia?.data?.bostedsadresse;
+    const telefon: PersonaliaTelefon[] = personalia?.data?.telefon!;
+    const oppholdsadresse: OrNothing<Oppholdsadresse> = personalia?.data?.oppholdsadresse;
+    const kontaktadresser: Kontaktadresse[] = personalia?.data?.kontaktadresser ?? [];
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
-        (personalia?.barn &&
-            personalia.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
+        (personalia?.data?.barn &&
+            personalia.data?.barn.filter(
+                (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
+            )) ||
         [];
     const filtrertBarneListe =
         barn && barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN);
 
-    const partner: PersonaliaPartner | undefined = personalia?.partner;
-    const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.sivilstandliste;
-    const statsborgerskap: string[] = personalia?.statsborgerskap ?? [];
-    const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolk;
-    const maalform: OrNothing<String> = personalia?.malform;
+    const partner: PersonaliaPartner | undefined = personalia?.data?.partner;
+    const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.data?.sivilstandliste;
+    const statsborgerskap: string[] = personalia?.data?.statsborgerskap ?? [];
+    const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolk?.data;
+    const maalform: OrNothing<String> = personalia?.data?.malform;
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
-        vergeOgFullmakt?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakt: Fullmakter[] = vergeOgFullmakt?.fullmakt ?? [];
+        vergeOgFullmakt?.data?.vergemaalEllerFremtidsfullmakt ?? [];
+    const fullmakt: Fullmakter[] = vergeOgFullmakt?.data?.fullmakt ?? [];
 
-    if (lasterData) {
+    if (personalia.isLoading || tolk.isLoading || vergeOgFullmakt.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
                 <Laster />
@@ -92,7 +66,7 @@ const PersonaliaBoks = () => {
         );
     }
 
-    if (harFeil) {
+    if (personalia.error || tolk.error || vergeOgFullmakt.error) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">

@@ -1,16 +1,8 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
-import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
-import { hentOppfolgingsstatus, hentPersonalia, hentVeileder } from '../data/api/fetch';
-import {
-    OppfolgingsstatusData,
-    ArenaHovedmalKode,
-    ArenaServicegruppeKode
-} from '../data/api/datatyper/oppfolgingsstatus';
-import { useEffect, useState } from 'react';
-import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
+import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
@@ -22,48 +14,22 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
+import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetchv2';
 
 const Oppfolging = () => {
     const { fnr } = useAppStore();
 
-    const [lasterData, setLasterData] = useState<boolean>(true);
-    const [harFeil, setHarFeil] = useState<boolean>(false);
+    const oppfolgingsstatus = useOppfolgingsstatus(fnr);
+    const person = usePersonalia(fnr);
 
-    const [veileder, setVeileder] = useState<VeilederData | null>(null);
-    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null>(null);
-    const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
+    // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
+    const veileder = useVeileder(oppfolgingsstatus.data?.veilederId ? oppfolgingsstatus.data.veilederId : null);
 
-    useEffect(() => {
-        const hentOppfolgningsData = async () => {
-            try {
-                setLasterData(true);
-                const [_oppfolgingsstatus, _personalia] = await Promise.all([
-                    hentOppfolgingsstatus(fnr),
-                    hentPersonalia(fnr)
-                ]);
+    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.data?.hovedmaalkode;
+    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.data?.servicegruppe;
+    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatus?.data?.servicegruppe;
 
-                if (!!_oppfolgingsstatus && !!_oppfolgingsstatus?.veilederId) {
-                    const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
-                    setVeileder(_veileder);
-                }
-
-                setOppfolgingsstatus(_oppfolgingsstatus);
-                setPerson(_personalia);
-            } catch (err) {
-                setHarFeil(true);
-            } finally {
-                setLasterData(false);
-            }
-        };
-
-        hentOppfolgningsData();
-    }, [fnr]);
-
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
-    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
-
-    if (lasterData) {
+    if (oppfolgingsstatus.isLoading || person.isLoading || veileder.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Laster />
@@ -71,7 +37,7 @@ const Oppfolging = () => {
         );
     }
 
-    if (harFeil) {
+    if (oppfolgingsstatus.error || person.error || veileder.error) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -90,10 +56,13 @@ const Oppfolging = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
                 <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
-                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person?.data)} />
+                <EnkeltInformasjon
+                    header="Oppfølgingsenhet"
+                    value={hentOppfolgingsEnhetTekst(oppfolgingsstatus?.data)}
+                />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder?.data)} />
             </span>
         </Panel>
     );

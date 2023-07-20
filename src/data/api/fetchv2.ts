@@ -152,7 +152,7 @@ export const useAktorId = (fnr: string) => {
     return { data, isLoading, error };
 };
 
-export const useVeileder = (veilederId: string) => {
+export const useVeileder = (veilederId: StringOrNothing) => {
     const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
         `/veilarbveileder/api/veileder/${veilederId}`,
         fetcher,

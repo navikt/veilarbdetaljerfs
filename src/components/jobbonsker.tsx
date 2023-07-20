@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react';
 import { useAppStore } from '../stores/app-store';
-import { ArenaPerson, JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
-import { UnderOppfolgingData } from '../data/api/datatyper/underOppfolgingData';
+import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
-import { hentCvOgJobbonsker, hentUnderOppfolging } from '../data/api/fetch';
 import { Alert, Heading, Panel } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
+import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetchv2';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {
@@ -42,34 +40,11 @@ const oppstartstypeTilTekst = (oppstartstype: JobbprofilOppstartstype): string =
 
 const Jobbonsker = () => {
     const { fnr } = useAppStore();
-    const [lasterData, setLasterData] = useState<boolean>(true);
-    const [harFeil, setHarFeil] = useState<boolean>(false);
 
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
-    const [underOppfolging, setUnderOppfolging] = useState<UnderOppfolgingData | null>(null);
+    const cvOgJobbonsker = useCvOgJobbonsker(fnr);
+    const underOppfolging = useUnderOppfolging(fnr);
 
-    useEffect(() => {
-        const hentJobbonskerData = async () => {
-            try {
-                setLasterData(true);
-                const [_cvOgJobbonsker, _underOppfolging] = await Promise.all([
-                    hentCvOgJobbonsker(fnr),
-                    hentUnderOppfolging(fnr)
-                ]);
-
-                setCvOgJobbonsker(_cvOgJobbonsker);
-                setUnderOppfolging(_underOppfolging);
-            } catch (error) {
-                setHarFeil(true);
-            } finally {
-                setLasterData(false);
-            }
-        };
-
-        hentJobbonskerData();
-    }, [fnr]);
-
-    if (lasterData) {
+    if (cvOgJobbonsker.isLoading || underOppfolging.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={5}>
                 <Laster />
@@ -77,7 +52,7 @@ const Jobbonsker = () => {
         );
     }
 
-    if (harFeil) {
+    if (cvOgJobbonsker.error || underOppfolging.error) {
         return (
             <Panel border className="info_panel" tabIndex={5}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -88,9 +63,9 @@ const Jobbonsker = () => {
         );
     }
 
-    const erManuell = underOppfolging?.erManuell;
+    const erManuell = underOppfolging?.data?.erManuell;
 
-    if (cvOgJobbonsker?.jobbprofil) {
+    if (cvOgJobbonsker?.data?.jobbprofil) {
         const {
             sistEndret,
             onsketYrke,
@@ -101,7 +76,7 @@ const Jobbonsker = () => {
             onsketArbeidsdagordning,
             heltidDeltid,
             oppstart
-        } = cvOgJobbonsker.jobbprofil;
+        } = cvOgJobbonsker.data.jobbprofil;
 
         const arbeidssted = onsketArbeidssted.map((sted) => sted.stedsnavn);
         const yrker = onsketYrke.map((yrke) => yrke.tittel);

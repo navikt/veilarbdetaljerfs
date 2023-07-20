@@ -1,99 +1,68 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
-import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
 import {
-    hentOppfolgingsstatus,
-    hentPersonalia,
-    hentRegistrering,
-    hentTolk,
-    hentVeileder,
-    hentYtelser,
-    hentCvOgJobbonsker
-} from '../data/api/fetch';
-import { OppfolgingsstatusData, ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
-import { useEffect, useState } from 'react';
-import { PersonaliaV2Info, PersonsBarn } from '../data/api/datatyper/personalia';
-import { RegistreringsData } from '../data/api/datatyper/registreringsData';
+    useOppfolgingsstatus,
+    usePersonalia,
+    useRegistrering,
+    useTolk,
+    useVeileder,
+    useYtelser,
+    useCvOgJobbonsker
+} from '../data/api/fetchv2';
+import { ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
+import { PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
-import { YtelseData } from '../data/api/datatyper/ytelse';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import { formaterDato, formaterTelefonnummer } from '../utils/formater';
-import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
 
-    const [lasterData, setLasterData] = useState<boolean>(true);
-    const [harFeil, setHarFeil] = useState<boolean>(false);
+    const oppfolgingsstatus = useOppfolgingsstatus(fnr);
+    const person = usePersonalia(fnr);
+    const registrering = useRegistrering(fnr);
+    const tolk = useTolk(fnr);
+    const ytelser = useYtelser(fnr);
+    const cvOgJobbonsker = useCvOgJobbonsker(fnr);
 
-    const [veileder, setVeileder] = useState<VeilederData | null>(null);
-    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null>(null);
-    const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
-    const [registrering, setRegistrering] = useState<RegistreringsData | null>(null);
-    const [tolk, setTolk] = useState<TilrettelagtKommunikasjonData | null>(null);
-    const [ytelser, setYtelser] = useState<YtelseData | null>(null);
-    const [cvOgJobbonsker, setCvOgJobbonsker] = useState<ArenaPerson | null>(null);
+    // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
+    const veileder = useVeileder(oppfolgingsstatus.data?.veilederId ? oppfolgingsstatus.data.veilederId : null);
 
-    useEffect(() => {
-        const hentOverblikkData = async () => {
-            try {
-                setLasterData(true);
-                const [_oppfolgingsstatus, _personalia, _registrering, _tolk, _ytelser, _cvOgJobbonsker] =
-                    await Promise.all([
-                        hentOppfolgingsstatus(fnr),
-                        hentPersonalia(fnr),
-                        hentRegistrering(fnr),
-                        hentTolk(fnr),
-                        hentYtelser(fnr),
-                        hentCvOgJobbonsker(fnr)
-                    ]);
-
-                if (!!_oppfolgingsstatus && !!_oppfolgingsstatus?.veilederId) {
-                    const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
-                    setVeileder(_veileder);
-                }
-
-                setOppfolgingsstatus(_oppfolgingsstatus);
-                setPerson(_personalia);
-                setRegistrering(_registrering);
-                setTolk(_tolk);
-                setYtelser(_ytelser);
-                setCvOgJobbonsker(_cvOgJobbonsker);
-            } catch (err) {
-                setHarFeil(true);
-            } finally {
-                setLasterData(false);
-            }
-        };
-
-        hentOverblikkData();
-    }, [fnr]);
-
-    const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
-    const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
-    const onsketYrkeTitles: string[] = cvOgJobbonsker?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
-    const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
+    const telefon: StringOrNothing = person?.data?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
+    const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk?.data;
+    const onsketYrkeTitles: string[] = cvOgJobbonsker?.data?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
+    const sivilstatus: StringOrNothing = person?.data?.sivilstandliste?.[0]?.sivilstand;
+    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.data?.hovedmaalkode;
+    const registrertAv: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const datoRegistrert: StringOrNothing = registrering?.data?.registrering?.opprettetDato;
     const MAX_ALDER_BARN = 21;
     const barnUnder21: PersonsBarn[] =
-        (person?.barn &&
-            person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
+        (person?.data?.barn &&
+            person.data?.barn.filter(
+                (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
+            )) ||
         [];
 
     const barnNavn: string = barnUnder21
         .map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`)
         .join(', ');
 
-    if (lasterData) {
+    if (
+        oppfolgingsstatus.isLoading ||
+        person.isLoading ||
+        registrering.isLoading ||
+        tolk.isLoading ||
+        ytelser.isLoading ||
+        cvOgJobbonsker.isLoading ||
+        veileder.isLoading
+    ) {
         return (
             <Panel border className="nokkelinfo_panel" tabIndex={1}>
                 <Laster />
@@ -101,7 +70,15 @@ const Nokkelinfo = () => {
         );
     }
 
-    if (harFeil) {
+    if (
+        oppfolgingsstatus.error ||
+        person.error ||
+        registrering.error ||
+        tolk.error ||
+        ytelser.error ||
+        cvOgJobbonsker.error ||
+        veileder.error
+    ) {
         return (
             <Panel border className="nokkelinfo_panel" tabIndex={1}>
                 <Heading spacing level="2" size="medium">
@@ -122,12 +99,12 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                 <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder?.data)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
                 <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
-                <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
+                <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.data?.vedtaksliste)} />
             </span>
         </Panel>
     );

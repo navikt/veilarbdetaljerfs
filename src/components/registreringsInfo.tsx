@@ -1,8 +1,5 @@
 import { Panel, Heading, Alert } from '@navikt/ds-react';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
-import { RegistreringsData } from '../data/api/datatyper/registreringsData';
-import { useEffect, useState } from 'react';
-import { hentRegistrering } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { StringOrNothing } from '../utils/felles-typer';
@@ -13,30 +10,14 @@ import { ForeslattProfilering } from './registrering/foreslatt-profilering';
 import { JobbetSammenhengende } from './registrering/jobbetsammenhengende';
 import Show from './felles/show';
 import PersonverninformasjonUtskrift from './registrering/personverninformasjon-utskrift';
+import { useRegistrering } from '../data/api/fetchv2';
 
 export const Registrering = () => {
     const { fnr } = useAppStore();
-    const [registrering, setRegistrering] = useState<RegistreringsData | null | undefined>(null);
-    const [lasterRegistreringsdata, setLasterRegistreringsdata] = useState<boolean>(true);
-    const [registreringHarFeil, setRegistreringHarFeil] = useState<boolean>(false);
 
-    useEffect(() => {
-        const hentRegistreringsData = async () => {
-            try {
-                setLasterRegistreringsdata(true);
-                const _registrering = await hentRegistrering(fnr);
-                setRegistrering(_registrering);
-            } catch (err) {
-                setRegistreringHarFeil(true);
-            } finally {
-                setLasterRegistreringsdata(false);
-            }
-        };
+    const registrering = useRegistrering(fnr);
 
-        hentRegistreringsData();
-    }, [fnr]);
-
-    if (lasterRegistreringsdata) {
+    if (registrering.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
                 <Laster />
@@ -44,7 +25,7 @@ export const Registrering = () => {
         );
     }
 
-    if (registreringHarFeil) {
+    if (registrering.error) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -55,52 +36,52 @@ export const Registrering = () => {
         );
     }
 
-    const registrertAvNavn: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const registrertAvEnhetID: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.id;
-    const registrertAvIdent: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.ident;
-    const datoRegistrert: StringOrNothing = registrering?.registrering?.opprettetDato;
+    const registrertAvNavn: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const registrertAvEnhetID: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.enhet?.id;
+    const registrertAvIdent: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.ident;
+    const datoRegistrert: StringOrNothing = registrering?.data?.registrering?.opprettetDato;
 
-    const regDataSisteStilling = registrering?.registrering?.teksterForBesvarelse.find(
+    const regDataSisteStilling = registrering?.data?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'sisteStilling'
     );
     const sisteStillingSvar: StringOrNothing = regDataSisteStilling?.svar;
     const sisteStillingSpor: StringOrNothing = regDataSisteStilling?.sporsmal || 'Din siste jobb';
 
-    const regDataUtdanning = registrering?.registrering?.teksterForBesvarelse.find(
+    const regDataUtdanning = registrering?.data?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanning'
     );
     const utdanningSvar: StringOrNothing = regDataUtdanning?.svar;
     const utdanningSpor: StringOrNothing = regDataUtdanning?.sporsmal || 'Hva er din høyeste fullførte utdanning?';
 
-    const regDataUtdanningGodkjent = registrering?.registrering?.teksterForBesvarelse.find(
+    const regDataUtdanningGodkjent = registrering?.data?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanningGodkjent'
     );
     const UtdanningGodkjentSvar: StringOrNothing = regDataUtdanningGodkjent?.svar;
     const UtdanningGodkjentSpor: StringOrNothing =
         regDataUtdanningGodkjent?.sporsmal || 'Er utdanningen din godkjent i Norge?';
 
-    const regDataUtdanningBestatt = registrering?.registrering?.teksterForBesvarelse.find(
+    const regDataUtdanningBestatt = registrering?.data?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanningBestatt'
     );
     const UtdanningBestattSvar: StringOrNothing = regDataUtdanningBestatt?.svar;
     const UtdanningBestattSpor: StringOrNothing = regDataUtdanningBestatt?.sporsmal || 'Er utdanningen din bestått?';
 
-    const regDataHelse = registrering?.registrering?.teksterForBesvarelse.find(
+    const regDataHelse = registrering?.data?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'helseHinder'
     );
     const HelseSvar: StringOrNothing = regDataHelse?.svar;
     const HelseSpor: StringOrNothing =
         regDataHelse?.sporsmal || 'Trenger du oppfølging i forbindelse med helseutfordringer?';
 
-    const regDataAnnet = registrering?.registrering?.teksterForBesvarelse.find(
+    const regDataAnnet = registrering?.data?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'andreForhold'
     );
     const AnnetSvar: StringOrNothing = regDataAnnet?.svar;
     const AnnetSpor: StringOrNothing =
         regDataAnnet?.sporsmal || 'Trenger du oppfølging i forbindelse med andre utfordringer?';
 
-    const brukerRegistrering = registrering?.registrering;
-    const type = registrering?.type;
+    const brukerRegistrering = registrering?.data?.registrering;
+    const type = registrering?.data?.type;
 
     if (!registrering) {
         return (
@@ -114,17 +95,17 @@ export const Registrering = () => {
             </Panel>
         );
     }
-    const regIdNavn = registrering.registrering?.manueltRegistrertAv?.enhet
+    const regIdNavn = registrering.data?.registrering?.manueltRegistrertAv?.enhet
         ? registrertAvEnhetID + ' ' + registrertAvNavn
         : '';
-    const regDato = registrering.registrering?.opprettetDato ? 'Registrert: ' + formaterDato(datoRegistrert) : '';
-    const regAv = registrering.registrering?.manueltRegistrertAv?.enhet
+    const regDato = registrering.data?.registrering?.opprettetDato ? 'Registrert: ' + formaterDato(datoRegistrert) : '';
+    const regAv = registrering.data?.registrering?.manueltRegistrertAv?.enhet
         ? 'Registrert av: ' + registrertAvIdent + ', ' + regIdNavn
         : 'Registrert av: ' + registrertAvIdent;
 
-    const regValues = registrering.registrering?.manueltRegistrertAv ? [`${regDato}`, `${regAv}`] : [regDato];
+    const regValues = registrering.data?.registrering?.manueltRegistrertAv ? [`${regDato}`, `${regAv}`] : [regDato];
 
-    const registrertAv = registrering.registrering?.manueltRegistrertAv?.enhet
+    const registrertAv = registrering.data?.registrering?.manueltRegistrertAv?.enhet
         ? `Registrert av ${registrertAvNavn}`
         : 'Brukerens svar fra registreringen';
 

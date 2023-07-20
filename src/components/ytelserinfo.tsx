@@ -1,36 +1,17 @@
 import { Panel, Heading, Alert } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
-import { hentYtelser } from '../data/api/fetch';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import { YtelseData } from '../data/api/datatyper/ytelse';
 import { isNotEmptyArray } from '../utils/felles-typer';
+import { useYtelser } from '../data/api/fetchv2';
 
 export const Ytelser = () => {
     const { fnr } = useAppStore();
-    const [ytelser, setYtelser] = useState<YtelseData | null>(null);
-    const [lasterYtelserdata, setLasterYtelserdata] = useState<boolean>(true);
-    const [ytelserHarFeil, setYtelserHarFeil] = useState<boolean>(false);
 
-    useEffect(() => {
-        const hentYtelserData = async () => {
-            try {
-                setLasterYtelserdata(true);
-                const _ytelser = await hentYtelser(fnr);
-                setYtelser(_ytelser);
-            } catch (err) {
-                setYtelserHarFeil(true);
-            } finally {
-                setLasterYtelserdata(false);
-            }
-        };
+    const ytelser = useYtelser(fnr);
 
-        hentYtelserData();
-    }, [fnr]);
-
-    if (lasterYtelserdata) {
+    if (ytelser.isLoading) {
         return (
             <Panel border className="info_panel" tabIndex={7}>
                 <Laster />
@@ -38,18 +19,7 @@ export const Ytelser = () => {
         );
     }
 
-    if (ytelserHarFeil) {
-        return (
-            <Panel border className="info_panel" tabIndex={7}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
-                    Ytelser
-                </Heading>
-                <Errormelding />
-            </Panel>
-        );
-    }
-
-    if (!ytelser || !isNotEmptyArray(ytelser.vedtaksliste)) {
+    if (!ytelser.data || !isNotEmptyArray(ytelser.data?.vedtaksliste)) {
         return (
             <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -61,13 +31,25 @@ export const Ytelser = () => {
             </Panel>
         );
     }
+
+    if (ytelser.error) {
+        return (
+            <Panel border className="info_panel" tabIndex={7}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Ytelser
+                </Heading>
+                <Errormelding />
+            </Panel>
+        );
+    }
+
     return (
         <Panel border className="info_panel" tabIndex={7}>
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 Ytelser
             </Heading>
             <span className="info_container">
-                {ytelser?.vedtaksliste.map((vedtak, index) => (
+                {ytelser?.data?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
                         <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />
                         <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
