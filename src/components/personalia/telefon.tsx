@@ -31,7 +31,14 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
         ? telefon.map((telefon, index) => <TelefonNrMedKilde telefon={telefon} key={index} />)
         : EMDASH;
 
-    return <div> {telefonListe}</div>;
+    return (
+        <div>
+            <BodyShort size="small" className="BodyHeader">
+                Telefon
+            </BodyShort>
+            {telefonListe}
+        </div>
+    );
 }
 
 export default Telefon;

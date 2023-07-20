@@ -12,7 +12,6 @@ import {
     Vegadresse
 } from '../../data/api/datatyper/personalia';
 import { OrNothing, isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
-import Informasjonsbolk from '../felles/informasjonsbolk';
 
 //function adresseForVisning(props: Oppholdsadresse | Bostedsadresse | Kontaktadresse) {
 //if (props.vegadresse) {
@@ -238,14 +237,24 @@ type Props = Pick<PersonaliaV2Info, 'bostedsadresse'> &
 
 function Adresser(props: Props) {
     const { bostedsadresse, oppholdsadresse, kontaktadresser } = props;
-    const kontaktadresseList = isNotEmptyArray(kontaktadresser)
-        ? kontaktadresser.map((kontaktadresse, index) => <KontaktAdresse kontaktadresse={kontaktadresse} key={index} />)
-        : EMDASH;
+
     return (
         <div>
-            <BostedsAdresse bostedsadresse={bostedsadresse} />
-            <OppholdsAdresse oppholdsadresse={oppholdsadresse} />
-            {kontaktadresseList}
+            {bostedsadresse && <BostedsAdresse bostedsadresse={bostedsadresse} />}
+            {oppholdsadresse && <OppholdsAdresse oppholdsadresse={oppholdsadresse} />}
+            {isNotEmptyArray(kontaktadresser)
+                ? kontaktadresser.map((kontaktadresse, index) => (
+                      <KontaktAdresse kontaktadresse={kontaktadresse} key={index} />
+                  ))
+                : null}
+            {!bostedsadresse && !oppholdsadresse && !isNotEmptyArray(kontaktadresser) && (
+                <div className="underinformasjon">
+                    <BodyShort size="small" className="BodyHeader">
+                        Adresse
+                    </BodyShort>
+                    {EMDASH}
+                </div>
+            )}
         </div>
     );
 }
