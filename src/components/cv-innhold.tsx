@@ -21,10 +21,18 @@ import './fellesStyling.css';
 const CvInnhold = () => {
     const { fnr } = useAppStore();
 
-    const cvOgJobbonsker = useCvOgJobbonsker(fnr);
-    const underOppfolging = useUnderOppfolging(fnr);
+    const {
+        data: cvOgJobbonskerData,
+        error: cvOgJobbonskerError,
+        isLoading: cvOgJobbonskerLoading
+    } = useCvOgJobbonsker(fnr);
+    const {
+        data: underOppfolgingData,
+        error: underOppfolgingError,
+        isLoading: underOppfolgingLoading
+    } = useUnderOppfolging(fnr);
 
-    if (cvOgJobbonsker.isLoading || underOppfolging.isLoading) {
+    if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Laster />
@@ -32,7 +40,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (cvOgJobbonsker?.error?.status === 401 || cvOgJobbonsker?.error?.status === 403) {
+    if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -45,7 +53,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (cvOgJobbonsker?.error?.status === 204 || cvOgJobbonsker?.error?.status === 404) {
+    if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -58,7 +66,7 @@ const CvInnhold = () => {
         );
     }
 
-    if (cvOgJobbonsker.error || underOppfolging.error) {
+    if (cvOgJobbonskerError || underOppfolgingError) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -69,8 +77,8 @@ const CvInnhold = () => {
         );
     }
 
-    const erManuell = underOppfolging.data?.erManuell;
-    if (cvOgJobbonsker.data && Object.keys(cvOgJobbonsker.data).length) {
+    const erManuell = underOppfolgingData?.erManuell;
+    if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
         const {
             fagdokumentasjoner,
             sammendrag,
@@ -84,7 +92,7 @@ const CvInnhold = () => {
             kurs,
             sistEndret,
             jobbprofil
-        } = cvOgJobbonsker.data;
+        } = cvOgJobbonskerData;
 
         return (
             <Panel border className="info_panel" tabIndex={2}>

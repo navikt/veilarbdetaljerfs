@@ -9,9 +9,9 @@ import { useYtelser } from '../data/api/fetch';
 export const Ytelser = () => {
     const { fnr } = useAppStore();
 
-    const ytelser = useYtelser(fnr);
+    const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
 
-    if (ytelser.isLoading) {
+    if (ytelserLoading) {
         return (
             <Panel border className="info_panel" tabIndex={7}>
                 <Laster />
@@ -19,7 +19,7 @@ export const Ytelser = () => {
         );
     }
 
-    if (!ytelser.data || !isNotEmptyArray(ytelser.data?.vedtaksliste)) {
+    if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtaksliste)) {
         return (
             <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -32,7 +32,7 @@ export const Ytelser = () => {
         );
     }
 
-    if (ytelser.error) {
+    if (ytelserError) {
         return (
             <Panel border className="info_panel" tabIndex={7}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -49,7 +49,7 @@ export const Ytelser = () => {
                 Ytelser
             </Heading>
             <span className="info_container">
-                {ytelser?.data?.vedtaksliste.map((vedtak, index) => (
+                {ytelserData?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
                         <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />
                         <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />

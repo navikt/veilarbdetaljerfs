@@ -41,10 +41,18 @@ const oppstartstypeTilTekst = (oppstartstype: JobbprofilOppstartstype): string =
 const Jobbonsker = () => {
     const { fnr } = useAppStore();
 
-    const cvOgJobbonsker = useCvOgJobbonsker(fnr);
-    const underOppfolging = useUnderOppfolging(fnr);
+    const {
+        data: cvOgJobbonskerData,
+        error: cvOgJobbonskerError,
+        isLoading: cvOgJobbonskerLoading
+    } = useCvOgJobbonsker(fnr);
+    const {
+        data: underOppfolgingData,
+        error: underOppfolgingError,
+        isLoading: underOppfolgingLoading
+    } = useUnderOppfolging(fnr);
 
-    if (cvOgJobbonsker.isLoading || underOppfolging.isLoading) {
+    if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
             <Panel border className="info_panel" tabIndex={5}>
                 <Laster />
@@ -52,7 +60,7 @@ const Jobbonsker = () => {
         );
     }
 
-    if (cvOgJobbonsker?.error?.status === 204 || cvOgJobbonsker?.error?.status === 404) {
+    if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
             <Panel border className="info_panel" tabIndex={2}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -65,7 +73,7 @@ const Jobbonsker = () => {
         );
     }
 
-    if (cvOgJobbonsker.error || underOppfolging.error) {
+    if (cvOgJobbonskerError || underOppfolgingError) {
         return (
             <Panel border className="info_panel" tabIndex={5}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -76,9 +84,9 @@ const Jobbonsker = () => {
         );
     }
 
-    const erManuell = underOppfolging?.data?.erManuell;
+    const erManuell = underOppfolgingData?.erManuell;
 
-    if (cvOgJobbonsker?.data?.jobbprofil) {
+    if (cvOgJobbonskerData?.jobbprofil) {
         const {
             sistEndret,
             onsketYrke,
@@ -89,7 +97,7 @@ const Jobbonsker = () => {
             onsketArbeidsdagordning,
             heltidDeltid,
             oppstart
-        } = cvOgJobbonsker.data.jobbprofil;
+        } = cvOgJobbonskerData.jobbprofil;
 
         const arbeidssted = onsketArbeidssted.map((sted) => sted.stedsnavn);
         const yrker = onsketYrke.map((yrke) => yrke.tittel);

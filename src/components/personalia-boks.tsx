@@ -30,35 +30,39 @@ import { usePersonalia, useTolk, useVergeOgFullmakt } from '../data/api/fetch';
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
 
-    const personalia = usePersonalia(fnr);
-    const tolk = useTolk(fnr);
-    const vergeOgFullmakt = useVergeOgFullmakt(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr);
+    const {
+        data: vergeOgFullmaktData,
+        error: vergeOgFullmaktError,
+        isLoading: vergeOgFullmaktLoading
+    } = useVergeOgFullmakt(fnr);
 
-    const bostedsadresse: OrNothing<Bostedsadresse> = personalia?.data?.bostedsadresse;
-    const telefon: PersonaliaTelefon[] = personalia?.data?.telefon!;
-    const oppholdsadresse: OrNothing<Oppholdsadresse> = personalia?.data?.oppholdsadresse;
-    const kontaktadresser: Kontaktadresse[] = personalia?.data?.kontaktadresser ?? [];
+    const bostedsadresse: OrNothing<Bostedsadresse> = personData?.bostedsadresse;
+    const telefon: PersonaliaTelefon[] = personData?.telefon!;
+    const oppholdsadresse: OrNothing<Oppholdsadresse> = personData?.oppholdsadresse;
+    const kontaktadresser: Kontaktadresse[] = personData?.kontaktadresser ?? [];
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
-        (personalia?.data?.barn &&
-            personalia.data?.barn.filter(
+        (personData?.barn &&
+            personData?.barn.filter(
                 (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
             )) ||
         [];
     const filtrertBarneListe =
         barn && barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN);
 
-    const partner: PersonaliaPartner | undefined = personalia?.data?.partner;
-    const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personalia?.data?.sivilstandliste;
-    const statsborgerskap: string[] = personalia?.data?.statsborgerskap ?? [];
-    const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolk?.data;
-    const maalform: OrNothing<String> = personalia?.data?.malform;
+    const partner: PersonaliaPartner | undefined = personData?.partner;
+    const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personData?.sivilstandliste;
+    const statsborgerskap: string[] = personData?.statsborgerskap ?? [];
+    const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolkData;
+    const maalform: OrNothing<String> = personData?.malform;
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
-        vergeOgFullmakt?.data?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakt: Fullmakter[] = vergeOgFullmakt?.data?.fullmakt ?? [];
+        vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
+    const fullmakt: Fullmakter[] = vergeOgFullmaktData?.fullmakt ?? [];
 
-    if (personalia.isLoading || tolk.isLoading || vergeOgFullmakt.isLoading) {
+    if (personLoading || tolkLoading || vergeOgFullmaktLoading) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
                 <Laster />
@@ -66,9 +70,16 @@ const PersonaliaBoks = () => {
         );
     }
 
-    if (tolk?.error?.status === 204 || tolk?.error?.status === 404) {
+    if (
+        tolkError?.status === 204 ||
+        tolkError?.status === 404 ||
+        personError?.status === 204 ||
+        personError?.status === 404 ||
+        personError?.status === 204 ||
+        personError?.status === 404
+    ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (personalia.error || tolk.error || vergeOgFullmakt.error) {
+    } else if (personError || tolkError || vergeOgFullmaktError) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">

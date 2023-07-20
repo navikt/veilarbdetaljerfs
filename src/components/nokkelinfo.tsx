@@ -25,23 +25,35 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
 
-    const oppfolgingsstatus = useOppfolgingsstatus(fnr);
-    const person = usePersonalia(fnr);
-    const registrering = useRegistrering(fnr);
-    const tolk = useTolk(fnr);
-    const ytelser = useYtelser(fnr);
-    const cvOgJobbonsker = useCvOgJobbonsker(fnr);
+    const {
+        data: oppfolgingsstatusData,
+        error: oppfolgingsstatusError,
+        isLoading: oppfolgingsstatusLoading
+    } = useOppfolgingsstatus(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr);
+    const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
+    const {
+        data: cvOgJobbonskerData,
+        error: cvOgJobbonskerError,
+        isLoading: cvOgJobbonskerLoading
+    } = useCvOgJobbonsker(fnr);
 
     // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
-    const veileder = useVeileder(oppfolgingsstatus.data?.veilederId ? oppfolgingsstatus.data.veilederId : null);
+    const {
+        data: veilederData,
+        error: veilederError,
+        isLoading: veilederLoading
+    } = useVeileder(oppfolgingsstatusData?.veilederId ? oppfolgingsstatusData.veilederId : null);
     if (
-        oppfolgingsstatus.isLoading ||
-        person.isLoading ||
-        registrering.isLoading ||
-        tolk.isLoading ||
-        ytelser.isLoading ||
-        cvOgJobbonsker.isLoading ||
-        veileder.isLoading
+        oppfolgingsstatusLoading ||
+        personLoading ||
+        registreringLoading ||
+        tolkLoading ||
+        ytelserLoading ||
+        cvOgJobbonskerLoading ||
+        veilederLoading
     ) {
         return (
             <Panel border className="nokkelinfo_panel" tabIndex={1}>
@@ -50,30 +62,30 @@ const Nokkelinfo = () => {
         );
     }
     if (
-        oppfolgingsstatus?.error?.status === 204 ||
-        oppfolgingsstatus?.error?.status === 404 ||
-        person?.error?.status === 204 ||
-        person?.error?.status === 404 ||
-        registrering?.error?.status === 204 ||
-        registrering?.error?.status === 404 ||
-        tolk?.error?.status === 204 ||
-        tolk?.error?.status === 404 ||
-        ytelser?.error?.status === 204 ||
-        ytelser?.error?.status === 404 ||
-        cvOgJobbonsker?.error?.status === 204 ||
-        cvOgJobbonsker?.error?.status === 404 ||
-        veileder?.error?.status === 204 ||
-        veileder?.error?.status === 404
+        oppfolgingsstatusError?.status === 204 ||
+        oppfolgingsstatusError?.status === 404 ||
+        personError?.status === 204 ||
+        personError?.status === 404 ||
+        registreringError?.status === 204 ||
+        registreringError?.status === 404 ||
+        tolkError?.status === 204 ||
+        tolkError?.status === 404 ||
+        ytelserError?.status === 204 ||
+        ytelserError?.status === 404 ||
+        cvOgJobbonskerError?.status === 204 ||
+        cvOgJobbonskerError?.status === 404 ||
+        veilederError?.status === 204 ||
+        veilederError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (
-        oppfolgingsstatus.error ||
-        person.error ||
-        registrering.error ||
-        tolk.error ||
-        ytelser.error ||
-        cvOgJobbonsker.error ||
-        veileder.error
+        oppfolgingsstatusError ||
+        personError ||
+        registreringError ||
+        tolkError ||
+        ytelserError ||
+        cvOgJobbonskerError ||
+        veilederError
     ) {
         return (
             <Panel border className="nokkelinfo_panel" tabIndex={1}>
@@ -85,17 +97,17 @@ const Nokkelinfo = () => {
         );
     }
 
-    const telefon: StringOrNothing = person?.data?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
-    const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk?.data;
-    const onsketYrkeTitles: string[] = cvOgJobbonsker?.data?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
-    const sivilstatus: StringOrNothing = person?.data?.sivilstandliste?.[0]?.sivilstand;
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.data?.hovedmaalkode;
-    const registrertAv: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const datoRegistrert: StringOrNothing = registrering?.data?.registrering?.opprettetDato;
+    const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
+    const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolkData;
+    const onsketYrkeTitles: string[] = cvOgJobbonskerData?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
+    const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
+    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
+    const registrertAv: StringOrNothing = registreringData?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const datoRegistrert: StringOrNothing = registreringData?.registrering?.opprettetDato;
     const MAX_ALDER_BARN = 21;
     const barnUnder21: PersonsBarn[] =
-        (person?.data?.barn &&
-            person.data?.barn.filter(
+        (personData?.barn &&
+            personData?.barn.filter(
                 (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
             )) ||
         [];
@@ -114,12 +126,12 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                 <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder?.data)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
                 <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
-                <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.data?.vedtaksliste)} />
+                <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
             </span>
         </Panel>
     );

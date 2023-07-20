@@ -19,17 +19,25 @@ import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fe
 const Oppfolging = () => {
     const { fnr } = useAppStore();
 
-    const oppfolgingsstatus = useOppfolgingsstatus(fnr);
-    const person = usePersonalia(fnr);
+    const {
+        data: oppfolgingsstatusData,
+        error: oppfolgingsstatusError,
+        isLoading: oppfolgingsstatusLoading
+    } = useOppfolgingsstatus(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
 
     // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
-    const veileder = useVeileder(oppfolgingsstatus.data?.veilederId ? oppfolgingsstatus.data.veilederId : null);
+    const {
+        data: veilederData,
+        error: veilederError,
+        isLoading: veilederLoading
+    } = useVeileder(oppfolgingsstatusData?.veilederId ? oppfolgingsstatusData.veilederId : null);
 
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.data?.hovedmaalkode;
-    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.data?.servicegruppe;
-    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatus?.data?.servicegruppe;
+    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
+    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
+    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
-    if (oppfolgingsstatus.isLoading || person.isLoading || veileder.isLoading) {
+    if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Laster />
@@ -38,15 +46,15 @@ const Oppfolging = () => {
     }
 
     if (
-        oppfolgingsstatus?.error?.status === 204 ||
-        oppfolgingsstatus?.error?.status === 404 ||
-        person?.error?.status === 204 ||
-        person?.error?.status === 404 ||
-        veileder?.error?.status === 204 ||
-        veileder?.error?.status === 404
+        oppfolgingsstatusError?.status === 204 ||
+        oppfolgingsstatusError?.status === 404 ||
+        personError?.status === 204 ||
+        personError?.status === 404 ||
+        veilederError?.status === 204 ||
+        veilederError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (oppfolgingsstatus.error || person.error || veileder.error) {
+    } else if (oppfolgingsstatusError || personError || veilederError) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -65,13 +73,10 @@ const Oppfolging = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
                 <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person?.data)} />
-                <EnkeltInformasjon
-                    header="Oppfølgingsenhet"
-                    value={hentOppfolgingsEnhetTekst(oppfolgingsstatus?.data)}
-                />
+                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder?.data)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             </span>
         </Panel>
     );

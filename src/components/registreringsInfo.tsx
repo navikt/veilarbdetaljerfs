@@ -15,9 +15,9 @@ import { useRegistrering } from '../data/api/fetch';
 export const Registrering = () => {
     const { fnr } = useAppStore();
 
-    const registrering = useRegistrering(fnr);
+    const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
 
-    if (registrering.isLoading) {
+    if (registreringLoading) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
                 <Laster />
@@ -25,9 +25,9 @@ export const Registrering = () => {
         );
     }
 
-    if (registrering?.error?.status === 204 || registrering?.error?.status === 404) {
+    if (registreringError?.status === 204 || registreringError?.status === 404) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (registrering.error) {
+    } else if (registreringError) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -38,54 +38,54 @@ export const Registrering = () => {
         );
     }
 
-    const registrertAvNavn: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.enhet?.navn;
-    const registrertAvEnhetID: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.enhet?.id;
-    const registrertAvIdent: StringOrNothing = registrering?.data?.registrering?.manueltRegistrertAv?.ident;
-    const datoRegistrert: StringOrNothing = registrering?.data?.registrering?.opprettetDato;
+    const registrertAvNavn: StringOrNothing = registreringData?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const registrertAvEnhetID: StringOrNothing = registreringData?.registrering?.manueltRegistrertAv?.enhet?.id;
+    const registrertAvIdent: StringOrNothing = registreringData?.registrering?.manueltRegistrertAv?.ident;
+    const datoRegistrert: StringOrNothing = registreringData?.registrering?.opprettetDato;
 
-    const regDataSisteStilling = registrering?.data?.registrering?.teksterForBesvarelse.find(
+    const regDataSisteStilling = registreringData?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'sisteStilling'
     );
     const sisteStillingSvar: StringOrNothing = regDataSisteStilling?.svar;
     const sisteStillingSpor: StringOrNothing = regDataSisteStilling?.sporsmal || 'Din siste jobb';
 
-    const regDataUtdanning = registrering?.data?.registrering?.teksterForBesvarelse.find(
+    const regDataUtdanning = registreringData?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanning'
     );
     const utdanningSvar: StringOrNothing = regDataUtdanning?.svar;
     const utdanningSpor: StringOrNothing = regDataUtdanning?.sporsmal || 'Hva er din høyeste fullførte utdanning?';
 
-    const regDataUtdanningGodkjent = registrering?.data?.registrering?.teksterForBesvarelse.find(
+    const regDataUtdanningGodkjent = registreringData?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanningGodkjent'
     );
     const UtdanningGodkjentSvar: StringOrNothing = regDataUtdanningGodkjent?.svar;
     const UtdanningGodkjentSpor: StringOrNothing =
         regDataUtdanningGodkjent?.sporsmal || 'Er utdanningen din godkjent i Norge?';
 
-    const regDataUtdanningBestatt = registrering?.data?.registrering?.teksterForBesvarelse.find(
+    const regDataUtdanningBestatt = registreringData?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'utdanningBestatt'
     );
     const UtdanningBestattSvar: StringOrNothing = regDataUtdanningBestatt?.svar;
     const UtdanningBestattSpor: StringOrNothing = regDataUtdanningBestatt?.sporsmal || 'Er utdanningen din bestått?';
 
-    const regDataHelse = registrering?.data?.registrering?.teksterForBesvarelse.find(
+    const regDataHelse = registreringData?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'helseHinder'
     );
     const HelseSvar: StringOrNothing = regDataHelse?.svar;
     const HelseSpor: StringOrNothing =
         regDataHelse?.sporsmal || 'Trenger du oppfølging i forbindelse med helseutfordringer?';
 
-    const regDataAnnet = registrering?.data?.registrering?.teksterForBesvarelse.find(
+    const regDataAnnet = registreringData?.registrering?.teksterForBesvarelse.find(
         (item) => item.sporsmalId === 'andreForhold'
     );
     const AnnetSvar: StringOrNothing = regDataAnnet?.svar;
     const AnnetSpor: StringOrNothing =
         regDataAnnet?.sporsmal || 'Trenger du oppfølging i forbindelse med andre utfordringer?';
 
-    const brukerRegistrering = registrering?.data?.registrering;
-    const type = registrering?.data?.type;
+    const brukerRegistrering = registreringData?.registrering;
+    const type = registreringData?.type;
 
-    if (!registrering) {
+    if (!registreringData) {
         return (
             <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -97,17 +97,17 @@ export const Registrering = () => {
             </Panel>
         );
     }
-    const regIdNavn = registrering.data?.registrering?.manueltRegistrertAv?.enhet
+    const regIdNavn = registreringData?.registrering?.manueltRegistrertAv?.enhet
         ? registrertAvEnhetID + ' ' + registrertAvNavn
         : '';
-    const regDato = registrering.data?.registrering?.opprettetDato ? 'Registrert: ' + formaterDato(datoRegistrert) : '';
-    const regAv = registrering.data?.registrering?.manueltRegistrertAv?.enhet
+    const regDato = registreringData?.registrering?.opprettetDato ? 'Registrert: ' + formaterDato(datoRegistrert) : '';
+    const regAv = registreringData?.registrering?.manueltRegistrertAv?.enhet
         ? 'Registrert av: ' + registrertAvIdent + ', ' + regIdNavn
         : 'Registrert av: ' + registrertAvIdent;
 
-    const regValues = registrering.data?.registrering?.manueltRegistrertAv ? [`${regDato}`, `${regAv}`] : [regDato];
+    const regValues = registreringData?.registrering?.manueltRegistrertAv ? [`${regDato}`, `${regAv}`] : [regDato];
 
-    const registrertAv = registrering.data?.registrering?.manueltRegistrertAv?.enhet
+    const registrertAv = registreringData?.registrering?.manueltRegistrertAv?.enhet
         ? `Registrert av ${registrertAvNavn}`
         : 'Brukerens svar fra registreringen';
 
