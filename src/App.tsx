@@ -15,18 +15,20 @@ export interface AppProps {
 
 const App = (props: AppProps) => (
     <main className="app veilarbdetaljerfs">
-        <StoreProvider fnr={props.fnr}>
-            <PilotAlert />
-            <Nokkelinfo />
-            <div className="main_grid">
-                <CvInnhold />
-                <Jobbonsker />
-                <Oppfolging />
-                <PersonaliaBoks />
-                <Registrering />
-                <Ytelser />
-            </div>
-        </StoreProvider>
+        <div className="overblikk">
+            <StoreProvider fnr={props.fnr}>
+                <PilotAlert />
+                <Nokkelinfo />
+                <div className="main_grid">
+                    <CvInnhold />
+                    <Jobbonsker />
+                    <Oppfolging />
+                    <PersonaliaBoks />
+                    <Registrering />
+                    <Ytelser />
+                </div>
+            </StoreProvider>
+        </div>
     </main>
 );
 

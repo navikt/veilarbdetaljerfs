@@ -4,11 +4,20 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.overblikk {
+    max-width: 1920px;
+    margin: 0 auto;
+}
+@media screen and (min-width: 1920px) {
+    .overblikk {
+        margin: 0 auto;
+    }
+}
 
 .main_grid {
     column-count: 2;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 @media only screen and (max-width: 1500px) {

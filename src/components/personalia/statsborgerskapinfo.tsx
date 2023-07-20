@@ -1,5 +1,4 @@
 import { BodyShort } from '@navikt/ds-react';
-import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formateStringInUpperAndLowerCase } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
@@ -14,9 +13,12 @@ function StatsborgerskapInfo(props: { statsborgerskapData: string[] }) {
     });
 
     return (
-        <Informasjonsbolk header="Statsborgerskap" headerTypo="ingress">
+        <div className="underinformasjon">
+            <BodyShort size="small" className="BodyHeader">
+                Statsborgerskap
+            </BodyShort>
             {isNotEmptyArray(content) ? content : EMDASH}
-        </Informasjonsbolk>
+        </div>
     );
 }
 

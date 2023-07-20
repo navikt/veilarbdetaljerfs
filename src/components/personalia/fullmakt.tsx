@@ -49,7 +49,7 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
     }
 
     return (
-        <div className="Fullmakter">
+        <div>
             <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
                 {fullmaktListe}
             </Informasjonsbolk>

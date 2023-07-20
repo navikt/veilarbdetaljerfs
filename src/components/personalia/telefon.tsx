@@ -3,7 +3,6 @@ import { PersonaliaV2Info, PersonaliaTelefon } from '../../data/api/datatyper/pe
 import EMDASH from '../../utils/emdash';
 import { formaterTelefonnummer } from '../../utils/formater';
 import { hentKilde } from '../../utils/konstanter';
-import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 
 function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
@@ -32,11 +31,7 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
         ? telefon.map((telefon, index) => <TelefonNrMedKilde telefon={telefon} key={index} />)
         : EMDASH;
 
-    return (
-        <Informasjonsbolk header="Telefon" headerTypo="ingress">
-            {telefonListe}
-        </Informasjonsbolk>
-    );
+    return <div> {telefonListe}</div>;
 }
 
 export default Telefon;

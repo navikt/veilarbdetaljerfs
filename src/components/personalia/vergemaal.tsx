@@ -53,8 +53,8 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
     const { navn, motpartsPersonident, omfang } = props.vergeEllerFullmektig;
 
     return (
-        <div className="PersonaliaVerge">
-            <div>
+        <div>
+            <div className="underinformasjon">
                 <BodyShort size="small" className="BodyHeader">
                     Verge
                 </BodyShort>
@@ -67,8 +67,10 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
                 )}
                 <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
-            <div>
-                <BodyShort size="small">Omfang</BodyShort>
+            <div className="underinformasjon">
+                <BodyShort size="small" className="BodyHeader">
+                    Omfang
+                </BodyShort>
                 <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
             </div>
         </div>
@@ -81,7 +83,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
 
     if (!isNullOrUndefined(props)) {
         return (
-            <div className="PersonaliaVerge">
+            <div className="underinformasjon">
                 <BodyShort size="small">{vergetypeBeskrivelse(type)}</BodyShort>
                 <VergeEllerFullmakt vergeEllerFullmektig={vergeEllerFullmektig} />
                 <BodyShort size="small" className="BodyHeader">
