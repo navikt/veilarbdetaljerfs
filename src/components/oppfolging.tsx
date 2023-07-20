@@ -14,7 +14,7 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
-import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetchv2';
+import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 
 const Oppfolging = () => {
     const { fnr } = useAppStore();

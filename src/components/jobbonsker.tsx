@@ -6,7 +6,7 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
-import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetchv2';
+import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {

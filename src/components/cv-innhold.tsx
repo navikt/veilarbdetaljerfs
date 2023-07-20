@@ -1,7 +1,7 @@
 import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetchv2';
+import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { Heading, Panel, Alert } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';

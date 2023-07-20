@@ -25,7 +25,7 @@ import { Fullmakter, VergemaalEllerFremtidsfullmakt } from '../data/api/datatype
 import Vergemaal from './personalia/vergemaal';
 import Fullmakt from './personalia/fullmakt';
 import './fellesStyling.css';
-import { usePersonalia, useTolk, useVergeOgFullmakt } from '../data/api/fetchv2';
+import { usePersonalia, useTolk, useVergeOgFullmakt } from '../data/api/fetch';
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();

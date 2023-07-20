@@ -4,7 +4,7 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { isNotEmptyArray } from '../utils/felles-typer';
-import { useYtelser } from '../data/api/fetchv2';
+import { useYtelser } from '../data/api/fetch';
 
 export const Ytelser = () => {
     const { fnr } = useAppStore();

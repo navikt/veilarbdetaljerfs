@@ -10,7 +10,7 @@ import { ForeslattProfilering } from './registrering/foreslatt-profilering';
 import { JobbetSammenhengende } from './registrering/jobbetsammenhengende';
 import Show from './felles/show';
 import PersonverninformasjonUtskrift from './registrering/personverninformasjon-utskrift';
-import { useRegistrering } from '../data/api/fetchv2';
+import { useRegistrering } from '../data/api/fetch';
 
 export const Registrering = () => {
     const { fnr } = useAppStore();

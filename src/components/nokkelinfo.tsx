@@ -10,7 +10,7 @@ import {
     useVeileder,
     useYtelser,
     useCvOgJobbonsker
-} from '../data/api/fetchv2';
+} from '../data/api/fetch';
 import { ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
