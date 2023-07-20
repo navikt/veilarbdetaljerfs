@@ -1,6 +1,6 @@
 .nokkelinfo_panel {
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 80px;
+    margin-right: 80px;
     margin-bottom: 20px;
     background-color: var(--a-surface-action-subtle-hover);
     border-radius: 10px;
@@ -10,7 +10,7 @@
     grid-row: row 2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 20px;
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
 }
