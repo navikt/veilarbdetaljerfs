@@ -18,7 +18,7 @@ import { PersonaliaV2Info, PersonsBarn } from '../data/api/datatyper/personalia'
 import { RegistreringsData } from '../data/api/datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { YtelseData } from '../data/api/datatyper/ytelse';
-import { OrNothing, StringOrNothing } from '../utils/felles-typer';
+import { OrNothing, StringOrNothing, isNullOrUndefined } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
@@ -26,6 +26,7 @@ import { formaterDato, formaterTelefonnummer } from '../utils/formater';
 import { ArenaPerson } from '../data/api/datatyper/arenaperson';
 import { kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
+import EMDASH from '../utils/emdash';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
@@ -79,6 +80,7 @@ const Nokkelinfo = () => {
     const telefon: StringOrNothing = person?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk;
     const onsketYrkeTitles: string[] = cvOgJobbonsker?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
+    const jobbonsker: string = onsketYrkeTitles.length > 0 ? onsketYrkeTitles.join(', ') : EMDASH;
     const sivilstatus: StringOrNothing = person?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
     const registrertAv: StringOrNothing = registrering?.registrering?.manueltRegistrertAv?.enhet?.navn;
@@ -89,9 +91,10 @@ const Nokkelinfo = () => {
             person.barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN)) ||
         [];
 
-    const barnNavn: string = barnUnder21
-        .map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`)
-        .join(', ');
+    const barnNavn: string =
+        barnUnder21.length > 0
+            ? barnUnder21.map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`).join(', ')
+            : EMDASH;
 
     if (lasterData) {
         return (
@@ -125,7 +128,7 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
-                <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
+                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelser?.vedtaksliste)} />
             </span>
