@@ -21,6 +21,7 @@ import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
 import { formaterDato, formaterTelefonnummer } from '../utils/formater';
 import { kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
+import EMDASH from '../utils/emdash';
 
 const Nokkelinfo = () => {
     const { fnr } = useAppStore();
@@ -100,6 +101,7 @@ const Nokkelinfo = () => {
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolkData;
     const onsketYrkeTitles: string[] = cvOgJobbonskerData?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
+    const jobbonsker: string = onsketYrkeTitles.length > 0 ? onsketYrkeTitles.join(', ') : EMDASH;
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const registrertAv: StringOrNothing = registreringData?.registrering?.manueltRegistrertAv?.enhet?.navn;
@@ -112,9 +114,10 @@ const Nokkelinfo = () => {
             )) ||
         [];
 
-    const barnNavn: string = barnUnder21
-        .map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`)
-        .join(', ');
+    const barnNavn: string =
+        barnUnder21.length > 0
+            ? barnUnder21.map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`).join(', ')
+            : EMDASH;
 
     return (
         <Panel border className="nokkelinfo_panel" tabIndex={1}>
@@ -129,7 +132,7 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
-                <EnkeltInformasjon header="Jobbønsker" value={onsketYrkeTitles.join(', ')} />
+                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
             </span>
