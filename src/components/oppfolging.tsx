@@ -1,16 +1,8 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
-import { VeilederData } from '../data/api/datatyper/veileder';
 import { useAppStore } from '../stores/app-store';
-import { hentOppfolgingsstatus, hentPersonalia, hentVeileder } from '../data/api/fetch';
-import {
-    OppfolgingsstatusData,
-    ArenaHovedmalKode,
-    ArenaServicegruppeKode
-} from '../data/api/datatyper/oppfolgingsstatus';
-import { useEffect, useState } from 'react';
-import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
+import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
@@ -22,48 +14,28 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
+import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 
 const Oppfolging = () => {
     const { fnr } = useAppStore();
 
-    const [lasterData, setLasterData] = useState<boolean>(true);
-    const [harFeil, setHarFeil] = useState<boolean>(false);
+    const {
+        data: oppfolgingsstatusData,
+        error: oppfolgingsstatusError,
+        isLoading: oppfolgingsstatusLoading
+    } = useOppfolgingsstatus(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const {
+        data: veilederData,
+        error: veilederError,
+        isLoading: veilederLoading
+    } = useVeileder(oppfolgingsstatusData?.veilederId);
 
-    const [veileder, setVeileder] = useState<VeilederData | null>(null);
-    const [oppfolgingsstatus, setOppfolgingsstatus] = useState<OppfolgingsstatusData | null>(null);
-    const [person, setPerson] = useState<PersonaliaV2Info | null>(null);
+    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
+    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
+    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
-    useEffect(() => {
-        const hentOppfolgningsData = async () => {
-            try {
-                setLasterData(true);
-                const [_oppfolgingsstatus, _personalia] = await Promise.all([
-                    hentOppfolgingsstatus(fnr),
-                    hentPersonalia(fnr)
-                ]);
-
-                if (!!_oppfolgingsstatus && !!_oppfolgingsstatus?.veilederId) {
-                    const _veileder = await hentVeileder(_oppfolgingsstatus.veilederId);
-                    setVeileder(_veileder);
-                }
-
-                setOppfolgingsstatus(_oppfolgingsstatus);
-                setPerson(_personalia);
-            } catch (err) {
-                setHarFeil(true);
-            } finally {
-                setLasterData(false);
-            }
-        };
-
-        hentOppfolgningsData();
-    }, [fnr]);
-
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatus?.hovedmaalkode;
-    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
-    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatus?.servicegruppe;
-
-    if (lasterData) {
+    if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Laster />
@@ -71,7 +43,16 @@ const Oppfolging = () => {
         );
     }
 
-    if (harFeil) {
+    if (
+        oppfolgingsstatusError?.status === 204 ||
+        oppfolgingsstatusError?.status === 404 ||
+        personError?.status === 204 ||
+        personError?.status === 404 ||
+        veilederError?.status === 204 ||
+        veilederError?.status === 404
+    ) {
+        // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
+    } else if (oppfolgingsstatusError || personError || veilederError) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
@@ -90,10 +71,10 @@ const Oppfolging = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
                 <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(person)} />
-                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatus)} />
+                <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veileder)} />
+                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             </span>
         </Panel>
     );
