@@ -40,12 +40,12 @@ const Nokkelinfo = () => {
         isLoading: cvOgJobbonskerLoading
     } = useCvOgJobbonsker(fnr);
 
-    // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
     const {
         data: veilederData,
         error: veilederError,
         isLoading: veilederLoading
-    } = useVeileder(oppfolgingsstatusData?.veilederId ? oppfolgingsstatusData.veilederId : null);
+    } = useVeileder(() => oppfolgingsstatusData?.veilederId);
+
     if (
         oppfolgingsstatusLoading ||
         personLoading ||

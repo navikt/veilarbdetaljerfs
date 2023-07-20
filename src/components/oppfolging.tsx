@@ -25,13 +25,11 @@ const Oppfolging = () => {
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
-
-    // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
     const {
         data: veilederData,
         error: veilederError,
         isLoading: veilederLoading
-    } = useVeileder(oppfolgingsstatusData?.veilederId ? oppfolgingsstatusData.veilederId : null);
+    } = useVeileder(() => oppfolgingsstatusData?.veilederId);
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
