@@ -7,7 +7,7 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Button, Chips } from '@navikt/ds-react';
+import { Chips } from '@navikt/ds-react';
 import { useState } from 'react';
 
 export interface AppProps {
@@ -53,7 +53,6 @@ const App = (props: AppProps) => {
                 <PilotAlert />
                 <Nokkelinfo />
 
-                {/* Chips buttons */}
                 <div className="overblikkChips">
                     <Chips>
                         {options.map((c) => (
@@ -68,7 +67,6 @@ const App = (props: AppProps) => {
                     </Chips>
                 </div>
 
-                {/* Main grid */}
                 <div className="main_grid">
                     {selectedComponents.map((selectedComponent) => (
                         <div key={selectedComponent} className="box">
