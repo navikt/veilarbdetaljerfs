@@ -52,6 +52,19 @@ const Jobbonsker = () => {
         );
     }
 
+    if (cvOgJobbonsker?.error?.status === 204 || cvOgJobbonsker?.error?.status === 404) {
+        return (
+            <Panel border className="info_panel" tabIndex={2}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Jobbønsker
+                </Heading>
+                <Alert inline variant="info">
+                    Ingen jobbønsker registrert
+                </Alert>
+            </Panel>
+        );
+    }
+
     if (cvOgJobbonsker.error || underOppfolging.error) {
         return (
             <Panel border className="info_panel" tabIndex={5}>
@@ -117,9 +130,7 @@ const Jobbonsker = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 Jobbønsker
             </Heading>
-            <Alert inline variant="info">
-                Ingen jobbønsker registrert
-            </Alert>
+            <Errormelding />
         </Panel>
     );
 };

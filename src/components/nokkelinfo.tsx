@@ -34,6 +34,56 @@ const Nokkelinfo = () => {
 
     // CONDITIONAL FETCH PÅ EN BEDRE MÅTE? SJEKK CONDITIONAL FETCHING I SWR DOCS
     const veileder = useVeileder(oppfolgingsstatus.data?.veilederId ? oppfolgingsstatus.data.veilederId : null);
+    if (
+        oppfolgingsstatus.isLoading ||
+        person.isLoading ||
+        registrering.isLoading ||
+        tolk.isLoading ||
+        ytelser.isLoading ||
+        cvOgJobbonsker.isLoading ||
+        veileder.isLoading
+    ) {
+        return (
+            <Panel border className="nokkelinfo_panel" tabIndex={1}>
+                <Laster />
+            </Panel>
+        );
+    }
+    if (
+        oppfolgingsstatus?.error?.status === 204 ||
+        oppfolgingsstatus?.error?.status === 404 ||
+        person?.error?.status === 204 ||
+        person?.error?.status === 404 ||
+        registrering?.error?.status === 204 ||
+        registrering?.error?.status === 404 ||
+        tolk?.error?.status === 204 ||
+        tolk?.error?.status === 404 ||
+        ytelser?.error?.status === 204 ||
+        ytelser?.error?.status === 404 ||
+        cvOgJobbonsker?.error?.status === 204 ||
+        cvOgJobbonsker?.error?.status === 404 ||
+        veileder?.error?.status === 204 ||
+        veileder?.error?.status === 404
+    ) {
+        // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
+    } else if (
+        oppfolgingsstatus.error ||
+        person.error ||
+        registrering.error ||
+        tolk.error ||
+        ytelser.error ||
+        cvOgJobbonsker.error ||
+        veileder.error
+    ) {
+        return (
+            <Panel border className="nokkelinfo_panel" tabIndex={1}>
+                <Heading spacing level="2" size="medium">
+                    Nøkkelinfo
+                </Heading>
+                <Errormelding />
+            </Panel>
+        );
+    }
 
     const telefon: StringOrNothing = person?.data?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
     const taletolk: OrNothing<TilrettelagtKommunikasjonData> = tolk?.data;
@@ -53,41 +103,6 @@ const Nokkelinfo = () => {
     const barnNavn: string = barnUnder21
         .map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`)
         .join(', ');
-
-    if (
-        oppfolgingsstatus.isLoading ||
-        person.isLoading ||
-        registrering.isLoading ||
-        tolk.isLoading ||
-        ytelser.isLoading ||
-        cvOgJobbonsker.isLoading ||
-        veileder.isLoading
-    ) {
-        return (
-            <Panel border className="nokkelinfo_panel" tabIndex={1}>
-                <Laster />
-            </Panel>
-        );
-    }
-
-    if (
-        oppfolgingsstatus.error ||
-        person.error ||
-        registrering.error ||
-        tolk.error ||
-        ytelser.error ||
-        cvOgJobbonsker.error ||
-        veileder.error
-    ) {
-        return (
-            <Panel border className="nokkelinfo_panel" tabIndex={1}>
-                <Heading spacing level="2" size="medium">
-                    Nøkkelinfo
-                </Heading>
-                <Errormelding />
-            </Panel>
-        );
-    }
 
     return (
         <Panel border className="nokkelinfo_panel" tabIndex={1}>

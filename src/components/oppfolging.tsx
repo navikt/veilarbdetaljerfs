@@ -37,7 +37,16 @@ const Oppfolging = () => {
         );
     }
 
-    if (oppfolgingsstatus.error || person.error || veileder.error) {
+    if (
+        oppfolgingsstatus?.error?.status === 204 ||
+        oppfolgingsstatus?.error?.status === 404 ||
+        person?.error?.status === 204 ||
+        person?.error?.status === 404 ||
+        veileder?.error?.status === 204 ||
+        veileder?.error?.status === 404
+    ) {
+        // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
+    } else if (oppfolgingsstatus.error || person.error || veileder.error) {
         return (
             <Panel border className="info_panel" tabIndex={3}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">

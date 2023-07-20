@@ -25,7 +25,9 @@ export const Registrering = () => {
         );
     }
 
-    if (registrering.error) {
+    if (registrering?.error?.status === 204 || registrering?.error?.status === 404) {
+        // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
+    } else if (registrering.error) {
         return (
             <Panel border className="info_panel" tabIndex={6}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">

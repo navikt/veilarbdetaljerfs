@@ -66,7 +66,9 @@ const PersonaliaBoks = () => {
         );
     }
 
-    if (personalia.error || tolk.error || vergeOgFullmakt.error) {
+    if (tolk?.error?.status === 204 || tolk?.error?.status === 404) {
+        // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
+    } else if (personalia.error || tolk.error || vergeOgFullmakt.error) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
