@@ -11,6 +11,7 @@ import { ArenaPerson } from './datatyper/arenaperson';
 import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
+import { ChipsData } from './datatyper/chips';
 
 const handterRespons = async (respons: Response) => {
     if (respons.status === 204 || respons.status === 404 || respons.status === 403) {
@@ -98,6 +99,20 @@ export const hentAktorId = async (fnr: string): Promise<AktorId | null> => {
 };
 export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<any> => {
     const url = `/veilarbperson/api/logger/event`;
+    const respons = await fetch(url, createPOSToptions(event));
+
+    return handterRespons(respons);
+};
+
+export const hentChips = async (): Promise<ChipsData | null> => {
+    const url = `/veilarbfilter/api/overblikkvisning`;
+    const respons = await fetch(url, GEToptions);
+
+    return handterRespons(respons);
+};
+
+export const sendChips = async (event: ChipsData): Promise<any> => {
+    const url = `/veilarbfilter/api/overblikkvisning`;
     const respons = await fetch(url, createPOSToptions(event));
 
     return handterRespons(respons);

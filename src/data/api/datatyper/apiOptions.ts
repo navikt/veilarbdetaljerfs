@@ -1,4 +1,5 @@
 import { FrontendEvent } from '../../../utils/logger';
+import { ChipsData } from './chips';
 
 export const GEToptions = {
     method: 'GET',
@@ -9,7 +10,7 @@ export const GEToptions = {
     }
 };
 
-export const createPOSToptions = (event: FrontendEvent) => ({
+export const createPOSToptions = (event: FrontendEvent | ChipsData) => ({
     method: 'POST',
     body: JSON.stringify(event),
     headers: {

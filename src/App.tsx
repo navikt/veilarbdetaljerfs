@@ -9,6 +9,7 @@ import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
 import { Chips } from '@navikt/ds-react';
 import { useState } from 'react';
+import { sendChips } from './data/api/fetch';
 
 export interface AppProps {
     fnr: string;
@@ -27,6 +28,8 @@ const App = (props: AppProps) => {
                 : [...prevSelected, componentName]
         );
     };
+    const veilederId = '123';
+    sendChips({ veilederId: veilederId, overblikkVisning: selectedComponents });
 
     const renderComponent = (componentName: string) => {
         switch (componentName) {
