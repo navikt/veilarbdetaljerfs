@@ -18,7 +18,7 @@ import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
-import { formaterDato, formaterTelefonnummer } from '../utils/formater';
+import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefonnummer } from '../utils/formater';
 import { kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
@@ -131,7 +131,7 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
-                <EnkeltInformasjon header="Sivilstand" value={sivilstatus} />
+                <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
                 <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
