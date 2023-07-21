@@ -7,11 +7,10 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Button, Chips } from '@navikt/ds-react';
+import { Chips } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { useChips } from './data/api/fetch';
-import { TrashIcon, BookmarkIcon } from '@navikt/aksel-icons';
-import { logChips } from './utils/logger';
+import { LagreChips, NullstillChips } from './components/felles/chipsknapp';
 
 export interface AppProps {
     fnr: string;
@@ -23,11 +22,12 @@ const App = (props: AppProps) => {
 
     const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
     const [selectedComponents, setSelectedComponents] = useState<string[]>(options);
+    const [lagredeChips, setLagredeChips] = useState<string[]>(options);
 
     useEffect(() => {
         if (chipsData.data) {
             setSelectedComponents(chipsData.data);
-            console.log('VALGTE CHIPS:', selectedComponents);
+            setLagredeChips(chipsData.data);
         }
     }, [chipsData.data]);
 
@@ -75,23 +75,9 @@ const App = (props: AppProps) => {
                                 {c}
                             </Chips.Toggle>
                         ))}
-                        <Button
-                            onClick={() => setSelectedComponents(options)}
-                            size="small"
-                            variant="tertiary"
-                            icon={<TrashIcon title="a11y-title" />}
-                        >
-                            Nullstill visning
-                        </Button>
+                        <NullstillChips alleChips={options} setState={setSelectedComponents} />
 
-                        <Button
-                            onClick={() => logChips(selectedComponents)}
-                            size="small"
-                            variant="secondary"
-                            icon={<BookmarkIcon title="a11y-title" />}
-                        >
-                            Lagre visning
-                        </Button>
+                        <LagreChips aktiveChips={selectedComponents} lagret={lagredeChips} />
                     </Chips>
                 </div>
 
