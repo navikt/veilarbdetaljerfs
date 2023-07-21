@@ -8,8 +8,9 @@ import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
 import { Chips } from '@navikt/ds-react';
-import { useState } from 'react';
-import { sendChips } from './data/api/fetch';
+import { useEffect, useState } from 'react';
+import { useChips } from './data/api/fetch';
+// import { logChips } from './utils/logger';
 
 export interface AppProps {
     fnr: string;
@@ -17,9 +18,19 @@ export interface AppProps {
 }
 
 const App = (props: AppProps) => {
-    const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+    const chipsData = useChips();
 
-    const [selectedComponents, setSelectedComponents] = useState<string[]>([options[0]]);
+    // if(chipsData.error)
+
+    const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+    const [selectedComponents, setSelectedComponents] = useState<string[]>(options);
+
+    useEffect(() => {
+        if (chipsData.data) {
+            setSelectedComponents(chipsData.data);
+            // console.log('VALGTE CHIPS:', selectedComponents);
+        }
+    }, [chipsData.data]);
 
     const toggleComponent = (componentName: string) => {
         setSelectedComponents((prevSelected) =>
@@ -28,8 +39,6 @@ const App = (props: AppProps) => {
                 : [...prevSelected, componentName]
         );
     };
-    const veilederId = '123';
-    sendChips({ veilederId: veilederId, overblikkVisning: selectedComponents });
 
     const renderComponent = (componentName: string) => {
         switch (componentName) {
