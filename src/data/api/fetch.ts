@@ -12,91 +12,50 @@ import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import { ChipsData } from './datatyper/chips';
+import useSWR from 'swr';
+
+interface ErrorMessage {
+    error: Error | unknown;
+    status?: number | null;
+    info: StringOrNothing;
+}
 
 const handterRespons = async (respons: Response) => {
-    if (respons.status === 204 || respons.status === 404 || respons.status === 403) {
-        return respons.ok;
-    }
-
     if (respons.status >= 400) {
-        throw new Error(respons.statusText);
+        const error: ErrorMessage = {
+            error: new Error('An error occurred while fetching the data.'),
+            status: respons.status,
+            info: await respons.json()
+        };
+        throw error;
+    }
+    if (respons.status === 204) {
+        const error: ErrorMessage = {
+            error: new Error('No content'),
+            status: respons.status,
+            info: null
+        };
+        throw error;
     }
 
     try {
         return await respons.json();
-    } catch (error) {
-        console.log('Error ved parsing:', error);
-        return null;
+    } catch (err) {
+        const error: ErrorMessage = {
+            error: err,
+            status: null,
+            info: null
+        };
+        throw error;
     }
 };
 
-export const hentOppfolgingsstatus = async (fnr: string): Promise<OppfolgingsstatusData | null> => {
-    const url = `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`;
+const fetcher = async (url: string): Promise<any> => {
     const respons = await fetch(url, GEToptions);
 
     return handterRespons(respons);
 };
 
-export const hentPersonalia = async (fnr: string): Promise<PersonaliaV2Info | null> => {
-    const url = `/veilarbperson/api/v2/person?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const hentRegistrering = async (fnr: string): Promise<RegistreringsData | null> => {
-    const url = `/veilarbperson/api/person/registrering?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const hentTolk = async (fnr: string): Promise<TilrettelagtKommunikasjonData | null> => {
-    const url = `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const hentVeileder = async (veilederId: StringOrNothing): Promise<VeilederData | null> => {
-    const url = `/veilarbveileder/api/veileder/${veilederId}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const hentVergeOgFullmakt = async (fnr: string): Promise<VergeOgFullmaktData | null> => {
-    const url = `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const hentYtelser = async (fnr: string): Promise<YtelseData | null> => {
-    const url = `/veilarboppfolging/api/person/${fnr}/ytelser`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const hentCvOgJobbonsker = async (fnr: string): Promise<ArenaPerson | null> => {
-    const url = `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-export const hentUnderOppfolging = async (fnr: string): Promise<UnderOppfolgingData | null> => {
-    const url = `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-export const hentAktorId = async (fnr: string): Promise<AktorId | null> => {
-    const url = `/veilarbperson/api/person/aktorid?fnr=${fnr}`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
 export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<any> => {
     const url = `/veilarbperson/api/logger/event`;
     const respons = await fetch(url, createPOSToptions(event));
@@ -116,4 +75,109 @@ export const sendChips = async (event: ChipsData): Promise<any> => {
     const respons = await fetch(url, createPOSToptions(event));
 
     return handterRespons(respons);
+};
+
+export const useCvOgJobbonsker = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
+        `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useUnderOppfolging = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
+        `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useOppfolgingsstatus = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
+        `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const usePersonalia = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<PersonaliaV2Info, ErrorMessage>(
+        `/veilarbperson/api/v2/person?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useRegistrering = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(
+        `/veilarbperson/api/person/registrering?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useTolk = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(
+        `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useVergeOgFullmakt = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(
+        `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useYtelser = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
+        `/veilarboppfolging/api/person/${fnr}/ytelser`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useAktorId = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(
+        `/veilarbperson/api/person/aktorid?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useVeileder = (veilederId: StringOrNothing) => {
+    const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
+        veilederId ? `/veilarbveileder/api/veileder/` + veilederId : null,
+        fetcher,
+        {
+            shouldRetryOnError: false,
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false
+        }
+    );
+
+    return { data, isLoading, error };
 };
