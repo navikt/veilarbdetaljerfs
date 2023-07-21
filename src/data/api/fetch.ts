@@ -11,7 +11,6 @@ import { ArenaPerson } from './datatyper/arenaperson';
 import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
-import { ChipsData } from './datatyper/chips';
 import useSWR from 'swr';
 
 interface ErrorMessage {
@@ -63,20 +62,23 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<a
     return handterRespons(respons);
 };
 
-export const hentChips = async (): Promise<ChipsData | null> => {
-    const url = `/veilarbfilter/api/overblikkvisning`;
-    const respons = await fetch(url, GEToptions);
-
-    return handterRespons(respons);
-};
-
-export const sendChips = async (event: ChipsData): Promise<any> => {
+export const sendChips = async (event: string[]): Promise<any> => {
     const url = `/veilarbfilter/api/overblikkvisning`;
     const respons = await fetch(url, createPOSToptions(event));
 
     return handterRespons(respons);
 };
 
+export const useChips = () => {
+    const { data, error, isLoading } = useSWR<string[], ErrorMessage>(`/veilarbfilter/api/overblikkvisning`, fetcher, {
+        shouldRetryOnError: false,
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    });
+
+    return { data, isLoading, error };
+};
 export const useCvOgJobbonsker = (fnr: string) => {
     const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
         `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,

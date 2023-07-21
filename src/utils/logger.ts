@@ -1,4 +1,4 @@
-import { sendEventTilVeilarbperson } from '../data/api/fetch';
+import { sendChips, sendEventTilVeilarbperson } from '../data/api/fetch';
 import { erMock } from './miljo-utils';
 
 export interface FrontendEvent {
@@ -13,5 +13,14 @@ export const logMetrikk = (metrikkNavn: string, fields?: {}, tags?: {}): void =>
         console.log('Event', metrikkNavn, 'Fields:', fields, 'Tags:', tags);
     } else {
         sendEventTilVeilarbperson({ name: `${metrikkNavn}`, fields, tags });
+    }
+};
+
+export const logChips = (overblikkVisning: string[]): void => {
+    if (erMock()) {
+        // eslint-disable-next-line no-console
+        console.log('Aktive chips:', overblikkVisning);
+    } else {
+        sendChips(overblikkVisning);
     }
 };
