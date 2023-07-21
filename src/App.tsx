@@ -7,10 +7,11 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Chips } from '@navikt/ds-react';
+import { Button, Chips } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { useChips } from './data/api/fetch';
-// import { logChips } from './utils/logger';
+import { TrashIcon, BookmarkIcon } from '@navikt/aksel-icons';
+import { logChips } from './utils/logger';
 
 export interface AppProps {
     fnr: string;
@@ -20,15 +21,13 @@ export interface AppProps {
 const App = (props: AppProps) => {
     const chipsData = useChips();
 
-    // if(chipsData.error)
-
     const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
     const [selectedComponents, setSelectedComponents] = useState<string[]>(options);
 
     useEffect(() => {
         if (chipsData.data) {
             setSelectedComponents(chipsData.data);
-            // console.log('VALGTE CHIPS:', selectedComponents);
+            console.log('VALGTE CHIPS:', selectedComponents);
         }
     }, [chipsData.data]);
 
@@ -76,6 +75,23 @@ const App = (props: AppProps) => {
                                 {c}
                             </Chips.Toggle>
                         ))}
+                        <Button
+                            onClick={() => setSelectedComponents(options)}
+                            size="small"
+                            variant="tertiary"
+                            icon={<TrashIcon title="a11y-title" />}
+                        >
+                            Nullstill visning
+                        </Button>
+
+                        <Button
+                            onClick={() => logChips(selectedComponents)}
+                            size="small"
+                            variant="secondary"
+                            icon={<BookmarkIcon title="a11y-title" />}
+                        >
+                            Lagre visning
+                        </Button>
                     </Chips>
                 </div>
 
