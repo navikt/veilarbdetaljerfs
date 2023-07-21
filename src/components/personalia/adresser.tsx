@@ -122,13 +122,13 @@ function KontaktAdresse(props: { kontaktadresse: Kontaktadresse }) {
     }
 
     return (
-        <div>
+        <>
             <BodyShort size="small" className="BodyHeader">
                 Kontaktadresse {`(${adresseType})`}
             </BodyShort>
             <BodyShort size="small">{coAdressenavn || ''}</BodyShort>
             {!isNullOrUndefined(adresseVisning) ? adresseVisning : EMDASH}
-        </div>
+        </>
     );
 }
 
@@ -136,13 +136,13 @@ function VegAdresse(prop: { adresse: OrNothing<Vegadresse> }) {
     const { adressenavn, husnummer, husbokstav, postnummer, poststed, kommunenummer, kommune } =
         prop.adresse as Vegadresse;
     return (
-        <div>
+        <>
             <BodyShort size="small">{`${adressenavn || ''} ${husnummer || ''}${husbokstav || ''}`}</BodyShort>
             <BodyShort size="small">{`${postnummer || ''} ${poststed || ''}`}</BodyShort>
             {kommunenummer && (
                 <BodyShort size="small"> {`Kommune: ${kommunenummer || ''} ${kommune || ''}`} </BodyShort>
             )}
-        </div>
+        </>
     );
 }
 
@@ -151,22 +151,22 @@ function MatrikkelAdresse(prop: { adresse: OrNothing<Matrikkeladresse> }) {
         prop.adresse as Matrikkeladresse;
 
     return (
-        <div>
+        <>
             {bruksenhetsnummer && <BodyShort size="small"> {`Bolignummer ${bruksenhetsnummer}`} </BodyShort>}
             {tilleggsnavn && <BodyShort size="small"> {tilleggsnavn} </BodyShort>}
             {postnummer && <BodyShort size="small"> {`${postnummer} ${poststed || ''}`} </BodyShort>}
             {kommunenummer && <BodyShort size="small"> {`Kommune: ${kommunenummer} ${kommune || ''}`} </BodyShort>}
-        </div>
+        </>
     );
 }
 
 function PostboksAdresse(prop: { adresse: Postboksadresse }) {
     const { postbokseier, postboks, postnummer, poststed } = prop.adresse as Postboksadresse;
     return (
-        <div>
+        <>
             <BodyShort size="small">{`Postboks ${(postboks || '').trim()} ${postbokseier || ''}`}</BodyShort>
             <BodyShort size="small">{`${postnummer || ''} ${poststed || ''}`}</BodyShort>
-        </div>
+        </>
     );
 }
 
@@ -182,7 +182,7 @@ function UtenlandskAdresse(prop: { adresse: OrNothing<Utenlandskadresse> }) {
     } = prop.adresse as Utenlandskadresse;
 
     return (
-        <div>
+        <>
             <BodyShort size="small">{adressenavnNummer || ''}</BodyShort>
             <BodyShort size="small">{bygningEtasjeLeilighet || ''}</BodyShort>
             <BodyShort size="small">{postboksNummerNavn || ''}</BodyShort>
@@ -190,7 +190,7 @@ function UtenlandskAdresse(prop: { adresse: OrNothing<Utenlandskadresse> }) {
             <BodyShort size="small">{bySted || ''}</BodyShort>
             <BodyShort size="small">{regionDistriktOmraade || ''}</BodyShort>
             <BodyShort size="small">{landkode || ''}</BodyShort>
-        </div>
+        </>
     );
 }
 
@@ -207,13 +207,13 @@ function UtenlandskAdresseIFrittFormat(props: { adresse: OrNothing<Utenlandskadr
         props.adresse as UtenlandskadresseIFrittFormat;
 
     return (
-        <div>
+        <>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje1)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje2)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje3)} </BodyShort>
             <BodyShort size="small"> {`${postkode || ''} ${byEllerStedsnavn || ''}`} </BodyShort>
             <BodyShort size="small"> {landkode || ''} </BodyShort>
-        </div>
+        </>
     );
 }
 
@@ -222,12 +222,12 @@ function PostAdresseIFrittFormat(props: { adresse: OrNothing<PostadresseIFrittFo
         props.adresse as PostadresseIFrittFormat;
 
     return (
-        <div>
+        <>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje1)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje2)} </BodyShort>
             <BodyShort size="small"> {visEmdashHvisNull(adresselinje3)} </BodyShort>
             <BodyShort size="small"> {`${postnummer || ''} ${poststed || ''}`} </BodyShort>
-        </div>
+        </>
     );
 }
 
@@ -239,7 +239,7 @@ function Adresser(props: Props) {
     const { bostedsadresse, oppholdsadresse, kontaktadresser } = props;
 
     return (
-        <div>
+        <>
             {bostedsadresse && <BostedsAdresse bostedsadresse={bostedsadresse} />}
             {oppholdsadresse && <OppholdsAdresse oppholdsadresse={oppholdsadresse} />}
             {isNotEmptyArray(kontaktadresser)
@@ -255,7 +255,7 @@ function Adresser(props: Props) {
                     {EMDASH}
                 </div>
             )}
-        </div>
+        </>
     );
 }
 
