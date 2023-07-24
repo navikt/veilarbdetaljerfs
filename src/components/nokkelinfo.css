@@ -2,10 +2,10 @@
     margin-left: 40px;
     margin-right: 40px;
     margin-bottom: 20px;
-    background-color: var(--a-blue-500);
+    background-color: var(--a-deepblue-100);
     border-radius: 10px;
-    color: var(--a-gray-50);
-    border-color: var(--a-gray-50);
+    border-color: transparent;
+    box-shadow: var(--a-shadow-small);
 }
 
 .nokkelinfo_container {
