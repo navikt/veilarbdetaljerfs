@@ -5,12 +5,14 @@
     margin-top: 10px;
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
+    box-shadow: ;
 }
 .info_panel {
-    background: linear-gradient(to bottom, var(--a-surface-success-subtle) 55px, white 20px);
+    background: linear-gradient(to bottom, var(--a-blue-400) 55px, white 20px);
     break-inside: avoid-column;
     margin-bottom: 40px;
     border-radius: 10px;
+    border-color: var(--a-gray-50);
 }
 
 @media only screen and (max-width: 1500px) {
@@ -59,4 +61,5 @@
 .PanelHeader {
     text-align: center;
     margin-bottom: 15px;
+    color: var(--a-gray-50);
 }
