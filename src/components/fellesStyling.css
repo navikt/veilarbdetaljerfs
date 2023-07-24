@@ -60,3 +60,7 @@
     text-align: center;
     margin-bottom: var(--a-spacing-4);
 }
+.italic-gra {
+    color: var(--a-gray-600);
+    font-style: italic;
+}
