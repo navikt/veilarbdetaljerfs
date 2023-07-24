@@ -20,27 +20,27 @@ export interface AppProps {
 const App = (props: AppProps) => {
     const chipsData = useChips();
 
-    const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
-    const [selectedComponents, setSelectedComponents] = useState<string[]>(options);
-    const [lagredeChips, setLagredeChips] = useState<string[]>(options);
+    const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+    const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
+    const [lagredeChips, setLagredeChips] = useState<string[]>(informasjonsboksAlternativer);
 
     useEffect(() => {
         if (chipsData.data) {
-            setSelectedComponents(chipsData.data);
+            setValgteInformasjonsbokser(chipsData.data);
             setLagredeChips(chipsData.data);
         }
     }, [chipsData.data]);
 
-    const toggleComponent = (componentName: string) => {
-        setSelectedComponents((prevSelected) =>
-            prevSelected.includes(componentName)
-                ? prevSelected.filter((name) => name !== componentName)
-                : [...prevSelected, componentName]
+    const toggleComponent = (konponentNavn: string) => {
+        setValgteInformasjonsbokser((tidligereValgteKomponenter) =>
+            tidligereValgteKomponenter.includes(konponentNavn)
+                ? tidligereValgteKomponenter.filter((navn) => navn !== konponentNavn)
+                : [...tidligereValgteKomponenter, konponentNavn]
         );
     };
 
-    const renderComponent = (componentName: string) => {
-        switch (componentName) {
+    const mapNavnTilKomponent = (navn: string) => {
+        switch (navn) {
             case 'CV':
                 return <CvInnhold />;
             case 'Jobbønsker':
@@ -66,25 +66,28 @@ const App = (props: AppProps) => {
 
                 <div className="overblikkChips">
                     <Chips>
-                        {options.map((c) => (
+                        {informasjonsboksAlternativer.map((alternativ) => (
                             <Chips.Toggle
-                                key={c}
-                                selected={selectedComponents.includes(c)}
-                                onClick={() => toggleComponent(c)}
+                                key={alternativ}
+                                selected={valgteInformasjonsbokser.includes(alternativ)}
+                                onClick={() => toggleComponent(alternativ)}
                             >
-                                {c}
+                                {alternativ}
                             </Chips.Toggle>
                         ))}
-                        <NullstillChips alleChips={options} setState={setSelectedComponents} />
+                        <NullstillChips
+                            alleChips={informasjonsboksAlternativer}
+                            setState={setValgteInformasjonsbokser}
+                        />
 
-                        <LagreChips aktiveChips={selectedComponents} lagret={lagredeChips} />
+                        <LagreChips aktiveChips={valgteInformasjonsbokser} lagret={lagredeChips} />
                     </Chips>
                 </div>
 
                 <div className="main_grid">
-                    {selectedComponents.map((selectedComponent) => (
-                        <div key={selectedComponent} className="box">
-                            {renderComponent(selectedComponent)}
+                    {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
+                        <div key={valgtInformasjonsboks} className="box">
+                            {mapNavnTilKomponent(valgtInformasjonsboks)}
                         </div>
                     ))}
                 </div>
