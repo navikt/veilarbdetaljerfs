@@ -13,7 +13,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     const gjeldendeOmraader = omraader.map((omraade) => omraade.beskrivelse).join(', ');
 
     return (
-        <div className="PersonaliaVerge">
+        <div className="underinformasjon">
             <BodyShort size="small" className="BodyHeader">
                 <b>
                     {formateStringInUpperAndLowerCase(motpartsRolle)}: {motpartsPersonident}
@@ -49,7 +49,7 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
     }
 
     return (
-        <div className="Fullmakter">
+        <div>
             <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
                 {fullmaktListe}
             </Informasjonsbolk>

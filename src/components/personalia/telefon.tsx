@@ -3,7 +3,6 @@ import { PersonaliaV2Info, PersonaliaTelefon } from '../../data/api/datatyper/pe
 import EMDASH from '../../utils/emdash';
 import { formaterTelefonnummer } from '../../utils/formater';
 import { hentKilde } from '../../utils/konstanter';
-import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 
 function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
@@ -13,7 +12,7 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
         <div>
             <BodyShort size="small" className="copyTlf">
                 {formaterTelefonnummer(telefonNr)}
-                <CopyButton copyText={telefonNr} />
+                <CopyButton copyText={telefonNr} size="xsmall" />
             </BodyShort>
             <div className="tlf_registrert">
                 {telefonNr && (
@@ -33,9 +32,14 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
         : EMDASH;
 
     return (
-        <Informasjonsbolk header="Telefon" headerTypo="ingress">
-            {telefonListe}
-        </Informasjonsbolk>
+        <div>
+            <BodyShort size="small" className="BodyHeader">
+                Telefon
+            </BodyShort>
+            <BodyShort size="small" className="EnkeltInfoValue">
+                {telefonListe}
+            </BodyShort>
+        </div>
     );
 }
 
