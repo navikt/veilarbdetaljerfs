@@ -18,7 +18,7 @@ export interface AppProps {
 const App = (props: AppProps) => {
     const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
 
-    const [selectedComponents, setSelectedComponents] = useState<string[]>([options[0]]);
+    const [selectedComponents, setSelectedComponents] = useState<string[]>(options);
 
     const toggleComponent = (componentName: string) => {
         setSelectedComponents((prevSelected) =>
