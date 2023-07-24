@@ -49,32 +49,34 @@ const App = (props: AppProps) => {
 
     return (
         <main className="app veilarbdetaljerfs">
-            <StoreProvider fnr={props.fnr}>
-                <PilotAlert />
-                <Nokkelinfo />
+            <div className="overblikk">
+                <StoreProvider fnr={props.fnr}>
+                    <PilotAlert />
+                    <Nokkelinfo />
 
-                <div className="overblikkChips">
-                    <Chips>
-                        {informasjonsboksAlternativer.map((alternativ) => (
-                            <Chips.Toggle
-                                key={alternativ}
-                                selected={valgteInformasjonsbokser.includes(alternativ)}
-                                onClick={() => toggleComponent(alternativ)}
-                            >
-                                {alternativ}
-                            </Chips.Toggle>
+                    <div className="overblikkChips">
+                        <Chips>
+                            {informasjonsboksAlternativer.map((alternativ) => (
+                                <Chips.Toggle
+                                    key={alternativ}
+                                    selected={valgteInformasjonsbokser.includes(alternativ)}
+                                    onClick={() => toggleComponent(alternativ)}
+                                >
+                                    {alternativ}
+                                </Chips.Toggle>
+                            ))}
+                        </Chips>
+                    </div>
+
+                    <div className="main_grid">
+                        {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
+                            <div key={valgtInformasjonsboks} className="box">
+                                {mapNavnTilKomponent(valgtInformasjonsboks)}
+                            </div>
                         ))}
-                    </Chips>
-                </div>
-
-                <div className="main_grid">
-                    {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                        <div key={valgtInformasjonsboks} className="box">
-                            {mapNavnTilKomponent(valgtInformasjonsboks)}
-                        </div>
-                    ))}
-                </div>
-            </StoreProvider>
+                    </div>
+                </StoreProvider>
+            </div>
         </main>
     );
 };

@@ -51,7 +51,9 @@ export const Ytelser = () => {
             <span className="info_container">
                 {ytelserData?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
-                        <EnkeltInformasjon header="Vedtakstype" value={vedtak.vedtakstype || EMDASH} />
+                        <Heading spacing level="2" size="small">
+                            {vedtak.vedtakstype || EMDASH}
+                        </Heading>
                         <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
                         <EnkeltInformasjon header={'Aktivitetsfase'} value={vedtak.aktivitetsfase || EMDASH} />
                         <EnkeltInformasjon
