@@ -1,20 +1,20 @@
 .info_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 30px;
-    margin-top: 10px;
+    grid-gap: var(--a-spacing-8);
+    margin-top: var(--a-spacing-3);
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
 }
 .info_panel {
     background: linear-gradient(to bottom, var(--a-deepblue-200) 55px, white 20px);
     break-inside: avoid-column;
-    margin-bottom: 40px;
-    border-radius: 10px;
+    margin-bottom: var(--a-spacing-10);
+    border-radius: var(--a-border-radius-xlarge);
     border-color: var(--a-gray-50);
 }
 
-@media only screen and (max-width: 1500px) {
+@media only screen and (max-width: 1279px) {
     .info_container {
         grid-template-columns: 1fr;
     }
@@ -24,12 +24,11 @@
     font-weight: bold;
 }
 .EnkeltInfoValue {
-    padding-bottom: 10px;
+    padding-bottom: var(--a-spacing-2);
 }
 .copyHeader {
-    margin-right: '5px';
-    margin-bottom: -14px;
-    font-weight: bold;
+    margin-bottom: -12px;
+    font-weight: var(--a-font-weight-bold);
 }
 .copyBody {
     display: inline-grid;
@@ -37,7 +36,7 @@
     align-items: center;
 }
 .withEMDASH {
-    margin-top: 14px;
+    margin-top: var(--a-spacing-3);
 }
 .copyTlf {
     display: flex;
@@ -48,16 +47,16 @@
     top: -10px;
 }
 .pilot_alert {
-    margin: 10px 40px 10px 40px;
+    margin: var(--a-spacing-3) var(--a-spacing-10) var(--a-spacing-3) var(--a-spacing-10);
 }
 
 .BodyShortItalic {
     font-style: italic;
 }
 .Fullmakter {
-    margin-top: 15px;
+    margin-top: var(--a-spacing-4);
 }
 .PanelHeader {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: var(--a-spacing-4);
 }
