@@ -16,20 +16,20 @@ export interface AppProps {
 }
 
 const App = (props: AppProps) => {
-    const options = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+    const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
 
-    const [selectedComponents, setSelectedComponents] = useState<string[]>(options);
+    const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
 
-    const toggleComponent = (componentName: string) => {
-        setSelectedComponents((prevSelected) =>
-            prevSelected.includes(componentName)
-                ? prevSelected.filter((name) => name !== componentName)
-                : [...prevSelected, componentName]
+    const toggleComponent = (konponentNavn: string) => {
+        setValgteInformasjonsbokser((tidligereValgteKomponenter) =>
+            tidligereValgteKomponenter.includes(konponentNavn)
+                ? tidligereValgteKomponenter.filter((navn) => navn !== konponentNavn)
+                : [...tidligereValgteKomponenter, konponentNavn]
         );
     };
 
-    const renderComponent = (componentName: string) => {
-        switch (componentName) {
+    const mapNavnTilKomponent = (navn: string) => {
+        switch (navn) {
             case 'CV':
                 return <CvInnhold />;
             case 'Jobbønsker':
@@ -55,22 +55,22 @@ const App = (props: AppProps) => {
 
                 <div className="overblikkChips">
                     <Chips>
-                        {options.map((c) => (
+                        {informasjonsboksAlternativer.map((alternativ) => (
                             <Chips.Toggle
-                                key={c}
-                                selected={selectedComponents.includes(c)}
-                                onClick={() => toggleComponent(c)}
+                                key={alternativ}
+                                selected={valgteInformasjonsbokser.includes(alternativ)}
+                                onClick={() => toggleComponent(alternativ)}
                             >
-                                {c}
+                                {alternativ}
                             </Chips.Toggle>
                         ))}
                     </Chips>
                 </div>
 
                 <div className="main_grid">
-                    {selectedComponents.map((selectedComponent) => (
-                        <div key={selectedComponent} className="box">
-                            {renderComponent(selectedComponent)}
+                    {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
+                        <div key={valgtInformasjonsboks} className="box">
+                            {mapNavnTilKomponent(valgtInformasjonsboks)}
                         </div>
                     ))}
                 </div>
