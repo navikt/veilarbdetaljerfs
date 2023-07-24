@@ -1,16 +1,11 @@
 import { logChips } from '../../utils/logger';
-import { TrashIcon, BookmarkIcon, CheckmarkIcon } from '@navikt/aksel-icons';
+import { TrashIcon, CheckmarkIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 
 export const LagreChips = (props: { aktiveChips: string[]; lagret: string[] }) => {
     if (props.lagret !== props.aktiveChips) {
         return (
-            <Button
-                onClick={() => logChips(props.aktiveChips)}
-                size="small"
-                variant="secondary"
-                icon={<BookmarkIcon title="a11y-title" />}
-            >
+            <Button onClick={() => logChips(props.aktiveChips)} size="small" variant="secondary">
                 Lagre visning
             </Button>
         );
