@@ -90,7 +90,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
                     Fylkesmannsembete
                 </BodyShort>
                 <BodyShort size="small">{embete}</BodyShort>
-                <BodyShort size="small">
+                <BodyShort size="small" className="BodyShortItalic">
                     {`${ajourholdstidspunkt && formaterDato(ajourholdstidspunkt)} - ${
                         gyldighetstidspunkt ? formaterDato(gyldighetstidspunkt) : ''
                     }`}

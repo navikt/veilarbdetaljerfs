@@ -10,7 +10,7 @@ import Vergemaal from './personalia/vergemaal';
 import Fullmakt from './personalia/fullmakt';
 import './fellesStyling.css';
 import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
-import Kontaktinformasjon from './personalia/kontakinformasjon';
+import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 
 const PersonaliaBoks = () => {

@@ -12,7 +12,7 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
         <div>
             <BodyShort size="small" className="copyTlf">
                 {formaterTelefonnummer(telefonNr)}
-                <CopyButton copyText={telefonNr} />
+                <CopyButton copyText={telefonNr} size="xsmall" />
             </BodyShort>
             <div className="tlf_registrert">
                 {telefonNr && (
@@ -36,7 +36,9 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
             <BodyShort size="small" className="BodyHeader">
                 Telefon
             </BodyShort>
-            {telefonListe}
+            <BodyShort size="small" className="EnkeltInfoValue">
+                {telefonListe}
+            </BodyShort>
         </div>
     );
 }

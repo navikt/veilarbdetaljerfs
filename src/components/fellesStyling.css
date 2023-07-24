@@ -27,7 +27,6 @@
     padding-bottom: var(--a-spacing-2);
 }
 .copyHeader {
-    margin-bottom: -12px;
     font-weight: var(--a-font-weight-bold);
 }
 .copyBody {
@@ -41,10 +40,6 @@
 .copyTlf {
     display: flex;
     align-items: center;
-}
-.tlf_registrert {
-    position: relative;
-    top: -10px;
 }
 .pilot_alert {
     margin: var(--a-spacing-3) var(--a-spacing-10) var(--a-spacing-3) var(--a-spacing-10);
