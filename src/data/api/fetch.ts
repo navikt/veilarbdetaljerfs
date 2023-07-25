@@ -62,22 +62,26 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<a
     return handterRespons(respons);
 };
 
-export const sendChips = async (event: string[]): Promise<any> => {
+export const sendOverblikkFilter = async (event: string[]): Promise<any> => {
     const url = `/veilarbfilter/api/overblikkvisning`;
     const respons = await fetch(url, createPOSToptions(event));
 
     return handterRespons(respons);
 };
 
-export const useChips = () => {
-    const { data, error, isLoading } = useSWR<string[], ErrorMessage>(`/veilarbfilter/api/overblikkvisning`, fetcher, {
-        shouldRetryOnError: false,
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false
-    });
+export const useOverblikkFilter = () => {
+    const { data, error, isLoading, mutate } = useSWR<string[], ErrorMessage>(
+        `/veilarbfilter/api/overblikkvisning`,
+        fetcher,
+        {
+            shouldRetryOnError: false,
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false
+        }
+    );
 
-    return { data, isLoading, error };
+    return { data, isLoading, error, reFetch: mutate };
 };
 export const useCvOgJobbonsker = (fnr: string) => {
     const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(

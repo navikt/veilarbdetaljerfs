@@ -1,4 +1,4 @@
-import { sendChips, sendEventTilVeilarbperson } from '../data/api/fetch';
+import { sendOverblikkFilter, sendEventTilVeilarbperson } from '../data/api/fetch';
 import { erMock } from './miljo-utils';
 
 export interface FrontendEvent {
@@ -19,8 +19,8 @@ export const logMetrikk = (metrikkNavn: string, fields?: {}, tags?: {}): void =>
 export const logChips = (overblikkVisning: string[]): void => {
     if (erMock()) {
         // eslint-disable-next-line no-console
-        console.log('Aktive chips:', overblikkVisning);
+        console.log('Aktive informasjonsbokser:', overblikkVisning);
     } else {
-        sendChips(overblikkVisning);
+        sendOverblikkFilter(overblikkVisning);
     }
 };

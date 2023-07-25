@@ -7,10 +7,11 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Chips } from '@navikt/ds-react';
+import { Button, Chips } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { useChips } from './data/api/fetch';
-import { LagreChips, NullstillChips } from './components/felles/chipsknapp';
+import { useOverblikkFilter } from './data/api/fetch';
+import { TrashIcon, CheckmarkIcon } from '@navikt/aksel-icons';
+import { logChips } from './utils/logger';
 
 export interface AppProps {
     fnr: string;
@@ -18,18 +19,21 @@ export interface AppProps {
 }
 
 const App = (props: AppProps) => {
-    const chipsData = useChips();
+    const overblikkFilter = useOverblikkFilter();
 
     const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
-    const [lagredeChips, setLagredeChips] = useState<string[]>(informasjonsboksAlternativer);
+    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
 
     useEffect(() => {
-        if (chipsData.data) {
-            setValgteInformasjonsbokser(chipsData.data);
-            setLagredeChips(chipsData.data);
+        if (overblikkFilter.data && !overblikkFilter.error) {
+            setValgteInformasjonsbokser(overblikkFilter.data);
+            setLagredeInformasjonsbokser(overblikkFilter.data);
         }
-    }, [chipsData.data]);
+        if (overblikkFilter.error?.status === 204) {
+            setLagredeInformasjonsbokser(valgteInformasjonsbokser);
+        }
+    }, [overblikkFilter.data || overblikkFilter.error]);
 
     const toggleComponent = (konponentNavn: string) => {
         setValgteInformasjonsbokser((tidligereValgteKomponenter) =>
@@ -58,6 +62,8 @@ const App = (props: AppProps) => {
         }
     };
 
+    const lagredeKnappAktiv = valgteInformasjonsbokser.sort() !== lagredeInformasjonsbokser.sort();
+
     return (
         <main className="app veilarbdetaljerfs">
             <StoreProvider fnr={props.fnr}>
@@ -75,12 +81,38 @@ const App = (props: AppProps) => {
                                 {alternativ}
                             </Chips.Toggle>
                         ))}
-                        <NullstillChips
-                            alleChips={informasjonsboksAlternativer}
-                            setState={setValgteInformasjonsbokser}
-                        />
 
-                        <LagreChips aktiveChips={valgteInformasjonsbokser} lagret={lagredeChips} />
+                        <Button
+                            onClick={() => setValgteInformasjonsbokser(informasjonsboksAlternativer)}
+                            size="small"
+                            variant="tertiary"
+                            icon={<TrashIcon title="a11y-title" />}
+                        >
+                            Nullstill visning
+                        </Button>
+
+                        {lagredeKnappAktiv ? (
+                            <Button
+                                onClick={() => {
+                                    logChips(valgteInformasjonsbokser);
+                                    // Sender og fetcher parallelt? conditional fetching etter POST?
+                                    overblikkFilter.reFetch();
+                                }}
+                                size="small"
+                                variant="secondary"
+                            >
+                                Lagre visning
+                            </Button>
+                        ) : (
+                            <Button
+                                disabled={true}
+                                size="small"
+                                variant="secondary"
+                                icon={<CheckmarkIcon title="a11y-title" />}
+                            >
+                                Lagret
+                            </Button>
+                        )}
                     </Chips>
                 </div>
 
