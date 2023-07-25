@@ -66,64 +66,66 @@ const App = (props: AppProps) => {
 
     return (
         <main className="app veilarbdetaljerfs">
-            <StoreProvider fnr={props.fnr}>
-                <PilotAlert />
-                <Nokkelinfo />
+            <div className="overblikk">
+                <StoreProvider fnr={props.fnr}>
+                    <PilotAlert />
+                    <Nokkelinfo />
 
-                <div className="overblikkChips">
-                    <Chips>
-                        {informasjonsboksAlternativer.map((alternativ) => (
-                            <Chips.Toggle
-                                key={alternativ}
-                                selected={valgteInformasjonsbokser.includes(alternativ)}
-                                onClick={() => toggleComponent(alternativ)}
+                    <div className="overblikkChips">
+                        <Chips>
+                            {informasjonsboksAlternativer.map((alternativ) => (
+                                <Chips.Toggle
+                                    key={alternativ}
+                                    selected={valgteInformasjonsbokser.includes(alternativ)}
+                                    onClick={() => toggleComponent(alternativ)}
+                                >
+                                    {alternativ}
+                                </Chips.Toggle>
+                            ))}
+
+                            <Button
+                                onClick={() => setValgteInformasjonsbokser(informasjonsboksAlternativer)}
+                                size="small"
+                                variant="tertiary"
+                                icon={<TrashIcon title="a11y-title" />}
                             >
-                                {alternativ}
-                            </Chips.Toggle>
+                                Nullstill visning
+                            </Button>
+
+                            {lagredeKnappAktiv ? (
+                                <Button
+                                    onClick={() => {
+                                        logChips(valgteInformasjonsbokser);
+                                        // Sender og fetcher parallelt? conditional fetching etter POST?
+                                        overblikkFilter.reFetch();
+                                    }}
+                                    size="small"
+                                    variant="secondary"
+                                >
+                                    Lagre visning
+                                </Button>
+                            ) : (
+                                <Button
+                                    disabled={true}
+                                    size="small"
+                                    variant="secondary"
+                                    icon={<CheckmarkIcon title="a11y-title" />}
+                                >
+                                    Lagret
+                                </Button>
+                            )}
+                        </Chips>
+                    </div>
+
+                    <div className="main_grid">
+                        {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
+                            <div key={valgtInformasjonsboks} className="box">
+                                {mapNavnTilKomponent(valgtInformasjonsboks)}
+                            </div>
                         ))}
-
-                        <Button
-                            onClick={() => setValgteInformasjonsbokser(informasjonsboksAlternativer)}
-                            size="small"
-                            variant="tertiary"
-                            icon={<TrashIcon title="a11y-title" />}
-                        >
-                            Nullstill visning
-                        </Button>
-
-                        {lagredeKnappAktiv ? (
-                            <Button
-                                onClick={() => {
-                                    logChips(valgteInformasjonsbokser);
-                                    // Sender og fetcher parallelt? conditional fetching etter POST?
-                                    overblikkFilter.reFetch();
-                                }}
-                                size="small"
-                                variant="secondary"
-                            >
-                                Lagre visning
-                            </Button>
-                        ) : (
-                            <Button
-                                disabled={true}
-                                size="small"
-                                variant="secondary"
-                                icon={<CheckmarkIcon title="a11y-title" />}
-                            >
-                                Lagret
-                            </Button>
-                        )}
-                    </Chips>
-                </div>
-
-                <div className="main_grid">
-                    {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                        <div key={valgtInformasjonsboks} className="box">
-                            {mapNavnTilKomponent(valgtInformasjonsboks)}
-                        </div>
-                    ))}
-                </div>
-            </StoreProvider>
+                    </div>
+                </StoreProvider>
+            </div>
         </main>
     );
 };

@@ -1,5 +1,4 @@
 import { BodyShort } from '@navikt/ds-react';
-import Informasjonsbolk from '../felles/informasjonsbolk';
 import { TilrettelagtKommunikasjonData } from '../../data/api/datatyper/tilrettelagtKommunikasjon';
 import EMDASH from '../../utils/emdash';
 import { isNullOrUndefined } from '../../utils/felles-typer';
@@ -10,20 +9,42 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
     if (tilrettelagtKommunikasjon) {
         const { talespraak, tegnspraak } = tilrettelagtKommunikasjon;
 
+        if (!isNullOrUndefined(talespraak && tegnspraak))
+            return (
+                <div className="underinformasjon">
+                    <BodyShort size="small" className="BodyHeader">
+                        Tilrettelagt Kommunikasjon
+                    </BodyShort>
+                    {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
+                    {tegnspraak && <BodyShort size="small">Tegnspråktolk: {tegnspraak}</BodyShort>}
+                </div>
+            );
         if (!isNullOrUndefined(talespraak))
             return (
-                <Informasjonsbolk header="Tilrettelagt kommunikasjon" headerTypo="ingress">
-                    <div>
-                        {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
-                        {tegnspraak && <BodyShort size="small">Tegnspråktolk</BodyShort>}
-                    </div>
-                </Informasjonsbolk>
+                <div className="underinformasjon">
+                    <BodyShort size="small" className="BodyHeader">
+                        Tilrettelagt Kommunikasjon
+                    </BodyShort>
+                    {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
+                </div>
+            );
+        if (!isNullOrUndefined(tegnspraak))
+            return (
+                <div className="underinformasjon">
+                    <BodyShort size="small" className="BodyHeader">
+                        Tilrettelagt Kommunikasjon
+                    </BodyShort>
+                    {tegnspraak && <BodyShort size="small">Tegnspråktolk: {tegnspraak}</BodyShort>}
+                </div>
             );
     }
     return (
-        <Informasjonsbolk header="Tilrettelagt kommunikasjon" headerTypo="ingress">
-            <div>{<BodyShort size="small">Språktolk: {EMDASH}</BodyShort>}</div>
-        </Informasjonsbolk>
+        <div className="underinformasjon">
+            <BodyShort size="small" className="BodyHeader">
+                Tilrettelagt Kommunikasjon
+            </BodyShort>
+            {<BodyShort size="small">{EMDASH}</BodyShort>}
+        </div>
     );
 }
 
