@@ -16,6 +16,7 @@ import Forerkort from './cv/forerkort';
 import Sprak from './cv/sprak';
 import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
+import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
 
@@ -129,6 +130,7 @@ const CvInnhold = () => {
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
                 <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
+                <CvIkkeSynligInfo />
                 <Sammendrag sammendrag={sammendrag} />
                 <div className="info_container">
                     <Utdanning utdanning={utdanning} />
