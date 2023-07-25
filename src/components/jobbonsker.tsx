@@ -59,10 +59,28 @@ const Jobbonsker = () => {
             </Panel>
         );
     }
+    if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
+        return (
+            <Panel border className="info_panel" tabIndex={5}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Jobbønsker
+                </Heading>
+                <Alert variant="info">
+                    Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
+                    <ul>
+                        <li>
+                            Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn
+                            på nav.no og oppdatere CV-en sin.
+                        </li>
+                    </ul>
+                </Alert>
+            </Panel>
+        );
+    }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel" tabIndex={5}>
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     Jobbønsker
                 </Heading>

@@ -46,8 +46,14 @@ const CvInnhold = () => {
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
-                <Alert inline variant="info">
-                    Du har ikke tilgang til CV
+                <Alert variant="info">
+                    Du kan ikke se CV-en, be brukeren om å:
+                    <ul>
+                        <li>logge inn på arbeidsplassen.no</li>
+                        <li>lese teksten om at du må dele CV-en med NAV</li>
+                        <li>gå videre og gjennomføre det tjenesten ber om</li>
+                    </ul>
+                    Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
                 </Alert>
             </Panel>
         );
