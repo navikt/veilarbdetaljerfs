@@ -1,8 +1,8 @@
 import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Heading, Panel, Alert } from '@navikt/ds-react';
+import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
+import { Heading, Panel, Alert, Link } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -17,6 +17,7 @@ import Sprak from './cv/sprak';
 import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import './fellesStyling.css';
+import { byggPamUrl } from '../utils';
 
 const CvInnhold = () => {
     const { fnr } = useAppStore();
@@ -31,6 +32,11 @@ const CvInnhold = () => {
         error: underOppfolgingError,
         isLoading: underOppfolgingLoading
     } = useUnderOppfolging(fnr);
+
+    const aktorId = useAktorId(fnr);
+
+    const erManuell = underOppfolgingData?.erManuell;
+    const endreCvUrl = byggPamUrl(fnr);
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
@@ -77,7 +83,12 @@ const CvInnhold = () => {
                     CV
                 </Heading>
                 <Alert inline variant="info">
-                    Ingen CV registrert
+                    Ingen CV registrert&nbsp;&nbsp;
+                    {erManuell && aktorId && (
+                        <Link href={endreCvUrl} target="_blank" rel="noopener">
+                            Registrer her
+                        </Link>
+                    )}
                 </Alert>
             </Panel>
         );
@@ -94,7 +105,6 @@ const CvInnhold = () => {
         );
     }
 
-    const erManuell = underOppfolgingData?.erManuell;
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
         const {
             fagdokumentasjoner,
@@ -117,7 +127,7 @@ const CvInnhold = () => {
                     CV
                 </Heading>
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
-                <RedigerCV erManuell={erManuell} fnr={fnr} />
+                <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
                 <Sammendrag sammendrag={sammendrag} />
                 <div className="info_container">
