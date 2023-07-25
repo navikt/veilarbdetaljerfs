@@ -9,9 +9,8 @@ import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
 import { Button, Chips } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { useOverblikkFilter } from './data/api/fetch';
+import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { TrashIcon, CheckmarkIcon } from '@navikt/aksel-icons';
-import { logChips } from './utils/logger';
 
 export interface AppProps {
     fnr: string;
@@ -95,7 +94,7 @@ const App = (props: AppProps) => {
                             {lagredeKnappAktiv ? (
                                 <Button
                                     onClick={() => {
-                                        logChips(valgteInformasjonsbokser);
+                                        sendOverblikkFilter(valgteInformasjonsbokser);
                                         // Sender og fetcher parallelt? conditional fetching etter POST?
                                         overblikkFilter.reFetch();
                                     }}
