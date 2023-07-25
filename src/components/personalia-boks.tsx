@@ -1,4 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Panel } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
@@ -71,6 +71,14 @@ const PersonaliaBoks = () => {
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 Personalia
             </Heading>
+            {personData?.sivilstandliste && personData?.sivilstandliste.length > 1 && (
+                <Alert variant="warning">
+                    <BodyShort size="small">
+                        Det er motstridende informasjon i kildene for sivilstand. Personen bør bes om å oppdatere sin
+                        sivilstand hos Folkeregisteret (https://www.skatteetaten.no/person/folkeregister/)
+                    </BodyShort>
+                </Alert>
+            )}
             <span className="info_container">
                 <Kontaktinformasjon />
                 <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
