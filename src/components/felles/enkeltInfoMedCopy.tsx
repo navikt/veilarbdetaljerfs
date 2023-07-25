@@ -13,10 +13,10 @@ export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
     const showCopyButton = value !== EMDASH;
     return (
         <span>
-            <BodyShort size="small" className="copyHeader">
+            <BodyShort size="small" className="copy_header">
                 {header}
             </BodyShort>
-            <span className={`copyBody ${showCopyButton ? 'withoutEMDASH' : 'withEMDASH'}`}>
+            <span className={`copy_body ${showCopyButton ? 'withoutEMDASH' : 'withEMDASH'}`}>
                 <BodyShort size="small">{value}</BodyShort>
                 {showCopyButton && <CopyButton copyText={value!} icon={<FilesIcon />} size="xsmall" />}
             </span>

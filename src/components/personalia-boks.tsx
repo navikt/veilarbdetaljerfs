@@ -58,7 +58,7 @@ const PersonaliaBoks = () => {
     } else if (personError || vergeOgFullmaktError) {
         return (
             <Panel border className="info_panel" tabIndex={4}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
                 <Errormelding />
@@ -68,7 +68,7 @@ const PersonaliaBoks = () => {
 
     return (
         <Panel border className="info_panel" tabIndex={4}>
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Personalia
             </Heading>
             <span className="info_container">

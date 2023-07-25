@@ -12,7 +12,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
         if (!isNullOrUndefined(talespraak && tegnspraak))
             return (
                 <div className="underinformasjon">
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         Tilrettelagt Kommunikasjon
                     </BodyShort>
                     {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
@@ -22,7 +22,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
         if (!isNullOrUndefined(talespraak))
             return (
                 <div className="underinformasjon">
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         Tilrettelagt Kommunikasjon
                     </BodyShort>
                     {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
@@ -31,7 +31,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
         if (!isNullOrUndefined(tegnspraak))
             return (
                 <div className="underinformasjon">
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         Tilrettelagt Kommunikasjon
                     </BodyShort>
                     {tegnspraak && <BodyShort size="small">Tegnspråktolk: {tegnspraak}</BodyShort>}
@@ -40,7 +40,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
     }
     return (
         <div className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 Tilrettelagt Kommunikasjon
             </BodyShort>
             {<BodyShort size="small">{EMDASH}</BodyShort>}

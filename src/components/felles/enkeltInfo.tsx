@@ -10,10 +10,10 @@ interface Props {
 export function EnkeltInformasjon({ header, value = EMDASH }: Props) {
     return (
         <span>
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {header}
             </BodyShort>
-            <BodyShort size="small" className="EnkeltInfoValue">
+            <BodyShort size="small" className="enkeltinfo_value">
                 {value}
             </BodyShort>
         </span>

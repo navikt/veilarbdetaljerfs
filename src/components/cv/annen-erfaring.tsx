@@ -9,12 +9,12 @@ const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) =>
     const sortedErfaringer = annenErfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
     const erfaringer = safeMap(sortedErfaringer, (erfaring, index) => (
         <div key={`annenerfaring-${index}`} className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {erfaring.rolle}
             </BodyShort>
 
             <BodyShort size="small">{erfaring.beskrivelse}</BodyShort>
-            <BodyShort size="small" className="BodyShortItalic">
+            <BodyShort size="small" className="typografi_dato">
                 Start- og sluttdato: {formaterDato(erfaring.fraDato, true)} -{' '}
                 {erfaring.tilDato ? formaterDato(erfaring.tilDato, true) : 'nå'}
             </BodyShort>
