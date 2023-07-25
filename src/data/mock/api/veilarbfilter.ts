@@ -14,7 +14,6 @@ export const veilarbfilterHandlers: RequestHandler[] = [
 
     rest.post('/veilarbfilter/api/overblikkvisning', (req, res, ctx) => {
         req.json().then((data) => {
-            console.log('DATA post:', data);
             lagredeInformasjonsbokser.update(() => data);
         });
         return res(ctx.delay(500), ctx.status(204));
