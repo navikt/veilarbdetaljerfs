@@ -12,6 +12,7 @@ import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
+import { Siste14aVedtak } from './datatyper/siste14aVedtak';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -162,6 +163,26 @@ export const useVeileder = (veilederId: StringOrNothing) => {
             revalidateOnFocus: false,
             revalidateOnReconnect: false
         }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useTilhorerBrukerUtrulletKontor = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<boolean, ErrorMessage>(
+        `/veilarbvedtaksstotte/api/utrulling/tilhorerBrukerUtrulletKontor?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useSiste14aVedtak = (fnr: string) => {
+    const { data, error, isLoading } = useSWR<Siste14aVedtak, ErrorMessage>(
+        `/veilarbvedtaksstotte/api/siste-14a-vedtak?fnr=${fnr}`,
+        fetcher,
+        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
     );
 
     return { data, isLoading, error };

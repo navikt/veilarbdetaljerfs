@@ -81,6 +81,18 @@ export function mapInnsatsgruppeTilTekst(innsatsgruppe: OrNothing<Innsatsgruppe 
             return EMDASH;
     }
 }
+export function erInnsatsgruppe(kvalifiseringsgruppe: OrNothing<ArenaServicegruppeKode>) {
+    switch (kvalifiseringsgruppe) {
+        case 'IKVAL':
+        case 'BATT':
+        case 'BFORM':
+        case 'VARIG':
+            return true;
+        default:
+            return false;
+    }
+}
+
 export function hentOppfolgingsEnhetTekst(
     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
 ): StringOrNothing {
