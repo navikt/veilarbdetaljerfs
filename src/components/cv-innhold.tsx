@@ -40,6 +40,17 @@ const CvInnhold = () => {
         );
     }
 
+    if (!underOppfolgingData?.underOppfolging) {
+        return (
+            <Panel border className="info_panel" tabIndex={2}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    CV
+                </Heading>
+                <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
+            </Panel>
+        );
+    }
+
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
             <Panel border className="info_panel" tabIndex={2}>

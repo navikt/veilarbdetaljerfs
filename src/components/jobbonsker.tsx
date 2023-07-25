@@ -59,6 +59,18 @@ const Jobbonsker = () => {
             </Panel>
         );
     }
+
+    if (!underOppfolgingData?.underOppfolging) {
+        return (
+            <Panel border className="info_panel" tabIndex={5}>
+                <Heading spacing level="2" size="medium" className="PanelHeader">
+                    Jobbønsker
+                </Heading>
+                <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
+            </Panel>
+        );
+    }
+
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
             <Panel border className="info_panel" tabIndex={5}>
