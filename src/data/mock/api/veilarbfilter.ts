@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { RequestHandler } from 'msw';
 import { LiveStorage } from '@mswjs/storage';
 
-const chips: string[] = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+const chips: string[] = ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia'];
 
 const lagredeInformasjonsbokser = new LiveStorage<string[]>('lagredeInformasjonsbokser', chips);
 

@@ -19,7 +19,7 @@ export interface AppProps {
 const App = (props: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
-    const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+    const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia'];
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
 
@@ -47,14 +47,14 @@ const App = (props: AppProps) => {
                 return <CvInnhold />;
             case 'Jobbønsker':
                 return <Jobbonsker />;
-            case 'Oppfølging':
-                return <Oppfolging />;
-            case 'Personalia':
-                return <PersonaliaBoks />;
             case 'Registrering':
                 return <Registrering />;
+            case 'Oppfølging':
+                return <Oppfolging />;
             case 'Ytelser':
                 return <Ytelser />;
+            case 'Personalia':
+                return <PersonaliaBoks />;
             default:
                 return null;
         }
