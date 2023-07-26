@@ -58,6 +58,9 @@ const Nokkelinfo = () => {
     ) {
         return (
             <Panel border className="nokkelinfo_panel">
+                <Heading spacing level="2" size="medium">
+                    Nøkkelinfo
+                </Heading>
                 <Laster />
             </Panel>
         );
