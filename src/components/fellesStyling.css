@@ -34,7 +34,7 @@
     grid-auto-flow: column;
     align-items: center;
 }
-.withEMDASH {
+.with_emdash {
     margin-top: var(--a-spacing-3);
 }
 .copy_tlf {
