@@ -20,6 +20,13 @@ interface ErrorMessage {
     info: StringOrNothing;
 }
 
+const DEFAULT_SWR_OPTIONS = {
+    shouldRetryOnError: false,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+};
+
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
         const error: ErrorMessage = {
@@ -67,7 +74,7 @@ export const useCvOgJobbonsker = (fnr: string) => {
     const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
         `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -77,7 +84,7 @@ export const useUnderOppfolging = (fnr: string) => {
     const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
         `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -87,7 +94,7 @@ export const useOppfolgingsstatus = (fnr: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
         `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -97,7 +104,7 @@ export const usePersonalia = (fnr: string) => {
     const { data, error, isLoading } = useSWR<PersonaliaV2Info, ErrorMessage>(
         `/veilarbperson/api/v2/person?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -107,7 +114,7 @@ export const useRegistrering = (fnr: string) => {
     const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(
         `/veilarbperson/api/person/registrering?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -117,7 +124,7 @@ export const useTolk = (fnr: string) => {
     const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(
         `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -127,7 +134,7 @@ export const useVergeOgFullmakt = (fnr: string) => {
     const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(
         `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -137,7 +144,7 @@ export const useYtelser = (fnr: string) => {
     const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
         `/veilarboppfolging/api/person/${fnr}/ytelser`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -147,7 +154,7 @@ export const useAktorId = (fnr: string) => {
     const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(
         `/veilarbperson/api/person/aktorid?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -172,7 +179,7 @@ export const useTilhorerBrukerUtrulletKontor = (fnr: string) => {
     const { data, error, isLoading } = useSWR<boolean, ErrorMessage>(
         `/veilarbvedtaksstotte/api/utrulling/tilhorerBrukerUtrulletKontor?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
@@ -182,7 +189,7 @@ export const useSiste14aVedtak = (fnr: string) => {
     const { data, error, isLoading } = useSWR<Siste14aVedtak, ErrorMessage>(
         `/veilarbvedtaksstotte/api/siste-14a-vedtak?fnr=${fnr}`,
         fetcher,
-        { shouldRetryOnError: false, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false }
+        DEFAULT_SWR_OPTIONS
     );
 
     return { data, isLoading, error };
