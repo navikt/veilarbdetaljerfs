@@ -1,14 +1,14 @@
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
-import { PilotAlert } from './components/pilotAlert';
 import CvInnhold from './components/cv-innhold';
 import Jobbonsker from './components/jobbonsker';
 import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Chips } from '@navikt/ds-react';
+import { Alert, BodyShort, Chips, Heading } from '@navikt/ds-react';
 import { useState } from 'react';
+import { ExternalLinkIcon } from '@navikt/aksel-icons';
 
 export interface AppProps {
     fnr: string;
@@ -51,7 +51,19 @@ const App = (props: AppProps) => {
         <main className="app veilarbdetaljerfs">
             <div className="overblikk">
                 <StoreProvider fnr={props.fnr}>
-                    <PilotAlert />
+                    <Alert variant="warning" className="pilot_alert">
+                        <Heading spacing size="small" level="3">
+                            Testside for Overblikk
+                        </Heading>
+                        <BodyShort>
+                            På denne siden vil det dukke opp nytt innhold fortløpende. Vi setter stor pris på dine
+                            tilbakemeldinger, som du kan gi når som helst og så mange ganger du vil via skjemaet under.
+                            Takk for at du deltar!
+                        </BodyShort>
+                        <a href="https://forms.office.com/e/w3jHFRCKEC">
+                            Gi tilbakemeldinger i Forms <ExternalLinkIcon title="a11y-title" />
+                        </a>
+                    </Alert>
                     <Nokkelinfo />
 
                     <div className="overblikkChips">
