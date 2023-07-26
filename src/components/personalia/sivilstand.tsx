@@ -49,7 +49,11 @@ function Sivilstand(props: { partner?: PersonaliaPartner; sivilstandliste?: Pers
         : EMDASH;
 
     return (
-        <Informasjonsbolk header="Sivilstand" headerTypo="ingress" icon={<PersonGroupIcon />}>
+        <Informasjonsbolk
+            header="Sivilstand"
+            headerTypo="ingress"
+            icon={<PersonGroupIcon title="a11y-title" aria-hidden="true" />}
+        >
             {sivilstandListe}
         </Informasjonsbolk>
     );

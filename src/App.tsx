@@ -61,7 +61,7 @@ const App = (props: AppProps) => {
                             Takk for at du deltar!
                         </BodyShort>
                         <a href="https://forms.office.com/e/w3jHFRCKEC">
-                            Gi tilbakemeldinger i Forms <ExternalLinkIcon title="a11y-title" />
+                            Gi tilbakemeldinger i Forms <ExternalLinkIcon title="a11y-title" aria-hidden="true" />
                         </a>
                     </Alert>
                     <Nokkelinfo />

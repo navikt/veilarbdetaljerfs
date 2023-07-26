@@ -113,14 +113,22 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
         ));
     } else {
         return (
-            <Informasjonsbolk header="Verge" headerTypo="ingress" icon={<PersonCrossIcon />}>
+            <Informasjonsbolk
+                header="Verge"
+                headerTypo="ingress"
+                icon={<PersonCrossIcon title="a11y-title" aria-hidden="true" />}
+            >
                 {EMDASH}
             </Informasjonsbolk>
         );
     }
 
     return (
-        <Informasjonsbolk header="Bruker er under vergemål" headerTypo="ingress" icon={<PersonCheckmarkIcon />}>
+        <Informasjonsbolk
+            header="Bruker er under vergemål"
+            headerTypo="ingress"
+            icon={<PersonCheckmarkIcon title="a11y-title" aria-hidden="true" />}
+        >
             {vergemaalListe}
         </Informasjonsbolk>
     );

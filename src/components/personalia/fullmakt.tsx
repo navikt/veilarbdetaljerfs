@@ -43,14 +43,22 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
         ));
     } else {
         return (
-            <Informasjonsbolk header="Fullmakter" headerTypo="ingress" icon={<HandshakeIcon />}>
+            <Informasjonsbolk
+                header="Fullmakter"
+                headerTypo="ingress"
+                icon={<HandshakeIcon title="a11y-title" aria-hidden="true" />}
+            >
                 {EMDASH}
             </Informasjonsbolk>
         );
     }
 
     return (
-        <Informasjonsbolk header="Fullmakter" headerTypo="ingress" icon={<HandshakeIcon />}>
+        <Informasjonsbolk
+            header="Fullmakter"
+            headerTypo="ingress"
+            icon={<HandshakeIcon title="a11y-title" aria-hidden="true" />}
+        >
             {fullmaktListe}
         </Informasjonsbolk>
     );

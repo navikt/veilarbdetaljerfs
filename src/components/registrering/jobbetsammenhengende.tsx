@@ -19,7 +19,11 @@ export function JobbetSammenhengende(props: Props) {
     }
 
     return (
-        <Informasjonsbolk header="Hentet fra Aa-registeret" headerTypo="ingress" icon={<FileCheckmarkIcon />}>
+        <Informasjonsbolk
+            header="Hentet fra Aa-registeret"
+            headerTypo="ingress"
+            icon={<FileCheckmarkIcon title="a11y-title" aria-hidden="true" />}
+        >
             <Label size="small" as="p">
                 Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder
             </Label>

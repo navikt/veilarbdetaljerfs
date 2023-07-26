@@ -66,7 +66,11 @@ function Barn(props: Pick<PersonaliaV2Info, 'barn'>) {
         : EMDASH;
 
     return (
-        <Informasjonsbolk header="Barn under 21 år" headerTypo="ingress" icon={<PersonTallShortIcon />}>
+        <Informasjonsbolk
+            header="Barn under 21 år"
+            headerTypo="ingress"
+            icon={<PersonTallShortIcon title="a11y-title" aria-hidden="true" />}
+        >
             {barnListe}
         </Informasjonsbolk>
     );

@@ -15,7 +15,11 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
             : EMDASH;
 
     return (
-        <Informasjonsbolk header="Kompetanser" icon={<FolderFileIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Kompetanser"
+            icon={<FolderFileIcon title="a11y-title" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             <ul> {kompetanser}</ul>
         </Informasjonsbolk>
     );

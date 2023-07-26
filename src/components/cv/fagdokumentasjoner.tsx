@@ -40,7 +40,11 @@ const Fagdokumentasjoner = ({ fagdokumentasjoner }: Pick<ArenaPerson, 'fagdokume
             : EMDASH;
 
     return (
-        <Informasjonsbolk header="Fagbrev" icon={<WrenchIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Fagbrev"
+            icon={<WrenchIcon title="a11y-title" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             {dokumentasjoner}
         </Informasjonsbolk>
     );

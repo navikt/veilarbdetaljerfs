@@ -28,7 +28,11 @@ export const RegistrertHeader = (props: { registrering?: Registrering }) => {
     const erRegistrert = props.registrering?.manueltRegistrertAv ? registrertAv : null;
 
     return (
-        <Informasjonsbolk header={overskrift} headerTypo="ingress" icon={<ClipboardIcon />}>
+        <Informasjonsbolk
+            header={overskrift}
+            headerTypo="ingress"
+            icon={<ClipboardIcon title="a11y-title" aria-hidden="true" />}
+        >
             <BodyShort className="italic-gra" size="small">
                 {regDato}
             </BodyShort>

@@ -43,7 +43,11 @@ const LandOgSprak = () => {
     }
 
     return (
-        <Informasjonsbolk header="Land og språk" headerTypo="ingress" icon={<GlobeIcon />}>
+        <Informasjonsbolk
+            header="Land og språk"
+            headerTypo="ingress"
+            icon={<GlobeIcon title="a11y-title" aria-hidden="true" />}
+        >
             <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
             <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
             <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />

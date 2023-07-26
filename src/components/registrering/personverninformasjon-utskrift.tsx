@@ -29,7 +29,13 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
                 className="utskrift_knapp"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
-                icon={hover ? <PrinterSmallFillIcon /> : <PrinterSmallIcon />}
+                icon={
+                    hover ? (
+                        <PrinterSmallFillIcon title="a11y-title" aria-hidden="true" />
+                    ) : (
+                        <PrinterSmallIcon title="a11y-title" aria-hidden="true" />
+                    )
+                }
             >
                 Personverninformasjon, rettigheter og plikter
             </Button>

@@ -10,7 +10,7 @@ export function RedigerCV(props: { erManuell: boolean | undefined; fnr: string }
 
     return (
         <Link href={endreCvUrl} target="_blank">
-            <PencilWritingIcon />
+            <PencilWritingIcon title="a11y-title" />
             Endre CV/jobbønsker
         </Link>
     );

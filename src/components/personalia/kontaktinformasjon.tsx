@@ -23,7 +23,11 @@ const Kontaktinformasjon = () => {
     const kontaktadresser: Kontaktadresse[] = person.data?.kontaktadresser ?? [];
 
     return (
-        <Informasjonsbolk header="Kontaktinformasjon" headerTypo="ingress" icon={<PersonChatIcon />}>
+        <Informasjonsbolk
+            header="Kontaktinformasjon"
+            headerTypo="ingress"
+            icon={<PersonChatIcon title="a11y-title" aria-hidden="true" />}
+        >
             <Telefon telefon={telefon} />
             <Adresser
                 bostedsadresse={bostedsadresse}

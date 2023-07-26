@@ -56,12 +56,12 @@ export const Ytelser = () => {
                         <Informasjonsbolk
                             header={vedtak.vedtakstype || EMDASH}
                             headerTypo="ingress"
-                            icon={<WalletIcon />}
+                            icon={<WalletIcon title="a11y-title" aria-hidden="true" />}
                         >
                             <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
-                            <EnkeltInformasjon header={'Aktivitetsfase'} value={vedtak.aktivitetsfase || EMDASH} />
+                            <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />
                             <EnkeltInformasjon
-                                header="Fradato / Tildato"
+                                header="Fra dato / Til dato"
                                 value={`${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year} - ${
                                     vedtak.tildato
                                         ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`

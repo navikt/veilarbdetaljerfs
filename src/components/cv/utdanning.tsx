@@ -28,7 +28,11 @@ const Utdanning = ({ utdanning }: Pick<ArenaPerson, 'utdanning'>) => {
     ));
 
     return (
-        <Informasjonsbolk header="Utdanning" icon={<PersonSuitIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Utdanning"
+            icon={<PersonSuitIcon title="a11y-title" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             {utdanninger}
         </Informasjonsbolk>
     );
