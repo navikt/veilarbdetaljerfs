@@ -100,7 +100,7 @@ const Jobbonsker = () => {
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Alert inline variant="info">
@@ -118,7 +118,7 @@ const Jobbonsker = () => {
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Errormelding />
@@ -154,7 +154,7 @@ const Jobbonsker = () => {
 
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
@@ -175,7 +175,7 @@ const Jobbonsker = () => {
     }
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Jobbønsker
             </Heading>
             <Errormelding />

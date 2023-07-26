@@ -28,10 +28,10 @@ export const RegistrertHeader = (props: { registrering?: Registrering }) => {
 
     return (
         <Informasjonsbolk header={overskrift} headerTypo="ingress">
-            <BodyShort className="italic-gra" size="small">
+            <BodyShort className="registrering_dato" size="small">
                 {regDato}
             </BodyShort>
-            <BodyShort className="italic-gra" size="small">
+            <BodyShort className="registrering_dato" size="small">
                 {erRegistrert}
             </BodyShort>
         </Informasjonsbolk>
