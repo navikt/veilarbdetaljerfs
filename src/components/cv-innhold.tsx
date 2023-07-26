@@ -42,7 +42,7 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -50,8 +50,8 @@ const CvInnhold = () => {
 
     if (!underOppfolgingData?.underOppfolging) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
@@ -61,8 +61,8 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Alert variant="info">
@@ -80,8 +80,8 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Alert inline variant="info">
@@ -98,8 +98,8 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Errormelding />
@@ -124,8 +124,8 @@ const CvInnhold = () => {
         } = cvOgJobbonskerData;
 
         return (
-            <Panel border className="info_panel" tabIndex={2}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
@@ -149,8 +149,8 @@ const CvInnhold = () => {
         );
     }
     return (
-        <Panel border className="info_panel" tabIndex={2}>
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+        <Panel border className="info_panel">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 CV
             </Heading>
             <Errormelding />

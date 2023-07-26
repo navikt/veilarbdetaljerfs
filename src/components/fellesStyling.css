@@ -41,7 +41,7 @@
     display: flex;
     align-items: center;
 }
-.cvIkkeSynlig {
+.cv_ikke_synlig {
     margin-top: var(--a-spacing-4);
     margin-bottom: var(--a-spacing-4);
 }

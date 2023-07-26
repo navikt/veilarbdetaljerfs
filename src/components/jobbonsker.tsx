@@ -61,7 +61,7 @@ const Jobbonsker = () => {
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={5}>
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -69,8 +69,8 @@ const Jobbonsker = () => {
 
     if (!underOppfolgingData?.underOppfolging) {
         return (
-            <Panel border className="info_panel" tabIndex={5}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
@@ -80,8 +80,8 @@ const Jobbonsker = () => {
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Panel border className="info_panel" tabIndex={5}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Alert variant="info">
@@ -99,14 +99,14 @@ const Jobbonsker = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel" tabIndex={5}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Alert inline variant="info">
                     Ingen jobbønsker registrert&nbsp;&nbsp;
                     {erManuell && aktorId && (
-                        <Link href={endreCvUrl} target="_blank" rel="noopener" className="lenke-i-alert">
+                        <Link href={endreCvUrl} target="_blank" rel="noopener">
                             Registrer her
                         </Link>
                     )}
@@ -117,8 +117,8 @@ const Jobbonsker = () => {
 
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
-            <Panel border className="info_panel" tabIndex={5}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Errormelding />
@@ -153,8 +153,8 @@ const Jobbonsker = () => {
         const oppstartstid = [oppstartstypeTilTekst(oppstart)];
 
         return (
-            <Panel border className="info_panel" tabIndex={5}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
@@ -174,8 +174,8 @@ const Jobbonsker = () => {
         );
     }
     return (
-        <Panel border className="info_panel" tabIndex={5}>
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+        <Panel border className="info_panel">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Jobbønsker
             </Heading>
             <Errormelding />
