@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
-    const showCopyButton = value !== EMDASH;
+    const showCopyButton = value !== EMDASH && value !== null;
     return (
         <span>
             <BodyShort size="small" className="copy_header">
@@ -18,7 +18,7 @@ export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
             </BodyShort>
             <span className={`copy_body ${showCopyButton ? 'without_emdash' : 'with_emdash'}`}>
                 <BodyShort size="small">{value}</BodyShort>
-                {showCopyButton && value !== null && <CopyButton copyText={value} icon={<FilesIcon />} size="xsmall" />}
+                {showCopyButton && <CopyButton copyText={value} icon={<FilesIcon />} size="xsmall" />}
             </span>
         </span>
     );
