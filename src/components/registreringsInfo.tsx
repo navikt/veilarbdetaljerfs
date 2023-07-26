@@ -25,7 +25,7 @@ export const Registrering = () => {
     if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Registering
                 </Heading>
                 <Alert inline variant="info">
@@ -36,7 +36,7 @@ export const Registrering = () => {
     } else if (registreringError) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Registrering
                 </Heading>
                 <Errormelding />
@@ -49,7 +49,7 @@ export const Registrering = () => {
 
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Registering
             </Heading>
             <RegistrertHeader registrering={brukerRegistrering} />

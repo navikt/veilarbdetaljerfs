@@ -20,24 +20,24 @@
     }
 }
 
-.BodyHeader {
+.body_header {
     font-weight: bold;
 }
-.EnkeltInfoValue {
+.enkeltinfo_value {
     padding-bottom: var(--a-spacing-2);
 }
-.copyHeader {
+.copy_header {
     font-weight: var(--a-font-weight-bold);
 }
-.copyBody {
+.copy_body {
     display: inline-grid;
     grid-auto-flow: column;
     align-items: center;
 }
-.withEMDASH {
+.with_emdash {
     margin-top: var(--a-spacing-3);
 }
-.copyTlf {
+.copy_tlf {
     display: flex;
     align-items: center;
 }
@@ -49,17 +49,14 @@
     margin: var(--a-spacing-3) var(--a-spacing-10) var(--a-spacing-3) var(--a-spacing-10);
 }
 
-.BodyShortItalic {
+.typografi_dato {
     font-style: italic;
 }
-.Fullmakter {
-    margin-top: var(--a-spacing-4);
-}
-.PanelHeader {
+.panel_header {
     text-align: center;
     margin-bottom: var(--a-spacing-4);
 }
-.italic-gra {
+.registrering_dato {
     color: var(--a-gray-600);
     font-style: italic;
 }

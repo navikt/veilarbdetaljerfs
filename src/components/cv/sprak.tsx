@@ -25,7 +25,7 @@ function mapSprakNivaTilTekst(sprakNiva: SprakNiva | string): string {
 const Sprak = ({ sprak }: Pick<ArenaPerson, 'sprak'>) => {
     const mappedSprak = safeMap(sprak, (enkeltSprak, index) => (
         <div key={`kompetanse-${index}`} className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {enkeltSprak.sprak}
             </BodyShort>
             <BodyShort size="small">Muntlig: {mapSprakNivaTilTekst(enkeltSprak.muntligNiva)}</BodyShort>

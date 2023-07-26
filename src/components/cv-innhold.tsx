@@ -62,7 +62,7 @@ const CvInnhold = () => {
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Alert variant="info">
@@ -81,7 +81,7 @@ const CvInnhold = () => {
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Alert inline variant="info">
@@ -99,7 +99,7 @@ const CvInnhold = () => {
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Errormelding />
@@ -125,7 +125,7 @@ const CvInnhold = () => {
 
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
@@ -150,7 +150,7 @@ const CvInnhold = () => {
     }
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 CV
             </Heading>
             <Errormelding />
