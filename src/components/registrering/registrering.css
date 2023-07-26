@@ -11,7 +11,7 @@
 }
 
 .personvern_modal__innhold {
-    padding: var(--a-spacing-4) var(--a-spacing-2) var(--a-spacing-4) var(--a-spacing-2);
+    padding: var(--a-spacing-4) var(--a-spacing-2);
 }
 
 .personvern_modal__innhold ul {
