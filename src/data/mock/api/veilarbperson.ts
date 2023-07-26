@@ -353,7 +353,7 @@ const personalia: PersonaliaV2Info = {
         {
             fornavn: 'Bruce',
             fodselsdato: '2016-04-17',
-            gradering: 'Ny gradering fra PDL' as any,
+            gradering: Gradering.UKJENT,
             erEgenAnsatt: false,
             harVeilederTilgang: false,
             dodsdato: null,
@@ -362,7 +362,7 @@ const personalia: PersonaliaV2Info = {
         {
             fornavn: 'Harry',
             fodselsdato: '2014-05-24',
-            gradering: Gradering.UGRADERT,
+            gradering: Gradering.UKJENT,
             erEgenAnsatt: false,
             harVeilederTilgang: false,
             dodsdato: null,
@@ -373,7 +373,7 @@ const personalia: PersonaliaV2Info = {
             fodselsdato: '2005-10-04',
             erEgenAnsatt: false,
             harVeilederTilgang: true,
-            gradering: Gradering.STRENGT_FORTROLIG,
+            gradering: Gradering.UKJENT,
             dodsdato: null,
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
         }
@@ -405,7 +405,7 @@ const personalia: PersonaliaV2Info = {
     ],
     statsborgerskap: ['NORGE', 'POLEN'],
     partner: {
-        gradering: Gradering.STRENGT_FORTROLIG_UTLAND,
+        gradering: Gradering.UKJENT,
         erEgenAnsatt: true,
         harSammeBosted: true,
         harVeilederTilgang: false
@@ -415,7 +415,7 @@ const personalia: PersonaliaV2Info = {
             sivilstand: 'Gift',
             fraDato: '2012-08-20',
             skjermet: null,
-            gradering: 'RANDOM_KODE' as any,
+            gradering: Gradering.UKJENT,
             relasjonsBosted: RelasjonsBosted.SAMME_BOSTED,
             master: 'Freg',
             registrertDato: null
@@ -424,7 +424,7 @@ const personalia: PersonaliaV2Info = {
             sivilstand: 'Separert_partner',
             fraDato: '2019-06-01',
             skjermet: false,
-            gradering: 'Ny gradering fra PDL' as any,
+            gradering: Gradering.UKJENT,
             relasjonsBosted: null,
             master: 'PDL',
             registrertDato: '2019-06-15T10:30:44'
@@ -433,7 +433,7 @@ const personalia: PersonaliaV2Info = {
             sivilstand: 'Skilt',
             fraDato: '2020-09-03',
             skjermet: true,
-            gradering: Gradering.UGRADERT,
+            gradering: Gradering.UKJENT,
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED,
             master: 'PDL',
             registrertDato: '2020-09-05T11:30:15'
@@ -633,6 +633,7 @@ const ordinaerRegistering: RegistreringsData = {
 
 // Kan brukes for å teste sykmeldt registrering istedenfor ordinær registrering
 // @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sykmeldtRegistering: RegistreringsData = {
     registrering: {
         opprettetDato: '2018-08-30T09:17:28.386804+02:00',

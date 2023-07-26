@@ -18,7 +18,7 @@ export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
             </BodyShort>
             <span className={`copyBody ${showCopyButton ? 'withoutEMDASH' : 'withEMDASH'}`}>
                 <BodyShort size="small">{value}</BodyShort>
-                {showCopyButton && <CopyButton copyText={value!} icon={<FilesIcon />} size="xsmall" />}
+                {showCopyButton && value !== null && <CopyButton copyText={value} icon={<FilesIcon />} size="xsmall" />}
             </span>
         </span>
     );

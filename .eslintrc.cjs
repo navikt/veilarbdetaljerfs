@@ -10,7 +10,8 @@ module.exports = {
     parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
     plugins: ['@typescript-eslint', 'react-refresh'],
     rules: {
-        'react-refresh/only-export-components': 'warn'
+        'react-refresh/only-export-components': 'warn',
+        '@typescript-eslint/ban-ts-comment': 'off'
     },
     root: true
 };

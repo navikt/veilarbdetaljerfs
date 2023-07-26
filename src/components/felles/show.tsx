@@ -1,8 +1,12 @@
+import { ReactNode } from 'react';
+
 interface ShowProps {
     if?: boolean;
-    children?: any;
+    children?: ReactNode;
 }
 
-const Show = (props: ShowProps) => (props.if ? props.children : null);
+const Show: React.FC<ShowProps> = ({ if: condition, children }) => {
+    return condition ? <>{children}</> : null;
+};
 
 export default Show;
