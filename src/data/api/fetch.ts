@@ -13,6 +13,7 @@ import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
 import { Siste14aVedtak } from './datatyper/siste14aVedtak';
+import { Features, toggles } from './datatyper/feature';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -188,6 +189,16 @@ export const useTilhorerBrukerUtrulletKontor = (fnr: string) => {
 export const useSiste14aVedtak = (fnr: string) => {
     const { data, error, isLoading } = useSWR<Siste14aVedtak, ErrorMessage>(
         `/veilarbvedtaksstotte/api/siste-14a-vedtak?fnr=${fnr}`,
+        fetcher,
+        DEFAULT_SWR_OPTIONS
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useFeatureToggle = () => {
+    const { data, error, isLoading } = useSWR<Features, ErrorMessage>(
+        `/veilarbpersonflatefs/api/feature?${toggles()}`,
         fetcher,
         DEFAULT_SWR_OPTIONS
     );
