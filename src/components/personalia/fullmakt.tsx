@@ -50,11 +50,9 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
     }
 
     return (
-        <div>
-            <Informasjonsbolk header="Fullmakter" headerTypo="ingress" icon={<HandshakeIcon />}>
-                {fullmaktListe}
-            </Informasjonsbolk>
-        </div>
+        <Informasjonsbolk header="Fullmakter" headerTypo="ingress" icon={<HandshakeIcon />}>
+            {fullmaktListe}
+        </Informasjonsbolk>
     );
 }
 
