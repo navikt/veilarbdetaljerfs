@@ -34,7 +34,7 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -42,7 +42,7 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
@@ -55,7 +55,7 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
@@ -68,7 +68,7 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
@@ -95,7 +95,7 @@ const CvInnhold = () => {
         } = cvOgJobbonskerData;
 
         return (
-            <Panel border className="info_panel" tabIndex={2}>
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
@@ -119,7 +119,7 @@ const CvInnhold = () => {
         );
     }
     return (
-        <Panel border className="info_panel" tabIndex={2}>
+        <Panel border className="info_panel">
             <Heading spacing level="2" size="medium" className="PanelHeader">
                 CV
             </Heading>
