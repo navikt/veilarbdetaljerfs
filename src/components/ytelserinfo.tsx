@@ -14,6 +14,9 @@ export const Ytelser = () => {
     if (ytelserLoading) {
         return (
             <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
+                    Ytelser
+                </Heading>
                 <Laster />
             </Panel>
         );
