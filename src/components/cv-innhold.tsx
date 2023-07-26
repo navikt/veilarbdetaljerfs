@@ -1,8 +1,8 @@
 import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
-import { useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Heading, Panel, Alert } from '@navikt/ds-react';
+import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
+import { Heading, Panel, Alert, Link, List } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -16,7 +16,10 @@ import Forerkort from './cv/forerkort';
 import Sprak from './cv/sprak';
 import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
+import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
+import { byggPamUrl } from '../utils';
+import ListItem from '@navikt/ds-react/esm/list/ListItem';
 
 const CvInnhold = () => {
     const { fnr } = useAppStore();
@@ -32,10 +35,26 @@ const CvInnhold = () => {
         isLoading: underOppfolgingLoading
     } = useUnderOppfolging(fnr);
 
+    const aktorId = useAktorId(fnr);
+
+    const erManuell = underOppfolgingData?.erManuell;
+    const endreCvUrl = byggPamUrl(fnr);
+
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
             <Panel border className="info_panel">
                 <Laster />
+            </Panel>
+        );
+    }
+
+    if (!underOppfolgingData?.underOppfolging) {
+        return (
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
+                    CV
+                </Heading>
+                <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
             </Panel>
         );
     }
@@ -46,8 +65,14 @@ const CvInnhold = () => {
                 <Heading spacing level="2" size="medium" className="PanelHeader">
                     CV
                 </Heading>
-                <Alert inline variant="info">
-                    Du har ikke tilgang til CV
+                <Alert variant="info">
+                    Du kan ikke se CV-en, be brukeren om å:
+                    <List as="ul">
+                        <ListItem>Logge inn på arbeidsplassen.no</ListItem>
+                        <ListItem>Lese teksten om at du må dele CV-en med NAV</ListItem>
+                        <ListItem>Gå videre og gjennomføre det tjenesten ber om</ListItem>
+                    </List>
+                    Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
                 </Alert>
             </Panel>
         );
@@ -60,7 +85,12 @@ const CvInnhold = () => {
                     CV
                 </Heading>
                 <Alert inline variant="info">
-                    Ingen CV registrert
+                    Ingen CV registrert&nbsp;&nbsp;
+                    {erManuell && aktorId && (
+                        <Link href={endreCvUrl} target="_blank" rel="noopener">
+                            Registrer her
+                        </Link>
+                    )}
                 </Alert>
             </Panel>
         );
@@ -77,7 +107,6 @@ const CvInnhold = () => {
         );
     }
 
-    const erManuell = underOppfolgingData?.erManuell;
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
         const {
             fagdokumentasjoner,
@@ -100,8 +129,9 @@ const CvInnhold = () => {
                     CV
                 </Heading>
                 <LastNedCV erManuell={erManuell} fnr={fnr} />
-                <RedigerCV erManuell={erManuell} fnr={fnr} />
+                <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
+                <CvIkkeSynligInfo />
                 <Sammendrag sammendrag={sammendrag} />
                 <div className="info_container">
                     <Utdanning utdanning={utdanning} />
