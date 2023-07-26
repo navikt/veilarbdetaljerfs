@@ -10,14 +10,14 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
         kompetanse && kompetanse.length > 0
             ? kompetanse?.map((kompetansen) => (
                   <ListItem>
-                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>
+                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>s{' '}
                   </ListItem>
               ))
             : EMDASH;
 
     return (
         <Informasjonsbolk header="Kompetanser" icon={<FolderFileIcon />} headerTypo="ingress">
-           <List as="ul">{kompetanser}</List>
+            <List as="ul">{kompetanser}</List>
         </Informasjonsbolk>
     );
 };
