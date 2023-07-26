@@ -10,6 +10,7 @@ import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
 import EMDASH from '../../utils/emdash';
+import { PersonCheckmarkIcon, PersonCrossIcon } from '@navikt/aksel-icons';
 
 function vergetypeBeskrivelse(vergeType: Vergetype) {
     switch (vergeType) {
@@ -112,14 +113,14 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
         ));
     } else {
         return (
-            <Informasjonsbolk header="Verge" headerTypo="ingress">
+            <Informasjonsbolk header="Verge" headerTypo="ingress" icon={<PersonCrossIcon />}>
                 {EMDASH}
             </Informasjonsbolk>
         );
     }
 
     return (
-        <Informasjonsbolk header="Bruker er under vergemål" headerTypo="ingress">
+        <Informasjonsbolk header="Bruker er under vergemål" headerTypo="ingress" icon={<PersonCheckmarkIcon />}>
             {vergemaalListe}
         </Informasjonsbolk>
     );

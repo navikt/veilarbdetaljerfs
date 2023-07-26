@@ -26,7 +26,7 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
                 variant="tertiary"
                 onClick={() => setVisPrintModal(true)}
                 type="button"
-                className="utskrift-knapp"
+                className="utskrift_knapp"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 icon={hover ? <PrinterSmallFillIcon /> : <PrinterSmallIcon />}
