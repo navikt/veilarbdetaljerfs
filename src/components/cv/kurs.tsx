@@ -9,18 +9,18 @@ const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
     const sortedKurs = kurs.sort((a, b) => safeSort(b.tidspunkt, a.tidspunkt));
     const mappedKurs = safeMap(sortedKurs, (enkeltKurs, index) => (
         <div key={`kurs-${index}`} className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {enkeltKurs.tittel}
             </BodyShort>
 
             <BodyShort size="small">{enkeltKurs.arrangor}</BodyShort>
             {enkeltKurs.tidspunkt && (
-                <BodyShort size="small" className="BodyShortItalic">
+                <BodyShort size="small" className="typografi_dato">
                     Fullført: {formaterDato(enkeltKurs.tidspunkt)}
                 </BodyShort>
             )}
             {enkeltKurs.varighet && (
-                <BodyShort size="small" className="BodyShortItalic">
+                <BodyShort size="small" className="typografi_dato">
                     Kurslengde: {formaterVarighet(enkeltKurs.varighet)}
                 </BodyShort>
             )}

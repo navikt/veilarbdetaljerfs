@@ -17,16 +17,16 @@ function SivilstandBolk(props: { sivilstand: PersonaliaSivilstandNy }) {
 
     return (
         <div className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {formatStringInUpperAndLowerCaseUnderscore(sivilstand)}
             </BodyShort>
             {fraDato && (
-                <BodyShort size="small" className="BodyShortItalic">
+                <BodyShort size="small" className="typografi_dato">
                     Fra: {formaterDato(fraDato)}
                 </BodyShort>
             )}
             {sivilstand && (
-                <Detail className="kilde-tekst">
+                <Detail className="kilde_tekst">
                     Registrert {registrertDato && formaterDato(registrertDato)}
                     {` ${hentKilde(master)}`}
                 </Detail>

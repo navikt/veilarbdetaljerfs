@@ -15,17 +15,17 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
 
     return (
         <div className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 <b>
                     {formateStringInUpperAndLowerCase(motpartsRolle)}: {motpartsPersonident}
                 </b>
             </BodyShort>
             <BodyShort size="small">{`${fornavn} ${mellomnavn || ''} ${etternavn}`}</BodyShort>
             <BodyShort size="small">{`Gjelder ${gjeldendeOmraader}`}</BodyShort>
-            <BodyShort size="small" className="BodyShortItalic">
+            <BodyShort size="small" className="typografi_dato">
                 Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
             </BodyShort>
-            <BodyShort size="small" className="BodyShortItalic">
+            <BodyShort size="small" className="typografi_dato">
                 Gyldig til og med: {formaterDato(gyldigTilOgMed)}
             </BodyShort>
         </div>

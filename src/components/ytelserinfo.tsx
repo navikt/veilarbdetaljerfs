@@ -16,6 +16,9 @@ export const Ytelser = () => {
     if (ytelserLoading) {
         return (
             <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
+                    Ytelser
+                </Heading>
                 <Laster />
             </Panel>
         );
@@ -24,7 +27,7 @@ export const Ytelser = () => {
     if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtaksliste)) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Ytelser
                 </Heading>
                 <Alert inline variant="info">
@@ -37,7 +40,7 @@ export const Ytelser = () => {
     if (ytelserError) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Ytelser
                 </Heading>
                 <Errormelding />
@@ -47,7 +50,7 @@ export const Ytelser = () => {
 
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Ytelser
             </Heading>
             <span className="info_container">

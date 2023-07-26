@@ -66,7 +66,7 @@ const App = (props: AppProps) => {
                     </Alert>
                     <Nokkelinfo />
 
-                    <div className="overblikkChips">
+                    <div className="overblikk_chips">
                         <Chips>
                             {informasjonsboksAlternativer.map((alternativ) => (
                                 <Chips.Toggle

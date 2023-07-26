@@ -3,7 +3,7 @@ import './registrering.css';
 
 function PersonverninformasjonSykmeldt() {
     return (
-        <div id="personvern_modal__innhold">
+        <div id="personvern_modal_innhold">
             <Heading level="1" size="large" spacing>
                 Mer veiledning fra NAV
             </Heading>

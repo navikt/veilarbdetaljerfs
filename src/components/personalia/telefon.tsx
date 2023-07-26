@@ -10,13 +10,13 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
 
     return (
         <div>
-            <BodyShort size="small" className="copyTlf">
+            <BodyShort size="small" className="copy_tlf">
                 {formaterTelefonnummer(telefonNr)}
                 <CopyButton copyText={telefonNr} size="xsmall" />
             </BodyShort>
             <div className="tlf_registrert">
                 {telefonNr && (
-                    <Detail className="kilde-tekst">
+                    <Detail className="kilde_tekst">
                         Registrert {registrertDato && registrertDato}
                         {` ${hentKilde(master)}`}
                     </Detail>
@@ -33,10 +33,10 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
 
     return (
         <div>
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 Telefon
             </BodyShort>
-            <BodyShort size="small" className="EnkeltInfoValue">
+            <BodyShort size="small" className="enkeltinfo_value">
                 {telefonListe}
             </BodyShort>
         </div>

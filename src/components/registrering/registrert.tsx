@@ -33,10 +33,10 @@ export const RegistrertHeader = (props: { registrering?: Registrering }) => {
             headerTypo="ingress"
             icon={<ClipboardIcon title="a11y-title" aria-hidden="true" />}
         >
-            <BodyShort className="italic-gra" size="small">
+            <BodyShort className="registrering_dato" size="small">
                 {regDato}
             </BodyShort>
-            <BodyShort className="italic-gra" size="small">
+            <BodyShort className="registrering_dato" size="small">
                 {erRegistrert}
             </BodyShort>
         </Informasjonsbolk>

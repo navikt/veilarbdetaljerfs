@@ -29,25 +29,25 @@ function EnkeltBarn(props: { barn: PersonsBarn }) {
         <div className="underinformasjon">
             {erEgenAnsatt && !harVeilederTilgang ? (
                 <div>
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         <b>{`Barn (${alder})`}</b>
                     </BodyShort>
                     <BorSammen barn={props.barn} />
                 </div>
             ) : graderingTekst && !harVeilederTilgang ? (
                 <div>
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         <b>Barn</b>
                     </BodyShort>
                     {graderingTekst && <BodyShort size="small">{graderingTekst}</BodyShort>}
                 </div>
             ) : (
                 <div>
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         <b>{`Barn (${alder})`}</b>
                     </BodyShort>
                     <BodyShort size="small">{formateStringInUpperAndLowerCase(fornavn)}</BodyShort>
-                    <BodyShort size="small" className="BodyShortItalic">
+                    <BodyShort size="small" className="typografi_dato">
                         {formaterDato(fodselsdato)}
                     </BodyShort>
                     <BorSammen barn={props.barn} />

@@ -10,18 +10,18 @@ import '../fellesStyling.css';
 const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
     const annenGodkjenningListe = safeMap(andreGodkjenninger, (annenGodkjenning, index) => (
         <div key={`andregodkjenninger-${index}`} className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader" key={`andregodkjenninger-${index}`}>
+            <BodyShort size="small" className="body_header" key={`andregodkjenninger-${index}`}>
                 {annenGodkjenning.tittel}
             </BodyShort>
 
             <BodyShort size="small">
                 Utsteder: {annenGodkjenning.utsteder ? annenGodkjenning.utsteder : EMDASH}
             </BodyShort>
-            <BodyShort size="small" className="BodyShortItalic">
+            <BodyShort size="small" className="typografi_dato">
                 Fullført: {formaterDato(annenGodkjenning.gjennomfortDato)}
             </BodyShort>
             {annenGodkjenning.utloperDato && (
-                <BodyShort size="small" className="BodyShortItalic">
+                <BodyShort size="small" className="typografi_dato">
                     Utløper: {annenGodkjenning.utloperDato ? formaterDato(annenGodkjenning.utloperDato) : EMDASH}
                 </BodyShort>
             )}

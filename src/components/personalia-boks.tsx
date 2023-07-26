@@ -43,6 +43,9 @@ const PersonaliaBoks = () => {
     if (personLoading || vergeOgFullmaktLoading) {
         return (
             <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
+                    Personalia
+                </Heading>
                 <Laster />
             </Panel>
         );
@@ -58,7 +61,7 @@ const PersonaliaBoks = () => {
     } else if (personError || vergeOgFullmaktError) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
                 <Errormelding />
@@ -68,7 +71,7 @@ const PersonaliaBoks = () => {
 
     return (
         <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Personalia
             </Heading>
             {personData?.sivilstandliste && personData?.sivilstandliste.length > 1 && (
