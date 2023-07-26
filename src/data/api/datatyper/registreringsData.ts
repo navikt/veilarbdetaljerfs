@@ -5,12 +5,13 @@ export interface Veileder {
         navn: string;
     };
 }
+type Besvarelse = Record<string, string>;
 
 interface RegistreringBase {
     opprettetDato: string;
     teksterForBesvarelse: Sporsmal[];
     manueltRegistrertAv?: Veileder | null;
-    besvarelse: any;
+    besvarelse: Besvarelse;
 }
 
 export interface OrdinaerRegistrering extends RegistreringBase {
