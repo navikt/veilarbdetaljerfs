@@ -13,7 +13,7 @@ export const Ytelser = () => {
 
     if (ytelserLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={7}>
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -34,7 +34,7 @@ export const Ytelser = () => {
 
     if (ytelserError) {
         return (
-            <Panel border className="info_panel" tabIndex={7}>
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Ytelser
                 </Heading>
@@ -44,7 +44,7 @@ export const Ytelser = () => {
     }
 
     return (
-        <Panel border className="info_panel" tabIndex={7}>
+        <Panel border className="info_panel">
             <Heading spacing level="2" size="medium" className="panel_header">
                 Ytelser
             </Heading>

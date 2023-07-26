@@ -16,7 +16,7 @@ export const Registrering = () => {
 
     if (registreringLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={6}>
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -35,7 +35,7 @@ export const Registrering = () => {
         );
     } else if (registreringError) {
         return (
-            <Panel border className="info_panel" tabIndex={6}>
+            <Panel border className="info_panel">
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Registrering
                 </Heading>
@@ -48,7 +48,7 @@ export const Registrering = () => {
     const type = registreringData?.type;
 
     return (
-        <Panel border className="info_panel" tabIndex={6}>
+        <Panel border className="info_panel">
             <Heading spacing level="2" size="medium" className="panel_header">
                 Registering
             </Heading>
