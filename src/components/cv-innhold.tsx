@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Heading, Panel, Alert, Link } from '@navikt/ds-react';
+import { Heading, Panel, Alert, Link, List } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -19,6 +19,7 @@ import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
+import ListItem from '@navikt/ds-react/esm/list/ListItem';
 
 const CvInnhold = () => {
     const { fnr } = useAppStore();
@@ -66,11 +67,11 @@ const CvInnhold = () => {
                 </Heading>
                 <Alert variant="info">
                     Du kan ikke se CV-en, be brukeren om å:
-                    <ul>
-                        <li>logge inn på arbeidsplassen.no</li>
-                        <li>lese teksten om at du må dele CV-en med NAV</li>
-                        <li>gå videre og gjennomføre det tjenesten ber om</li>
-                    </ul>
+                    <List as="ul">
+                        <ListItem>Logge inn på arbeidsplassen.no</ListItem>
+                        <ListItem>Lese teksten om at du må dele CV-en med NAV</ListItem>
+                        <ListItem>Gå videre og gjennomføre det tjenesten ber om</ListItem>
+                    </List>
                     Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
                 </Alert>
             </Panel>

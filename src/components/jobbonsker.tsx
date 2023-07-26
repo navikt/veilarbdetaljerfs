@@ -1,13 +1,14 @@
 import { useAppStore } from '../stores/app-store';
 import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
-import { Alert, Heading, Link, Panel } from '@navikt/ds-react';
+import { Alert, Heading, Link, List, Panel } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { byggPamUrl } from '../utils';
+import ListItem from '@navikt/ds-react/esm/list/ListItem';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {
@@ -85,12 +86,12 @@ const Jobbonsker = () => {
                 </Heading>
                 <Alert variant="info">
                     Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
-                    <ul>
-                        <li>
+                    <List as="ul">
+                        <ListItem>
                             Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn
                             på nav.no og oppdatere CV-en sin.
-                        </li>
-                    </ul>
+                        </ListItem>
+                    </List>
                 </Alert>
             </Panel>
         );
