@@ -10,21 +10,21 @@
     padding-bottom: 1rem;
 }
 
-.personvern_modal__innhold {
+.personvern_modal_innhold {
     padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
-.personvern_modal__innhold ul {
+.personvern_modal_innhold ul {
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
     margin-left: 0.2rem;
 }
 
-.personvern_modal__innhold p {
+.personvern_modal_innhold p {
     margin-left: 1.5rem;
 }
 
-.personvern_modal__innhold h2 {
+.personvern_modal_innhold h2 {
     margin-top: 0.5rem;
     margin-left: 0.75rem;
 }

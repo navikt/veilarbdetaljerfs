@@ -23,7 +23,7 @@ const mapFagdokumentasjonerTilViews = (fagdokumentasjoner: Fagdokumentasjon[]) =
         fagdokumentasjoner.map((fagdokument, idx) => {
             return (
                 <div key={`fagdokument-${idx}`} className="underinformasjon">
-                    <BodyShort size="small" className="BodyHeader">
+                    <BodyShort size="small" className="body_header">
                         {fagdokument.tittel}
                     </BodyShort>
                     <BodyShort size="small">{fagdokumentTypeTilTekst(fagdokument.type)}</BodyShort>

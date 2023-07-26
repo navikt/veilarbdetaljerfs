@@ -12,7 +12,7 @@ interface Props {
 function Informasjonsbolk({ header, headerTypo = 'element', children, icon }: Props) {
     return (
         <div className="informasjonsbolk">
-            <span className="informasjonsbolk-tittel">
+            <span className="informasjonsbolk_tittel">
                 {icon}
                 {headerTypo === 'ingress' && (
                     <Heading level="4" size="small">

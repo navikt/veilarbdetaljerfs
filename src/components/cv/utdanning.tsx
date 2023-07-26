@@ -9,13 +9,13 @@ const Utdanning = ({ utdanning }: Pick<ArenaPerson, 'utdanning'>) => {
     const sortedUtdanning = utdanning.sort((a, b) => safeSort(b.tilDato, a.tilDato));
     const utdanninger = safeMap(sortedUtdanning, (utdanning, index) => (
         <div key={`utdanning-${index}`} className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {utdanning.tittel}
             </BodyShort>
 
             <BodyShort size="small">{utdanning.studiested}</BodyShort>
             <BodyShort size="small">{utdanning.utdanningsnivaa}</BodyShort>
-            <BodyShort size="small" className="BodyShortItalic">
+            <BodyShort size="small" className="typografi_dato">
                 Start- og sluttdato: {formaterDato(utdanning.fraDato, true)} -{' '}
                 {utdanning.tilDato ? formaterDato(utdanning.tilDato, true) : 'nå'}
             </BodyShort>
