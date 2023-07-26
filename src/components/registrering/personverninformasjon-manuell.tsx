@@ -3,7 +3,7 @@ import './registrering.css';
 
 function PersonverninformasjonManuell() {
     return (
-        <div className="personvern_modal__innhold">
+        <div className="personvern_modal_innhold">
             <Heading level="1" size="large">
                 Når du har registrert deg
             </Heading>

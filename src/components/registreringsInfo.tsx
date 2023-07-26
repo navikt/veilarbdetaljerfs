@@ -16,7 +16,10 @@ export const Registrering = () => {
 
     if (registreringLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={6}>
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
+                    Registering
+                </Heading>
                 <Laster />
             </Panel>
         );
@@ -25,7 +28,7 @@ export const Registrering = () => {
     if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData) {
         return (
             <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Registering
                 </Heading>
                 <Alert inline variant="info">
@@ -35,8 +38,8 @@ export const Registrering = () => {
         );
     } else if (registreringError) {
         return (
-            <Panel border className="info_panel" tabIndex={6}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Registrering
                 </Heading>
                 <Errormelding />
@@ -48,8 +51,8 @@ export const Registrering = () => {
     const type = registreringData?.type;
 
     return (
-        <Panel border className="info_panel" tabIndex={6}>
-            <Heading spacing level="2" size="medium" className="PanelHeader">
+        <Panel border className="info_panel">
+            <Heading spacing level="2" size="medium" className="panel_header">
                 Registering
             </Heading>
             <RegistrertHeader registrering={brukerRegistrering} />

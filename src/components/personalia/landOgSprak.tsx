@@ -22,7 +22,7 @@ const LandOgSprak = () => {
 
     if (tolkLoading) {
         return (
-            <Panel border className="info_panel" tabIndex={4}>
+            <Panel border className="info_panel">
                 <Laster />
             </Panel>
         );
@@ -32,8 +32,8 @@ const LandOgSprak = () => {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (tolkError) {
         return (
-            <Panel border className="info_panel" tabIndex={4}>
-                <Heading spacing level="2" size="medium" className="PanelHeader">
+            <Panel border className="info_panel">
+                <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
                 <Errormelding />

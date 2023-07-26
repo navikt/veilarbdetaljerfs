@@ -15,7 +15,7 @@
     padding-left: var(--a-spacing-10);
     padding-right: var(--a-spacing-10);
 }
-.overblikkChips {
+.overblikk_chips {
     margin-left: var(--a-spacing-10);
     margin-bottom: var(--a-spacing-5);
 }
@@ -23,23 +23,13 @@
     margin-bottom: var(--a-spacing-4);
 }
 
-.informasjonsbolk-tittel {
+.informasjonsbolk_tittel {
     display: flex;
     align-items: center;
     gap: var(--a-spacing-2);
     margin-bottom: var(--a-spacing-1);
 }
 
-.kilde-tekst {
+.kilde_tekst {
     color: var(--a-text-subtle);
-}
-
-.lenke-brukerprofil {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.lenke-brukerprofil {
-    display: flex;
-    justify-content: flex-end;
 }

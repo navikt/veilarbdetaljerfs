@@ -14,7 +14,7 @@ function StatsborgerskapInfo(props: { statsborgerskapData: string[] }) {
 
     return (
         <div className="underinformasjon">
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 Statsborgerskap
             </BodyShort>
             {isNotEmptyArray(content) ? content : EMDASH}

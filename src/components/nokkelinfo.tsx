@@ -57,7 +57,10 @@ const Nokkelinfo = () => {
         veilederLoading
     ) {
         return (
-            <Panel border className="nokkelinfo_panel" tabIndex={1}>
+            <Panel border className="nokkelinfo_panel">
+                <Heading spacing level="2" size="medium">
+                    Nøkkelinfo
+                </Heading>
                 <Laster />
             </Panel>
         );
@@ -89,7 +92,7 @@ const Nokkelinfo = () => {
         veilederError
     ) {
         return (
-            <Panel border className="nokkelinfo_panel" tabIndex={1}>
+            <Panel border className="nokkelinfo_panel">
                 <Heading spacing level="2" size="medium">
                     Nøkkelinfo
                 </Heading>
@@ -120,7 +123,7 @@ const Nokkelinfo = () => {
             : EMDASH;
 
     return (
-        <Panel border className="nokkelinfo_panel" tabIndex={1}>
+        <Panel border className="nokkelinfo_panel">
             <Heading spacing level="2" size="medium">
                 Nøkkelinfo
             </Heading>

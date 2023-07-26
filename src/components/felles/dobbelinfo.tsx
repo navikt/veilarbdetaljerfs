@@ -11,7 +11,7 @@ export function DobbeltInformasjon({ header, values = [] }: Props) {
     const renderedValues = values.length > 0 ? values : [EMDASH];
     return (
         <span>
-            <BodyShort size="small" className="BodyHeader">
+            <BodyShort size="small" className="body_header">
                 {header}
             </BodyShort>
             <span>
