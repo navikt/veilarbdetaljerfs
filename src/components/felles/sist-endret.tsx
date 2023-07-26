@@ -10,7 +10,7 @@ interface SistEndretProps {
 function SistEndret(props: SistEndretProps) {
     const formattertTidspunkt = formaterDato(props.sistEndret, props.onlyYearAndMonth);
 
-    return <BodyShort size="small">{`Sist endret: ${formattertTidspunkt}`}</BodyShort>;
+    return <BodyShort size="small" className="typografi_dato">{`Sist endret: ${formattertTidspunkt}`}</BodyShort>;
 }
 
 export default SistEndret;
