@@ -22,7 +22,7 @@ export function formaterDato(datoObjekt: DatoType | string | undefined | null, o
         lokalDato = new Date(datoObjekt);
     } else {
         lokalDato = new Date(
-            Date.UTC(Number(datoObjekt!.year), Number(datoObjekt!.month) - 1, Number(datoObjekt!.day))
+            Date.UTC(Number(datoObjekt?.year), Number(datoObjekt?.month) - 1, Number(datoObjekt?.day))
         );
     }
     const shortOption: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short' };

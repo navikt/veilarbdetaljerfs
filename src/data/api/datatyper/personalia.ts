@@ -138,7 +138,7 @@ export interface Oppholdsadresse {
 }
 
 export interface Kontaktadresse {
-    type: String;
+    type: string;
     coAdressenavn: StringOrNothing;
     vegadresse: OrNothing<Vegadresse>;
     postboksadresse: OrNothing<Postboksadresse>;

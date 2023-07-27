@@ -3,9 +3,12 @@ import './registrering.css';
 
 export function PrintKnappModal() {
     const printModal = () => {
-        document.getElementById('modal-a11y-wrapper')!.style.display = 'none';
-        window.print();
-        document.getElementById('modal-a11y-wrapper')!.style.display = 'block';
+        const modalWrapper = document.getElementById('modal-a11y-wrapper');
+        if (modalWrapper) {
+            modalWrapper.style.display = 'none';
+            window.print();
+            modalWrapper.style.display = 'block';
+        }
     };
 
     return (
