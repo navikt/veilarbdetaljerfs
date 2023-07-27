@@ -9,7 +9,7 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
     const kompetanser =
         kompetanse && kompetanse.length > 0
             ? kompetanse?.map((kompetansen) => (
-                  <ListItem>
+                  <ListItem key={kompetansen.tittel}>
                       <BodyShort size="small">{kompetansen.tittel}</BodyShort>s{' '}
                   </ListItem>
               ))
