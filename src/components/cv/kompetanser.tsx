@@ -10,7 +10,7 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
         kompetanse && kompetanse.length > 0
             ? kompetanse?.map((kompetansen) => (
                   <ListItem key={kompetansen.tittel}>
-                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>s{' '}
+                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>{' '}
                   </ListItem>
               ))
             : EMDASH;
