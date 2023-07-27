@@ -3,13 +3,16 @@ import { erMock } from './miljo-utils';
 
 export interface FrontendEvent {
     name: string;
-    fields?: {};
-    tags?: {};
+    fields?: Record<string, unknown>;
+    tags?: Record<string, unknown>;
 }
 
-export const logMetrikk = (metrikkNavn: string, fields?: {}, tags?: {}): void => {
+export const logMetrikk = (
+    metrikkNavn: string,
+    fields?: Record<string, unknown>,
+    tags?: Record<string, unknown>
+): void => {
     if (erMock()) {
-        // eslint-disable-next-line no-console
         console.log('Event', metrikkNavn, 'Fields:', fields, 'Tags:', tags);
     } else {
         sendEventTilVeilarbperson({ name: `${metrikkNavn}`, fields, tags });

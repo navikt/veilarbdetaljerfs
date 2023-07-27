@@ -6,6 +6,6 @@ export function isNullOrUndefined(param: string | object | null | undefined): bo
     return param === undefined || param === null;
 }
 
-export function isNotEmptyArray(param: any[]): boolean {
+export function isNotEmptyArray<T>(param: T[]): boolean {
     return param && param.length > 0;
 }

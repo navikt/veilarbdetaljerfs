@@ -49,13 +49,13 @@ const handterRespons = async (respons: Response) => {
     }
 };
 
-const fetcher = async (url: string): Promise<any> => {
+const fetcher = async (url: string) => {
     const respons = await fetch(url, GEToptions);
 
     return handterRespons(respons);
 };
 
-export const sendEventTilVeilarbperson = async (event: FrontendEvent): Promise<any> => {
+export const sendEventTilVeilarbperson = async (event: FrontendEvent) => {
     const url = `/veilarbperson/api/logger/event`;
     const respons = await fetch(url, createPOSToptions(event));
 
