@@ -7,7 +7,7 @@ export const VEDTAKSSTATUSER = {
     iverksatt: 'Iverksatt'
 };
 
-export function hentKilde(master: OrNothing<String>) {
+export function hentKilde(master: OrNothing<string>) {
     switch (master?.toLowerCase()) {
         case 'krr':
             return 'i Kontakt- og reservasjonsregisteret';
@@ -58,7 +58,7 @@ export function egenAnsattTekst() {
     return 'Partner er skjermet for innsyn';
 }
 
-export function hentMalform(malform: OrNothing<String>) {
+export function hentMalform(malform: OrNothing<string>) {
     switch (malform) {
         case 'nn':
             return 'Nynorsk';
