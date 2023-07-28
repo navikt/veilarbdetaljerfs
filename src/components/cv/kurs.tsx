@@ -30,7 +30,7 @@ const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
     return (
         <Informasjonsbolk
             header="Kurs"
-            icon={<TasklistIcon title="a11y-title" aria-hidden="true" />}
+            icon={<TasklistIcon title="Ikon som illustrerer en liste med oppgaver" aria-hidden="true" />}
             headerTypo="ingress"
         >
             {mappedKurs}

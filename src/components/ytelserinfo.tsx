@@ -59,7 +59,7 @@ export const Ytelser = () => {
                         <Informasjonsbolk
                             header={vedtak.vedtakstype || EMDASH}
                             headerTypo="ingress"
-                            icon={<WalletIcon title="a11y-title" aria-hidden="true" />}
+                            icon={<WalletIcon title="Ikon som illustrerer en lommebok" aria-hidden="true" />}
                         >
                             <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
                             <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />

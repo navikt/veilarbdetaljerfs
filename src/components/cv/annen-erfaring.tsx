@@ -24,7 +24,7 @@ const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) =>
     return (
         <Informasjonsbolk
             header="Andre erfaringer"
-            icon={<NewspaperIcon title="a11y-title" aria-hidden="true" />}
+            icon={<NewspaperIcon title="Ikon som illustrerer en avis" aria-hidden="true" />}
             headerTypo="ingress"
         >
             {erfaringer}

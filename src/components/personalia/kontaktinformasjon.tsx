@@ -26,7 +26,7 @@ const Kontaktinformasjon = () => {
         <Informasjonsbolk
             header="Kontaktinformasjon"
             headerTypo="ingress"
-            icon={<PersonChatIcon title="a11y-title" aria-hidden="true" />}
+            icon={<PersonChatIcon title="Ikon som illustrerer en person med en snakkeboble" aria-hidden="true" />}
         >
             <Telefon telefon={telefon} />
             <Adresser

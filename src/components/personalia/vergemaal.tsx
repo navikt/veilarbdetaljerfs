@@ -116,7 +116,12 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
             <Informasjonsbolk
                 header="Verge"
                 headerTypo="ingress"
-                icon={<PersonCrossIcon title="a11y-title" aria-hidden="true" />}
+                icon={
+                    <PersonCrossIcon
+                        title="Ikon som illustrerer en person med et kryss i nedre høyre hjørne"
+                        aria-hidden="true"
+                    />
+                }
             >
                 {EMDASH}
             </Informasjonsbolk>
@@ -127,7 +132,12 @@ function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullm
         <Informasjonsbolk
             header="Bruker er under vergemål"
             headerTypo="ingress"
-            icon={<PersonCheckmarkIcon title="a11y-title" aria-hidden="true" />}
+            icon={
+                <PersonCheckmarkIcon
+                    title="Ikon som illustrerer en person med et avhukningsymbol i nedre høyre hjørne"
+                    aria-hidden="true"
+                />
+            }
         >
             {vergemaalListe}
         </Informasjonsbolk>

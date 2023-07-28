@@ -42,7 +42,7 @@ const Fagdokumentasjoner = ({ fagdokumentasjoner }: Pick<ArenaPerson, 'fagdokume
     return (
         <Informasjonsbolk
             header="Fagbrev"
-            icon={<WrenchIcon title="a11y-title" aria-hidden="true" />}
+            icon={<WrenchIcon title="Ikon som illustrerer en skiftenøkkel" aria-hidden="true" />}
             headerTypo="ingress"
         >
             {dokumentasjoner}

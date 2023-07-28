@@ -31,7 +31,7 @@ export const RegistrertHeader = (props: { registrering?: Registrering }) => {
         <Informasjonsbolk
             header={overskrift}
             headerTypo="ingress"
-            icon={<ClipboardIcon title="a11y-title" aria-hidden="true" />}
+            icon={<ClipboardIcon title="Ikon som illustrerer en utklippstavle" aria-hidden="true" />}
         >
             <BodyShort className="registrering_dato" size="small">
                 {regDato}

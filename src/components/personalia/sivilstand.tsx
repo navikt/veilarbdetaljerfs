@@ -52,7 +52,7 @@ function Sivilstand(props: { partner?: PersonaliaPartner; sivilstandliste?: Pers
         <Informasjonsbolk
             header="Sivilstand"
             headerTypo="ingress"
-            icon={<PersonGroupIcon title="a11y-title" aria-hidden="true" />}
+            icon={<PersonGroupIcon title="Ikon som illustrerer en gruppe med personer" aria-hidden="true" />}
         >
             {sivilstandListe}
         </Informasjonsbolk>

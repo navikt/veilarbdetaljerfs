@@ -46,7 +46,7 @@ const LandOgSprak = () => {
         <Informasjonsbolk
             header="Land og språk"
             headerTypo="ingress"
-            icon={<GlobeIcon title="a11y-title" aria-hidden="true" />}
+            icon={<GlobeIcon title="Ikon som illustrerer en klode" aria-hidden="true" />}
         >
             <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
             <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />

@@ -36,7 +36,7 @@ const Sprak = ({ sprak }: Pick<ArenaPerson, 'sprak'>) => {
     return (
         <Informasjonsbolk
             header="Språk"
-            icon={<Chat2Icon title="a11y-title" aria-hidden="true" />}
+            icon={<Chat2Icon title="Ikon som illustrerer to snakkebobler" aria-hidden="true" />}
             headerTypo="ingress"
         >
             {mappedSprak}

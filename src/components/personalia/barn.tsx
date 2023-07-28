@@ -69,7 +69,12 @@ function Barn(props: Pick<PersonaliaV2Info, 'barn'>) {
         <Informasjonsbolk
             header="Barn under 21 år"
             headerTypo="ingress"
-            icon={<PersonTallShortIcon title="a11y-title" aria-hidden="true" />}
+            icon={
+                <PersonTallShortIcon
+                    title="Ikon som illustrerer to personer hvor den ene er høyere"
+                    aria-hidden="true"
+                />
+            }
         >
             {barnListe}
         </Informasjonsbolk>

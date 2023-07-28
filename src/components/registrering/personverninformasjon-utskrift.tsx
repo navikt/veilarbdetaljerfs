@@ -31,9 +31,9 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
                 onMouseLeave={() => setHover(false)}
                 icon={
                     hover ? (
-                        <PrinterSmallFillIcon title="a11y-title" aria-hidden="true" />
+                        <PrinterSmallFillIcon title="Ikon som illustrerer en skriver" aria-hidden="true" />
                     ) : (
-                        <PrinterSmallIcon title="a11y-title" aria-hidden="true" />
+                        <PrinterSmallIcon title="Ikon som illustrerer en skriver" aria-hidden="true" />
                     )
                 }
             >

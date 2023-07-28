@@ -46,7 +46,7 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
             <Informasjonsbolk
                 header="Fullmakter"
                 headerTypo="ingress"
-                icon={<HandshakeIcon title="a11y-title" aria-hidden="true" />}
+                icon={<HandshakeIcon title="Ikon som illustrerer en håndhilsing" aria-hidden="true" />}
             >
                 {EMDASH}
             </Informasjonsbolk>
@@ -57,7 +57,7 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
         <Informasjonsbolk
             header="Fullmakter"
             headerTypo="ingress"
-            icon={<HandshakeIcon title="a11y-title" aria-hidden="true" />}
+            icon={<HandshakeIcon title="Ikon som illustrerer en håndhilsing" aria-hidden="true" />}
         >
             {fullmaktListe}
         </Informasjonsbolk>

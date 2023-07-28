@@ -8,7 +8,7 @@ const Sammendrag = ({ sammendrag }: Pick<ArenaPerson, 'sammendrag'>) => {
     return (
         <Informasjonsbolk
             header="Sammendrag"
-            icon={<BulletListIcon title="a11y-title" aria-hidden="true" />}
+            icon={<BulletListIcon title="Ikon som illustrerer en punktliste" aria-hidden="true" />}
             headerTypo="ingress"
         >
             <BodyShort className="underinformasjon">{sammendrag ? sammendrag : EMDASH}</BodyShort>

@@ -22,7 +22,12 @@ export function JobbetSammenhengende(props: Props) {
         <Informasjonsbolk
             header="Hentet fra Aa-registeret"
             headerTypo="ingress"
-            icon={<FileCheckmarkIcon title="a11y-title" aria-hidden="true" />}
+            icon={
+                <FileCheckmarkIcon
+                    title="Ikon som illustrerer et dokument med et avhukningssymbol på"
+                    aria-hidden="true"
+                />
+            }
         >
             <Label size="small" as="p">
                 Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder

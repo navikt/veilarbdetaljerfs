@@ -18,7 +18,7 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
     return (
         <Informasjonsbolk
             header="Kompetanser"
-            icon={<FolderFileIcon title="a11y-title" aria-hidden="true" />}
+            icon={<FolderFileIcon title="Ikon som illustrerer en mappe som inneholder en fil" aria-hidden="true" />}
             headerTypo="ingress"
         >
             <List as="ul">{kompetanser}</List>
