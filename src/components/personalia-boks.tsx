@@ -54,8 +54,8 @@ const PersonaliaBoks = () => {
     if (
         personError?.status === 204 ||
         personError?.status === 404 ||
-        personError?.status === 204 ||
-        personError?.status === 404
+        vergeOgFullmaktError?.status === 204 ||
+        vergeOgFullmaktError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (personError || vergeOgFullmaktError) {

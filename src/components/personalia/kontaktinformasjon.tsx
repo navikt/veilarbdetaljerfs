@@ -18,7 +18,7 @@ const Kontaktinformasjon = () => {
     const person = usePersonalia(fnr);
 
     const bostedsadresse: OrNothing<Bostedsadresse> = person.data?.bostedsadresse;
-    const telefon: PersonaliaTelefon[] = person.data?.telefon!;
+    const telefon: PersonaliaTelefon[] = person.data?.telefon ?? [];
     const oppholdsadresse: OrNothing<Oppholdsadresse> = person.data?.oppholdsadresse;
     const kontaktadresser: Kontaktadresse[] = person.data?.kontaktadresser ?? [];
 

@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function EnkeltInformasjonMedCopy({ header, value = EMDASH }: Props) {
-    const showCopyButton = value !== EMDASH;
+    const showCopyButton = value !== EMDASH && value !== null;
     return (
         <span>
             <BodyShort size="small" className="copy_header">

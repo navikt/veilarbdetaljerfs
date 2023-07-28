@@ -19,7 +19,7 @@ const LandOgSprak = () => {
 
     const statsborgerskap: string[] = person.data?.statsborgerskap ?? [];
     const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolkData;
-    const maalform: OrNothing<String> = person.data?.malform;
+    const maalform: OrNothing<string> = person.data?.malform;
 
     if (tolkLoading) {
         return (
