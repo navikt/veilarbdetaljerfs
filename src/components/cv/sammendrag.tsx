@@ -6,7 +6,11 @@ import { BodyShort } from '@navikt/ds-react';
 
 const Sammendrag = ({ sammendrag }: Pick<ArenaPerson, 'sammendrag'>) => {
     return (
-        <Informasjonsbolk header="Sammendrag" icon={<BulletListIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Sammendrag"
+            icon={<BulletListIcon title="Ikon som illustrerer en punktliste" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             <BodyShort className="underinformasjon">{sammendrag ? sammendrag : EMDASH}</BodyShort>
         </Informasjonsbolk>
     );

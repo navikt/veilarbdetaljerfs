@@ -28,7 +28,11 @@ const Arbeidserfaring = ({ arbeidserfaring }: Pick<ArenaPerson, 'arbeidserfaring
     ));
 
     return (
-        <Informasjonsbolk header="Arbeidsforhold" icon={<Buldings3Icon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Arbeidsforhold"
+            icon={<Buldings3Icon title="Ikon som illustrerer et kontorbygg" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             {erfaringer}
         </Informasjonsbolk>
     );
