@@ -11,7 +11,7 @@ export function LastNedCV(props: { erManuell: boolean | undefined; fnr: string }
 
     return (
         <Link onClick={handleOnLastNedLenkeClicked} href={lastNedCvUrl} target="_blank">
-            <DownloadIcon />
+            <DownloadIcon title="Ikon som illustrerer nedlasting" />
             Last ned CV
         </Link>
     );

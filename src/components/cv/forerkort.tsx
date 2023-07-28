@@ -13,7 +13,11 @@ const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
     ));
 
     return (
-        <Informasjonsbolk header="Førerkort" icon={<CarIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Førerkort"
+            icon={<CarIcon title="Ikon som illustrerer en bil" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             {forerkortListe}
         </Informasjonsbolk>
     );

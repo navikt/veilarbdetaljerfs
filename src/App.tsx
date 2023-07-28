@@ -70,11 +70,11 @@ const App = (props: AppProps) => {
                                 under. Takk for at du deltar!
                             </BodyShort>
                             <a href="https://forms.office.com/e/w3jHFRCKEC">
-                                Gi tilbakemeldinger i Forms <ExternalLinkIcon title="a11y-title" />
+                                Gi tilbakemeldinger i Forms{' '}
+                                <ExternalLinkIcon title="Ikon som illustrerer en ekstern lenke" aria-hidden={true} />
                             </a>
                         </Alert>
                         <Nokkelinfo />
-
                         <div className="overblikk_chips">
                             <Chips>
                                 {informasjonsboksAlternativer.map((alternativ) => (

@@ -29,7 +29,11 @@ const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodk
     ));
 
     return (
-        <Informasjonsbolk header="Andre godkjenninger" icon={<FolderPlusIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Andre godkjenninger"
+            icon={<FolderPlusIcon title="Ikon som illustrerer en mappe med et pluss-symbol på" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             {annenGodkjenningListe}
         </Informasjonsbolk>
     );
