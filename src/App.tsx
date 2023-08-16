@@ -7,7 +7,7 @@ import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
 import { Alert, BodyShort, Button, Chips, Heading } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { TrashIcon, CheckmarkIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
 import { SWRConfig } from 'swr';
@@ -20,26 +20,48 @@ export interface AppProps {
 const App = (props: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
-    const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia'];
+    const informasjonsboksAlternativer = useMemo(
+        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'],
+        []
+    );
+
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
-    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
+    const [avmerketInformasjonsbokser, setAvmerketInformasjonsbokser] = useState<string[]>([]);
+
+    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>([]);
+
+    const setInitielState = useCallback(
+        (informasjonbokser) => {
+            setValgteInformasjonsbokser(informasjonbokser);
+            setAvmerketInformasjonsbokser(informasjonsboksAlternativer.filter((x) => !informasjonbokser.includes(x)));
+        },
+        [informasjonsboksAlternativer]
+    );
+
+    const areEqual = (array1: string[], array2: string[]) => {
+        return JSON.stringify(array1) === JSON.stringify(array2);
+    };
+
+    const lagredeKnappAktiv =
+        lagredeInformasjonsbokser.length != valgteInformasjonsbokser.length ||
+        !areEqual(lagredeInformasjonsbokser, valgteInformasjonsbokser);
 
     useEffect(() => {
-        if (overblikkFilter.data && !overblikkFilter.error) {
-            setValgteInformasjonsbokser(overblikkFilter.data);
+        if (!overblikkFilter.isLoading && overblikkFilter.error?.status === 204) {
             setLagredeInformasjonsbokser(overblikkFilter.data);
         }
-        if (overblikkFilter.error?.status === 204) {
-            setLagredeInformasjonsbokser(valgteInformasjonsbokser);
-        }
-    }, [overblikkFilter.data || overblikkFilter.error]);
+    }, [overblikkFilter.data, overblikkFilter.error, overblikkFilter.isLoading]);
 
-    const toggleComponent = (konponentNavn: string) => {
-        setValgteInformasjonsbokser((tidligereValgteKomponenter) =>
-            tidligereValgteKomponenter.includes(konponentNavn)
-                ? tidligereValgteKomponenter.filter((navn) => navn !== konponentNavn)
-                : [...tidligereValgteKomponenter, konponentNavn]
-        );
+    const toggleComponent = (komponentNavn: string) => {
+        if (valgteInformasjonsbokser.includes(komponentNavn)) {
+            setValgteInformasjonsbokser(valgteInformasjonsbokser.filter((x) => x !== komponentNavn));
+            avmerketInformasjonsbokser.unshift(komponentNavn);
+            setAvmerketInformasjonsbokser(avmerketInformasjonsbokser);
+        } else {
+            setAvmerketInformasjonsbokser(avmerketInformasjonsbokser.filter((x) => x !== komponentNavn));
+            valgteInformasjonsbokser.push(komponentNavn);
+            setValgteInformasjonsbokser(valgteInformasjonsbokser);
+        }
     };
 
     const mapNavnTilKomponent = (navn: string) => {
@@ -48,20 +70,18 @@ const App = (props: AppProps) => {
                 return <CvInnhold />;
             case 'Jobbønsker':
                 return <Jobbonsker />;
-            case 'Registrering':
-                return <Registrering />;
             case 'Oppfølging':
                 return <Oppfolging />;
-            case 'Ytelser':
-                return <Ytelser />;
             case 'Personalia':
                 return <PersonaliaBoks />;
+            case 'Registrering':
+                return <Registrering />;
+            case 'Ytelser':
+                return <Ytelser />;
             default:
                 return null;
         }
     };
-
-    const lagredeKnappAktiv = valgteInformasjonsbokser.sort() !== lagredeInformasjonsbokser.sort();
 
     return (
         <main className="app veilarbdetaljerfs">
@@ -92,15 +112,57 @@ const App = (props: AppProps) => {
                         <Nokkelinfo />
                         <div className="overblikk_chips">
                             <Chips>
-                                {informasjonsboksAlternativer.map((alternativ) => (
+                                {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
-                                        selected={valgteInformasjonsbokser.includes(alternativ)}
+                                        selected={true}
                                         onClick={() => toggleComponent(alternativ)}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
                                 ))}
+
+                                {avmerketInformasjonsbokser.map((alternativ) => (
+                                    <Chips.Toggle
+                                        key={alternativ}
+                                        selected={false}
+                                        onClick={() => toggleComponent(alternativ)}
+                                    >
+                                        {alternativ}
+                                    </Chips.Toggle>
+                                ))}
+
+                                <Button
+                                    onClick={() => setInitielState(lagredeInformasjonsbokser)}
+                                    size="small"
+                                    variant="tertiary"
+                                    icon={<TrashIcon title="a11y-title" />}
+                                >
+                                    Nullstill visning
+                                </Button>
+
+                                {lagredeKnappAktiv ? (
+                                    <Button
+                                        onClick={() => {
+                                            sendOverblikkFilter(valgteInformasjonsbokser);
+                                            // Sender og fetcher parallelt? conditional fetching etter POST?
+                                            overblikkFilter.reFetch();
+                                        }}
+                                        size="small"
+                                        variant="secondary"
+                                    >
+                                        Lagre visning
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        disabled={true}
+                                        size="small"
+                                        variant="secondary"
+                                        icon={<CheckmarkIcon title="a11y-title" />}
+                                    >
+                                        Lagret
+                                    </Button>
+                                )}
                             </Chips>
                         </div>
 
@@ -110,50 +172,9 @@ const App = (props: AppProps) => {
                                     {mapNavnTilKomponent(valgtInformasjonsboks)}
                                 </div>
                             ))}
-
-                            <Button
-                                onClick={() => setValgteInformasjonsbokser(informasjonsboksAlternativer)}
-                                size="small"
-                                variant="tertiary"
-                                icon={<TrashIcon title="a11y-title" />}
-                            >
-                                Nullstill visning
-                            </Button>
-
-                            {lagredeKnappAktiv ? (
-                                <Button
-                                    onClick={() => {
-                                        sendOverblikkFilter(valgteInformasjonsbokser);
-                                        // Sender og fetcher parallelt? conditional fetching etter POST?
-                                        overblikkFilter.reFetch();
-                                    }}
-                                    size="small"
-                                    variant="secondary"
-                                >
-                                    Lagre visning
-                                </Button>
-                            ) : (
-                                <Button
-                                    disabled={true}
-                                    size="small"
-                                    variant="secondary"
-                                    icon={<CheckmarkIcon title="a11y-title" />}
-                                >
-                                    Lagret
-                                </Button>
-                            )}
-                        </Chips>
-                    </div>
-
-                    <div className="main_grid">
-                        {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                            <div key={valgtInformasjonsboks} className="box">
-                                {mapNavnTilKomponent(valgtInformasjonsboks)}
-                            </div>
-                        ))}
-                    </div>
-                </StoreProvider>
-            </div>
+                        </div>
+                    </StoreProvider>
+                </div>
             </SWRConfig>
         </main>
     );

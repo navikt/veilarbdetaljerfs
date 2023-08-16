@@ -62,7 +62,7 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent) => {
     return handterRespons(respons);
 };
 
-export const sendOverblikkFilter = async (event: string[]): Promise<any> => {
+export const sendOverblikkFilter = async (event: string[]): Promise<string[]> => {
     const url = `/veilarbfilter/api/overblikkvisning`;
     const respons = await fetch(url, createPOSToptions(event));
 
