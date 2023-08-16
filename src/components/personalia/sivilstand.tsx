@@ -10,6 +10,7 @@ import {
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formatStringInUpperAndLowerCaseUnderscore, formaterDato } from '../../utils/formater';
 import '../fellesStyling.css';
+import { PersonGroupIcon } from '@navikt/aksel-icons';
 
 function SivilstandBolk(props: { sivilstand: PersonaliaSivilstandNy }) {
     const { sivilstand, fraDato, skjermet, relasjonsBosted, gradering, master, registrertDato } = props.sivilstand;
@@ -48,7 +49,11 @@ function Sivilstand(props: { partner?: PersonaliaPartner; sivilstandliste?: Pers
         : EMDASH;
 
     return (
-        <Informasjonsbolk header="Sivilstand" headerTypo="ingress">
+        <Informasjonsbolk
+            header="Sivilstand"
+            headerTypo="ingress"
+            icon={<PersonGroupIcon title="Ikon som illustrerer en gruppe med personer" aria-hidden="true" />}
+        >
             {sivilstandListe}
         </Informasjonsbolk>
     );

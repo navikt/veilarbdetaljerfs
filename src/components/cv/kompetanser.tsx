@@ -8,15 +8,19 @@ import ListItem from '@navikt/ds-react/esm/list/ListItem';
 const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
     const kompetanser =
         kompetanse && kompetanse.length > 0
-            ? kompetanse?.map((kompetansen) => (
-                  <ListItem>
-                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>s{' '}
+            ? kompetanse?.map((kompetansen, index) => (
+                  <ListItem key={index}>
+                      <BodyShort size="small">{kompetansen.tittel}</BodyShort>{' '}
                   </ListItem>
               ))
             : EMDASH;
 
     return (
-        <Informasjonsbolk header="Kompetanser" icon={<FolderFileIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Kompetanser"
+            icon={<FolderFileIcon title="Ikon som illustrerer en mappe som inneholder en fil" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             <List as="ul">{kompetanser}</List>
         </Informasjonsbolk>
     );

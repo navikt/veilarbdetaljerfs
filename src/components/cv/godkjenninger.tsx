@@ -26,7 +26,11 @@ const Godkjenninger = ({ godkjenninger }: Pick<ArenaPerson, 'godkjenninger'>) =>
     ));
 
     return (
-        <Informasjonsbolk header="Offentlige godkjenninger" icon={<SealCheckmarkIcon />} headerTypo="ingress">
+        <Informasjonsbolk
+            header="Offentlige godkjenninger"
+            icon={<SealCheckmarkIcon title="Ikon som illustrerer et segl som er avhuket" aria-hidden="true" />}
+            headerTypo="ingress"
+        >
             {godkjenningListe}
         </Informasjonsbolk>
     );

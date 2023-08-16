@@ -36,9 +36,7 @@ function Telefon({ telefon }: Pick<PersonaliaV2Info, 'telefon'>) {
             <BodyShort size="small" className="body_header">
                 Telefon
             </BodyShort>
-            <BodyShort size="small" className="enkeltinfo_value">
-                {telefonListe}
-            </BodyShort>
+            <div className="enkeltinfo_value">{telefonListe}</div>
         </div>
     );
 }

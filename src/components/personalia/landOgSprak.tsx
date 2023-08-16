@@ -9,6 +9,7 @@ import StatsborgerskapInfo from './statsborgerskapinfo';
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
 import { hentMalform } from '../../utils/konstanter';
+import { GlobeIcon } from '@navikt/aksel-icons';
 
 const LandOgSprak = () => {
     const { fnr } = useAppStore();
@@ -18,7 +19,7 @@ const LandOgSprak = () => {
 
     const statsborgerskap: string[] = person.data?.statsborgerskap ?? [];
     const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolkData;
-    const maalform: OrNothing<String> = person.data?.malform;
+    const maalform: OrNothing<string> = person.data?.malform;
 
     if (tolkLoading) {
         return (
@@ -42,7 +43,11 @@ const LandOgSprak = () => {
     }
 
     return (
-        <Informasjonsbolk header="Land og språk" headerTypo="ingress">
+        <Informasjonsbolk
+            header="Land og språk"
+            headerTypo="ingress"
+            icon={<GlobeIcon title="Ikon som illustrerer en klode" aria-hidden="true" />}
+        >
             <StatsborgerskapInfo statsborgerskapData={statsborgerskap} />
             <TilrettelagtKommunikasjon tilrettelagtKommunikasjon={tilrettelagtKommunikasjon} />
             <EnkeltInformasjon header="Målform" value={hentMalform(maalform)} />

@@ -5,6 +5,8 @@ import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { isNotEmptyArray } from '../utils/felles-typer';
 import { useYtelser } from '../data/api/fetch';
+import { WalletIcon } from '@navikt/aksel-icons';
+import Informasjonsbolk from './felles/informasjonsbolk';
 
 export const Ytelser = () => {
     const { fnr } = useAppStore();
@@ -54,19 +56,22 @@ export const Ytelser = () => {
             <span className="info_container">
                 {ytelserData?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
-                        <Heading spacing level="2" size="small">
-                            {vedtak.vedtakstype || EMDASH}
-                        </Heading>
-                        <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
-                        <EnkeltInformasjon header={'Aktivitetsfase'} value={vedtak.aktivitetsfase || EMDASH} />
-                        <EnkeltInformasjon
-                            header="Fradato / Tildato"
-                            value={`${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year} - ${
-                                vedtak.tildato
-                                    ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
-                                    : 'Ingen tildato'
-                            }`}
-                        />
+                        <Informasjonsbolk
+                            header={vedtak.vedtakstype || EMDASH}
+                            headerTypo="ingress"
+                            icon={<WalletIcon title="Ikon som illustrerer en lommebok" aria-hidden="true" />}
+                        >
+                            <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
+                            <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />
+                            <EnkeltInformasjon
+                                header="Fra dato / Til dato"
+                                value={`${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year} - ${
+                                    vedtak.tildato
+                                        ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
+                                        : 'Ingen tildato'
+                                }`}
+                            />
+                        </Informasjonsbolk>
                     </div>
                 ))}
             </span>

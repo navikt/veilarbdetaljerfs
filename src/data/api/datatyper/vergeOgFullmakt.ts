@@ -19,16 +19,16 @@ export enum VergemaalEllerFullmaktOmfangType {
 }
 
 export interface Navn {
-    fornavn: String;
+    fornavn: string;
     mellomnavn: StringOrNothing;
-    etternavn: String;
-    forkortetNavn: String;
+    etternavn: string;
+    forkortetNavn: string;
 }
 
 export interface VergeNavn {
-    fornavn: String;
+    fornavn: string;
     mellomnavn: StringOrNothing;
-    etternavn: String;
+    etternavn: string;
 }
 
 export interface VergeEllerFullmektig {

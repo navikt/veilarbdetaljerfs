@@ -1,5 +1,7 @@
-import { BodyShort, Label, Heading } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { OrdinaerRegistrering, Registrering } from '../../data/api/datatyper/registreringsData';
+import { FileCheckmarkIcon } from '@navikt/aksel-icons';
+import Informasjonsbolk from '../felles/informasjonsbolk';
 
 interface Props {
     registrering: Registrering | undefined;
@@ -17,16 +19,22 @@ export function JobbetSammenhengende(props: Props) {
     }
 
     return (
-        <div>
-            <Heading spacing level="2" size="small">
-                Hentet fra Aa-registeret
-            </Heading>
+        <Informasjonsbolk
+            header="Hentet fra Aa-registeret"
+            headerTypo="ingress"
+            icon={
+                <FileCheckmarkIcon
+                    title="Ikon som illustrerer et dokument med et avhukningssymbol på"
+                    aria-hidden="true"
+                />
+            }
+        >
             <Label size="small" as="p">
                 Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder
             </Label>
             <BodyShort size="small">
-                {ordinaerRegistrering.profilering.jobbetSammenhengendeSeksAvTolvSisteManeder ? 'Ja' : 'Nei'}{' '}
-            </BodyShort>{' '}
-        </div>
+                {ordinaerRegistrering.profilering.jobbetSammenhengendeSeksAvTolvSisteManeder ? 'Ja' : 'Nei'}
+            </BodyShort>
+        </Informasjonsbolk>
     );
 }

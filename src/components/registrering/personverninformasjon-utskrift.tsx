@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Modal } from '@navikt/ds-react';
 import PersonverninformasjonSykmeldt from './personverninformasjon-sykmeldt';
 import PersonverninformasjonManuell from './personverninformasjon-manuell';
-import { PrinterSmallIcon, PrinterSmallFillIcon } from '@navikt/aksel-icons';
+import { PrinterSmallIcon } from '@navikt/aksel-icons';
 import { RegistreringType } from '../../data/api/datatyper/registreringsData';
 import { PrintKnappModal } from './print-knapp-modal';
 import Show from '../felles/show';
@@ -18,7 +18,6 @@ function erOrdinaer(type?: RegistreringType) {
 
 function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
     const [visPrintModal, setVisPrintModal] = useState<boolean>(false);
-    const [hover, setHover] = useState(false);
 
     return (
         <>
@@ -26,10 +25,8 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
                 variant="tertiary"
                 onClick={() => setVisPrintModal(true)}
                 type="button"
-                className="utskrift-knapp"
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
-                icon={hover ? <PrinterSmallFillIcon /> : <PrinterSmallIcon />}
+                className="utskrift_knapp"
+                icon={<PrinterSmallIcon title="Ikon som illustrerer en skriver" aria-hidden="true" />}
             >
                 Personverninformasjon, rettigheter og plikter
             </Button>
