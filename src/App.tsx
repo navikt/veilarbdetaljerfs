@@ -20,7 +20,7 @@ export interface AppProps {
 const App = (props: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
-    const informasjonsboksAlternativer = useMemo(
+    const informasjonsboksAlternativer: string[] = useMemo(
         () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'],
         []
     );
@@ -31,7 +31,7 @@ const App = (props: AppProps) => {
     const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>([]);
 
     const setInitielState = useCallback(
-        (informasjonbokser) => {
+        (informasjonbokser: string[]) => {
             setValgteInformasjonsbokser(informasjonbokser);
             setAvmerketInformasjonsbokser(informasjonsboksAlternativer.filter((x) => !informasjonbokser.includes(x)));
         },
@@ -47,7 +47,7 @@ const App = (props: AppProps) => {
         !areEqual(lagredeInformasjonsbokser, valgteInformasjonsbokser);
 
     useEffect(() => {
-        if (!overblikkFilter.isLoading && overblikkFilter.error?.status === 204) {
+        if (!overblikkFilter.isLoading && overblikkFilter.data && overblikkFilter.error?.status === 204) {
             setLagredeInformasjonsbokser(overblikkFilter.data);
         }
     }, [overblikkFilter.data, overblikkFilter.error, overblikkFilter.isLoading]);
