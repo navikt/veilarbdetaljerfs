@@ -1,6 +1,9 @@
 name: Deploy github pages
 on:
   workflow_dispatch:
+    push:
+      branches:
+        - main
 jobs:
   update-gh-pages:
     name: Update GitHub pages
@@ -18,7 +21,7 @@ jobs:
       - name: Build mock application
         run: npm run build:gh-pages
       - name: Update GitHub pages
-        uses: softprops/action-gh-release@v1
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
