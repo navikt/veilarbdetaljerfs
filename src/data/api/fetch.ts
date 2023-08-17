@@ -1,4 +1,4 @@
-import { GEToptions, createPOSToptions } from './datatyper/apiOptions';
+import { createPOSToptions, GEToptions } from './datatyper/apiOptions';
 import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 import { PersonaliaV2Info } from './datatyper/personalia';
 import { RegistreringsData } from './datatyper/registreringsData';
@@ -21,31 +21,28 @@ interface ErrorMessage {
 
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
-        const error: ErrorMessage = {
+        throw {
             error: new Error('An error occurred while fetching the data.'),
             status: respons.status,
             info: await respons.json()
         };
-        throw error;
     }
     if (respons.status === 204) {
-        const error: ErrorMessage = {
+        throw {
             error: new Error('No content'),
             status: respons.status,
             info: null
         };
-        throw error;
     }
 
     try {
         return await respons.json();
     } catch (err) {
-        const error: ErrorMessage = {
+        throw {
             error: err,
             status: null,
             info: null
         };
-        throw error;
     }
 };
 
@@ -70,7 +67,7 @@ export const sendOverblikkFilter = async (event: string[]): Promise<string[]> =>
 };
 
 export const useOverblikkFilter = () => {
-    const { data, error, isLoading, mutate } = useSWR<{overblikkVisning: string[]}, ErrorMessage>(
+    const { data, error, isLoading, mutate } = useSWR<string[], ErrorMessage>(
         `/veilarbfilter/api/overblikkvisning`,
         fetcher,
         {

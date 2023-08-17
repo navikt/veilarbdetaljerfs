@@ -9,7 +9,7 @@ import { Ytelser } from './components/ytelserinfo';
 import { Alert, BodyShort, Button, Chips, Heading } from '@navikt/ds-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
-import { TrashIcon, CheckmarkIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
+import { TrashIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
 import { SWRConfig } from 'swr';
 
 export interface AppProps {
@@ -28,7 +28,8 @@ const App = (props: AppProps) => {
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [avmerketInformasjonsbokser, setAvmerketInformasjonsbokser] = useState<string[]>([]);
 
-    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>([]);
+    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
+    const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
 
     const setInitielState = useCallback(
         (informasjonbokser: string[]) => {
@@ -38,21 +39,15 @@ const App = (props: AppProps) => {
         [informasjonsboksAlternativer]
     );
 
-    const areEqual = (array1: string[], array2: string[]) => {
-        return JSON.stringify(array1) === JSON.stringify(array2);
-    };
-
-    const lagredeKnappAktiv =
-        lagredeInformasjonsbokser.length != valgteInformasjonsbokser.length ||
-        !areEqual(lagredeInformasjonsbokser, valgteInformasjonsbokser);
-
     useEffect(() => {
         if (!overblikkFilter.isLoading && overblikkFilter.data && overblikkFilter.error?.status === 204) {
+            setVisLagreInfo(true);
             setLagredeInformasjonsbokser(overblikkFilter.data);
         }
     }, [overblikkFilter.data, overblikkFilter.error, overblikkFilter.isLoading]);
 
     const toggleComponent = (komponentNavn: string) => {
+        setVisLagreInfo(false);
         if (valgteInformasjonsbokser.includes(komponentNavn)) {
             setValgteInformasjonsbokser(valgteInformasjonsbokser.filter((x) => x !== komponentNavn));
             avmerketInformasjonsbokser.unshift(komponentNavn);
@@ -85,14 +80,7 @@ const App = (props: AppProps) => {
 
     return (
         <main className="app veilarbdetaljerfs">
-            <SWRConfig
-                value={{
-                    shouldRetryOnError: false,
-                    revalidateIfStale: false,
-                    revalidateOnFocus: false,
-                    revalidateOnReconnect: false
-                }}
-            >
+            <SWRConfig>
                 <div className="overblikk">
                     <StoreProvider fnr={props.fnr}>
                         <Alert variant="warning" className="pilot_alert">
@@ -141,38 +129,32 @@ const App = (props: AppProps) => {
                                     Nullstill visning
                                 </Button>
 
-                                {lagredeKnappAktiv ? (
-                                    <Button
-                                        onClick={() => {
-                                            sendOverblikkFilter(valgteInformasjonsbokser);
-                                            // Sender og fetcher parallelt? conditional fetching etter POST?
-                                            overblikkFilter.reFetch();
-                                        }}
-                                        size="small"
-                                        variant="secondary"
-                                    >
-                                        Lagre visning
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        disabled={true}
-                                        size="small"
-                                        variant="secondary"
-                                        icon={<CheckmarkIcon title="a11y-title" />}
-                                    >
-                                        Lagret
-                                    </Button>
-                                )}
+                                <Button
+                                    onClick={() => {
+                                        sendOverblikkFilter(valgteInformasjonsbokser);
+                                        // Sender og fetcher parallelt? conditional fetching etter POST?
+                                        overblikkFilter.reFetch();
+                                    }}
+                                    size="small"
+                                    variant="secondary"
+                                >
+                                    Lagre visning
+                                </Button>
+                                {visLagreInfo ? (
+                                    <Alert variant="success" aria-live={'polite'} inline size="small">
+                                        Visning er lagret!
+                                    </Alert>
+                                ) : null}
                             </Chips>
                         </div>
 
-                        <div className="main_grid">
+                        <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                 <div key={valgtInformasjonsboks} className="box">
                                     {mapNavnTilKomponent(valgtInformasjonsboks)}
                                 </div>
                             ))}
-                        </div>
+                        </section>
                     </StoreProvider>
                 </div>
             </SWRConfig>
