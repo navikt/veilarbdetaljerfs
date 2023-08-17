@@ -70,7 +70,7 @@ export const sendOverblikkFilter = async (event: string[]): Promise<string[]> =>
 };
 
 export const useOverblikkFilter = () => {
-    const { data, error, isLoading, mutate } = useSWR<string[], ErrorMessage>(
+    const { data, error, isLoading, mutate } = useSWR<{overblikkVisning: string[]}, ErrorMessage>(
         `/veilarbfilter/api/overblikkvisning`,
         fetcher,
         {
