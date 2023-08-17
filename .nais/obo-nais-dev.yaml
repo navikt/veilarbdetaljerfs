@@ -38,26 +38,26 @@ spec:
   env:
     - name: JSON_CONFIG
       value: >
-          {
-          "enableSecureLogs": true,
-          "auth": {
-            "loginProvider": "AZURE_AD"
+        {
+        "enableSecureLogs": true,
+        "auth": {
+          "loginProvider": "AZURE_AD"
+        }
+        "cors": {
+          "origin": "https://veilarbpersonflate.intern.dev.nav.no"
+        },
+        "gcs": {
+          "bucketName": "obo-veilarbdetaljerfs-dev"
+        },
+        "proxies": [
+        {
+          "fromPath": "/veilarbfilter",
+          "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
+          "preserveFromPath": true,
+          "toApp": {
+            "name": "veilarbfilter",
+            "namespace": "pto",
+            "cluster": "dev-fss"
           }
-          "cors": {
-            "origin": "https://veilarbpersonflate.intern.dev.nav.no"
-          },
-          "gcs": {
-            "bucketName": "obo-veilarbdetaljerfs-dev"
-          },
-          "proxies": [
-          {
-            "fromPath": "/veilarbfilter",
-            "toUrl": "https://veilarbfilter.dev-fss-pub.nais.io",
-            "preserveFromPath": true,
-            "toApp": {
-              "name": "veilarbfilter",
-              "namespace": "pto",
-              "cluster": "dev-fss"
-            }
-          }]
+        }]
         }
