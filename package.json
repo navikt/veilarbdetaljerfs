@@ -10,7 +10,8 @@
         "preview": "vite preview",
         "prettier:check": "prettier --check src --config .prettierrc.json",
         "prettier:write": "prettier --write src --config .prettierrc.json",
-        "test": "vitest"
+        "test": "vitest",
+        "build:gh-pages": "VITE_USE_HASH_ROUTER=true vite build --mode=dev --base=/veilarbdetaljerfs/"
     },
     "dependencies": {
         "@navikt/ds-css": "^4.4.0",
