@@ -50,7 +50,6 @@ spec:
           "gcs": {
             "bucketName": "obo-veilarbdetaljerfs-prod"
           },
-      
           "proxies": [
           {
               "fromPath": "/veilarbfilter",
