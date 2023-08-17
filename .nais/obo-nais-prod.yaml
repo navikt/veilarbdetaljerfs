@@ -55,7 +55,7 @@ spec:
           {
               "fromPath": "/veilarbfilter",
               "toUrl": "https://veilarbfilter.prod-fss-pub.nais.io",
-              "preserveFromPath": false,
+              "preserveFromPath": true,
               "toApp": {
                 "name": "veilarbfilter",
                 "namespace": "pto",
