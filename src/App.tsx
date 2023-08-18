@@ -99,12 +99,13 @@ const App = (props: AppProps) => {
                         </Alert>
                         <Nokkelinfo />
                         <div className="overblikk_chips">
-                            <Chips>
+                            <Chips size={"small"}>
                                 {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
                                         selected={true}
                                         onClick={() => toggleComponent(alternativ)}
+                                        variant={"neutral"}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
