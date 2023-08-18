@@ -42,7 +42,7 @@ const App = (props: AppProps) => {
     useEffect(() => {
         if (!overblikkFilter.isLoading && overblikkFilter.data && overblikkFilter.error?.status === 204) {
             setVisLagreInfo(true);
-            setLagredeInformasjonsbokser(overblikkFilter.data);
+            setLagredeInformasjonsbokser(overblikkFilter.data.overblikkVisning);
         }
     }, [overblikkFilter.data, overblikkFilter.error, overblikkFilter.isLoading]);
 
@@ -99,13 +99,13 @@ const App = (props: AppProps) => {
                         </Alert>
                         <Nokkelinfo />
                         <div className="overblikk_chips">
-                            <Chips size={"small"}>
+                            <Chips size={'small'}>
                                 {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
                                         selected={true}
                                         onClick={() => toggleComponent(alternativ)}
-                                        variant={"neutral"}
+                                        variant={'neutral'}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
@@ -132,7 +132,7 @@ const App = (props: AppProps) => {
 
                                 <Button
                                     onClick={() => {
-                                        sendOverblikkFilter(valgteInformasjonsbokser);
+                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser });
                                         // Sender og fetcher parallelt? conditional fetching etter POST?
                                         overblikkFilter.reFetch();
                                     }}

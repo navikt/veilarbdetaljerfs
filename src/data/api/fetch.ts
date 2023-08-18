@@ -19,6 +19,14 @@ interface ErrorMessage {
     info: StringOrNothing;
 }
 
+export interface overblikkVisningRequest {
+    overblikkVisning: string[];
+}
+
+export interface overblikkVisningResponse {
+    overblikkVisning: string[];
+}
+
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
         throw {
@@ -29,7 +37,7 @@ const handterRespons = async (respons: Response) => {
     }
     if (respons.status === 204) {
         throw {
-            error: new Error('No content'),
+            error: null,
             status: respons.status,
             info: null
         };
@@ -59,15 +67,15 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent) => {
     return handterRespons(respons);
 };
 
-export const sendOverblikkFilter = async (event: string[]): Promise<string[]> => {
+export const sendOverblikkFilter = async (request: overblikkVisningRequest) => {
     const url = `/veilarbfilter/api/overblikkvisning`;
-    const respons = await fetch(url, createPOSToptions(event));
+    const respons = await fetch(url, createPOSToptions(request));
 
     return handterRespons(respons);
 };
 
 export const useOverblikkFilter = () => {
-    const { data, error, isLoading, mutate } = useSWR<string[], ErrorMessage>(
+    const { data, error, isLoading, mutate } = useSWR<overblikkVisningResponse, ErrorMessage>(
         `/veilarbfilter/api/overblikkvisning`,
         fetcher,
         {

@@ -1,10 +1,13 @@
 import { rest } from 'msw';
 import { RequestHandler } from 'msw';
 import { LiveStorage } from '@mswjs/storage';
+import { overblikkVisningResponse } from '../../api/fetch.ts';
 
-const chips: string[] = ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia'];
+const chips: overblikkVisningResponse = {
+    overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia']
+};
 
-const lagredeInformasjonsbokser = new LiveStorage<string[]>('lagredeInformasjonsbokser', chips);
+const lagredeInformasjonsbokser = new LiveStorage<string[]>('lagredeInformasjonsbokser', chips.overblikkVisning);
 
 export const veilarbfilterHandlers: RequestHandler[] = [
     rest.get('/veilarbfilter/api/overblikkvisning', (_, res, ctx) => {
