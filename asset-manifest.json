@@ -7,8 +7,19 @@
     "css": [
       "assets/index-54d03834.css"
     ],
-    "file": "assets/index-c0c0c806.js",
+    "dynamicImports": [
+      "src/data/mock/index.ts"
+    ],
+    "file": "assets/index-9e23240c.js",
     "isEntry": true,
     "src": "index.html"
+  },
+  "src/data/mock/index.ts": {
+    "file": "assets/index-679bbd55.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/data/mock/index.ts"
   }
 }
