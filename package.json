@@ -11,7 +11,7 @@
         "prettier:check": "prettier --check src --config .prettierrc.json",
         "prettier:write": "prettier --write src --config .prettierrc.json",
         "test": "vitest",
-        "build:gh-pages":" vite build --mode=dev --base=/veilarbdetaljerfs/"
+        "build:gh-pages":"tsc && vite build --mode development --base /veilarbdetaljerfs/"
     },
     "dependencies": {
         "@navikt/ds-css": "^4.4.0",
