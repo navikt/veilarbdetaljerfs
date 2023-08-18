@@ -33,6 +33,9 @@ spec:
         cascadingDelete: false
   accessPolicy:
     outbound:
+      rules:
+        - application: veilarbfilter
+          namespace: pto
       external:
         - host: veilarbfilter.dev-fss-pub.nais.io
   env:
@@ -41,9 +44,6 @@ spec:
         {
           "enableSecureLogs": true,
           "fallbackStrategy": "SERVE_INDEX_HTML",
-          "auth": {
-            "loginProvider": "AZURE_AD"
-          },
           "cors": {
             "origin": "https://veilarbpersonflate.intern.dev.nav.no"
           },
