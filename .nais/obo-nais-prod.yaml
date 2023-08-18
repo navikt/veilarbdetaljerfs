@@ -49,6 +49,9 @@ spec:
           "gcs": {
             "bucketName": "obo-veilarbdetaljerfs-prod"
           },
+          "auth": {
+            "loginProvider": "AZURE_AD"
+          },
           "proxies": [
           {
               "fromPath": "/veilarbfilter",
