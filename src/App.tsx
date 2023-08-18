@@ -7,7 +7,7 @@ import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
 import { Alert, BodyShort, Button, Chips, Heading } from '@navikt/ds-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { TrashIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
 import { SWRConfig } from 'swr';
@@ -26,38 +26,17 @@ const App = (props: AppProps) => {
     );
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
-    const [avmerketInformasjonsbokser, setAvmerketInformasjonsbokser] = useState<string[]>([]);
 
-    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
+    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>([]);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
 
-    const setInitielState = useCallback(
-        (informasjonbokser: string[]) => {
-            setValgteInformasjonsbokser(informasjonbokser);
-            setAvmerketInformasjonsbokser(informasjonsboksAlternativer.filter((x) => !informasjonbokser.includes(x)));
-        },
-        [informasjonsboksAlternativer]
-    );
-
     useEffect(() => {
-        if (!overblikkFilter.isLoading && overblikkFilter.data && overblikkFilter.error?.status === 204) {
-            setVisLagreInfo(true);
-            setLagredeInformasjonsbokser(overblikkFilter.data.overblikkVisning);
+        if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
+            const lagretData = overblikkFilter.data.overblikkVisning;
+            setLagredeInformasjonsbokser(lagretData);
+            setValgteInformasjonsbokser(lagretData);
         }
-    }, [overblikkFilter.data, overblikkFilter.error, overblikkFilter.isLoading]);
-
-    const toggleComponent = (komponentNavn: string) => {
-        setVisLagreInfo(false);
-        if (valgteInformasjonsbokser.includes(komponentNavn)) {
-            setValgteInformasjonsbokser(valgteInformasjonsbokser.filter((x) => x !== komponentNavn));
-            avmerketInformasjonsbokser.unshift(komponentNavn);
-            setAvmerketInformasjonsbokser(avmerketInformasjonsbokser);
-        } else {
-            setAvmerketInformasjonsbokser(avmerketInformasjonsbokser.filter((x) => x !== komponentNavn));
-            valgteInformasjonsbokser.push(komponentNavn);
-            setValgteInformasjonsbokser(valgteInformasjonsbokser);
-        }
-    };
+    }, [informasjonsboksAlternativer, overblikkFilter.data]);
 
     const mapNavnTilKomponent = (navn: string) => {
         switch (navn) {
@@ -104,25 +83,38 @@ const App = (props: AppProps) => {
                                     <Chips.Toggle
                                         key={alternativ}
                                         selected={true}
-                                        onClick={() => toggleComponent(alternativ)}
+                                        onClick={() => {
+                                            setVisLagreInfo(false);
+                                            const filteredArray = valgteInformasjonsbokser.filter(
+                                                (item) => item !== alternativ
+                                            );
+                                            setValgteInformasjonsbokser(filteredArray);
+                                        }}
                                         variant={'neutral'}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
                                 ))}
 
-                                {avmerketInformasjonsbokser.map((alternativ) => (
-                                    <Chips.Toggle
-                                        key={alternativ}
-                                        selected={false}
-                                        onClick={() => toggleComponent(alternativ)}
-                                    >
-                                        {alternativ}
-                                    </Chips.Toggle>
-                                ))}
+                                {informasjonsboksAlternativer
+                                    .filter((x) => !valgteInformasjonsbokser.includes(x))
+                                    .map((alternativ) => (
+                                        <Chips.Toggle
+                                            key={alternativ}
+                                            selected={false}
+                                            onClick={() => {
+                                                setVisLagreInfo(false);
+                                                setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
+                                            }}
+                                        >
+                                            {alternativ}
+                                        </Chips.Toggle>
+                                    ))}
 
                                 <Button
-                                    onClick={() => setInitielState(lagredeInformasjonsbokser)}
+                                    onClick={() => {
+                                        setValgteInformasjonsbokser(lagredeInformasjonsbokser);
+                                    }}
                                     size="small"
                                     variant="tertiary"
                                     icon={<TrashIcon title="a11y-title" />}
@@ -132,9 +124,11 @@ const App = (props: AppProps) => {
 
                                 <Button
                                     onClick={() => {
-                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser });
-                                        // Sender og fetcher parallelt? conditional fetching etter POST?
-                                        overblikkFilter.reFetch();
+                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(
+                                            () => {
+                                                overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
+                                            }
+                                        );
                                     }}
                                     size="small"
                                     variant="secondary"

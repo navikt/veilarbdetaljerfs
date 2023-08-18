@@ -14,6 +14,7 @@ export const createPOSToptions = (event: FrontendEvent | overblikkVisningRequest
     method: 'POST',
     body: JSON.stringify(event),
     headers: {
+        'Content-Type': 'application/json',
         'Nav-Consumer-Id': 'veilarbdetaljerfs'
     }
 });
