@@ -34,16 +34,15 @@ spec:
 
   accessPolicy:
     outbound:
+      rules:
+        - application: veilarbfilter
+          namespace: pto
       external:
         - host: veilarbfilter.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
         {
-          "enableSecureLogs": true,
-          "auth": {
-            "loginProvider": "AZURE_AD"
-          },
           "cors": {
             "origin": "https://veilarbpersonflate.intern.nav.no"
           },

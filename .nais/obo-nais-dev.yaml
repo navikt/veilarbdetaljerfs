@@ -42,7 +42,6 @@ spec:
     - name: JSON_CONFIG
       value: >
         {
-          "enableSecureLogs": true,
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "cors": {
             "origin": "https://veilarbpersonflate.intern.dev.nav.no"
