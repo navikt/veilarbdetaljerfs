@@ -6,7 +6,7 @@ metadata:
   labels:
     team: obo
 spec:
-  image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.01.13_08.09-36c09678654f
+  image: ghcr.io/navikt/poao-frontend/poao-frontend:2023.07.24_08.48-0eb05ecdf7ea
   port: 8080
   ingresses:
     - https://veilarbdetaljer.intern.dev.nav.no
@@ -33,14 +33,23 @@ spec:
         cascadingDelete: false
   accessPolicy:
     outbound:
+      rules:
+        - application: veilarbfilter
+          namespace: pto
       external:
         - host: veilarbfilter.dev-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
         {
+          "fallbackStrategy": "SERVE_INDEX_HTML",
           "cors": {
             "origin": "https://veilarbpersonflate.intern.dev.nav.no"
+          },
+          "header": {
+            "csp": {
+              "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no"]
+             }
           },
           "gcs": {
             "bucketName": "obo-veilarbdetaljerfs-dev"
