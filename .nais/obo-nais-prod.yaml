@@ -31,14 +31,6 @@ spec:
     buckets:
       - name: obo-veilarbdetaljerfs-prod
         cascadingDelete: false
-
-  accessPolicy:
-    outbound:
-      rules:
-        - application: veilarbfilter
-          namespace: pto
-      external:
-        - host: veilarbfilter.prod-fss-pub.nais.io
   env:
     - name: JSON_CONFIG
       value: >
@@ -48,16 +40,5 @@ spec:
           },
           "gcs": {
             "bucketName": "obo-veilarbdetaljerfs-prod"
-          },
-          "proxies": [
-          {
-              "fromPath": "/veilarbfilter",
-              "toUrl": "https://veilarbfilter.prod-fss-pub.nais.io",
-              "preserveFromPath": true,
-              "toApp": {
-                "name": "veilarbfilter",
-                "namespace": "pto",
-                "cluster": "prod-fss"
-              }
-          }]
+          }
         }
