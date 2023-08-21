@@ -27,7 +27,7 @@ const App = (props: AppProps) => {
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
 
-    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>([]);
+    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
 
     useEffect(() => {
