@@ -27,14 +27,16 @@ const App = (props: AppProps) => {
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
 
-    const [lagredeInformasjonsbokser, setLagredeInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
 
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
             const lagretData = overblikkFilter.data.overblikkVisning;
-            setLagredeInformasjonsbokser(lagretData);
-            setValgteInformasjonsbokser(lagretData);
+            if (lagretData.length > 0) {
+                setValgteInformasjonsbokser(lagretData);
+            } else {
+                setValgteInformasjonsbokser(informasjonsboksAlternativer);
+            }
         }
     }, [informasjonsboksAlternativer, overblikkFilter.data]);
 
@@ -59,7 +61,14 @@ const App = (props: AppProps) => {
 
     return (
         <main className="app veilarbdetaljerfs">
-            <SWRConfig>
+            <SWRConfig
+                value={{
+                    shouldRetryOnError: false,
+                    revalidateIfStale: false,
+                    revalidateOnFocus: false,
+                    revalidateOnReconnect: false
+                }}
+            >
                 <div className="overblikk">
                     <StoreProvider fnr={props.fnr}>
                         <Alert variant="warning" className="pilot_alert">
@@ -78,17 +87,16 @@ const App = (props: AppProps) => {
                         </Alert>
                         <Nokkelinfo />
                         <div className="overblikk_chips">
-                            <Chips size={'small'}>
+                            <Chips size="small">
                                 {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
                                         selected={true}
                                         onClick={() => {
                                             setVisLagreInfo(false);
-                                            const filteredArray = valgteInformasjonsbokser.filter(
-                                                (item) => item !== alternativ
+                                            setValgteInformasjonsbokser(
+                                                valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                             );
-                                            setValgteInformasjonsbokser(filteredArray);
                                         }}
                                         variant={'neutral'}
                                     >
@@ -106,6 +114,7 @@ const App = (props: AppProps) => {
                                                 setVisLagreInfo(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                             }}
+                                            variant={'neutral'}
                                         >
                                             {alternativ}
                                         </Chips.Toggle>
@@ -113,7 +122,7 @@ const App = (props: AppProps) => {
 
                                 <Button
                                     onClick={() => {
-                                        setValgteInformasjonsbokser(lagredeInformasjonsbokser);
+                                        setValgteInformasjonsbokser(informasjonsboksAlternativer);
                                     }}
                                     size="small"
                                     variant="tertiary"

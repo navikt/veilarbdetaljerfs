@@ -19,6 +19,11 @@
     margin-left: var(--a-spacing-10);
     margin-bottom: var(--a-spacing-5);
 }
+.overblikk_chips .navds-chips--small li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .underinformasjon {
     margin-bottom: var(--a-spacing-4);
 }
