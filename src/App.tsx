@@ -1,11 +1,11 @@
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
 import Cvinnhold from './components/cv-innhold';
-import Jobbonskerinnhold from './components/jobbonsker';
-import Oppfolgingsinnhold from './components/oppfolging';
-import Personaliainnhold from './components/personalia-boks';
-import Registreringsinnhold from './components/registreringsInfo';
-import Ytelsesinnhold from './components/ytelserinfo';
+import Jobbonskerinnhold from './components/jobbonsker-innhold';
+import Oppfolgingsinnhold from './components/oppfolging-innhold';
+import Personaliainnhold from './components/personalia-innhold';
+import Registreringsinnhold from './components/registrering-innhold';
+import Ytelsesinnhold from './components/ytelser-innhold';
 import { Alert, BodyShort, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
