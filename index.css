@@ -11,8 +11,7 @@
 
 .main_grid {
     column-count: 2;
-    padding-left: var(--a-spacing-10);
-    padding-right: var(--a-spacing-10);
+    padding: 0 var(--a-spacing-10) var(--a-spacing-10);
 }
 
 .overblikk_chips {

@@ -54,6 +54,7 @@
 }
 .pilot_alert {
     margin: var(--a-spacing-3) var(--a-spacing-10) var(--a-spacing-3) var(--a-spacing-10);
+    border-radius: var(--a-border-radius-large);
 }
 
 .typografi_dato {
