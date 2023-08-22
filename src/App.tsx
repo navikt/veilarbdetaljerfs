@@ -6,9 +6,10 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Alert, BodyShort, Chips, Heading } from '@navikt/ds-react';
-import { useState } from 'react';
-import { ExternalLinkIcon } from '@navikt/aksel-icons';
+import { Alert, BodyShort, Button, Chips, Heading } from '@navikt/ds-react';
+import { useEffect, useMemo, useState } from 'react';
+import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
+import { TrashIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
 import { SWRConfig } from 'swr';
 
 export interface AppProps {
@@ -17,17 +18,27 @@ export interface AppProps {
 }
 
 const App = (props: AppProps) => {
-    const informasjonsboksAlternativer = ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'];
+    const overblikkFilter = useOverblikkFilter();
+
+    const informasjonsboksAlternativer: string[] = useMemo(
+        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'],
+        []
+    );
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
 
-    const toggleComponent = (konponentNavn: string) => {
-        setValgteInformasjonsbokser((tidligereValgteKomponenter) =>
-            tidligereValgteKomponenter.includes(konponentNavn)
-                ? tidligereValgteKomponenter.filter((navn) => navn !== konponentNavn)
-                : [...tidligereValgteKomponenter, konponentNavn]
-        );
-    };
+    const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
+            const lagretData = overblikkFilter.data.overblikkVisning;
+            if (lagretData.length > 0) {
+                setValgteInformasjonsbokser(lagretData);
+            } else {
+                setValgteInformasjonsbokser(informasjonsboksAlternativer);
+            }
+        }
+    }, [informasjonsboksAlternativer, overblikkFilter.data]);
 
     const mapNavnTilKomponent = (navn: string) => {
         switch (navn) {
@@ -76,26 +87,78 @@ const App = (props: AppProps) => {
                         </Alert>
                         <Nokkelinfo />
                         <div className="overblikk_chips">
-                            <Chips>
-                                {informasjonsboksAlternativer.map((alternativ) => (
+                            <Chips size="small">
+                                {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
-                                        selected={valgteInformasjonsbokser.includes(alternativ)}
-                                        onClick={() => toggleComponent(alternativ)}
+                                        selected={true}
+                                        onClick={() => {
+                                            setVisLagreInfo(false);
+                                            setValgteInformasjonsbokser(
+                                                valgteInformasjonsbokser.filter((item) => item !== alternativ)
+                                            );
+                                        }}
+                                        variant={'neutral'}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
                                 ))}
+
+                                {informasjonsboksAlternativer
+                                    .filter((x) => !valgteInformasjonsbokser.includes(x))
+                                    .map((alternativ) => (
+                                        <Chips.Toggle
+                                            key={alternativ}
+                                            selected={false}
+                                            onClick={() => {
+                                                setVisLagreInfo(false);
+                                                setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
+                                            }}
+                                            variant={'neutral'}
+                                        >
+                                            {alternativ}
+                                        </Chips.Toggle>
+                                    ))}
+
+                                <Button
+                                    onClick={() => {
+                                        setValgteInformasjonsbokser(informasjonsboksAlternativer);
+                                    }}
+                                    size="small"
+                                    variant="tertiary"
+                                    icon={<TrashIcon title="a11y-title" />}
+                                >
+                                    Nullstill visning
+                                </Button>
+
+                                <Button
+                                    onClick={() => {
+                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(
+                                            () => {
+                                                overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
+                                            }
+                                        );
+                                    }}
+                                    size="small"
+                                    variant="secondary"
+                                >
+                                    Lagre visning
+                                </Button>
+                                {visLagreInfo ? (
+                                    <Alert variant="success" aria-live={'polite'} inline size="small">
+                                        Visning er lagret!
+                                    </Alert>
+                                ) : null}
                             </Chips>
                         </div>
 
-                        <div className="main_grid">
+                        <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                 <div key={valgtInformasjonsboks} className="box">
                                     {mapNavnTilKomponent(valgtInformasjonsboks)}
                                 </div>
                             ))}
-                        </div>
+                        </section>
                     </StoreProvider>
                 </div>
             </SWRConfig>

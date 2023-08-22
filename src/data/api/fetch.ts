@@ -1,4 +1,4 @@
-import { GEToptions, createPOSToptions } from './datatyper/apiOptions';
+import { createPOSToptions, GEToptions } from './datatyper/apiOptions';
 import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 import { PersonaliaV2Info } from './datatyper/personalia';
 import { RegistreringsData } from './datatyper/registreringsData';
@@ -19,33 +19,38 @@ interface ErrorMessage {
     info: StringOrNothing;
 }
 
+export interface overblikkVisningRequest {
+    overblikkVisning: string[];
+}
+
+export interface overblikkVisningResponse {
+    overblikkVisning: string[];
+}
+
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
-        const error: ErrorMessage = {
+        throw {
             error: new Error('An error occurred while fetching the data.'),
             status: respons.status,
             info: await respons.json()
         };
-        throw error;
     }
     if (respons.status === 204) {
-        const error: ErrorMessage = {
-            error: new Error('No content'),
+        throw {
+            error: null,
             status: respons.status,
             info: null
         };
-        throw error;
     }
 
     try {
         return await respons.json();
     } catch (err) {
-        const error: ErrorMessage = {
+        throw {
             error: err,
             status: null,
             info: null
         };
-        throw error;
     }
 };
 
@@ -62,6 +67,27 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent) => {
     return handterRespons(respons);
 };
 
+export const sendOverblikkFilter = async (request: overblikkVisningRequest) => {
+    const url = `/veilarbfilter/api/overblikkvisning`;
+    const respons = await fetch(url, createPOSToptions(request));
+
+    return handterRespons(respons);
+};
+
+export const useOverblikkFilter = () => {
+    const { data, error, isLoading, mutate } = useSWR<overblikkVisningResponse, ErrorMessage>(
+        `/veilarbfilter/api/overblikkvisning`,
+        fetcher,
+        {
+            shouldRetryOnError: false,
+            revalidateIfStale: false,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false
+        }
+    );
+
+    return { data, isLoading, error, reFetch: mutate };
+};
 export const useCvOgJobbonsker = (fnr: string) => {
     const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
         `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,
