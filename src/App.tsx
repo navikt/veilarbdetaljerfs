@@ -6,7 +6,7 @@ import Oppfolging from './components/oppfolging';
 import PersonaliaBoks from './components/personalia-boks';
 import { Registrering } from './components/registreringsInfo';
 import { Ytelser } from './components/ytelserinfo';
-import { Alert, BodyShort, Button, Chips, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { TrashIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
@@ -86,17 +86,32 @@ const App = (props: AppProps) => {
                             </a>
                         </Alert>
                         <Nokkelinfo />
-                        <div className="overblikk_chips">
-                            <Chips size="small">
-                                {valgteInformasjonsbokser.map((alternativ) => (
+                        <Chips size="small" className="overblikk_chips">
+                            {valgteInformasjonsbokser.map((alternativ) => (
+                                <Chips.Toggle
+                                    key={alternativ}
+                                    selected={true}
+                                    onClick={() => {
+                                        setVisLagreInfo(false);
+                                        setValgteInformasjonsbokser(
+                                            valgteInformasjonsbokser.filter((item) => item !== alternativ)
+                                        );
+                                    }}
+                                    variant={'neutral'}
+                                >
+                                    {alternativ}
+                                </Chips.Toggle>
+                            ))}
+
+                            {informasjonsboksAlternativer
+                                .filter((x) => !valgteInformasjonsbokser.includes(x))
+                                .map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
-                                        selected={true}
+                                        selected={false}
                                         onClick={() => {
                                             setVisLagreInfo(false);
-                                            setValgteInformasjonsbokser(
-                                                valgteInformasjonsbokser.filter((item) => item !== alternativ)
-                                            );
+                                            setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                         }}
                                         variant={'neutral'}
                                     >
@@ -104,53 +119,34 @@ const App = (props: AppProps) => {
                                     </Chips.Toggle>
                                 ))}
 
-                                {informasjonsboksAlternativer
-                                    .filter((x) => !valgteInformasjonsbokser.includes(x))
-                                    .map((alternativ) => (
-                                        <Chips.Toggle
-                                            key={alternativ}
-                                            selected={false}
-                                            onClick={() => {
-                                                setVisLagreInfo(false);
-                                                setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
-                                            }}
-                                            variant={'neutral'}
-                                        >
-                                            {alternativ}
-                                        </Chips.Toggle>
-                                    ))}
+                            <Button
+                                onClick={() => {
+                                    setValgteInformasjonsbokser(informasjonsboksAlternativer);
+                                }}
+                                size="small"
+                                variant="tertiary"
+                                icon={<TrashIcon title="a11y-title" />}
+                            >
+                                Nullstill visning
+                            </Button>
 
-                                <Button
-                                    onClick={() => {
-                                        setValgteInformasjonsbokser(informasjonsboksAlternativer);
-                                    }}
-                                    size="small"
-                                    variant="tertiary"
-                                    icon={<TrashIcon title="a11y-title" />}
-                                >
-                                    Nullstill visning
-                                </Button>
-
-                                <Button
-                                    onClick={() => {
-                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(
-                                            () => {
-                                                overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
-                                            }
-                                        );
-                                    }}
-                                    size="small"
-                                    variant="secondary"
-                                >
-                                    Lagre visning
-                                </Button>
-                                {visLagreInfo ? (
-                                    <Alert variant="success" aria-live={'polite'} inline size="small">
-                                        Visning er lagret!
-                                    </Alert>
-                                ) : null}
-                            </Chips>
-                        </div>
+                            <Button
+                                onClick={() => {
+                                    sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(() => {
+                                        overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
+                                    });
+                                }}
+                                size="small"
+                                variant="secondary"
+                            >
+                                Lagre visning
+                            </Button>
+                            {visLagreInfo ? (
+                                <Alert variant="success" aria-live={'polite'} inline size="small">
+                                    Visning er lagret!
+                                </Alert>
+                            ) : null}
+                        </Chips>
 
                         <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
