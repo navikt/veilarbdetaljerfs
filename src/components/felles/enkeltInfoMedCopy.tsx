@@ -2,7 +2,6 @@ import { BodyShort, CopyButton } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
 import { StringOrNothing } from '../../utils/felles-typer';
 import '../fellesStyling.css';
-import { FilesIcon } from '@navikt/aksel-icons';
 
 interface Props {
     header: string;
