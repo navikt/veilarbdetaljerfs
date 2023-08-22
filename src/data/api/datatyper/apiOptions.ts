@@ -1,4 +1,5 @@
 import { FrontendEvent } from '../../../utils/logger';
+import { overblikkVisningRequest } from '../fetch.ts';
 
 export const GEToptions = {
     method: 'GET',
@@ -9,10 +10,11 @@ export const GEToptions = {
     }
 };
 
-export const createPOSToptions = (event: FrontendEvent) => ({
+export const createPOSToptions = (event: FrontendEvent | overblikkVisningRequest) => ({
     method: 'POST',
     body: JSON.stringify(event),
     headers: {
+        'Content-Type': 'application/json',
         'Nav-Consumer-Id': 'veilarbdetaljerfs'
     }
 });
