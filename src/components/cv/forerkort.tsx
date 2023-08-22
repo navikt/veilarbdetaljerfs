@@ -1,8 +1,8 @@
 import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { safeMap } from '../../utils';
-import { CarIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
+import Forerkortikon from './ikoner/forerkort.svg';
 import EMDASH from '../../utils/emdash';
 
 const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
@@ -15,7 +15,7 @@ const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
     return (
         <Informasjonsbolk
             header="Førerkort"
-            icon={<CarIcon title="Ikon som illustrerer en bil" aria-hidden="true" />}
+            icon={<img src={Forerkortikon} alt="" aria-hidden="true" />}
             headerTypo="ingress"
         >
             {forerkortListe}

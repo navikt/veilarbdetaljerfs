@@ -564,7 +564,7 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
 
 const mockTilrettelagtKommunikasjon: TilrettelagtKommunikasjonData = {
     talespraak: 'Engelsk',
-    tegnspraak: null
+    tegnspraak: 'Fransk'
 };
 
 const ordinaerRegistering: RegistreringsData = {

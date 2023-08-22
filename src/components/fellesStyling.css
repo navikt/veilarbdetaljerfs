@@ -7,7 +7,7 @@
     line-height: var(--a-font-line-height-medium);
 }
 .info_panel {
-    background: linear-gradient(to bottom, var(--a-deepblue-200) 55px, white 20px);
+    background: linear-gradient(to bottom, var(--a-surface-neutral-moderate) 55px, white 20px);
     break-inside: avoid-column;
     margin-bottom: var(--a-spacing-10);
     border-radius: var(--a-border-radius-xlarge);
@@ -25,6 +25,7 @@
 }
 .enkeltinfo_value {
     padding-bottom: var(--a-spacing-2);
+    white-space: pre-line;
 }
 .copy_header {
     font-weight: var(--a-font-weight-bold);

@@ -3,7 +3,7 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import { Buldings3Icon } from '@navikt/aksel-icons';
+import Arbeidsikon from './ikoner/arbeidserfaring.svg';
 
 const Arbeidserfaring = ({ arbeidserfaring }: Pick<ArenaPerson, 'arbeidserfaring'>) => {
     const sortedErfaringer = arbeidserfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
@@ -30,7 +30,7 @@ const Arbeidserfaring = ({ arbeidserfaring }: Pick<ArenaPerson, 'arbeidserfaring
     return (
         <Informasjonsbolk
             header="Arbeidsforhold"
-            icon={<Buldings3Icon title="Ikon som illustrerer et kontorbygg" aria-hidden="true" />}
+            icon={<img src={Arbeidsikon} alt="" aria-hidden="true" />}
             headerTypo="ingress"
         >
             {erfaringer}

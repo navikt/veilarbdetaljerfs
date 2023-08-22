@@ -2,8 +2,8 @@ import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
-import { NewspaperIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
+import Erfaringsikon from './ikoner/annen-erfaring.svg';
 
 const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) => {
     const sortedErfaringer = annenErfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
@@ -24,7 +24,7 @@ const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) =>
     return (
         <Informasjonsbolk
             header="Andre erfaringer"
-            icon={<NewspaperIcon title="Ikon som illustrerer en avis" aria-hidden="true" />}
+            icon={<img src={Erfaringsikon} alt={''} aria-hidden="true" />}
             headerTypo="ingress"
         >
             {erfaringer}

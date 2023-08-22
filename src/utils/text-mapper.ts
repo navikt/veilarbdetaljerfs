@@ -10,7 +10,7 @@ import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { VedtakType } from '../data/api/datatyper/ytelse';
-import { VEDTAKSSTATUSER } from '../utils/konstanter';
+import { VEDTAKSSTATUSER } from './konstanter.ts';
 import { InnsatsgruppeType } from '../data/api/datatyper/registreringsData';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
@@ -146,7 +146,7 @@ export function hentTolkTekst(tilrettelagtKommunikasjon: TilrettelagtKommunikasj
         return `Tolk: ${tilrettelagtKommunikasjon?.talespraak}`;
     }
 
-    return `Tolk: ${tilrettelagtKommunikasjon?.talespraak}, tegnspråk: ${tilrettelagtKommunikasjon?.tegnspraak}`;
+    return `Tolk: ${tilrettelagtKommunikasjon?.talespraak}\nTegnspråk: ${tilrettelagtKommunikasjon?.tegnspraak}`;
 }
 
 export function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
