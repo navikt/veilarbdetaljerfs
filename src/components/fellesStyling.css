@@ -40,17 +40,14 @@
 }
 
 .copy_body {
-    display: inline-grid;
-    grid-auto-flow: column;
-    align-items: center;
-}
-.with_emdash {
-    margin-top: var(--a-spacing-3);
-}
-.copy_tlf {
     display: flex;
     align-items: center;
 }
+
+.with_emdash {
+    margin-top: var(--a-spacing-3);
+}
+
 .cv_ikke_synlig {
     margin-top: var(--a-spacing-4);
     margin-bottom: var(--a-spacing-4);
@@ -62,11 +59,12 @@
 .typografi_dato {
     font-style: italic;
 }
-.panel_header {
-    text-align: center;
-    margin-bottom: var(--a-spacing-4);
-}
+
 .registrering_dato {
     color: var(--a-gray-600);
     font-style: italic;
+}
+
+.lenke-ikon {
+    font-size: 1.25rem;
 }

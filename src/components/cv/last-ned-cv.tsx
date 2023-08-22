@@ -1,6 +1,6 @@
 import { logMetrikk } from '../../utils/logger';
 import { DownloadIcon } from '@navikt/aksel-icons';
-import { Link } from '@navikt/ds-react';
+import { BodyShort, Link } from '@navikt/ds-react';
 import { byggPamUrl } from '../../utils';
 
 export function LastNedCV(props: { erManuell: boolean | undefined; fnr: string }) {
@@ -11,8 +11,8 @@ export function LastNedCV(props: { erManuell: boolean | undefined; fnr: string }
 
     return (
         <Link onClick={handleOnLastNedLenkeClicked} href={lastNedCvUrl} target="_blank">
-            <DownloadIcon title="Ikon som illustrerer nedlasting" />
-            Last ned CV
+            <DownloadIcon title="Ikon som illustrerer nedlasting" className="lenke-ikon" />
+            <BodyShort size="small">Last ned CV</BodyShort>
         </Link>
     );
 }
