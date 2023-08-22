@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Heading, Panel, Alert, Link, List } from '@navikt/ds-react';
+import { Heading, Alert, Link, List, HStack } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -21,7 +21,7 @@ import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
 import ListItem from '@navikt/ds-react/esm/list/ListItem';
 
-const CvInnhold = () => {
+const Cvinnhold = () => {
     const { fnr } = useAppStore();
 
     const {
@@ -42,29 +42,29 @@ const CvInnhold = () => {
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Laster />
-            </Panel>
+            </>
         );
     }
 
     if (!underOppfolgingData?.underOppfolging) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
-            </Panel>
+            </>
         );
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
@@ -77,13 +77,13 @@ const CvInnhold = () => {
                     </List>
                     Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
                 </Alert>
-            </Panel>
+            </>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
@@ -95,18 +95,18 @@ const CvInnhold = () => {
                         </Link>
                     )}
                 </Alert>
-            </Panel>
+            </>
         );
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
                 <Errormelding />
-            </Panel>
+            </>
         );
     }
 
@@ -127,12 +127,14 @@ const CvInnhold = () => {
         } = cvOgJobbonskerData;
 
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     CV
                 </Heading>
-                <LastNedCV erManuell={erManuell} fnr={fnr} />
-                <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
+                <HStack gap="4">
+                    <LastNedCV erManuell={erManuell} fnr={fnr} />
+                    <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
+                </HStack>
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
                 <CvIkkeSynligInfo />
                 <Sammendrag sammendrag={sammendrag} />
@@ -148,17 +150,17 @@ const CvInnhold = () => {
                     <Godkjenninger godkjenninger={godkjenninger} />
                     <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
                 </div>
-            </Panel>
+            </>
         );
     }
     return (
-        <Panel border className="info_panel">
+        <>
             <Heading spacing level="2" size="medium" className="panel_header">
                 CV
             </Heading>
             <Errormelding />
-        </Panel>
+        </>
     );
 };
 
-export default CvInnhold;
+export default Cvinnhold;

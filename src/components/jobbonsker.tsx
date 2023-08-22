@@ -1,7 +1,7 @@
 import { useAppStore } from '../stores/app-store';
 import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
-import { Alert, Heading, Link, List, Panel } from '@navikt/ds-react';
+import { Alert, Heading, Link, List } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
@@ -40,7 +40,7 @@ const oppstartstypeTilTekst = (oppstartstype: JobbprofilOppstartstype): string =
     }
 };
 
-const Jobbonsker = () => {
+const Jobbonskerinnhold = () => {
     const { fnr } = useAppStore();
 
     const {
@@ -61,29 +61,29 @@ const Jobbonsker = () => {
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Laster />
-            </Panel>
+            </>
         );
     }
 
     if (!underOppfolgingData?.underOppfolging) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
-            </Panel>
+            </>
         );
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
@@ -96,13 +96,13 @@ const Jobbonsker = () => {
                         </ListItem>
                     </List>
                 </Alert>
-            </Panel>
+            </>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
@@ -114,18 +114,18 @@ const Jobbonsker = () => {
                         </Link>
                     )}
                 </Alert>
-            </Panel>
+            </>
         );
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
                 <Errormelding />
-            </Panel>
+            </>
         );
     }
 
@@ -156,7 +156,7 @@ const Jobbonsker = () => {
         const oppstartstid = [oppstartstypeTilTekst(oppstart)];
 
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Jobbønsker
                 </Heading>
@@ -173,17 +173,17 @@ const Jobbonsker = () => {
                     <DobbeltInformasjon header="Ansettelsesform" values={ansettelsesform} />
                     <DobbeltInformasjon header="Oppstart" values={oppstartstid} />
                 </div>
-            </Panel>
+            </>
         );
     }
     return (
-        <Panel border className="info_panel">
+        <>
             <Heading spacing level="2" size="medium" className="panel_header">
                 Jobbønsker
             </Heading>
             <Errormelding />
-        </Panel>
+        </>
     );
 };
 
-export default Jobbonsker;
+export default Jobbonskerinnhold;

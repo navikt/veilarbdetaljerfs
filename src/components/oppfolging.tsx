@@ -1,4 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react';
+import { Heading } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
 import { useAppStore } from '../stores/app-store';
@@ -16,7 +16,7 @@ import {
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 
-const Oppfolging = () => {
+const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
 
     const {
@@ -37,12 +37,12 @@ const Oppfolging = () => {
 
     if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Oppfølging
                 </Heading>
                 <Laster />
-            </Panel>
+            </>
         );
     }
 
@@ -57,17 +57,17 @@ const Oppfolging = () => {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (oppfolgingsstatusError || personError || veilederError) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Oppfølging
                 </Heading>
                 <Errormelding />
-            </Panel>
+            </>
         );
     }
 
     return (
-        <Panel border className="info_panel">
+        <>
             <Heading spacing level="2" size="medium" className="panel_header">
                 Oppfølging
             </Heading>
@@ -82,8 +82,8 @@ const Oppfolging = () => {
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
             </span>
-        </Panel>
+        </>
     );
 };
 
-export default Oppfolging;
+export default Oppfolgingsinnhold;

@@ -1,4 +1,4 @@
-import { Panel, Heading, Alert } from '@navikt/ds-react';
+import { Heading, Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
@@ -8,48 +8,48 @@ import { useYtelser } from '../data/api/fetch';
 import { WalletIcon } from '@navikt/aksel-icons';
 import Informasjonsbolk from './felles/informasjonsbolk';
 
-export const Ytelser = () => {
+const Ytelsesinnhold = () => {
     const { fnr } = useAppStore();
 
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
 
     if (ytelserLoading) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Ytelser
                 </Heading>
                 <Laster />
-            </Panel>
+            </>
         );
     }
 
     if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtaksliste)) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Ytelser
                 </Heading>
                 <Alert inline variant="info">
                     Ingen ytelser registrert
                 </Alert>
-            </Panel>
+            </>
         );
     }
 
     if (ytelserError) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Ytelser
                 </Heading>
                 <Errormelding />
-            </Panel>
+            </>
         );
     }
 
     return (
-        <Panel border className="info_panel">
+        <>
             <Heading spacing level="2" size="medium" className="panel_header">
                 Ytelser
             </Heading>
@@ -75,6 +75,8 @@ export const Ytelser = () => {
                     </div>
                 ))}
             </span>
-        </Panel>
+        </>
     );
 };
+
+export default Ytelsesinnhold;

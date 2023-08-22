@@ -1,11 +1,11 @@
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
-import CvInnhold from './components/cv-innhold';
-import Jobbonsker from './components/jobbonsker';
-import Oppfolging from './components/oppfolging';
-import PersonaliaBoks from './components/personalia-boks';
-import { Registrering } from './components/registreringsInfo';
-import { Ytelser } from './components/ytelserinfo';
+import Cvinnhold from './components/cv-innhold';
+import Jobbonskerinnhold from './components/jobbonsker';
+import Oppfolgingsinnhold from './components/oppfolging';
+import Personaliainnhold from './components/personalia-boks';
+import Registreringsinnhold from './components/registreringsInfo';
+import Ytelsesinnhold from './components/ytelserinfo';
 import { Alert, BodyShort, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
@@ -43,17 +43,17 @@ const App = (props: AppProps) => {
     const mapNavnTilKomponent = (navn: string) => {
         switch (navn) {
             case 'CV':
-                return <CvInnhold />;
+                return <Cvinnhold />;
             case 'Jobbønsker':
-                return <Jobbonsker />;
+                return <Jobbonskerinnhold />;
             case 'Oppfølging':
-                return <Oppfolging />;
+                return <Oppfolgingsinnhold />;
             case 'Personalia':
-                return <PersonaliaBoks />;
+                return <Personaliainnhold />;
             case 'Registrering':
-                return <Registrering />;
+                return <Registreringsinnhold />;
             case 'Ytelser':
-                return <Ytelser />;
+                return <Ytelsesinnhold />;
             default:
                 return null;
         }
@@ -150,9 +150,9 @@ const App = (props: AppProps) => {
 
                         <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                                <div key={valgtInformasjonsboks} className="box">
+                                <Panel border className="info_panel" key={valgtInformasjonsboks}>
                                     {mapNavnTilKomponent(valgtInformasjonsboks)}
-                                </div>
+                                </Panel>
                             ))}
                         </section>
                     </StoreProvider>

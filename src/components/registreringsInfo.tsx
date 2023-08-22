@@ -1,4 +1,4 @@
-import { Panel, Heading, Alert } from '@navikt/ds-react';
+import { Heading, Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { ForeslattProfilering } from './registrering/foreslatt-profilering';
@@ -9,41 +9,41 @@ import { useRegistrering } from '../data/api/fetch';
 import { SporsmalsListe } from './registrering/sporsmolvisning';
 import { RegistrertHeader } from './registrering/registrert';
 
-export const Registrering = () => {
+const Registreringsinnhold = () => {
     const { fnr } = useAppStore();
 
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
 
     if (registreringLoading) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Registering
                 </Heading>
                 <Laster />
-            </Panel>
+            </>
         );
     }
 
     if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Registering
                 </Heading>
                 <Alert inline variant="info">
                     Brukeren har ikke registrert seg
                 </Alert>
-            </Panel>
+            </>
         );
     } else if (registreringError) {
         return (
-            <Panel border className="info_panel">
+            <>
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Registrering
                 </Heading>
                 <Errormelding />
-            </Panel>
+            </>
         );
     }
 
@@ -51,7 +51,7 @@ export const Registrering = () => {
     const type = registreringData?.type;
 
     return (
-        <Panel border className="info_panel">
+        <>
             <Heading spacing level="2" size="medium" className="panel_header">
                 Registering
             </Heading>
@@ -64,6 +64,8 @@ export const Registrering = () => {
                 </Show>
                 <ForeslattProfilering registrering={brukerRegistrering} />
             </span>
-        </Panel>
+        </>
     );
 };
+
+export default Registreringsinnhold;
