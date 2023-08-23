@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Heading, Alert, Link, List, HStack } from '@navikt/ds-react';
+import { Alert, Link, List, HStack } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -41,73 +41,42 @@ const Cvinnhold = () => {
     const endreCvUrl = byggPamUrl(fnr);
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    CV
-                </Heading>
-                <Laster />
-            </>
-        );
+        return <Laster />;
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    CV
-                </Heading>
-                <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
-            </>
-        );
+        return <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>;
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    CV
-                </Heading>
-                <Alert variant="info">
-                    Du kan ikke se CV-en, be brukeren om å:
-                    <List as="ul">
-                        <ListItem>Logge inn på arbeidsplassen.no</ListItem>
-                        <ListItem>Lese teksten om at du må dele CV-en med NAV</ListItem>
-                        <ListItem>Gå videre og gjennomføre det tjenesten ber om</ListItem>
-                    </List>
-                    Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
-                </Alert>
-            </>
+            <Alert variant="info">
+                Du kan ikke se CV-en, be brukeren om å:
+                <List as="ul">
+                    <ListItem>Logge inn på arbeidsplassen.no</ListItem>
+                    <ListItem>Lese teksten om at du må dele CV-en med NAV</ListItem>
+                    <ListItem>Gå videre og gjennomføre det tjenesten ber om</ListItem>
+                </List>
+                Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
+            </Alert>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    CV
-                </Heading>
-                <Alert inline variant="info">
-                    Ingen CV registrert&nbsp;&nbsp;
-                    {erManuell && aktorId && (
-                        <Link href={endreCvUrl} target="_blank" rel="noopener">
-                            Registrer her
-                        </Link>
-                    )}
-                </Alert>
-            </>
+            <Alert inline variant="info">
+                Ingen CV registrert&nbsp;&nbsp;
+                {erManuell && aktorId && (
+                    <Link href={endreCvUrl} target="_blank" rel="noopener">
+                        Registrer her
+                    </Link>
+                )}
+            </Alert>
         );
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    CV
-                </Heading>
-                <Errormelding />
-            </>
-        );
+        return <Errormelding />;
     }
 
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
@@ -128,10 +97,7 @@ const Cvinnhold = () => {
 
         return (
             <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    CV
-                </Heading>
-                <HStack gap="4">
+                <HStack gap="4" className="cv-lenker">
                     <LastNedCV erManuell={erManuell} fnr={fnr} />
                     <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 </HStack>
@@ -153,14 +119,7 @@ const Cvinnhold = () => {
             </>
         );
     }
-    return (
-        <>
-            <Heading spacing level="2" size="medium" className="panel_header">
-                CV
-            </Heading>
-            <Errormelding />
-        </>
-    );
+    return <Errormelding />;
 };
 
 export default Cvinnhold;

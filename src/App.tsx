@@ -151,6 +151,9 @@ const App = (props: AppProps) => {
                         <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                 <Panel border className="info_panel" key={valgtInformasjonsboks}>
+                                    <Heading spacing level="2" size="medium" className="panel_header">
+                                        {valgtInformasjonsboks}
+                                    </Heading>
                                     {mapNavnTilKomponent(valgtInformasjonsboks)}
                                 </Panel>
                             ))}

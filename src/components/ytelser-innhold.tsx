@@ -1,4 +1,4 @@
-import { Heading, Alert } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
@@ -14,45 +14,23 @@ const Ytelsesinnhold = () => {
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
 
     if (ytelserLoading) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Ytelser
-                </Heading>
-                <Laster />
-            </>
-        );
+        return <Laster />;
     }
 
     if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtaksliste)) {
         return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Ytelser
-                </Heading>
-                <Alert inline variant="info">
-                    Ingen ytelser registrert
-                </Alert>
-            </>
+            <Alert inline variant="info">
+                Ingen ytelser registrert
+            </Alert>
         );
     }
 
     if (ytelserError) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Ytelser
-                </Heading>
-                <Errormelding />
-            </>
-        );
+        return <Errormelding />;
     }
 
     return (
         <>
-            <Heading spacing level="2" size="medium" className="panel_header">
-                Ytelser
-            </Heading>
             <span className="info_container">
                 {ytelserData?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>

@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
@@ -41,14 +41,7 @@ const Personaliainnhold = () => {
     const fullmakt: Fullmakter[] = vergeOgFullmaktData?.fullmakt ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Personalia
-                </Heading>
-                <Laster />
-            </>
-        );
+        return <Laster />;
     }
 
     if (
@@ -59,21 +52,11 @@ const Personaliainnhold = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (personError || vergeOgFullmaktError) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Personalia
-                </Heading>
-                <Errormelding />
-            </>
-        );
+        return <Errormelding />;
     }
 
     return (
         <>
-            <Heading spacing level="2" size="medium" className="panel_header">
-                Personalia
-            </Heading>
             {personData?.sivilstandliste && personData?.sivilstandliste.length > 1 && (
                 <Alert variant="warning">
                     <BodyShort size="small">

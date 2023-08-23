@@ -1,4 +1,3 @@
-import { Heading } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
 import { useAppStore } from '../stores/app-store';
@@ -36,14 +35,7 @@ const Oppfolgingsinnhold = () => {
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
     if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Oppfølging
-                </Heading>
-                <Laster />
-            </>
-        );
+        return <Laster />;
     }
 
     if (
@@ -56,21 +48,11 @@ const Oppfolgingsinnhold = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (oppfolgingsstatusError || personError || veilederError) {
-        return (
-            <>
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Oppfølging
-                </Heading>
-                <Errormelding />
-            </>
-        );
+        return <Errormelding />;
     }
 
     return (
         <>
-            <Heading spacing level="2" size="medium" className="panel_header">
-                Oppfølging
-            </Heading>
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
