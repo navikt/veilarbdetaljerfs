@@ -1,21 +1,73 @@
 {
   "index.css": {
-    "file": "assets/index-2a6e051d.css",
+    "file": "assets/index-85ee6325.css",
     "src": "index.css"
   },
   "index.html": {
+    "assets": [
+      "assets/arbeidserfaring-819be870.svg",
+      "assets/utdanning-84bdebbc.svg",
+      "assets/annen-erfaring-96db9b64.svg",
+      "assets/offentlige-godkjenninger-efe1bbe9.svg",
+      "assets/andre-godkjenninger-3f4cefa2.svg",
+      "assets/kurs-20c1e400.svg",
+      "assets/forerkort-7b35efd1.svg",
+      "assets/sprak-1c02f4d8.svg",
+      "assets/kompetanser-a34ff43b.svg",
+      "assets/fagbrev-188cb2b5.svg"
+    ],
     "css": [
-      "assets/index-2a6e051d.css"
+      "assets/index-85ee6325.css"
     ],
     "dynamicImports": [
       "src/data/mock/index.ts"
     ],
-    "file": "assets/index-23c8facb.js",
+    "file": "assets/index-f406b004.js",
     "isEntry": true,
     "src": "index.html"
   },
+  "src/components/cv/ikoner/andre-godkjenninger.svg": {
+    "file": "assets/andre-godkjenninger-3f4cefa2.svg",
+    "src": "src/components/cv/ikoner/andre-godkjenninger.svg"
+  },
+  "src/components/cv/ikoner/annen-erfaring.svg": {
+    "file": "assets/annen-erfaring-96db9b64.svg",
+    "src": "src/components/cv/ikoner/annen-erfaring.svg"
+  },
+  "src/components/cv/ikoner/arbeidserfaring.svg": {
+    "file": "assets/arbeidserfaring-819be870.svg",
+    "src": "src/components/cv/ikoner/arbeidserfaring.svg"
+  },
+  "src/components/cv/ikoner/fagbrev.svg": {
+    "file": "assets/fagbrev-188cb2b5.svg",
+    "src": "src/components/cv/ikoner/fagbrev.svg"
+  },
+  "src/components/cv/ikoner/forerkort.svg": {
+    "file": "assets/forerkort-7b35efd1.svg",
+    "src": "src/components/cv/ikoner/forerkort.svg"
+  },
+  "src/components/cv/ikoner/kompetanser.svg": {
+    "file": "assets/kompetanser-a34ff43b.svg",
+    "src": "src/components/cv/ikoner/kompetanser.svg"
+  },
+  "src/components/cv/ikoner/kurs.svg": {
+    "file": "assets/kurs-20c1e400.svg",
+    "src": "src/components/cv/ikoner/kurs.svg"
+  },
+  "src/components/cv/ikoner/offentlige-godkjenninger.svg": {
+    "file": "assets/offentlige-godkjenninger-efe1bbe9.svg",
+    "src": "src/components/cv/ikoner/offentlige-godkjenninger.svg"
+  },
+  "src/components/cv/ikoner/sprak.svg": {
+    "file": "assets/sprak-1c02f4d8.svg",
+    "src": "src/components/cv/ikoner/sprak.svg"
+  },
+  "src/components/cv/ikoner/utdanning.svg": {
+    "file": "assets/utdanning-84bdebbc.svg",
+    "src": "src/components/cv/ikoner/utdanning.svg"
+  },
   "src/data/mock/index.ts": {
-    "file": "assets/index-ed6ce0e7.js",
+    "file": "assets/index-8cbe36cd.js",
     "imports": [
       "index.html"
     ],
