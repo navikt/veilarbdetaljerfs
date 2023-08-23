@@ -1,9 +1,11 @@
 @import '@navikt/ds-css' layer(aksel);
 .veilarbdetaljerfs {
+    padding-top: var(--a-spacing-3);
     height: 100%;
     background-color: var(--a-bg-subtle);
     font-family: var(--a-font-family);
 }
+
 .overblikk {
     max-width: 1920px;
     margin: 0 auto;
