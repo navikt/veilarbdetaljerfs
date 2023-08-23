@@ -1,24 +1,16 @@
-import { Link } from '@navikt/ds-react';
+import {Link} from '@navikt/ds-react';
 import {lagPersonforvalterLenke} from '../../utils';
 import {useAktorId} from "../../data/api/fetch.ts";
+import {ExternalLinkIcon} from "@navikt/aksel-icons";
 
 export function EndrePersonopplysninger(props: { fnr: string }) {
-    //const handleOnLastNedLenkeClicked = () => {
-    //    logMetrikk('veilarbdetaljerfs.metrikker.last-ned-cv', { erManuell: props.erManuell });
-    //};
-    //onClick={handleOnLastNedLenkeClicked}
     const aktorId = useAktorId(props.fnr);
-    const aktorIdString = aktorId.data?.aktorId;
-    const pdlWebUrl = () => {
-    if (aktorIdString == undefined) {
-        return "";
-    }else{
-        return lagPersonforvalterLenke(aktorIdString);
-    }};
+    const pdlWebUrl = aktorId.data?.aktorId ? lagPersonforvalterLenke(aktorId.data?.aktorId) : "";
 
     return (
-        <Link  href={pdlWebUrl()} target="_blank">
+        <Link  href={pdlWebUrl} target="_blank">
             Endre personopplysninger
+            <ExternalLinkIcon title="Ikon som illustrerer at man åpner en ny fane" />
         </Link>
     );
 }

@@ -1,6 +1,6 @@
 import { StringOrNothing } from './felles-typer';
 import EMDASH from './emdash';
-import { finnInternNavDomene } from './miljo-utils';
+import {finnInternNavDomene, finnInternNavDomeneGammelt} from './miljo-utils';
 
 // export function visEmdashHvisNull(verdi: StringOrNothing) {
 // 	return verdi ? verdi : EMDASH;
@@ -35,5 +35,5 @@ export function byggPamUrl(fnr: string, path = '/cv') {
 
 export function lagPersonforvalterLenke(aktoerIdEllerFnr: string) {
     //Personforvalteren skal takle både aktørid og fnr.
-    return `https://pdl-web.${finnInternNavDomene()}/endreperson?aktoerId=${aktoerIdEllerFnr}`;
+    return `https://pdl-web.${finnInternNavDomeneGammelt()}/endreperson?aktoerId=${aktoerIdEllerFnr}`;
 }
