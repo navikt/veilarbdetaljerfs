@@ -9,9 +9,10 @@ import { Fullmakter, VergemaalEllerFremtidsfullmakt } from '../data/api/datatype
 import Vergemaal from './personalia/vergemaal';
 import Fullmakt from './personalia/fullmakt';
 import './fellesStyling.css';
-import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
+import {usePersonalia, useVergeOgFullmakt} from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
+import {EndrePersonopplysninger} from "./personalia/endre-personopplysninger.tsx";
 
 const PersonaliaBoks = () => {
     const { fnr } = useAppStore();
@@ -39,7 +40,6 @@ const PersonaliaBoks = () => {
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
     const fullmakt: Fullmakter[] = vergeOgFullmaktData?.fullmakt ?? [];
-
     if (personLoading || vergeOgFullmaktLoading) {
         return (
             <Panel border className="info_panel">
@@ -90,6 +90,7 @@ const PersonaliaBoks = () => {
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                 <Fullmakt fullmakt={fullmakt} />
             </span>
+            <EndrePersonopplysninger fnr={fnr} />
         </Panel>
     );
 };
