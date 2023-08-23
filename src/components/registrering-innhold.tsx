@@ -59,9 +59,9 @@ const Registreringsinnhold = () => {
             <SporsmalsListe registrering={brukerRegistrering} />
             <span className="registrering_nedre_container">
                 <JobbetSammenhengende registrering={brukerRegistrering} />
-                <Show if={brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null}>
+                {brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null && (
                     <PersonverninformasjonUtskrift type={type} />
-                </Show>
+                )}
                 <ForeslattProfilering registrering={brukerRegistrering} />
             </span>
         </>
