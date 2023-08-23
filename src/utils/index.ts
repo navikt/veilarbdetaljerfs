@@ -1,4 +1,4 @@
-import { StringOrNothing } from './felles-typer';
+import {StringOrNothing} from './felles-typer';
 import EMDASH from './emdash';
 import {finnInternNavDomene, finnInternNavDomeneGammelt} from './miljo-utils';
 

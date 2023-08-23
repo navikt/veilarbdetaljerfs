@@ -1,11 +1,11 @@
-import { Alert, BodyShort, Heading, Panel } from '@navikt/ds-react';
-import { useAppStore } from '../stores/app-store';
-import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
-import { Errormelding, Laster } from './felles/minikomponenter';
-import { kalkulerAlder } from '../utils/date-utils';
+import {Alert, BodyShort, Heading, Panel} from '@navikt/ds-react';
+import {useAppStore} from '../stores/app-store';
+import {PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn} from '../data/api/datatyper/personalia';
+import {Errormelding, Laster} from './felles/minikomponenter';
+import {kalkulerAlder} from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
-import { Fullmakter, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import {Fullmakter, VergemaalEllerFremtidsfullmakt} from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
 import Fullmakt from './personalia/fullmakt';
 import './fellesStyling.css';
@@ -15,9 +15,9 @@ import LandOgSprak from './personalia/landOgSprak';
 import {EndrePersonopplysninger} from "./personalia/endre-personopplysninger.tsx";
 
 const PersonaliaBoks = () => {
-    const { fnr } = useAppStore();
+    const {fnr} = useAppStore();
 
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const {data: personData, error: personError, isLoading: personLoading} = usePersonalia(fnr);
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
@@ -46,7 +46,7 @@ const PersonaliaBoks = () => {
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
-                <Laster />
+                <Laster/>
             </Panel>
         );
     }
@@ -64,7 +64,7 @@ const PersonaliaBoks = () => {
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
-                <Errormelding />
+                <Errormelding/>
             </Panel>
         );
     }
@@ -83,14 +83,14 @@ const PersonaliaBoks = () => {
                 </Alert>
             )}
             <span className="info_container">
-                <Kontaktinformasjon />
-                <Sivilstand partner={partner} sivilstandliste={sivilstandliste} />
-                <Barn barn={filtrertBarneListe} />
-                <LandOgSprak />
-                <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakt fullmakt={fullmakt} />
+                <Kontaktinformasjon/>
+                <Sivilstand partner={partner} sivilstandliste={sivilstandliste}/>
+                <Barn barn={filtrertBarneListe}/>
+                <LandOgSprak/>
+                <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt}/>
+                <Fullmakt fullmakt={fullmakt}/>
             </span>
-            <EndrePersonopplysninger fnr={fnr} />
+            <EndrePersonopplysninger fnr={fnr}/>
         </Panel>
     );
 };

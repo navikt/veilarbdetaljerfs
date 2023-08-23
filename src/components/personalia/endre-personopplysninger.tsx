@@ -8,9 +8,9 @@ export function EndrePersonopplysninger(props: { fnr: string }) {
     const pdlWebUrl = aktorId.data?.aktorId ? lagPersonforvalterLenke(aktorId.data?.aktorId) : "";
 
     return (
-        <Link  href={pdlWebUrl} target="_blank">
+        <Link href={pdlWebUrl} target="_blank">
             Endre personopplysninger
-            <ExternalLinkIcon title="Ikon som illustrerer at man åpner en ny fane" />
+            <ExternalLinkIcon title="Ikon som illustrerer at man åpner en ny fane"/>
         </Link>
     );
 }
