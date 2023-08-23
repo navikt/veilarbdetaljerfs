@@ -1,6 +1,6 @@
-import {StringOrNothing} from './felles-typer';
+import { StringOrNothing } from './felles-typer';
 import EMDASH from './emdash';
-import {finnInternNavDomene, finnInternNavDomeneGammelt} from './miljo-utils';
+import { finnInternNavDomene, finnInternNavDomeneGammelt } from './miljo-utils';
 
 // export function visEmdashHvisNull(verdi: StringOrNothing) {
 // 	return verdi ? verdi : EMDASH;
