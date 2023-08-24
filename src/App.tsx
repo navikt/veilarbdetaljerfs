@@ -6,10 +6,10 @@ import Oppfolgingsinnhold from './components/oppfolging-innhold';
 import Personaliainnhold from './components/personalia-innhold';
 import Registreringsinnhold from './components/registrering-innhold';
 import Ytelsesinnhold from './components/ytelser-innhold';
-import { Alert, BodyShort, Button, Chips, Heading, Panel } from '@navikt/ds-react';
+import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
-import { TrashIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
+import { TrashIcon } from '@navikt/aksel-icons';
 import { SWRConfig } from 'swr';
 
 export interface AppProps {
