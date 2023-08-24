@@ -14,6 +14,7 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
+import {Alert} from "@navikt/ds-react";
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -64,6 +65,9 @@ const Oppfolgingsinnhold = () => {
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
             </span>
+            <Alert variant="info" className="hovedmal_alert">
+                Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen "Oppfølgingsvedtak".
+            </Alert>
         </>
     );
 };
