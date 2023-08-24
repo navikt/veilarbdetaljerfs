@@ -12,6 +12,7 @@ import './fellesStyling.css';
 import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
+import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
 
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
@@ -73,6 +74,7 @@ const Personaliainnhold = () => {
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                 <Fullmakt fullmakt={fullmakt} />
             </span>
+            <EndrePersonopplysninger fnr={fnr} />
         </>
     );
 };
