@@ -18,10 +18,7 @@ export function JobbetSammenhengende(props: Props) {
     }
 
     return (
-        <Informasjonsbolk
-            header="Hentet fra Aa-registeret"
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Hentet fra Aa-registeret" headerTypo="ingress">
             <Label size="small" as="p">
                 Brukeren har vært sammenhengende i jobb minst 6 av de siste 12 måneder
             </Label>

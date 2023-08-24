@@ -4,6 +4,7 @@ export interface OppfolgingEnhet {
     navn: StringOrNothing;
     enhetId: StringOrNothing;
 }
+
 export type ArenaFormidlingsgruppeKode = 'ARBS' | 'IARBS' | 'ISERV' | 'PARBS' | 'RARBS';
 export type ArenaServicegruppeKode =
     | 'BATT'

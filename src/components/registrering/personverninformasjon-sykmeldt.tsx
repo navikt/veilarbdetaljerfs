@@ -11,7 +11,7 @@ function PersonverninformasjonSykmeldt() {
                 Når du har registrert deg
             </Heading>
             <ul>
-                <li> får du veiledning om mulighetene dine </li>
+                <li> får du veiledning om mulighetene dine</li>
                 <li> kan du bruke din egen aktivitetsplan</li>
                 <li> får du vite om du har krav på annen økonomisk støtte</li>
                 <li> kan du ha dialog med veilederen din</li>

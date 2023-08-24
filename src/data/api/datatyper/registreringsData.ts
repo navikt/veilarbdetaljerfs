@@ -5,6 +5,7 @@ export interface Veileder {
         navn: string;
     };
 }
+
 type Besvarelse = Record<string, string>;
 
 interface RegistreringBase {

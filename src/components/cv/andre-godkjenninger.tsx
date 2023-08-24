@@ -29,11 +29,7 @@ const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodk
     ));
 
     return (
-        <Informasjonsbolk
-            header="Andre godkjenninger"
-            icon={<Andreikon aria-hidden="true" />}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Andre godkjenninger" icon={<Andreikon aria-hidden="true" />} headerTypo="ingress">
             {annenGodkjenningListe}
         </Informasjonsbolk>
     );

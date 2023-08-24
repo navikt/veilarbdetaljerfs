@@ -27,10 +27,7 @@ export const RegistrertHeader = (props: { registrering?: Registrering }) => {
     const erRegistrert = props.registrering?.manueltRegistrertAv ? registrertAv : null;
 
     return (
-        <Informasjonsbolk
-            header={overskrift}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header={overskrift} headerTypo="ingress">
             <BodyShort className="registrering_dato" size="small">
                 {regDato}
             </BodyShort>

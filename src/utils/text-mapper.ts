@@ -81,6 +81,7 @@ export function mapInnsatsgruppeTilTekst(innsatsgruppe: OrNothing<Innsatsgruppe 
             return EMDASH;
     }
 }
+
 export function hentOppfolgingsEnhetTekst(
     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
 ): StringOrNothing {
