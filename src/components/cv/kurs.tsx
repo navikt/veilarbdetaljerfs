@@ -3,7 +3,7 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato, formaterVarighet } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import KursIkon from './ikoner/kurs.svg';
+import { ReactComponent as KursIkon } from './ikoner/kurs.svg';
 
 const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
     const sortedKurs = kurs.sort((a, b) => safeSort(b.tidspunkt, a.tidspunkt));
@@ -28,7 +28,7 @@ const Kurs = ({ kurs }: Pick<ArenaPerson, 'kurs'>) => {
     ));
 
     return (
-        <Informasjonsbolk header="Kurs" icon={<img src={KursIkon} alt="" aria-hidden="true" />} headerTypo="ingress">
+        <Informasjonsbolk header="Kurs" icon={<KursIkon aria-hidden="true" />} headerTypo="ingress">
             {mappedKurs}
         </Informasjonsbolk>
     );

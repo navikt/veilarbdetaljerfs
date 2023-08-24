@@ -2,7 +2,7 @@ import { ArenaPerson, SprakNiva } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { safeMap } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import SpraakIkon from './ikoner/sprak.svg';
+import { ReactComponent as SpraakIkon } from './ikoner/sprak.svg';
 
 // String er lagt til for bakoverkompatibilitet
 function mapSprakNivaTilTekst(sprakNiva: SprakNiva | string): string {
@@ -36,7 +36,7 @@ const Sprak = ({ sprak }: Pick<ArenaPerson, 'sprak'>) => {
     return (
         <Informasjonsbolk
             header="Språk"
-            icon={<img src={SpraakIkon} alt={''} aria-hidden="true" />}
+            icon={<SpraakIkon aria-hidden="true" />}
             headerTypo="ingress"
         >
             {mappedSprak}

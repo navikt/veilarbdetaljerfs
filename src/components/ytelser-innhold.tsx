@@ -5,7 +5,6 @@ import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { isNotEmptyArray } from '../utils/felles-typer';
 import { useYtelser } from '../data/api/fetch';
-import { WalletIcon } from '@navikt/aksel-icons';
 import Informasjonsbolk from './felles/informasjonsbolk';
 
 const Ytelsesinnhold = () => {
@@ -37,7 +36,6 @@ const Ytelsesinnhold = () => {
                         <Informasjonsbolk
                             header={vedtak.vedtakstype || EMDASH}
                             headerTypo="ingress"
-                            icon={<WalletIcon title="Ikon som illustrerer en lommebok" aria-hidden="true" />}
                         >
                             <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
                             <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />
