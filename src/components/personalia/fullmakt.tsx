@@ -4,7 +4,6 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formateStringInUpperAndLowerCase, formaterDato } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
-import { HandshakeIcon } from '@navikt/aksel-icons';
 
 function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     const { motpartsPersonident, motpartsPersonNavn, motpartsRolle, omraader, gyldigFraOgMed, gyldigTilOgMed } =
@@ -43,22 +42,14 @@ function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
         ));
     } else {
         return (
-            <Informasjonsbolk
-                header="Fullmakter"
-                headerTypo="ingress"
-                icon={<HandshakeIcon title="Ikon som illustrerer en håndhilsing" aria-hidden="true" />}
-            >
+            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
                 {EMDASH}
             </Informasjonsbolk>
         );
     }
 
     return (
-        <Informasjonsbolk
-            header="Fullmakter"
-            headerTypo="ingress"
-            icon={<HandshakeIcon title="Ikon som illustrerer en håndhilsing" aria-hidden="true" />}
-        >
+        <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
             {fullmaktListe}
         </Informasjonsbolk>
     );

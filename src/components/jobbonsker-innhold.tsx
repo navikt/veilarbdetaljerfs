@@ -1,7 +1,7 @@
 import { useAppStore } from '../stores/app-store';
 import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
-import { Alert, Heading, Link, List, Panel } from '@navikt/ds-react';
+import { Alert, Link, List } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
@@ -40,7 +40,7 @@ const oppstartstypeTilTekst = (oppstartstype: JobbprofilOppstartstype): string =
     }
 };
 
-const Jobbonsker = () => {
+const Jobbonskerinnhold = () => {
     const { fnr } = useAppStore();
 
     const {
@@ -60,73 +60,42 @@ const Jobbonsker = () => {
     const endreCvUrl = byggPamUrl(fnr);
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Jobbønsker
-                </Heading>
-                <Laster />
-            </Panel>
-        );
+        return <Laster />;
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Jobbønsker
-                </Heading>
-                <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>
-            </Panel>
-        );
+        return <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>;
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Jobbønsker
-                </Heading>
-                <Alert variant="info">
-                    Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
-                    <List as="ul">
-                        <ListItem>
-                            Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn
-                            på nav.no og oppdatere CV-en sin.
-                        </ListItem>
-                    </List>
-                </Alert>
-            </Panel>
+            <Alert variant="info">
+                Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
+                <List as="ul">
+                    <ListItem>
+                        Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn på
+                        nav.no og oppdatere CV-en sin.
+                    </ListItem>
+                </List>
+            </Alert>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Jobbønsker
-                </Heading>
-                <Alert inline variant="info">
-                    Ingen jobbønsker registrert&nbsp;&nbsp;
-                    {erManuell && aktorId && (
-                        <Link href={endreCvUrl} target="_blank" rel="noopener">
-                            Registrer her
-                        </Link>
-                    )}
-                </Alert>
-            </Panel>
+            <Alert inline variant="info">
+                Ingen jobbønsker registrert&nbsp;&nbsp;
+                {erManuell && aktorId && (
+                    <Link href={endreCvUrl} target="_blank" rel="noopener">
+                        Registrer her
+                    </Link>
+                )}
+            </Alert>
         );
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Jobbønsker
-                </Heading>
-                <Errormelding />
-            </Panel>
-        );
+        return <Errormelding />;
     }
 
     if (cvOgJobbonskerData?.jobbprofil) {
@@ -156,10 +125,7 @@ const Jobbonsker = () => {
         const oppstartstid = [oppstartstypeTilTekst(oppstart)];
 
         return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Jobbønsker
-                </Heading>
+            <>
                 <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
                 <div className="info_container">
@@ -173,17 +139,10 @@ const Jobbonsker = () => {
                     <DobbeltInformasjon header="Ansettelsesform" values={ansettelsesform} />
                     <DobbeltInformasjon header="Oppstart" values={oppstartstid} />
                 </div>
-            </Panel>
+            </>
         );
     }
-    return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="panel_header">
-                Jobbønsker
-            </Heading>
-            <Errormelding />
-        </Panel>
-    );
+    return <Errormelding />;
 };
 
-export default Jobbonsker;
+export default Jobbonskerinnhold;

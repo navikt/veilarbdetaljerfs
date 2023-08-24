@@ -1,12 +1,12 @@
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
-import CvInnhold from './components/cv-innhold';
-import Jobbonsker from './components/jobbonsker';
-import Oppfolging from './components/oppfolging';
-import PersonaliaBoks from './components/personalia-boks';
-import { Registrering } from './components/registreringsInfo';
-import { Ytelser } from './components/ytelserinfo';
-import { Alert, BodyShort, Button, Chips, Heading } from '@navikt/ds-react';
+import Cvinnhold from './components/cv-innhold';
+import Jobbonskerinnhold from './components/jobbonsker-innhold';
+import Oppfolgingsinnhold from './components/oppfolging-innhold';
+import Personaliainnhold from './components/personalia-innhold';
+import Registreringsinnhold from './components/registrering-innhold';
+import Ytelsesinnhold from './components/ytelser-innhold';
+import { Alert, BodyShort, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { TrashIcon, ExternalLinkIcon } from '@navikt/aksel-icons';
@@ -43,17 +43,17 @@ const App = (props: AppProps) => {
     const mapNavnTilKomponent = (navn: string) => {
         switch (navn) {
             case 'CV':
-                return <CvInnhold />;
+                return <Cvinnhold />;
             case 'Jobbønsker':
-                return <Jobbonsker />;
+                return <Jobbonskerinnhold />;
             case 'Oppfølging':
-                return <Oppfolging />;
+                return <Oppfolgingsinnhold />;
             case 'Personalia':
-                return <PersonaliaBoks />;
+                return <Personaliainnhold />;
             case 'Registrering':
-                return <Registrering />;
+                return <Registreringsinnhold />;
             case 'Ytelser':
-                return <Ytelser />;
+                return <Ytelsesinnhold />;
             default:
                 return null;
         }
@@ -86,17 +86,32 @@ const App = (props: AppProps) => {
                             </a>
                         </Alert>
                         <Nokkelinfo />
-                        <div className="overblikk_chips">
-                            <Chips size="small">
-                                {valgteInformasjonsbokser.map((alternativ) => (
+                        <Chips size="small" className="overblikk_chips">
+                            {valgteInformasjonsbokser.map((alternativ) => (
+                                <Chips.Toggle
+                                    key={alternativ}
+                                    selected={true}
+                                    onClick={() => {
+                                        setVisLagreInfo(false);
+                                        setValgteInformasjonsbokser(
+                                            valgteInformasjonsbokser.filter((item) => item !== alternativ)
+                                        );
+                                    }}
+                                    variant={'neutral'}
+                                >
+                                    {alternativ}
+                                </Chips.Toggle>
+                            ))}
+
+                            {informasjonsboksAlternativer
+                                .filter((x) => !valgteInformasjonsbokser.includes(x))
+                                .map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
-                                        selected={true}
+                                        selected={false}
                                         onClick={() => {
                                             setVisLagreInfo(false);
-                                            setValgteInformasjonsbokser(
-                                                valgteInformasjonsbokser.filter((item) => item !== alternativ)
-                                            );
+                                            setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                         }}
                                         variant={'neutral'}
                                     >
@@ -104,59 +119,43 @@ const App = (props: AppProps) => {
                                     </Chips.Toggle>
                                 ))}
 
-                                {informasjonsboksAlternativer
-                                    .filter((x) => !valgteInformasjonsbokser.includes(x))
-                                    .map((alternativ) => (
-                                        <Chips.Toggle
-                                            key={alternativ}
-                                            selected={false}
-                                            onClick={() => {
-                                                setVisLagreInfo(false);
-                                                setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
-                                            }}
-                                            variant={'neutral'}
-                                        >
-                                            {alternativ}
-                                        </Chips.Toggle>
-                                    ))}
+                            <Button
+                                onClick={() => {
+                                    setValgteInformasjonsbokser(informasjonsboksAlternativer);
+                                }}
+                                size="small"
+                                variant="tertiary"
+                                icon={<TrashIcon title="a11y-title" />}
+                            >
+                                Nullstill visning
+                            </Button>
 
-                                <Button
-                                    onClick={() => {
-                                        setValgteInformasjonsbokser(informasjonsboksAlternativer);
-                                    }}
-                                    size="small"
-                                    variant="tertiary"
-                                    icon={<TrashIcon title="a11y-title" />}
-                                >
-                                    Nullstill visning
-                                </Button>
-
-                                <Button
-                                    onClick={() => {
-                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(
-                                            () => {
-                                                overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
-                                            }
-                                        );
-                                    }}
-                                    size="small"
-                                    variant="secondary"
-                                >
-                                    Lagre visning
-                                </Button>
-                                {visLagreInfo ? (
-                                    <Alert variant="success" aria-live={'polite'} inline size="small">
-                                        Visning er lagret!
-                                    </Alert>
-                                ) : null}
-                            </Chips>
-                        </div>
+                            <Button
+                                onClick={() => {
+                                    sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(() => {
+                                        overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
+                                    });
+                                }}
+                                size="small"
+                                variant="secondary"
+                            >
+                                Lagre visning
+                            </Button>
+                            {visLagreInfo ? (
+                                <Alert variant="success" aria-live={'polite'} inline size="small">
+                                    Visning er lagret!
+                                </Alert>
+                            ) : null}
+                        </Chips>
 
                         <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                                <div key={valgtInformasjonsboks} className="box">
+                                <Panel border className="info_panel" key={valgtInformasjonsboks}>
+                                    <Heading spacing level="2" size="medium" className="panel_header">
+                                        {valgtInformasjonsboks}
+                                    </Heading>
                                     {mapNavnTilKomponent(valgtInformasjonsboks)}
-                                </div>
+                                </Panel>
                             ))}
                         </section>
                     </StoreProvider>

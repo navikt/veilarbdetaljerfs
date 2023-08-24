@@ -2,8 +2,8 @@ import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
-import { PersonSuitIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
+import Utdanningsikon from './ikoner/utdanning.svg';
 
 const Utdanning = ({ utdanning }: Pick<ArenaPerson, 'utdanning'>) => {
     const sortedUtdanning = utdanning.sort((a, b) => safeSort(b.tilDato, a.tilDato));
@@ -30,7 +30,7 @@ const Utdanning = ({ utdanning }: Pick<ArenaPerson, 'utdanning'>) => {
     return (
         <Informasjonsbolk
             header="Utdanning"
-            icon={<PersonSuitIcon title="Ikon som illustrerer en person med dress" aria-hidden="true" />}
+            icon={<img src={Utdanningsikon} aria-hidden="true" alt="" />}
             headerTypo="ingress"
         >
             {utdanninger}
