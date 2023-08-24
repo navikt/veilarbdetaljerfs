@@ -94,7 +94,7 @@ const Nokkelinfo = () => {
         return (
             <Panel border className="nokkelinfo_panel">
                 <Heading spacing level="2" size="medium">
-                    Nøkkelinfo
+                    Nøkkelinformasjon
                 </Heading>
                 <Errormelding />
             </Panel>
@@ -125,7 +125,7 @@ const Nokkelinfo = () => {
     return (
         <Panel border className="nokkelinfo_panel">
             <Heading spacing level="2" size="medium">
-                Nøkkelinfo
+                Nøkkelinformasjon
             </Heading>
             <span className="nokkelinfo_container">
                 <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
