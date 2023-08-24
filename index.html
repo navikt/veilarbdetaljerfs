@@ -10,12 +10,17 @@
             html,
             body,
             #root {
-                min-height: 100%;
+                min-height: 100vh;
             }
 
             #veilarbpersonflatefs-root {
                 width: 100%;
-                min-height: 174px;
+                height: 174px;
+            }
+
+            .veilarbdetaljerfs {
+                /* Ligger et rart mellomrom mellom innhold og header-bilde, derfor 180px og ikke 176px */
+                min-height: calc(100vh - 180px);
             }
         </style>
     </head>
