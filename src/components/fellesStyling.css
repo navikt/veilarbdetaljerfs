@@ -74,3 +74,8 @@
 .lenke-ikon {
     font-size: 1.25rem;
 }
+
+.personopplysningslenke {
+    display: flex;
+    justify-content: flex-end;
+}
