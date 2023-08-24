@@ -2,7 +2,7 @@ import { ArenaPerson, Fagdokumentasjon, FagdokumentType } from '../../data/api/d
 import EMDASH from '../../utils/emdash';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { BodyShort } from '@navikt/ds-react';
-import Fagbrevikon from './ikoner/fagbrev.svg';
+import { ReactComponent as Fagbrevikon } from './ikoner/fagbrev.svg';
 
 const fagdokumentTypeTilTekst = (fagdokumentType: FagdokumentType): string => {
     switch (fagdokumentType) {
@@ -40,11 +40,7 @@ const Fagdokumentasjoner = ({ fagdokumentasjoner }: Pick<ArenaPerson, 'fagdokume
             : EMDASH;
 
     return (
-        <Informasjonsbolk
-            header="Fagbrev"
-            icon={<img src={Fagbrevikon} alt="" aria-hidden="true" />}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Fagbrev" icon={<Fagbrevikon aria-hidden="true" />} headerTypo="ingress">
             {dokumentasjoner}
         </Informasjonsbolk>
     );

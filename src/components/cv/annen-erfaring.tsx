@@ -3,7 +3,7 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import Erfaringsikon from './ikoner/annen-erfaring.svg';
+import { ReactComponent as Erfaringsikon } from './ikoner/annen-erfaring.svg';
 
 const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) => {
     const sortedErfaringer = annenErfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
@@ -24,7 +24,7 @@ const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) =>
     return (
         <Informasjonsbolk
             header="Andre erfaringer"
-            icon={<img src={Erfaringsikon} alt={''} aria-hidden="true" />}
+            icon={<Erfaringsikon aria-hidden="true" />}
             headerTypo="ingress"
         >
             {erfaringer}

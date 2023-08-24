@@ -4,7 +4,7 @@ import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
-import OffentligeGodkjenningerIkone from './ikoner/offentlige-godkjenninger.svg';
+import { ReactComponent as OffentligeGodkjenningerIkon } from './ikoner/offentlige-godkjenninger.svg';
 
 const Godkjenninger = ({ godkjenninger }: Pick<ArenaPerson, 'godkjenninger'>) => {
     const godkjenningListe = safeMap(godkjenninger, (godkjenning, index) => (
@@ -28,7 +28,7 @@ const Godkjenninger = ({ godkjenninger }: Pick<ArenaPerson, 'godkjenninger'>) =>
     return (
         <Informasjonsbolk
             header="Offentlige godkjenninger"
-            icon={<img src={OffentligeGodkjenningerIkone} alt="" aria-hidden="true" />}
+            icon={<OffentligeGodkjenningerIkon aria-hidden="true" />}
             headerTypo="ingress"
         >
             {godkjenningListe}

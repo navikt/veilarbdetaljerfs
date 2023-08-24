@@ -4,7 +4,7 @@ import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
-import Andreikon from './ikoner/andre-godkjenninger.svg';
+import { ReactComponent as Andreikon } from './ikoner/andre-godkjenninger.svg';
 import '../fellesStyling.css';
 
 const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
@@ -31,7 +31,7 @@ const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodk
     return (
         <Informasjonsbolk
             header="Andre godkjenninger"
-            icon={<img src={Andreikon} alt={''} aria-hidden="true" />}
+            icon={<Andreikon aria-hidden="true" />}
             headerTypo="ingress"
         >
             {annenGodkjenningListe}
