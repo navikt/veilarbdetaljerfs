@@ -22,11 +22,7 @@ const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) =>
     ));
 
     return (
-        <Informasjonsbolk
-            header="Andre erfaringer"
-            icon={<Erfaringsikon aria-hidden="true" />}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Andre erfaringer" icon={<Erfaringsikon aria-hidden="true" />} headerTypo="ingress">
             {erfaringer}
         </Informasjonsbolk>
     );
