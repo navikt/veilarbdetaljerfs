@@ -1,8 +1,3 @@
-.pilot_alert {
-    margin: 0 var(--a-spacing-10) var(--a-spacing-3) var(--a-spacing-10);
-    border-radius: var(--a-border-radius-large);
-}
-
 .info_panel {
     background: linear-gradient(to bottom, var(--a-surface-neutral-moderate) 55px, white 20px);
     break-inside: avoid-column;
