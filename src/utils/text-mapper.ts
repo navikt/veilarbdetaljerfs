@@ -51,11 +51,11 @@ export function mapHovedmalTilTekst(hovedmal: OrNothing<Hovedmal | ArenaHovedmal
 export function innsatsgruppeBeskrivelse(innsatsgruppe: InnsatsgruppeType) {
     switch (innsatsgruppe) {
         case 'STANDARD_INNSATS':
-            return 'Antatt rask overgang til arbeid: Vurdér om brukeren har gode muligheter til å beholde eller komme i jobb på egenhånd.';
+            return 'Antatt rask overgang til arbeid: Vurder om brukeren har gode muligheter til å beholde eller komme i jobb på egenhånd.';
         case 'SITUASJONSBESTEMT_INNSATS':
-            return 'Antatt behov for veiledning: Vurdér brukerens jobbmuligheter og behov for veiledning.';
+            return 'Antatt behov for veiledning: Vurder brukerens jobbmuligheter og behov for veiledning.';
         case 'BEHOV_FOR_ARBEIDSEVNEVURDERING':
-            return 'Brukeren har oppgitt hindringer: Vurdér brukerens jobbmuligheter og behov for veiledning.';
+            return 'Brukeren har oppgitt hindringer: Vurder brukerens jobbmuligheter og behov for veiledning.';
         default:
             return '';
     }
@@ -81,6 +81,7 @@ export function mapInnsatsgruppeTilTekst(innsatsgruppe: OrNothing<Innsatsgruppe 
             return EMDASH;
     }
 }
+
 export function hentOppfolgingsEnhetTekst(
     oppfolgingsstatus: OppfolgingsstatusData | null | undefined
 ): StringOrNothing {
