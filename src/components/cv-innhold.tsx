@@ -102,7 +102,6 @@ const Cvinnhold = () => {
                     <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 </HStack>
                 <SistEndret sistEndret={sistEndret} onlyYearAndMonth={false} />
-                <CvIkkeSynligInfo />
                 <Sammendrag sammendrag={sammendrag} />
                 <div className="info_container">
                     <Utdanning utdanning={utdanning} />
@@ -116,6 +115,7 @@ const Cvinnhold = () => {
                     <Godkjenninger godkjenninger={godkjenninger} />
                     <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
                 </div>
+                <CvIkkeSynligInfo />
             </>
         );
     }
