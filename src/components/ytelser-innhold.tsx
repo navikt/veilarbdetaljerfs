@@ -33,10 +33,7 @@ const Ytelsesinnhold = () => {
             <span className="info_container">
                 {ytelserData?.vedtaksliste.map((vedtak, index) => (
                     <div key={index}>
-                        <Informasjonsbolk
-                            header={vedtak.vedtakstype || EMDASH}
-                            headerTypo="ingress"
-                        >
+                        <Informasjonsbolk header={vedtak.vedtakstype || EMDASH} headerTypo="ingress">
                             <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
                             <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />
                             <EnkeltInformasjon

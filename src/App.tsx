@@ -26,8 +26,8 @@ const App = (props: AppProps) => {
     );
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
-
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
+    const [visNullstillInfo, setVisNullstillInfo] = useState<boolean>(false);
 
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
@@ -72,41 +72,48 @@ const App = (props: AppProps) => {
                 <div className="overblikk">
                     <StoreProvider fnr={props.fnr}>
                         <Nokkelinfo />
-                        <Chips size="small" className="overblikk_chips">
-                            {valgteInformasjonsbokser.map((alternativ) => (
-                                <Chips.Toggle
-                                    key={alternativ}
-                                    selected={true}
-                                    onClick={() => {
-                                        setVisLagreInfo(false);
-                                        setValgteInformasjonsbokser(
-                                            valgteInformasjonsbokser.filter((item) => item !== alternativ)
-                                        );
-                                    }}
-                                    variant={'neutral'}
-                                >
-                                    {alternativ}
-                                </Chips.Toggle>
-                            ))}
-
-                            {informasjonsboksAlternativer
-                                .filter((x) => !valgteInformasjonsbokser.includes(x))
-                                .map((alternativ) => (
+                        <section className="overblikk_chips">
+                            <Chips size="small" aria-live="polite">
+                                {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
-                                        selected={false}
+                                        selected={true}
                                         onClick={() => {
                                             setVisLagreInfo(false);
-                                            setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
+                                            setVisNullstillInfo(false);
+                                            setValgteInformasjonsbokser(
+                                                valgteInformasjonsbokser.filter((item) => item !== alternativ)
+                                            );
                                         }}
                                         variant={'neutral'}
+                                        aria-label={alternativ + '-panel valgt'}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
                                 ))}
 
+                                {informasjonsboksAlternativer
+                                    .filter((x) => !valgteInformasjonsbokser.includes(x))
+                                    .map((alternativ) => (
+                                        <Chips.Toggle
+                                            key={alternativ}
+                                            selected={false}
+                                            onClick={() => {
+                                                setVisLagreInfo(false);
+                                                setVisNullstillInfo(false);
+                                                setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
+                                            }}
+                                            variant={'neutral'}
+                                            aria-label={alternativ + '-panel fjernet'}
+                                        >
+                                            {alternativ}
+                                        </Chips.Toggle>
+                                    ))}
+                            </Chips>
                             <Button
                                 onClick={() => {
+                                    setVisLagreInfo(false);
+                                    setVisNullstillInfo(true);
                                     setValgteInformasjonsbokser(informasjonsboksAlternativer);
                                 }}
                                 size="small"
@@ -119,7 +126,10 @@ const App = (props: AppProps) => {
                             <Button
                                 onClick={() => {
                                     sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(() => {
-                                        overblikkFilter.reFetch().then(() => setVisLagreInfo(true));
+                                        overblikkFilter.reFetch().then(() => {
+                                            setVisLagreInfo(true);
+                                            setVisNullstillInfo(false);
+                                        });
                                     });
                                 }}
                                 size="small"
@@ -128,13 +138,17 @@ const App = (props: AppProps) => {
                                 Lagre visning
                             </Button>
                             {visLagreInfo ? (
-                                <Alert variant="success" aria-live={'polite'} inline size="small">
-                                    Visning er lagret!
+                                <Alert variant="success" role="status" inline size="small">
+                                    Visning lagret!
                                 </Alert>
                             ) : null}
-                        </Chips>
-
-                        <section className="main_grid" aria-live={'polite'}>
+                            {visNullstillInfo ? (
+                                <Alert variant="success" role="status" inline size="small">
+                                    Visning nullstilt!
+                                </Alert>
+                            ) : null}
+                        </section>
+                        <section className="main_grid">
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                 <Panel border className="info_panel" key={valgtInformasjonsboks}>
                                     <Heading spacing level="2" size="medium" className="panel_header">

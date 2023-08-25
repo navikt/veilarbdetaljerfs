@@ -34,11 +34,7 @@ const Sprak = ({ sprak }: Pick<ArenaPerson, 'sprak'>) => {
     ));
 
     return (
-        <Informasjonsbolk
-            header="Språk"
-            icon={<SpraakIkon aria-hidden="true" />}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Språk" icon={<SpraakIkon aria-hidden="true" />} headerTypo="ingress">
             {mappedSprak}
         </Informasjonsbolk>
     );
