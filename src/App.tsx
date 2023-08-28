@@ -120,42 +120,42 @@ const App = (props: AppProps) => {
                                 Nullstill visning
                             </Button>
 
-                                <Button
-                                    onClick={() => {
-                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
-                                            () => {
-                                                overblikkFilter.reFetch().then(
-                                                    () => {
-                                                        setVisLagreFeil(false);
-                                                        setVisLagreInfo(true);
-                                                    },
-                                                    () => {
-                                                        setVisLagreInfo(false);
-                                                        setVisLagreFeil(true);
-                                                    }
-                                                );
-                                            },
-                                            () => {
-                                                setVisLagreInfo(false);
-                                                setVisLagreFeil(true);
-                                            }
-                                        );
-                                    }}
-                                    size="small"
-                                    variant="secondary"
-                                >
-                                    Lagre visning
-                                </Button>
-                                {visLagreInfo ? (
-                                    <Alert variant="success" aria-live={'polite'} inline size="small">
-                                        Visning er lagret!
-                                    </Alert>
-                                ) : null}
-                                {visLagreFeil ? (
-                                    <Alert variant="error" aria-live={'polite'} inline size="small">
-                                        Kunne ikke lagre. Prøv på nytt senere
-                                    </Alert>
-                                ) : null}
+                            <Button
+                                onClick={() => {
+                                    sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
+                                        () => {
+                                            overblikkFilter.reFetch().then(
+                                                () => {
+                                                    setVisLagreFeil(false);
+                                                    setVisLagreInfo(true);
+                                                },
+                                                () => {
+                                                    setVisLagreInfo(false);
+                                                    setVisLagreFeil(true);
+                                                }
+                                            );
+                                        },
+                                        () => {
+                                            setVisLagreInfo(false);
+                                            setVisLagreFeil(true);
+                                        }
+                                    );
+                                }}
+                                size="small"
+                                variant="secondary"
+                            >
+                                Lagre visning
+                            </Button>
+                            {visLagreInfo ? (
+                                <Alert variant="success" aria-live={'polite'} inline size="small">
+                                    Visning er lagret!
+                                </Alert>
+                            ) : null}
+                            {visLagreFeil ? (
+                                <Alert variant="error" aria-live={'polite'} inline size="small">
+                                    Kunne ikke lagre. Prøv på nytt senere
+                                </Alert>
+                            ) : null}
                         </section>
 
                         <section className="main_grid" aria-live={'polite'}>
