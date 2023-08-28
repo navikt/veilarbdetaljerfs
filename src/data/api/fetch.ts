@@ -36,7 +36,7 @@ const handterRespons = async (respons: Response) => {
         };
     }
     if (respons.status === 204) {
-        throw {
+        return {
             error: null,
             status: respons.status,
             info: null
