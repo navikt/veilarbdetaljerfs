@@ -27,7 +27,7 @@ const App = (props: AppProps) => {
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
-    const [visNullstillInfo, setVisNullstillInfo] = useState<boolean>(false);
+    const [visLagreFeil, setVisLagreFeil] = useState<boolean>(false);
 
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
@@ -69,7 +69,7 @@ const App = (props: AppProps) => {
                     revalidateOnReconnect: false
                 }}
             >
-                <div className="overblikk">
+                <section className="overblikk">
                     <StoreProvider fnr={props.fnr}>
                         <Nokkelinfo />
                         <section className="overblikk_chips">
@@ -80,7 +80,6 @@ const App = (props: AppProps) => {
                                         selected={true}
                                         onClick={() => {
                                             setVisLagreInfo(false);
-                                            setVisNullstillInfo(false);
                                             setValgteInformasjonsbokser(
                                                 valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                             );
@@ -100,7 +99,7 @@ const App = (props: AppProps) => {
                                             selected={false}
                                             onClick={() => {
                                                 setVisLagreInfo(false);
-                                                setVisNullstillInfo(false);
+                                                setVisLagreFeil(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                             }}
                                             variant={'neutral'}
@@ -112,8 +111,6 @@ const App = (props: AppProps) => {
                             </Chips>
                             <Button
                                 onClick={() => {
-                                    setVisLagreInfo(false);
-                                    setVisNullstillInfo(true);
                                     setValgteInformasjonsbokser(informasjonsboksAlternativer);
                                 }}
                                 size="small"
@@ -123,32 +120,45 @@ const App = (props: AppProps) => {
                                 Nullstill visning
                             </Button>
 
-                            <Button
-                                onClick={() => {
-                                    sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).finally(() => {
-                                        overblikkFilter.reFetch().then(() => {
-                                            setVisLagreInfo(true);
-                                            setVisNullstillInfo(false);
-                                        });
-                                    });
-                                }}
-                                size="small"
-                                variant="secondary"
-                            >
-                                Lagre visning
-                            </Button>
-                            {visLagreInfo ? (
-                                <Alert variant="success" role="status" inline size="small">
-                                    Visning lagret!
-                                </Alert>
-                            ) : null}
-                            {visNullstillInfo ? (
-                                <Alert variant="success" role="status" inline size="small">
-                                    Visning nullstilt!
-                                </Alert>
-                            ) : null}
+                                <Button
+                                    onClick={() => {
+                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
+                                            () => {
+                                                overblikkFilter.reFetch().then(
+                                                    () => {
+                                                        setVisLagreFeil(false);
+                                                        setVisLagreInfo(true);
+                                                    },
+                                                    () => {
+                                                        setVisLagreInfo(false);
+                                                        setVisLagreFeil(true);
+                                                    }
+                                                );
+                                            },
+                                            () => {
+                                                setVisLagreInfo(false);
+                                                setVisLagreFeil(true);
+                                            }
+                                        );
+                                    }}
+                                    size="small"
+                                    variant="secondary"
+                                >
+                                    Lagre visning
+                                </Button>
+                                {visLagreInfo ? (
+                                    <Alert variant="success" aria-live={'polite'} inline size="small">
+                                        Visning er lagret!
+                                    </Alert>
+                                ) : null}
+                                {visLagreFeil ? (
+                                    <Alert variant="error" aria-live={'polite'} inline size="small">
+                                        Kunne ikke lagre. Prøv på nytt senere
+                                    </Alert>
+                                ) : null}
                         </section>
-                        <section className="main_grid">
+
+                        <section className="main_grid" aria-live={'polite'}>
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                 <Panel border className="info_panel" key={valgtInformasjonsboks}>
                                     <Heading spacing level="2" size="medium" className="panel_header">
