@@ -84,7 +84,7 @@ const App = (props: AppProps) => {
                                                 valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                             );
                                         }}
-                                        variant={'neutral'}
+                                        variant="neutral"
                                         aria-label={alternativ + '-panel valgt'}
                                     >
                                         {alternativ}
@@ -102,7 +102,7 @@ const App = (props: AppProps) => {
                                                 setVisLagreFeil(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                             }}
-                                            variant={'neutral'}
+                                            variant="neutral"
                                             aria-label={alternativ + '-panel fjernet'}
                                         >
                                             {alternativ}
