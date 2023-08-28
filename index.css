@@ -14,6 +14,7 @@
 .main_grid {
     column-count: 2;
     padding: 0 var(--a-spacing-10) var(--a-spacing-10);
+    height: 100%;
 }
 
 .overblikk_chips {

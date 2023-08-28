@@ -169,7 +169,7 @@ const App = (props: AppProps) => {
                             ))}
                         </section>
                     </StoreProvider>
-                </div>
+                </section>
             </SWRConfig>
         </main>
     );
