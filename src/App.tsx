@@ -28,6 +28,7 @@ const App = (props: AppProps) => {
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
     const [visLagreFeil, setVisLagreFeil] = useState<boolean>(false);
+    const [visNullstillInfo, setVisNullstillInfo] = useState<boolean>(false);
 
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
@@ -69,7 +70,7 @@ const App = (props: AppProps) => {
                     revalidateOnReconnect: false
                 }}
             >
-                <section className="overblikk">
+                <div className="overblikk">
                     <StoreProvider fnr={props.fnr}>
                         <Nokkelinfo />
                         <section className="overblikk_chips">
@@ -79,12 +80,14 @@ const App = (props: AppProps) => {
                                         key={alternativ}
                                         selected={true}
                                         onClick={() => {
+                                            setVisNullstillInfo(false);
                                             setVisLagreInfo(false);
+                                            setVisLagreFeil(false);
                                             setValgteInformasjonsbokser(
                                                 valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                             );
                                         }}
-                                        className="navds-chips__toggle--neutral"
+                                        variant="neutral"
                                         aria-label={alternativ + '-panel valgt'}
                                     >
                                         {alternativ}
@@ -98,11 +101,12 @@ const App = (props: AppProps) => {
                                             key={alternativ}
                                             selected={false}
                                             onClick={() => {
+                                                setVisNullstillInfo(false);
                                                 setVisLagreInfo(false);
                                                 setVisLagreFeil(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                             }}
-                                            className="navds-chips__toggle--neutral"
+                                            variant="neutral"
                                             aria-label={alternativ + '-panel fjernet'}
                                         >
                                             {alternativ}
@@ -111,6 +115,9 @@ const App = (props: AppProps) => {
                             </Chips>
                             <Button
                                 onClick={() => {
+                                    setVisNullstillInfo(true);
+                                    setVisLagreInfo(false);
+                                    setVisLagreFeil(false);
                                     setValgteInformasjonsbokser(informasjonsboksAlternativer);
                                 }}
                                 size="small"
@@ -126,16 +133,19 @@ const App = (props: AppProps) => {
                                         () => {
                                             overblikkFilter.reFetch().then(
                                                 () => {
+                                                    setVisNullstillInfo(false);
                                                     setVisLagreFeil(false);
                                                     setVisLagreInfo(true);
                                                 },
                                                 () => {
+                                                    setVisNullstillInfo(false);
                                                     setVisLagreInfo(false);
                                                     setVisLagreFeil(true);
                                                 }
                                             );
                                         },
                                         () => {
+                                            setVisNullstillInfo(false);
                                             setVisLagreInfo(false);
                                             setVisLagreFeil(true);
                                         }
@@ -146,19 +156,24 @@ const App = (props: AppProps) => {
                             >
                                 Lagre visning
                             </Button>
+                            {visNullstillInfo ? (
+                                <Alert variant="success" role="status" inline size="small">
+                                    Visning nullstilt!
+                                </Alert>
+                            ) : null}
                             {visLagreInfo ? (
-                                <Alert variant="success" aria-live={'polite'} inline size="small">
+                                <Alert variant="success" role="status" inline size="small">
                                     Visning er lagret!
                                 </Alert>
                             ) : null}
                             {visLagreFeil ? (
-                                <Alert variant="error" aria-live={'polite'} inline size="small">
-                                    Kunne ikke lagre. Prøv på nytt senere
+                                <Alert variant="error" role="status" inline size="small">
+                                    Kunne ikke lagre. Prøv på nytt senere.
                                 </Alert>
                             ) : null}
                         </section>
 
-                        <section className="main_grid" aria-live={'polite'}>
+                        <section className="main_grid">
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                 <Panel border className="info_panel" key={valgtInformasjonsboks}>
                                     <Heading spacing level="2" size="medium" className="panel_header">
@@ -169,7 +184,7 @@ const App = (props: AppProps) => {
                             ))}
                         </section>
                     </StoreProvider>
-                </section>
+                </div>
             </SWRConfig>
         </main>
     );

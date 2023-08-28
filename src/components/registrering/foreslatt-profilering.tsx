@@ -24,7 +24,6 @@ export function ForeslattProfilering(props: Props) {
                 Forslag om brukers muligheter og behov (resultat fra profilering)
             </Heading>
             <BodyShort size="small">
-                {' '}
                 {innsatsgruppeBeskrivelse(ordinaerRegistrering.profilering.innsatsgruppe)}
             </BodyShort>
         </Panel>

@@ -12,7 +12,7 @@ const Sammendrag = ({ sammendrag }: Pick<ArenaPerson, 'sammendrag'>) => {
             headerTypo="ingress"
         >
             <BodyShort className="underinformasjon" size="small">
-                {sammendrag ? sammendrag : EMDASH}
+                {sammendrag ?? EMDASH}
             </BodyShort>
         </Informasjonsbolk>
     );
