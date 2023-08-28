@@ -84,7 +84,7 @@ const App = (props: AppProps) => {
                                                 valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                             );
                                         }}
-                                        variant="neutral"
+                                        className="navds-chips__toggle--neutral"
                                         aria-label={alternativ + '-panel valgt'}
                                     >
                                         {alternativ}
@@ -102,7 +102,7 @@ const App = (props: AppProps) => {
                                                 setVisLagreFeil(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                             }}
-                                            variant="neutral"
+                                            className="navds-chips__toggle--neutral"
                                             aria-label={alternativ + '-panel fjernet'}
                                         >
                                             {alternativ}
