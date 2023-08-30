@@ -27,7 +27,6 @@ const App = (props: AppProps) => {
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
     const [visLagreFeil, setVisLagreFeil] = useState<boolean>(false);
-    const [visNullstillInfo, setVisNullstillInfo] = useState<boolean>(false);
 
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
@@ -73,13 +72,12 @@ const App = (props: AppProps) => {
                     <StoreProvider fnr={props.fnr}>
                         <Nokkelinfo />
                         <section className="overblikk_chips">
-                            <Chips size="small" aria-live="polite">
+                            <Chips size="small">
                                 {valgteInformasjonsbokser.map((alternativ) => (
                                     <Chips.Toggle
                                         key={alternativ}
                                         selected={true}
                                         onClick={() => {
-                                            setVisNullstillInfo(false);
                                             setVisLagreInfo(false);
                                             setVisLagreFeil(false);
                                             setValgteInformasjonsbokser(
@@ -87,7 +85,6 @@ const App = (props: AppProps) => {
                                             );
                                         }}
                                         variant="neutral"
-                                        aria-label={alternativ + '-panel valgt'}
                                     >
                                         {alternativ}
                                     </Chips.Toggle>
@@ -100,13 +97,11 @@ const App = (props: AppProps) => {
                                             key={alternativ}
                                             selected={false}
                                             onClick={() => {
-                                                setVisNullstillInfo(false);
                                                 setVisLagreInfo(false);
                                                 setVisLagreFeil(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
                                             }}
                                             variant="neutral"
-                                            aria-label={alternativ + '-panel fjernet'}
                                         >
                                             {alternativ}
                                         </Chips.Toggle>
@@ -114,7 +109,6 @@ const App = (props: AppProps) => {
                             </Chips>
                             <Button
                                 onClick={() => {
-                                    setVisNullstillInfo(true);
                                     setVisLagreInfo(false);
                                     setVisLagreFeil(false);
                                     setValgteInformasjonsbokser(informasjonsboksAlternativer);
@@ -131,19 +125,16 @@ const App = (props: AppProps) => {
                                         () => {
                                             overblikkFilter.reFetch().then(
                                                 () => {
-                                                    setVisNullstillInfo(false);
                                                     setVisLagreFeil(false);
                                                     setVisLagreInfo(true);
                                                 },
                                                 () => {
-                                                    setVisNullstillInfo(false);
                                                     setVisLagreInfo(false);
                                                     setVisLagreFeil(true);
                                                 }
                                             );
                                         },
                                         () => {
-                                            setVisNullstillInfo(false);
                                             setVisLagreInfo(false);
                                             setVisLagreFeil(true);
                                         }
@@ -154,7 +145,6 @@ const App = (props: AppProps) => {
                             >
                                 Lagre visning
                             </Button>
-                            {visNullstillInfo ? <div></div> : null}
                             {visLagreInfo ? (
                                 <Alert variant="success" role="status" inline size="small">
                                     Visning er lagret!
