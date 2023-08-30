@@ -1,4 +1,4 @@
-import { Alert } from '@navikt/ds-react';
+import { Alert, HStack } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { ForeslattProfilering } from './registrering/foreslatt-profilering';
@@ -31,17 +31,15 @@ const Registreringsinnhold = () => {
     const type = registreringData?.type;
 
     return (
-        <>
+        <HStack gap="4">
             <RegistrertHeader registrering={brukerRegistrering} />
             <SporsmalsListe registrering={brukerRegistrering} />
-            <span className="registrering_nedre_container">
-                <JobbetSammenhengende registrering={brukerRegistrering} />
-                {brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null && (
-                    <PersonverninformasjonUtskrift type={type} />
-                )}
-                <ForeslattProfilering registrering={brukerRegistrering} />
-            </span>
-        </>
+            <JobbetSammenhengende registrering={brukerRegistrering} />
+            {brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null && (
+                <PersonverninformasjonUtskrift type={type} />
+            )}
+            <ForeslattProfilering registrering={brukerRegistrering} />
+        </HStack>
     );
 };
 

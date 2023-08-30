@@ -59,7 +59,7 @@ const Personaliainnhold = () => {
     return (
         <>
             {personData?.sivilstandliste && personData?.sivilstandliste.length > 1 && (
-                <Alert variant="warning">
+                <Alert variant="warning" id="personalia_advarsel">
                     <BodyShort size="small">
                         Det er motstridende informasjon i kildene for sivilstand. Personen bør bes om å oppdatere sin
                         sivilstand hos Folkeregisteret (https://www.skatteetaten.no/person/folkeregister/)

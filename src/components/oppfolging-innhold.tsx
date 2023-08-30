@@ -65,7 +65,7 @@ const Oppfolgingsinnhold = () => {
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
             </span>
-            <Alert variant="info" className="hovedmal_alert">
+            <Alert variant="info" className="panel_infoboks">
                 <BodyShort size="small">
                     Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
                     "Oppfølgingsvedtak".

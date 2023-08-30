@@ -2,7 +2,7 @@ import { Alert, BodyShort, Link } from '@navikt/ds-react';
 
 export const CvIkkeSynligInfo = () => {
     return (
-        <Alert variant="info" className="cv_ikke_synlig">
+        <Alert variant="info" className="panel_infoboks">
             <BodyShort size="small">
                 Fra 17.2.2021 kan arbeidsgivere kun se CV til jobbsøkere som ikke er under arbeidsrettet oppfølging fra
                 NAV. Les mer om{' '}
