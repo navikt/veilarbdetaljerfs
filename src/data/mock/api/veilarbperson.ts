@@ -518,7 +518,7 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
             }
         }
     ],
-    fullmakt: [
+    fullmakter: [
         {
             motpartsPersonident: '1234567890',
             motpartsPersonNavn: {

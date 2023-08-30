@@ -5,9 +5,9 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import { kalkulerAlder } from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
-import { Fullmakter, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import { Fullmakt, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
-import Fullmakt from './personalia/fullmakt';
+import Fullmakter from './personalia/fullmakt';
 import './fellesStyling.css';
 import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
@@ -39,7 +39,7 @@ const Personaliainnhold = () => {
 
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakt: Fullmakter[] = vergeOgFullmaktData?.fullmakt ?? [];
+    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakter ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
         return <Laster />;
@@ -72,7 +72,7 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakt fullmakt={fullmakt} />
+                <Fullmakter fullmakter={fullmakter} />
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>
