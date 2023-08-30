@@ -1,4 +1,3 @@
-import { PersonChatIcon } from '@navikt/aksel-icons';
 import {
     Bostedsadresse,
     Kontaktadresse,
@@ -23,11 +22,7 @@ const Kontaktinformasjon = () => {
     const kontaktadresser: Kontaktadresse[] = person.data?.kontaktadresser ?? [];
 
     return (
-        <Informasjonsbolk
-            header="Kontaktinformasjon"
-            headerTypo="ingress"
-            icon={<PersonChatIcon title="Ikon som illustrerer en person med en snakkeboble" aria-hidden="true" />}
-        >
+        <Informasjonsbolk header="Kontaktinformasjon" headerTypo="ingress">
             <Telefon telefon={telefon} />
             <Adresser
                 bostedsadresse={bostedsadresse}

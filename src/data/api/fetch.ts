@@ -32,11 +32,11 @@ const handterRespons = async (respons: Response) => {
         throw {
             error: new Error('An error occurred while fetching the data.'),
             status: respons.status,
-            info: await respons.json()
+            info: null
         };
     }
     if (respons.status === 204) {
-        throw {
+        return {
             error: null,
             status: respons.status,
             info: null

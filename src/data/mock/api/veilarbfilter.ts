@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import { RequestHandler } from 'msw';
-import { overblikkVisningResponse } from '../../api/fetch.ts';
 import { LiveStorage } from '@mswjs/storage';
+import { overblikkVisningResponse } from '../../api/fetch';
 
 const chips: overblikkVisningResponse = {
     overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia']

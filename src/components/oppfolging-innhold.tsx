@@ -1,4 +1,3 @@
-import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
 import './nokkelinfo.css';
 import { useAppStore } from '../stores/app-store';
@@ -15,8 +14,9 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
+import { Alert, BodyShort } from '@navikt/ds-react';
 
-const Oppfolging = () => {
+const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
 
     const {
@@ -36,14 +36,7 @@ const Oppfolging = () => {
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
     if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Oppfølging
-                </Heading>
-                <Laster />
-            </Panel>
-        );
+        return <Laster />;
     }
 
     if (
@@ -56,21 +49,11 @@ const Oppfolging = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (oppfolgingsstatusError || personError || veilederError) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Oppfølging
-                </Heading>
-                <Errormelding />
-            </Panel>
-        );
+        return <Errormelding />;
     }
 
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="panel_header">
-                Oppfølging
-            </Heading>
+        <>
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
@@ -82,8 +65,14 @@ const Oppfolging = () => {
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
             </span>
-        </Panel>
+            <Alert variant="info" className="hovedmal_alert">
+                <BodyShort size="small">
+                    Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
+                    "Oppfølgingsvedtak".
+                </BodyShort>
+            </Alert>
+        </>
     );
 };
 
-export default Oppfolging;
+export default Oppfolgingsinnhold;
