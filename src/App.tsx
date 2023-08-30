@@ -9,7 +9,6 @@ import Ytelsesinnhold from './components/ytelser-innhold';
 import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
-import { TrashIcon } from '@navikt/aksel-icons';
 import { SWRConfig } from 'swr';
 
 export interface AppProps {
@@ -122,7 +121,6 @@ const App = (props: AppProps) => {
                                 }}
                                 size="small"
                                 variant="tertiary"
-                                icon={<TrashIcon title="a11y-title" />}
                             >
                                 Nullstill visning
                             </Button>
@@ -156,11 +154,7 @@ const App = (props: AppProps) => {
                             >
                                 Lagre visning
                             </Button>
-                            {visNullstillInfo ? (
-                                <Alert variant="success" role="status" inline size="small">
-                                    Visning nullstilt!
-                                </Alert>
-                            ) : null}
+                            {visNullstillInfo ? <div></div> : null}
                             {visLagreInfo ? (
                                 <Alert variant="success" role="status" inline size="small">
                                     Visning er lagret!
