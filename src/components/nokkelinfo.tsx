@@ -88,7 +88,7 @@ const Nokkelinfo = () => {
         registreringError ||
         tolkError ||
         ytelserError ||
-        cvOgJobbonskerError ||
+        // cvOgJobbonskerError ||
         veilederError
     ) {
         return (
@@ -122,6 +122,10 @@ const Nokkelinfo = () => {
             ? barnUnder21.map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`).join(', ')
             : EMDASH;
 
+
+    const cvErrorBlaBla: StringOrNothing = cvOgJobbonskerError?.status ? cvOgJobbonskerError.status.toString() : null;
+
+
     return (
         <Panel border className="nokkelinfo_panel">
             <Heading spacing level="2" size="medium">
@@ -135,7 +139,7 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
-                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} />
+                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} error={cvErrorBlaBla} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
             </span>

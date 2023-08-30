@@ -676,7 +676,7 @@ const sykmeldtRegistering: RegistreringsData = {
 
 export const veilarbpersonHandlers: RequestHandler[] = [
     rest.get('/veilarbperson/api/person/cv_jobbprofil', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(cvOgJobbonsker));
+        return res(ctx.status(403));
     }),
     rest.get('/veilarbperson/api/person/aktorid', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(aktorId));
