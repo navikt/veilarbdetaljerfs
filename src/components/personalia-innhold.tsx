@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
@@ -12,8 +12,9 @@ import './fellesStyling.css';
 import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
+import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
 
-const PersonaliaBoks = () => {
+const Personaliainnhold = () => {
     const { fnr } = useAppStore();
 
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
@@ -41,14 +42,7 @@ const PersonaliaBoks = () => {
     const fullmakt: Fullmakter[] = vergeOgFullmaktData?.fullmakt ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Personalia
-                </Heading>
-                <Laster />
-            </Panel>
-        );
+        return <Laster />;
     }
 
     if (
@@ -59,21 +53,11 @@ const PersonaliaBoks = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (personError || vergeOgFullmaktError) {
-        return (
-            <Panel border className="info_panel">
-                <Heading spacing level="2" size="medium" className="panel_header">
-                    Personalia
-                </Heading>
-                <Errormelding />
-            </Panel>
-        );
+        return <Errormelding />;
     }
 
     return (
-        <Panel border className="info_panel">
-            <Heading spacing level="2" size="medium" className="panel_header">
-                Personalia
-            </Heading>
+        <>
             {personData?.sivilstandliste && personData?.sivilstandliste.length > 1 && (
                 <Alert variant="warning">
                     <BodyShort size="small">
@@ -90,8 +74,9 @@ const PersonaliaBoks = () => {
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                 <Fullmakt fullmakt={fullmakt} />
             </span>
-        </Panel>
+            <EndrePersonopplysninger fnr={fnr} />
+        </>
     );
 };
 
-export default PersonaliaBoks;
+export default Personaliainnhold;

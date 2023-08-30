@@ -1,3 +1,16 @@
+.info_panel {
+    background: linear-gradient(to bottom, var(--a-surface-neutral-moderate) 55px, white 20px);
+    break-inside: avoid-column;
+    margin-bottom: var(--a-spacing-10);
+    border-radius: var(--a-border-radius-large);
+    border-color: var(--a-gray-50);
+}
+
+.panel_header {
+    text-align: center;
+    margin-bottom: var(--a-spacing-4);
+}
+
 .info_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -5,13 +18,6 @@
     margin-top: var(--a-spacing-3);
     justify-content: space-evenly;
     line-height: var(--a-font-line-height-medium);
-}
-.info_panel {
-    background: linear-gradient(to bottom, var(--a-deepblue-200) 55px, white 20px);
-    break-inside: avoid-column;
-    margin-bottom: var(--a-spacing-10);
-    border-radius: var(--a-border-radius-xlarge);
-    border-color: var(--a-gray-50);
 }
 
 @media only screen and (max-width: 1279px) {
@@ -23,40 +29,53 @@
 .body_header {
     font-weight: bold;
 }
+
 .enkeltinfo_value {
     padding-bottom: var(--a-spacing-2);
+    white-space: pre-line;
 }
+
 .copy_header {
     font-weight: var(--a-font-weight-bold);
 }
+
 .copy_body {
-    display: inline-grid;
-    grid-auto-flow: column;
-    align-items: center;
-}
-.with_emdash {
-    margin-top: var(--a-spacing-3);
-}
-.copy_tlf {
     display: flex;
     align-items: center;
 }
+
+.with_emdash {
+    margin-top: var(--a-spacing-3);
+}
+
 .cv_ikke_synlig {
     margin-top: var(--a-spacing-4);
     margin-bottom: var(--a-spacing-4);
 }
-.pilot_alert {
-    margin: var(--a-spacing-3) var(--a-spacing-10) var(--a-spacing-3) var(--a-spacing-10);
+
+.cv-lenker {
+    margin-bottom: var(--a-spacing-2);
 }
 
 .typografi_dato {
     font-style: italic;
 }
-.panel_header {
-    text-align: center;
-    margin-bottom: var(--a-spacing-4);
-}
+
 .registrering_dato {
     color: var(--a-gray-600);
     font-style: italic;
+}
+
+.lenke-ikon {
+    font-size: 1.25rem;
+}
+
+.personopplysningslenke {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hovedmal_alert {
+    margin-top: var(--a-spacing-4);
+    margin-bottom: var(--a-spacing-4);
 }

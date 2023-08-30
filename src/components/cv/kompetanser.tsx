@@ -2,8 +2,8 @@ import { BodyShort, List } from '@navikt/ds-react';
 import { Jobbprofil } from '../../data/api/datatyper/arenaperson';
 import EMDASH from '../../utils/emdash';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { FolderFileIcon } from '@navikt/aksel-icons';
 import ListItem from '@navikt/ds-react/esm/list/ListItem';
+import { ReactComponent as Kompetanserikon } from './ikoner/kompetanser.svg';
 
 const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
     const kompetanser =
@@ -16,11 +16,7 @@ const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
             : EMDASH;
 
     return (
-        <Informasjonsbolk
-            header="Kompetanser"
-            icon={<FolderFileIcon title="Ikon som illustrerer en mappe som inneholder en fil" aria-hidden="true" />}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Kompetanser" icon={<Kompetanserikon aria-hidden="true" />} headerTypo="ingress">
             <List as="ul">{kompetanser}</List>
         </Informasjonsbolk>
     );

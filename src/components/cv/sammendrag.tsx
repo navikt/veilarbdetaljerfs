@@ -11,7 +11,9 @@ const Sammendrag = ({ sammendrag }: Pick<ArenaPerson, 'sammendrag'>) => {
             icon={<BulletListIcon title="Ikon som illustrerer en punktliste" aria-hidden="true" />}
             headerTypo="ingress"
         >
-            <BodyShort className="underinformasjon">{sammendrag ? sammendrag : EMDASH}</BodyShort>
+            <BodyShort className="underinformasjon" size="small">
+                {sammendrag ?? EMDASH}
+            </BodyShort>
         </Informasjonsbolk>
     );
 };

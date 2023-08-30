@@ -2,9 +2,9 @@ import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
-import { FolderPlusIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
+import { ReactComponent as Andreikon } from './ikoner/andre-godkjenninger.svg';
 import '../fellesStyling.css';
 
 const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {
@@ -29,11 +29,7 @@ const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodk
     ));
 
     return (
-        <Informasjonsbolk
-            header="Andre godkjenninger"
-            icon={<FolderPlusIcon title="Ikon som illustrerer en mappe med et pluss-symbol på" aria-hidden="true" />}
-            headerTypo="ingress"
-        >
+        <Informasjonsbolk header="Andre godkjenninger" icon={<Andreikon aria-hidden="true" />} headerTypo="ingress">
             {annenGodkjenningListe}
         </Informasjonsbolk>
     );

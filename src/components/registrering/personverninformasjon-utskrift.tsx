@@ -5,7 +5,6 @@ import PersonverninformasjonManuell from './personverninformasjon-manuell';
 import { PrinterSmallIcon } from '@navikt/aksel-icons';
 import { RegistreringType } from '../../data/api/datatyper/registreringsData';
 import { PrintKnappModal } from './print-knapp-modal';
-import Show from '../felles/show';
 import './registrering.css';
 
 function erSykmeldt(type?: RegistreringType) {
@@ -32,12 +31,8 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
             </Button>
             <Modal className="personvern_modal" open={visPrintModal} onClose={() => setVisPrintModal(false)}>
                 <PrintKnappModal />
-                <Show if={erSykmeldt(props.type)}>
-                    <PersonverninformasjonSykmeldt />
-                </Show>
-                <Show if={erOrdinaer(props.type)}>
-                    <PersonverninformasjonManuell />
-                </Show>
+                {erSykmeldt(props.type) && <PersonverninformasjonSykmeldt />}
+                {erOrdinaer(props.type) && <PersonverninformasjonManuell />}
             </Modal>
         </>
     );

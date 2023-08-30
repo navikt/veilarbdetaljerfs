@@ -10,7 +10,7 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
 
     return (
         <div>
-            <BodyShort size="small" className="copy_tlf">
+            <BodyShort size="small" className="copy_body">
                 {formaterTelefonnummer(telefonNr)}
                 <CopyButton copyText={telefonNr} size="xsmall" />
             </BodyShort>

@@ -7,7 +7,6 @@ import EMDASH from '../../utils/emdash';
 import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNotEmptyArray } from '../../utils/felles-typer';
-import { PersonTallShortIcon } from '@navikt/aksel-icons';
 
 function BorSammen(props: { barn: PersonsBarn }) {
     const { dodsdato, relasjonsBosted } = props.barn;
@@ -66,16 +65,7 @@ function Barn(props: Pick<PersonaliaV2Info, 'barn'>) {
         : EMDASH;
 
     return (
-        <Informasjonsbolk
-            header="Barn under 21 år"
-            headerTypo="ingress"
-            icon={
-                <PersonTallShortIcon
-                    title="Ikon som illustrerer to personer hvor den ene er høyere"
-                    aria-hidden="true"
-                />
-            }
-        >
+        <Informasjonsbolk header="Barn under 21 år" headerTypo="ingress">
             {barnListe}
         </Informasjonsbolk>
     );

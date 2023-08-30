@@ -2,7 +2,6 @@ import { BodyShort } from '@navikt/ds-react';
 import { Registrering } from '../../data/api/datatyper/registreringsData';
 import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { ClipboardIcon } from '@navikt/aksel-icons';
 
 export const RegistrertHeader = (props: { registrering?: Registrering }) => {
     if (!props.registrering) {
@@ -28,11 +27,7 @@ export const RegistrertHeader = (props: { registrering?: Registrering }) => {
     const erRegistrert = props.registrering?.manueltRegistrertAv ? registrertAv : null;
 
     return (
-        <Informasjonsbolk
-            header={overskrift}
-            headerTypo="ingress"
-            icon={<ClipboardIcon title="Ikon som illustrerer en utklippstavle" aria-hidden="true" />}
-        >
+        <Informasjonsbolk header={overskrift} headerTypo="ingress">
             <BodyShort className="registrering_dato" size="small">
                 {regDato}
             </BodyShort>
