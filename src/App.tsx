@@ -10,6 +10,7 @@ import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
+import TilToppenKnapp from './components/felles/til-toppen-knapp';
 
 export interface AppProps {
     fnr: string;
@@ -170,6 +171,7 @@ const App = (props: AppProps) => {
                     </StoreProvider>
                 </div>
             </SWRConfig>
+            <TilToppenKnapp />
         </main>
     );
 };
