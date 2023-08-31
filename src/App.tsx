@@ -13,7 +13,7 @@ import { SWRConfig } from 'swr';
 import TilToppenKnapp from './components/felles/til-toppen-knapp';
 
 export interface AppProps {
-    fnr: string;
+    fnr?: string;
     enhet?: string;
 }
 
