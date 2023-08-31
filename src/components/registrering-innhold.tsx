@@ -19,7 +19,7 @@ const Registreringsinnhold = () => {
 
     if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData) {
         return (
-            <Alert inline variant="info">
+            <Alert inline variant="info" size="small">
                 Brukeren har ikke registrert seg
             </Alert>
         );

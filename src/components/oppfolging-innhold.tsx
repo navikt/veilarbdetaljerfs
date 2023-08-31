@@ -1,5 +1,4 @@
 import { Laster, Errormelding } from './felles/minikomponenter';
-import './nokkelinfo.css';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
@@ -14,7 +13,7 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -65,11 +64,9 @@ const Oppfolgingsinnhold = () => {
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
             </span>
-            <Alert variant="info" className="panel_infoboks">
-                <BodyShort size="small">
-                    Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
-                    "Oppfølgingsvedtak".
-                </BodyShort>
+            <Alert variant="info" size="small" className="panel_infoboks">
+                Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
+                "Oppfølgingsvedtak".
             </Alert>
         </>
     );
