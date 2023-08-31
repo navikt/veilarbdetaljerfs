@@ -24,7 +24,7 @@ export class Veilarbdetaljer extends HTMLElement {
 
     connectedCallback() {
         const shadowRoot = this.attachShadow({ mode: 'closed' });
-        shadowRoot.appendChild;
+        shadowRoot.appendChild(this.#root);
 
         this.loadStyles(shadowRoot)
             .then(() => {
