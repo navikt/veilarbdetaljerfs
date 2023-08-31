@@ -123,7 +123,14 @@ const Nokkelinfo = () => {
             : EMDASH;
 
 
-    const cvErrorBlaBla: StringOrNothing = cvOgJobbonskerError?.status ? cvOgJobbonskerError.status.toString() : null;
+    const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined ): StringOrNothing => {
+        switch (errorStatus) {
+            case 403:
+                return "Du har ikke tilgang. Mer informasjon i jobbønsker-boksen.";
+            default:
+                return null;
+        }
+    };
 
 
     return (
@@ -139,7 +146,7 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
-                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} error={cvErrorBlaBla} />
+                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} error={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)} />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
             </span>

@@ -20,7 +20,7 @@ export function EnkeltInformasjon({ header, value = EMDASH, error }: Props) {
             </BodyShort>
             }
             {error &&
-            <Alert variant="error" inline size="small" >
+            <Alert variant="info" inline size="small" >
                 {error}
             </Alert>
             }
