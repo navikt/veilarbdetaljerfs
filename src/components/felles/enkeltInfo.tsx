@@ -1,6 +1,6 @@
 import EMDASH from '../../utils/emdash';
 import { StringOrNothing } from '../../utils/felles-typer';
-import {Alert, BodyShort} from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 
 interface Props {
     header: string;
@@ -14,16 +14,16 @@ export function EnkeltInformasjon({ header, value = EMDASH, error }: Props) {
             <BodyShort size="small" className="body_header">
                 {header}
             </BodyShort>
-            {!error &&
-            <BodyShort size="small" className="enkeltinfo_value">
-                {value}
-            </BodyShort>
-            }
-            {error &&
-            <Alert variant="info" inline size="small" >
-                {error}
-            </Alert>
-            }
+            {!error && (
+                <BodyShort size="small" className="enkeltinfo_value">
+                    {value}
+                </BodyShort>
+            )}
+            {error && (
+                <Alert variant="info" inline size="small">
+                    {error}
+                </Alert>
+            )}
         </span>
     );
 }

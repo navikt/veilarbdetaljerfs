@@ -88,7 +88,6 @@ const Nokkelinfo = () => {
         registreringError ||
         tolkError ||
         ytelserError ||
-        // cvOgJobbonskerError ||
         veilederError
     ) {
         return (
@@ -122,16 +121,14 @@ const Nokkelinfo = () => {
             ? barnUnder21.map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`).join(', ')
             : EMDASH;
 
-
-    const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined ): StringOrNothing => {
+    const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined): StringOrNothing => {
         switch (errorStatus) {
             case 403:
-                return "Du har ikke tilgang. Mer informasjon i jobbønsker-boksen.";
+                return 'Du har ikke tilgang. Mer informasjon i jobbønsker-boksen.';
             default:
                 return null;
         }
     };
-
 
     return (
         <Panel border className="nokkelinfo_panel">
@@ -146,7 +143,11 @@ const Nokkelinfo = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
                 <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
-                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} error={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)} />
+                <EnkeltInformasjon
+                    header="Jobbønsker"
+                    value={jobbonsker}
+                    error={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
+                />
                 <EnkeltInformasjon header="Registrert av" value={registrertAv} />
                 <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
             </span>
