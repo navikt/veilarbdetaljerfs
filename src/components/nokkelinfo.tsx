@@ -125,7 +125,11 @@ const Nokkelinfoinnhold = () => {
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
-            <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} error={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)} />
+            <EnkeltInformasjon
+                header="Jobbønsker"
+                value={jobbonsker}
+                error={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
+            />
             <EnkeltInformasjon header="Registrert av" value={registrertAv} />
             <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
         </span>
