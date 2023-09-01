@@ -45,14 +45,18 @@ const Cvinnhold = () => {
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>;
+        return (
+            <Alert variant="info" size="small">
+                Bruker er ikke under arbeidsrettet oppfølging
+            </Alert>
+        );
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Alert variant="info">
+            <Alert variant="info" size="small">
                 Du kan ikke se CV-en, be brukeren om å:
-                <List as="ul">
+                <List as="ul" size="small">
                     <ListItem>Logge inn på arbeidsplassen.no</ListItem>
                     <ListItem>Lese teksten om at du må dele CV-en med NAV</ListItem>
                     <ListItem>Gå videre og gjennomføre det tjenesten ber om</ListItem>
@@ -64,8 +68,8 @@ const Cvinnhold = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Alert inline variant="info">
-                Ingen CV registrert&nbsp;&nbsp;
+            <Alert inline variant="info" size="small">
+                Ingen CV registrert.{' '}
                 {erManuell && aktorId && (
                     <Link href={endreCvUrl} target="_blank" rel="noopener">
                         Registrer her

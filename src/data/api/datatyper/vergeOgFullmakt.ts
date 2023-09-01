@@ -54,7 +54,7 @@ export interface Omraade {
     beskrivelse: string;
 }
 
-export interface Fullmakter {
+export interface Fullmakt {
     motpartsPersonident: StringOrNothing;
     motpartsPersonNavn: Navn;
     motpartsRolle: StringOrNothing;
@@ -65,5 +65,5 @@ export interface Fullmakter {
 
 export interface VergeOgFullmaktData {
     vergemaalEllerFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[];
-    fullmakt: Fullmakter[];
+    fullmakter: Fullmakt[];
 }

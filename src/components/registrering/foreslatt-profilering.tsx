@@ -19,7 +19,7 @@ export function ForeslattProfilering(props: Props) {
     }
 
     return (
-        <Panel border className="profilering_boks">
+        <Panel border>
             <Heading level="4" size="small">
                 Forslag om brukers muligheter og behov (resultat fra profilering)
             </Heading>

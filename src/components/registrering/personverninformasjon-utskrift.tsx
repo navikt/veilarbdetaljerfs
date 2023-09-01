@@ -24,7 +24,6 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
                 variant="tertiary"
                 onClick={() => setVisPrintModal(true)}
                 type="button"
-                className="utskrift_knapp"
                 icon={<PrinterSmallIcon title="Ikon som illustrerer en skriver" aria-hidden="true" />}
             >
                 Personverninformasjon, rettigheter og plikter
