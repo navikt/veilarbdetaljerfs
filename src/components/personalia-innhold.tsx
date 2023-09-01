@@ -1,13 +1,13 @@
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { kalkulerAlder } from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
-import { Fullmakter, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import { Fullmakt, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
-import Fullmakt from './personalia/fullmakt';
+import Fullmakter from './personalia/fullmakt';
 import './fellesStyling.css';
 import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
@@ -39,7 +39,7 @@ const Personaliainnhold = () => {
 
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakt: Fullmakter[] = vergeOgFullmaktData?.fullmakt ?? [];
+    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakter ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
         return <Laster />;
@@ -59,11 +59,9 @@ const Personaliainnhold = () => {
     return (
         <>
             {personData?.sivilstandliste && personData?.sivilstandliste.length > 1 && (
-                <Alert variant="warning">
-                    <BodyShort size="small">
-                        Det er motstridende informasjon i kildene for sivilstand. Personen bør bes om å oppdatere sin
-                        sivilstand hos Folkeregisteret (https://www.skatteetaten.no/person/folkeregister/)
-                    </BodyShort>
+                <Alert variant="warning" size="small" id="personalia_advarsel">
+                    Det er motstridende informasjon i kildene for sivilstand. Personen bør bes om å oppdatere sin
+                    sivilstand hos Folkeregisteret (https://www.skatteetaten.no/person/folkeregister/)
                 </Alert>
             )}
             <span className="info_container">
@@ -72,7 +70,7 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakt fullmakt={fullmakt} />
+                <Fullmakter fullmakter={fullmakter} />
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>
