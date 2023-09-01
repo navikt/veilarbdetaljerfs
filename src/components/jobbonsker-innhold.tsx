@@ -64,14 +64,18 @@ const Jobbonskerinnhold = () => {
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>;
+        return (
+            <Alert variant="info" size="small">
+                Bruker er ikke under arbeidsrettet oppfølging
+            </Alert>
+        );
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Alert variant="info">
+            <Alert variant="info" size="small">
                 Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
-                <List as="ul">
+                <List as="ul" size="small">
                     <ListItem>
                         Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn på
                         nav.no og oppdatere CV-en sin.
@@ -83,8 +87,8 @@ const Jobbonskerinnhold = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Alert inline variant="info">
-                Ingen jobbønsker registrert&nbsp;&nbsp;
+            <Alert inline variant="info" size="small">
+                Ingen jobbønsker registrert.{' '}
                 {erManuell && aktorId && (
                     <Link href={endreCvUrl} target="_blank" rel="noopener">
                         Registrer her

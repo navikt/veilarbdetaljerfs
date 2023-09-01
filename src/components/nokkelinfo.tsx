@@ -1,6 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
 import { Laster, Errormelding } from './felles/minikomponenter';
-import './nokkelinfo.css';
 import { useAppStore } from '../stores/app-store';
 import {
     useOppfolgingsstatus,
@@ -22,8 +21,9 @@ import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefo
 import { kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
+import './nokkelinfo.css';
 
-const Nokkelinfo = () => {
+const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
 
     const {
@@ -56,14 +56,7 @@ const Nokkelinfo = () => {
         cvOgJobbonskerLoading ||
         veilederLoading
     ) {
-        return (
-            <Panel border className="nokkelinfo_panel">
-                <Heading spacing level="2" size="medium">
-                    Nøkkelinformasjon
-                </Heading>
-                <Laster />
-            </Panel>
-        );
+        return <Laster />;
     }
     if (
         oppfolgingsstatusError?.status === 204 ||
@@ -91,14 +84,7 @@ const Nokkelinfo = () => {
         cvOgJobbonskerError ||
         veilederError
     ) {
-        return (
-            <Panel border className="nokkelinfo_panel">
-                <Heading spacing level="2" size="medium">
-                    Nøkkelinformasjon
-                </Heading>
-                <Errormelding />
-            </Panel>
-        );
+        return <Errormelding />;
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
@@ -123,22 +109,28 @@ const Nokkelinfo = () => {
             : EMDASH;
 
     return (
+        <span className="nokkelinfo_container">
+            <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
+            <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
+            <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+            <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
+            <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
+            <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
+            <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
+            <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} />
+            <EnkeltInformasjon header="Registrert av" value={registrertAv} />
+            <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
+        </span>
+    );
+};
+
+const Nokkelinfo = () => {
+    return (
         <Panel border className="nokkelinfo_panel">
             <Heading spacing level="2" size="medium">
                 Nøkkelinformasjon
             </Heading>
-            <span className="nokkelinfo_container">
-                <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
-                <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-                <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
-                <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
-                <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
-                <EnkeltInformasjon header="Jobbønsker" value={jobbonsker} />
-                <EnkeltInformasjon header="Registrert av" value={registrertAv} />
-                <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
-            </span>
+            <Nokkelinfoinnhold />
         </Panel>
     );
 };

@@ -1,11 +1,11 @@
 import { BodyShort } from '@navikt/ds-react';
-import { Fullmakter, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
+import { Fullmakt, VergeOgFullmaktData } from '../../data/api/datatyper/vergeOgFullmakt';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formateStringInUpperAndLowerCase, formaterDato } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 
-function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
+function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     const { motpartsPersonident, motpartsPersonNavn, motpartsRolle, omraader, gyldigFraOgMed, gyldigTilOgMed } =
         props.fullmakt;
     const { fornavn, mellomnavn, etternavn } = motpartsPersonNavn;
@@ -31,28 +31,24 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakter }) {
     );
 }
 
-function Fullmakt(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
-    const { fullmakt } = props;
+function Fullmakter(props: Pick<VergeOgFullmaktData, 'fullmakter'>) {
+    const { fullmakter: fullmakter } = props;
 
-    let fullmaktListe;
-
-    if (isNotEmptyArray(fullmakt)) {
-        fullmaktListe = fullmakt.map((fullmakt, index) => (
-            <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
-        ));
-    } else {
-        return (
-            <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
-                {EMDASH}
-            </Informasjonsbolk>
-        );
-    }
+    const Fullmaktinnhold = () => {
+        if (isNotEmptyArray(fullmakter)) {
+            return fullmakter.map((fullmakt, index) => (
+                <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
+            ));
+        } else {
+            return <>{EMDASH}</>;
+        }
+    };
 
     return (
         <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
-            {fullmaktListe}
+            <Fullmaktinnhold />
         </Informasjonsbolk>
     );
 }
 
-export default Fullmakt;
+export default Fullmakter;

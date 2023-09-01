@@ -9,6 +9,8 @@ export const Laster = () => (
 
 export const Errormelding = () => (
     <div className="midtstill">
-        <Alert variant="error">Noe gikk galt! Prøv igjen om noen minutter.</Alert>
+        <Alert variant="error" size="small">
+            Noe gikk galt! Prøv igjen om noen minutter.
+        </Alert>
     </div>
 );

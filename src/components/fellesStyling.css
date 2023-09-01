@@ -14,15 +14,13 @@
 .info_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: var(--a-spacing-8);
-    margin-top: var(--a-spacing-3);
-    justify-content: space-evenly;
-    line-height: var(--a-font-line-height-medium);
+    grid-gap: var(--a-spacing-4);
 }
 
 @media only screen and (max-width: 1279px) {
     .info_container {
         grid-template-columns: 1fr;
+        grid-gap: var(--a-spacing-2);
     }
 }
 
@@ -48,8 +46,11 @@
     margin-top: var(--a-spacing-3);
 }
 
-.cv_ikke_synlig {
+.panel_infoboks {
     margin-top: var(--a-spacing-4);
+}
+
+#personalia_advarsel {
     margin-bottom: var(--a-spacing-4);
 }
 
@@ -58,6 +59,7 @@
 }
 
 .typografi_dato {
+    margin-bottom: var(--a-spacing-2);
     font-style: italic;
 }
 
@@ -73,9 +75,4 @@
 .personopplysningslenke {
     display: flex;
     justify-content: flex-end;
-}
-
-.hovedmal_alert {
-    margin-top: var(--a-spacing-4);
-    margin-bottom: var(--a-spacing-4);
 }

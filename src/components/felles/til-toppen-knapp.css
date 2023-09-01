@@ -1,0 +1,30 @@
+#til-toppen-knapp {
+    position: fixed;
+    right: var(--a-spacing-6);
+    bottom: var(--a-spacing-6);
+    padding: var(--a-spacing-2);
+    border: 2px solid var(--a-border-action);
+    box-shadow: var(--a-shadow-medium);
+
+    animation: fadeInAnimation 0.5s;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#til-toppen-knapp:not(:hover):not(:active) {
+    background-color: var(--a-surface-default);
+}
+
+#til-toppen-knapp > span {
+    font-size: 1.75rem;
+    transform: rotate(-90deg);
+}
