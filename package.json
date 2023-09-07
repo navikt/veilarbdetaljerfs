@@ -4,8 +4,10 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "start": "vite",
         "dev": "vite",
-        "build": "tsc && vite build",
+        "build": "tsc && vite build --base=https://veilarbdetaljer.intern.nav.no",
+        "build:dev": "tsc && vite build --base=https://veilarbdetaljer.intern.dev.nav.no",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "prettier:check": "prettier --check src --config .prettierrc.json",
