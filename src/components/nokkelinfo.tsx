@@ -10,13 +10,19 @@ import {
     useYtelser,
     useCvOgJobbonsker
 } from '../data/api/fetch';
-import { ArenaHovedmalKode } from '../data/api/datatyper/oppfolgingsstatus';
+import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst, mapHovedmalTilTekst } from '../utils/text-mapper';
-import { Hovedmal } from '../data/api/datatyper/siste14aVedtak';
+import {
+    getVedtakForVisning,
+    hentTolkTekst,
+    hentVeilederTekst,
+    mapHovedmalTilTekst,
+    mapInnsatsgruppeTilTekst
+} from '../utils/text-mapper';
+import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefonnummer } from '../utils/formater';
 import { kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
@@ -92,7 +98,7 @@ const Nokkelinfoinnhold = () => {
     const jobbonsker: string = onsketYrkeTitles.length > 0 ? onsketYrkeTitles.join(', ') : EMDASH;
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
-    const registrertAv: StringOrNothing = registreringData?.registrering?.manueltRegistrertAv?.enhet?.navn;
+    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
     const datoRegistrert: StringOrNothing = registreringData?.registrering?.opprettetDato;
     const MAX_ALDER_BARN = 21;
     const barnUnder21: PersonsBarn[] =
@@ -121,7 +127,7 @@ const Nokkelinfoinnhold = () => {
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
             <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-            <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
+            <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
@@ -130,7 +136,7 @@ const Nokkelinfoinnhold = () => {
                 value={jobbonsker}
                 errorMessage={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
             />
-            <EnkeltInformasjon header="Registrert av" value={registrertAv} />
+            <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
             <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
         </span>
     );
