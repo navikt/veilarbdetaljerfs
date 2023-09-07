@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
-import NAVSPA from '@navikt/navspa';
-import { erMock } from './utils/miljo-utils.ts';
+import { WEB_COMPONENT_APPNAVN, erMock } from './utils/miljo-utils.ts';
+import { Veilarbdetaljer } from './WebComponentWrapper.tsx';
 
 if (erMock()) {
     //@ts-ignore
     import('/src/data/mock/index').then(() => {
-        ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+        createRoot(document.getElementById('root') as HTMLElement).render(
             <React.StrictMode>
                 <img
                     src={`${import.meta.env.BASE_URL}internflate20211122.png`}
@@ -19,5 +19,5 @@ if (erMock()) {
         );
     });
 } else {
-    NAVSPA.eksporter('veilarbdetaljer', App);
+    customElements.define(WEB_COMPONENT_APPNAVN, Veilarbdetaljer);
 }

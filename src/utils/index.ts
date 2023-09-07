@@ -29,7 +29,7 @@ export function safeSort(a: StringOrNothing, b: StringOrNothing) {
     }
 }
 
-export function byggPamUrl(fnr: string, path = '/cv') {
+export function byggPamUrl(fnr?: string, path = '/cv') {
     return `https://pam-personbruker-veileder.${finnInternNavDomene()}${path}?fnr=${fnr}`;
 }
 

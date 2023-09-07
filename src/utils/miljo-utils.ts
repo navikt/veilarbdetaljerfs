@@ -1,3 +1,5 @@
+export const WEB_COMPONENT_APPNAVN = 'veilarb-detaljer';
+
 export const NAV_INTERN_PREPROD_SUFFIX = 'intern.dev.nav.no';
 export const NAV_INTERN_PROD_SUFFIX = 'intern.nav.no';
 
