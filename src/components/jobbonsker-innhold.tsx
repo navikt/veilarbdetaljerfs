@@ -9,6 +9,7 @@ import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { byggPamUrl } from '../utils';
 import ListItem from '@navikt/ds-react/esm/list/ListItem';
+import { trackAmplitude } from '../amplitude/amplitude';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {
@@ -90,7 +91,17 @@ const Jobbonskerinnhold = () => {
             <Alert inline variant="info" size="small">
                 Ingen jobbønsker registrert.{' '}
                 {erManuell && aktorId && (
-                    <Link href={endreCvUrl} target="_blank" rel="noopener">
+                    <Link
+                        href={endreCvUrl}
+                        target="_blank"
+                        rel="noopener"
+                        onClick={() => {
+                            trackAmplitude({
+                                name: 'navigere',
+                                data: { lenketekst: 'Registrer her', destinasjon: 'endre jobbønsker' }
+                            });
+                        }}
+                    >
                         Registrer her
                     </Link>
                 )}
