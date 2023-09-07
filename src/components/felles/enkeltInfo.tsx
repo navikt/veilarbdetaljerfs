@@ -5,23 +5,23 @@ import { Alert, BodyShort } from '@navikt/ds-react';
 interface Props {
     header: string;
     value?: StringOrNothing;
-    error?: StringOrNothing;
+    errorMessage?: StringOrNothing;
 }
 
-export function EnkeltInformasjon({ header, value = EMDASH, error }: Props) {
+export function EnkeltInformasjon({ header, value = EMDASH, errorMessage }: Props) {
     return (
         <span>
             <BodyShort size="small" className="body_header">
                 {header}
             </BodyShort>
-            {!error && (
+            {!errorMessage && (
                 <BodyShort size="small" className="enkeltinfo_value">
                     {value}
                 </BodyShort>
             )}
-            {error && (
+            {errorMessage && (
                 <Alert variant="info" inline size="small">
-                    {error}
+                    {errorMessage}
                 </Alert>
             )}
         </span>

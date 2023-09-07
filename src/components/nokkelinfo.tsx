@@ -128,7 +128,7 @@ const Nokkelinfoinnhold = () => {
             <EnkeltInformasjon
                 header="Jobbønsker"
                 value={jobbonsker}
-                error={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
+                errorMessage={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
             />
             <EnkeltInformasjon header="Registrert av" value={registrertAv} />
             <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
