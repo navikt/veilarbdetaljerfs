@@ -3,7 +3,7 @@ import { DownloadIcon } from '@navikt/aksel-icons';
 import { BodyShort, Link } from '@navikt/ds-react';
 import { byggPamUrl } from '../../utils';
 
-export function LastNedCV(props: { erManuell: boolean | undefined; fnr: string }) {
+export function LastNedCV(props: { erManuell: boolean | undefined; fnr?: string }) {
     const handleOnLastNedLenkeClicked = () => {
         logMetrikk('veilarbdetaljerfs.metrikker.last-ned-cv', { erManuell: props.erManuell });
     };

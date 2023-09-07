@@ -3,7 +3,7 @@ import { AppStoreProvider } from './app-store';
 import { ViewStoreProvider } from './view-store';
 
 interface StoreProviderProps {
-    fnr: string;
+    fnr?: string;
     enhetId?: string;
     children: React.ReactNode;
 }
