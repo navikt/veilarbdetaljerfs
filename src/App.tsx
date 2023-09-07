@@ -11,6 +11,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
 import TilToppenKnapp from './components/felles/til-toppen-knapp';
+import {trackAmplitude} from "./utils/amplitude";
 
 export interface AppProps {
     fnr?: string;
@@ -84,6 +85,7 @@ const App = (props: AppProps) => {
                                             setValgteInformasjonsbokser(
                                                 valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                             );
+											trackAmplitude('filtervalg', {kategori: alternativ, filternavn: 'oyblikksvisning'})
                                         }}
                                         variant="neutral"
                                     >
@@ -101,6 +103,7 @@ const App = (props: AppProps) => {
                                                 setVisLagreInfo(false);
                                                 setVisLagreFeil(false);
                                                 setValgteInformasjonsbokser((prevState) => [...prevState, alternativ]);
+												trackAmplitude('filtervalg', {kategori: alternativ, filternavn: 'oyblikksvisning'})
                                             }}
                                             variant="neutral"
                                         >
@@ -113,6 +116,7 @@ const App = (props: AppProps) => {
                                     setVisLagreInfo(false);
                                     setVisLagreFeil(false);
                                     setValgteInformasjonsbokser(informasjonsboksAlternativer);
+									trackAmplitude('oyblikksvisning nullstilt')
                                 }}
                                 size="small"
                                 variant="tertiary"
@@ -124,7 +128,8 @@ const App = (props: AppProps) => {
                                 onClick={() => {
                                     sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
                                         () => {
-                                            overblikkFilter.reFetch().then(
+											trackAmplitude('oyblikksvisning lagret', {kategori: valgteInformasjonsbokser, filternavn: 'oyblikksvisning'})
+											overblikkFilter.reFetch().then(
                                                 () => {
                                                     setVisLagreFeil(false);
                                                     setVisLagreInfo(true);
