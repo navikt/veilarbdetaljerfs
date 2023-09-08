@@ -1,4 +1,4 @@
-import { Alert, HStack } from '@navikt/ds-react';
+import {Alert, HStack} from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { ForeslattProfilering } from './registrering/foreslatt-profilering';
@@ -17,10 +17,10 @@ const Registreringsinnhold = () => {
         return <Laster />;
     }
 
-    if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData) {
+    if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData?.registrering) {
         return (
             <Alert inline variant="info" size="small">
-                Brukeren har ikke registrert seg
+                Brukeren har ikke registrert seg via den nye registreringsløsningen.
             </Alert>
         );
     } else if (registreringError) {
