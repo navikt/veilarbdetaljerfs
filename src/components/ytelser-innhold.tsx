@@ -38,7 +38,14 @@ const Ytelsesinnhold = () => {
                             <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />
                             <EnkeltInformasjon
                                 header="Fra dato / Til dato"
-                                value={`${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year} - ${
+                                value={`                       
+                                ${
+                                    vedtak.fradato
+                                        ? `${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year}`
+                                        : 'Ingen fradato'
+                                }
+                                -
+                                ${
                                     vedtak.tildato
                                         ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
                                         : 'Ingen tildato'
