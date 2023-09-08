@@ -1,4 +1,4 @@
-import {Alert, HStack} from '@navikt/ds-react';
+import { Alert, HStack } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { ForeslattProfilering } from './registrering/foreslatt-profilering';
