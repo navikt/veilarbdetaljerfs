@@ -15,6 +15,18 @@ declare global {
     }
     /* tslint:enable:no-unused-variable */
 }
+export const maskereFodselsnummer = (data?: Record<string, unknown>) => {
+    const maskertObjekt = JSON.stringify(data).replace(/\d{11}/g, (_, indexOfMatch, fullString) =>
+        fullString.charAt(indexOfMatch - 1) === '"' ? '***********' : '"***********"'
+    );
+
+    try {
+        return JSON.parse(maskertObjekt);
+    } catch (e) {
+        console.error('kunne ikke maskrere data korrekt før sending til amplitude');
+    }
+    return {};
+};
 export const trackAmplitude = (
     { name: eventName, data: eventData }: AmplitudeEvent,
     ekstraData?: Record<string, unknown>
@@ -23,7 +35,7 @@ export const trackAmplitude = (
         window.veilarbpersonflatefsAmplitude({
             origin: 'verilarbdetaljerfs',
             eventName,
-            eventData: { ...eventData, ...ekstraData }
+            eventData: maskereFodselsnummer({ ...eventData, ...ekstraData })
         });
     }
 };

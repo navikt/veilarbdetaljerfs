@@ -98,7 +98,7 @@ const Jobbonskerinnhold = () => {
                         onClick={() => {
                             trackAmplitude({
                                 name: 'navigere',
-                                data: { lenketekst: 'Registrer her', destinasjon: 'endre jobbønsker' }
+                                data: { lenketekst: 'Registrer her', destinasjon: 'Registrere jobbønsker' }
                             });
                         }}
                     >
