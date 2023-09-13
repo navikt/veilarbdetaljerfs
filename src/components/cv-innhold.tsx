@@ -20,6 +20,7 @@ import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
 import ListItem from '@navikt/ds-react/esm/list/ListItem';
+import { trackAmplitude } from '../amplitude/amplitude';
 
 const Cvinnhold = () => {
     const { fnr } = useAppStore();
@@ -71,7 +72,17 @@ const Cvinnhold = () => {
             <Alert inline variant="info" size="small">
                 Ingen CV registrert.{' '}
                 {erManuell && aktorId && (
-                    <Link href={endreCvUrl} target="_blank" rel="noopener">
+                    <Link
+                        href={endreCvUrl}
+                        target="_blank"
+                        rel="noopener"
+                        onClick={() => {
+                            trackAmplitude({
+                                name: 'navigere',
+                                data: { lenketekst: 'Registrer her', destinasjon: 'Registrer CV' }
+                            });
+                        }}
+                    >
                         Registrer her
                     </Link>
                 )}
