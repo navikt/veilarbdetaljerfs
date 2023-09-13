@@ -10,7 +10,7 @@
     "dynamicImports": [
       "src/data/mock/index.ts"
     ],
-    "file": "assets/index-2106bac9.js",
+    "file": "assets/index-4ca018a5.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -51,7 +51,7 @@
     "src": "src/components/cv/ikoner/utdanning.svg"
   },
   "src/data/mock/index.ts": {
-    "file": "assets/index-db83e69b.js",
+    "file": "assets/index-d498b87e.js",
     "imports": [
       "index.html"
     ],
