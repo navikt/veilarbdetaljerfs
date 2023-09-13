@@ -1,0 +1,7 @@
+<svg width="1.25em" height="1.25em" viewBox="0 0 24 24" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <title>Verktøykasse</title>
+    <path stroke="black" stroke-width=".5" fill-rule="evenodd" clip-rule="evenodd" d="M5 4.5C4.17157 4.5 3.5 5.17157 3.5 6V7H20.5V6C20.5 5.17157 19.8284 4.5 19 4.5H5ZM2.5 6V7H1C0.447715 7 0 7.44772 0 8V20C0 20.5523 0.447716 21 1 21H23C23.5523 21 24 20.5523 24 20V8C24 7.44772 23.5523 7 23 7H21.5V6C21.5 4.61929 20.3807 3.5 19 3.5H5C3.61929 3.5 2.5 4.61929 2.5 6ZM1 8H2.5H3.5H20.5H21.5H23V11H1V8ZM1 12V20H23V12H1Z" fill="#062140"/>
+    <path d="M9 12V14C9 15.1046 9.89543 16 11 16H13C14.1046 16 15 15.1046 15 14V12" stroke="black"/>
+    <rect x="11" y="13" width="2" height="1" rx="0.5" fill="black"/>
+</svg>

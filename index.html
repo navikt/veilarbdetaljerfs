@@ -1,39 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/svg+xml" href="/vite.svg">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>veilarbdetaljerfs</title>
+        <style>
+            html,
+            body,
+            #root {
+                min-height: 100vh;
+            }
 
-<head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>veilarbdetaljerfs</title>
-    <style>
-        html,
-        body {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            margin: 0;
-        }
+            #veilarbpersonflatefs-root {
+                width: 100%;
+                height: 174px;
+            }
 
-        #main {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+            .veilarbdetaljerfs {
+                /* Ligger et rart mellomrom mellom innhold og header-bilde, derfor 180px og ikke 176px */
+                min-height: calc(100vh - 180px);
+            }
+        </style>
+      <script type="module" crossorigin src="/veilarbdetaljerfs/assets/index-2106bac9.js"></script>
+      <link rel="stylesheet" href="/veilarbdetaljerfs/assets/index-06b76c87.css">
+    </head>
 
-        #veilarbpersonflatefs-root {
-            width: 100%;
-            min-height: 174px;
-        }
-    </style>
-  <script type="module" crossorigin src="/veilarbdetaljerfs/assets/index-23c8facb.js"></script>
-  <link rel="stylesheet" href="/veilarbdetaljerfs/assets/index-2a6e051d.css">
-</head>
-
-<body>
-    <main id="root"></main>
-    
-</body>
-
+    <body>
+        <main id="root"></main>
+        
+    </body>
 </html>
