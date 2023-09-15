@@ -8,7 +8,7 @@ import {
     SprakNiva
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
-import { Gradering, PersonaliaV2Info, RelasjonsBosted } from '../../api/datatyper/personalia';
+import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, VergeOgFullmaktData, Vergetype } from '../../api/datatyper/vergeOgFullmakt';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { RegistreringsData } from '../../api/datatyper/registreringsData';
@@ -344,7 +344,7 @@ const cvOgJobbonsker: ArenaPerson = {
     }
 };
 
-const personalia: PersonaliaV2Info = {
+const personalia: PersonaliaInfo = {
     fornavn: 'Bruce',
     fodselsnummer: '10108000398',
     fodselsdato: '1974-09-16',
@@ -403,6 +403,11 @@ const personalia: PersonaliaV2Info = {
             master: 'PDL'
         }
     ],
+    epost: {
+        epostAdresse: 'tester.scrambling@registre.no',
+        epostSistOppdatert: '10.04.2010',
+        master: 'KRR'
+    },
     statsborgerskap: ['NORGE', 'POLEN'],
     partner: {
         gradering: Gradering.UKJENT,

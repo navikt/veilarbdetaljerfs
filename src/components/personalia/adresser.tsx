@@ -3,7 +3,7 @@ import EMDASH, { visEmdashHvisNull } from '../../utils/emdash';
 import {
     Kontaktadresse,
     Matrikkeladresse,
-    PersonaliaV2Info,
+    PersonaliaInfo,
     PostadresseIFrittFormat,
     Postboksadresse,
     Ukjentbosted,
@@ -32,7 +32,7 @@ import { OrNothing, isNotEmptyArray, isNullOrUndefined } from '../../utils/felle
 //return null;
 //}
 
-function BostedsAdresse(props: Pick<PersonaliaV2Info, 'bostedsadresse'>) {
+function BostedsAdresse(props: Pick<PersonaliaInfo, 'bostedsadresse'>) {
     if (isNullOrUndefined(props.bostedsadresse)) {
         return null;
     }
@@ -65,7 +65,7 @@ function BostedsAdresse(props: Pick<PersonaliaV2Info, 'bostedsadresse'>) {
     );
 }
 
-function OppholdsAdresse(props: Pick<PersonaliaV2Info, 'oppholdsadresse'>) {
+function OppholdsAdresse(props: Pick<PersonaliaInfo, 'oppholdsadresse'>) {
     if (isNullOrUndefined(props.oppholdsadresse)) {
         return null;
     }
@@ -231,9 +231,9 @@ function PostAdresseIFrittFormat(props: { adresse: OrNothing<PostadresseIFrittFo
     );
 }
 
-type Props = Pick<PersonaliaV2Info, 'bostedsadresse'> &
-    Pick<PersonaliaV2Info, 'oppholdsadresse'> &
-    Pick<PersonaliaV2Info, 'kontaktadresser'>;
+type Props = Pick<PersonaliaInfo, 'bostedsadresse'> &
+    Pick<PersonaliaInfo, 'oppholdsadresse'> &
+    Pick<PersonaliaInfo, 'kontaktadresser'>;
 
 function Adresser(props: Props) {
     const { bostedsadresse, oppholdsadresse, kontaktadresser } = props;
