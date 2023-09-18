@@ -40,4 +40,6 @@ export interface Sporsmal {
     sporsmalId: string;
     sporsmal: string;
     svar: string;
+    endretAv?: string;
+    endretDato?: string;
 }

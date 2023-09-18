@@ -12,6 +12,7 @@ import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
+import { EndringIRegistreringsdata } from './datatyper/endringIRegistreringsData';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -25,6 +26,10 @@ export interface overblikkVisningRequest {
 
 export interface overblikkVisningResponse {
     overblikkVisning: string[];
+}
+
+export interface Fnr {
+    fodselsnummer: string | null;
 }
 
 const handterRespons = async (respons: Response) => {
@@ -128,6 +133,20 @@ export const useRegistrering = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(
         `/veilarbperson/api/person/registrering?fnr=${fnr}`,
         fetcher
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useEndringIRegistrering = (fnr?: string) => {
+    const fetchWithPost = async (url: string) => {
+        const respons = await fetch(url, createPOSToptions({ fodselsnummer: fnr ?? null }));
+        return handterRespons(respons);
+    };
+
+    const { data, error, isLoading } = useSWR<EndringIRegistreringsdata, ErrorMessage>(
+        fnr ? `/veilarbperson/api/person/registrering/endringer` : null,
+        fetchWithPost
     );
 
     return { data, isLoading, error };
