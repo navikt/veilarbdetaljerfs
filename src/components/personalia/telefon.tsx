@@ -36,7 +36,9 @@ function Telefon({ telefon }: Pick<PersonaliaInfo, 'telefon'>) {
             <BodyShort size="small" className="body_header">
                 Telefon
             </BodyShort>
-            <div className="enkeltinfo_value">{telefonListe}</div>
+            <BodyShort size="small" className="enkeltinfo_value">
+                {telefonListe}
+            </BodyShort>
         </>
     );
 }

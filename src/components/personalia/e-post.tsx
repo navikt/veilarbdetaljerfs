@@ -7,7 +7,7 @@ import EMDASH from '../../utils/emdash';
 function Epost({ epost }: Pick<PersonaliaInfo, 'epost'>) {
     const Epostinnhold = () => {
         if (isNullOrUndefined(epost?.epostAdresse)) {
-            return <BodyShort>{EMDASH}</BodyShort>;
+            return <BodyShort size="small">{EMDASH}</BodyShort>;
         }
 
         const { epostAdresse, epostSistOppdatert, master } = epost!;

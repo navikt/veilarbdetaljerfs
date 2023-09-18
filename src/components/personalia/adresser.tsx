@@ -252,7 +252,7 @@ function Adresser(props: Props) {
                     <BodyShort size="small" className="body_header">
                         Adresse
                     </BodyShort>
-                    {EMDASH}
+                    <BodyShort size="small">{EMDASH}</BodyShort>
                 </div>
             )}
         </>
