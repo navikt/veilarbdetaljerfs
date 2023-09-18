@@ -5,12 +5,12 @@ import { hentKilde } from '../../utils/konstanter';
 import EMDASH from '../../utils/emdash';
 
 function Epost({ epost }: Pick<PersonaliaInfo, 'epost'>) {
-    const { epostAdresse, epostSistOppdatert, master } = epost!;
-
     const Epostinnhold = () => {
         if (isNullOrUndefined(epost?.epostAdresse)) {
             return <BodyShort>{EMDASH}</BodyShort>;
         }
+
+        const { epostAdresse, epostSistOppdatert, master } = epost!;
         return (
             <>
                 <BodyShort size="small" className="copy_body">
