@@ -6,7 +6,7 @@ import {
     ArenaServicegruppeKode
 } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
-import { PersonaliaV2Info } from '../data/api/datatyper/personalia';
+import { PersonaliaInfo } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { VedtakType } from '../data/api/datatyper/ytelse';
@@ -100,7 +100,7 @@ export function hentOppfolgingsEnhetTekst(
     return `${enhetId} ${navn}`;
 }
 
-export function hentGeografiskEnhetTekst(personalia: PersonaliaV2Info | null | undefined): StringOrNothing {
+export function hentGeografiskEnhetTekst(personalia: PersonaliaInfo | null | undefined): StringOrNothing {
     const enhetsnummer = personalia?.geografiskEnhet?.enhetsnummer;
     const navn = personalia?.geografiskEnhet?.navn;
 
