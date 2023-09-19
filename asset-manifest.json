@@ -1,16 +1,16 @@
 {
   "index.css": {
-    "file": "assets/index-06b76c87.css",
+    "file": "assets/index-09c94cd2.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-06b76c87.css"
+      "assets/index-09c94cd2.css"
     ],
     "dynamicImports": [
       "src/data/mock/index.ts"
     ],
-    "file": "assets/index-53428902.js",
+    "file": "assets/index-48f1a86b.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -51,7 +51,7 @@
     "src": "src/components/cv/ikoner/utdanning.svg"
   },
   "src/data/mock/index.ts": {
-    "file": "assets/index-a2bad1b1.js",
+    "file": "assets/index-ee25aeba.js",
     "imports": [
       "index.html"
     ],
