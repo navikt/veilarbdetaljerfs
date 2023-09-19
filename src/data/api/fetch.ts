@@ -1,6 +1,6 @@
 import { createPOSToptions, GEToptions } from './datatyper/apiOptions';
 import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
-import { PersonaliaV2Info } from './datatyper/personalia';
+import { PersonaliaInfo } from './datatyper/personalia';
 import { RegistreringsData } from './datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunikasjon';
 import { StringOrNothing } from '../../utils/felles-typer';
@@ -121,7 +121,7 @@ export const useOppfolgingsstatus = (fnr?: string) => {
 };
 
 export const usePersonalia = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<PersonaliaV2Info, ErrorMessage>(
+    const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(
         `/veilarbperson/api/v2/person?fnr=${fnr}`,
         fetcher
     );

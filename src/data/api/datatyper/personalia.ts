@@ -61,6 +61,12 @@ export interface PersonaliaTelefon {
     master: string;
 }
 
+export interface PersonaliaEpost {
+    epostAdresse: StringOrNothing;
+    epostSistOppdatert: StringOrNothing;
+    master: StringOrNothing;
+}
+
 export interface Vegadresse {
     matrikkelId: OrNothing<number>;
     postnummer: StringOrNothing;
@@ -147,11 +153,12 @@ export interface Kontaktadresse {
     utenlandskAdresseIFrittFormat: OrNothing<UtenlandskadresseIFrittFormat>;
 }
 
-export interface PersonaliaV2Info extends GrunnPersonalia {
+export interface PersonaliaInfo extends GrunnPersonalia {
     barn: PersonsBarn[];
     kontonummer: string;
     geografiskEnhet: OrNothing<Enhet>;
     telefon: PersonaliaTelefon[];
+    epost: OrNothing<PersonaliaEpost>;
     statsborgerskap: string[];
     partner?: PersonaliaPartner;
     sivilstandliste?: PersonaliaSivilstandNy[];

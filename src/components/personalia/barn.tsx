@@ -1,5 +1,5 @@
 import { finnAlder } from '../../utils/date-utils';
-import { Gradering, PersonaliaV2Info, PersonsBarn } from '../../data/api/datatyper/personalia';
+import { Gradering, PersonaliaInfo, PersonsBarn } from '../../data/api/datatyper/personalia';
 import { formateStringInUpperAndLowerCase } from '../../utils/formater';
 import { graderingBeskrivelseBarn, hentBorMedBarnBeskrivelse } from '../../utils/konstanter';
 import { BodyShort } from '@navikt/ds-react';
@@ -57,7 +57,7 @@ function EnkeltBarn(props: { barn: PersonsBarn }) {
     );
 }
 
-function Barn(props: Pick<PersonaliaV2Info, 'barn'>) {
+function Barn(props: Pick<PersonaliaInfo, 'barn'>) {
     const { barn } = props;
 
     const barnListe = isNotEmptyArray(barn)
