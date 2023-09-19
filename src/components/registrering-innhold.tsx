@@ -4,7 +4,7 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import { ForeslattProfilering } from './registrering/foreslatt-profilering';
 import { JobbetSammenhengende } from './registrering/jobbetsammenhengende';
 import PersonverninformasjonUtskrift from './registrering/personverninformasjon-utskrift';
-import { useRegistrering } from '../data/api/fetch';
+import { useEndringIRegistrering, useRegistrering } from '../data/api/fetch';
 import { SporsmalsListe } from './registrering/sporsmolvisning';
 import { RegistrertHeader } from './registrering/registrert';
 
@@ -12,6 +12,7 @@ const Registreringsinnhold = () => {
     const { fnr } = useAppStore();
 
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
+    const { data: endringerIRegistreringsdata } = useEndringIRegistrering(fnr);
 
     if (registreringLoading) {
         return <Laster />;
@@ -33,7 +34,10 @@ const Registreringsinnhold = () => {
     return (
         <HStack gap="4">
             <RegistrertHeader registrering={brukerRegistrering} />
-            <SporsmalsListe registrering={brukerRegistrering} />
+            <SporsmalsListe
+                registrering={brukerRegistrering}
+                endringerIRegistreringsdata={endringerIRegistreringsdata}
+            />
             <JobbetSammenhengende registrering={brukerRegistrering} />
             {brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null && (
                 <PersonverninformasjonUtskrift type={type} />

@@ -1,5 +1,5 @@
 import { FrontendEvent } from '../../../utils/logger';
-import { overblikkVisningRequest } from '../fetch.ts';
+import { Fnr, overblikkVisningRequest } from '../fetch.ts';
 
 export const GEToptions = {
     method: 'GET',
@@ -10,7 +10,7 @@ export const GEToptions = {
     }
 };
 
-export const createPOSToptions = (event: FrontendEvent | overblikkVisningRequest) => ({
+export const createPOSToptions = (event: FrontendEvent | overblikkVisningRequest | Fnr) => ({
     method: 'POST',
     body: JSON.stringify(event),
     headers: {
