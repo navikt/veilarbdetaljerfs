@@ -14,14 +14,13 @@ function TelefonNrMedKilde(props: { telefon: PersonaliaTelefon }) {
                 {formaterTelefonnummer(telefonNr)}
                 <CopyButton copyText={telefonNr} size="xsmall" />
             </BodyShort>
-            <div className="tlf_registrert">
-                {telefonNr && (
-                    <Detail className="kilde_tekst">
-                        Registrert {registrertDato && registrertDato}
-                        {` ${hentKilde(master)}`}
-                    </Detail>
-                )}
-            </div>
+
+            {telefonNr && (
+                <Detail className="kilde_tekst">
+                    Registrert {registrertDato && registrertDato}
+                    {` ${hentKilde(master)}`}
+                </Detail>
+            )}
         </>
     );
 }
@@ -36,9 +35,7 @@ function Telefon({ telefon }: Pick<PersonaliaInfo, 'telefon'>) {
             <BodyShort size="small" className="body_header">
                 Telefon
             </BodyShort>
-            <BodyShort size="small" className="enkeltinfo_value">
-                {telefonListe}
-            </BodyShort>
+            <div className="enkeltinfo_value">{telefonListe}</div>
         </>
     );
 }
