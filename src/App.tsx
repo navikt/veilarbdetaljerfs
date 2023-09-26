@@ -182,11 +182,11 @@ const App = (props: AppProps) => {
                                 size="small"
                                 variant="secondary"
                             >
-                                Lagre visning
+                                Lagre visning for alle brukere
                             </Button>
                             {visLagreInfo ? (
                                 <Alert variant="success" role="status" inline size="small">
-                                    Visning er lagret!
+                                    Visning er lagret. Du vil se de samme boksene på alle brukere.
                                 </Alert>
                             ) : null}
                             {visLagreFeil ? (
