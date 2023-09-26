@@ -33,11 +33,7 @@ const App = (props: AppProps) => {
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
             const lagretData = overblikkFilter.data.overblikkVisning;
-            if (lagretData.length > 0) {
-                setValgteInformasjonsbokser(lagretData);
-            } else {
-                setValgteInformasjonsbokser(informasjonsboksAlternativer);
-            }
+            setValgteInformasjonsbokser(lagretData);
         }
     }, [informasjonsboksAlternativer, overblikkFilter.data]);
 
