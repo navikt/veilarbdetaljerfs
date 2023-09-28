@@ -65,7 +65,15 @@ const fetcher = async (url: string) => {
     return handterRespons(respons);
 };
 
-const postFetcher = async (url: string, fnr: Fnr) => {
+const postFetcher = async (url: string, fnr: string | undefined) => {
+    const createPOSToptions = (fnr: string | undefined) => ({
+        method: 'POST',
+        body: JSON.stringify(fnr),
+        headers: {
+            'Content-Type': 'application/json',
+            'Nav-Consumer-Id': 'veilarbdetaljerfs'
+        }
+    });
     const respons = await fetch(url, createPOSToptions(fnr));
 
     return handterRespons(respons);
@@ -117,7 +125,7 @@ export const useUnderOppfolging = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useOppfolgingsstatus = (fnr: Fnr) => {
+export const useOppfolgingsstatus = (fnr: string | undefined) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
         `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
         postFetcher(`/veilarboppfolging/api/person/v3/oppfolgingsstatus`, fnr)
