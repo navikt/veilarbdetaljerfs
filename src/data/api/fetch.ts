@@ -127,7 +127,6 @@ export const useUnderOppfolging = (fnr?: string) => {
 
 export const useOppfolgingsstatus = (fnr: string | undefined) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
-        `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
         postFetcher(`/veilarboppfolging/api/person/v3/oppfolgingsstatus`, fnr)
     );
 
