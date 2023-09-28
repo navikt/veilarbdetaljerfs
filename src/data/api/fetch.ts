@@ -65,8 +65,8 @@ const fetcher = async (url: string) => {
     return handterRespons(respons);
 };
 
-const postFetcher = async (url: string, fnr: string | undefined) => {
-    const createPOSToptions = (fnr: string | undefined) => ({
+const postFetcher = async (url: string, fnr: { fnr: string | undefined }) => {
+    const createPOSToptions = (fnr: { fnr: string | undefined }) => ({
         method: 'POST',
         body: JSON.stringify(fnr),
         headers: {
@@ -127,7 +127,7 @@ export const useUnderOppfolging = (fnr?: string) => {
 
 export const useOppfolgingsstatus = (fnr: string | undefined) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
-        postFetcher(`/veilarboppfolging/api/person/v3/oppfolgingsstatus`, fnr)
+        postFetcher(`/veilarboppfolging/api/person/v3/oppfolgingsstatus`, { fnr })
     );
 
     return { data, isLoading, error };
