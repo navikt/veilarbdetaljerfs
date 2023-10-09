@@ -2,7 +2,7 @@ import { ArenaPerson } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { safeMap } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import { ReactComponent as Forerkortikon } from './ikoner/forerkort.svg';
+import Forerkortikon from './ikoner/forerkort.svg?react';
 import EMDASH from '../../utils/emdash';
 
 const Forerkort = ({ forerkort }: Pick<ArenaPerson, 'forerkort'>) => {
