@@ -12,6 +12,7 @@ import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
 import TilToppenKnapp from './components/felles/til-toppen-knapp';
 import { trackAmplitude } from './amplitude/amplitude';
+import '../index.css';
 
 export interface AppProps {
     fnr?: string;
@@ -198,7 +199,12 @@ const App = (props: AppProps) => {
 
                         <section className="main_grid">
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                                <Panel border className="info_panel" key={valgtInformasjonsboks}>
+                                <Panel
+                                    border
+                                    className="info_panel"
+                                    key={valgtInformasjonsboks}
+                                    id={`${valgtInformasjonsboks}-panel`}
+                                >
                                     <Heading spacing level="2" size="medium" className="panel_header">
                                         {valgtInformasjonsboks}
                                     </Heading>

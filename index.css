@@ -38,3 +38,38 @@
 .kilde_tekst {
     color: var(--a-text-subtle);
 }
+
+@media print {
+    #veilarbpersonflatefs-root,
+    .nokkelinfo_panel,
+    .overblikk_chips,
+    .info_panel {
+        display: none;
+    }
+
+    #Registrering-panel {
+        display: block;
+    }
+
+    #Registrering-panel .info_container,
+    #Registrering-panel .informasjonsbolk,
+    .navds-modal__header,
+    .panel_header,
+    #til-toppen-knapp {
+        display: none;
+    }
+
+    .personvern_modal_innhold {
+        top: 0;
+    }
+
+    .personvern_modal_innhold ul {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    a:link:after,
+    a:visited:after {
+        content: '';
+    }
+}
