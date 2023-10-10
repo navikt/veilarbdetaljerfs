@@ -3,7 +3,7 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import { ReactComponent as Erfaringsikon } from './ikoner/annen-erfaring.svg';
+import Erfaringsikon from './ikoner/annen-erfaring.svg?react';
 
 const AnnenErfaring = ({ annenErfaring }: Pick<ArenaPerson, 'annenErfaring'>) => {
     const sortedErfaringer = annenErfaring.sort((a, b) => safeSort(b.tilDato, a.tilDato));
