@@ -1,57 +1,21 @@
 {
   "index.css": {
-    "file": "assets/index-09c94cd2.css",
+    "file": "assets/index-b9e6c756.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-09c94cd2.css"
+      "assets/index-b9e6c756.css"
     ],
     "dynamicImports": [
       "src/data/mock/index.ts"
     ],
-    "file": "assets/index-f10daefc.js",
+    "file": "assets/index-920d5e37.js",
     "isEntry": true,
     "src": "index.html"
   },
-  "src/components/cv/ikoner/andre-godkjenninger.svg": {
-    "file": "assets/andre-godkjenninger-3f4cefa2.svg",
-    "src": "src/components/cv/ikoner/andre-godkjenninger.svg"
-  },
-  "src/components/cv/ikoner/annen-erfaring.svg": {
-    "file": "assets/annen-erfaring-96db9b64.svg",
-    "src": "src/components/cv/ikoner/annen-erfaring.svg"
-  },
-  "src/components/cv/ikoner/fagbrev.svg": {
-    "file": "assets/fagbrev-188cb2b5.svg",
-    "src": "src/components/cv/ikoner/fagbrev.svg"
-  },
-  "src/components/cv/ikoner/forerkort.svg": {
-    "file": "assets/forerkort-7b35efd1.svg",
-    "src": "src/components/cv/ikoner/forerkort.svg"
-  },
-  "src/components/cv/ikoner/kompetanser.svg": {
-    "file": "assets/kompetanser-a34ff43b.svg",
-    "src": "src/components/cv/ikoner/kompetanser.svg"
-  },
-  "src/components/cv/ikoner/kurs.svg": {
-    "file": "assets/kurs-20c1e400.svg",
-    "src": "src/components/cv/ikoner/kurs.svg"
-  },
-  "src/components/cv/ikoner/offentlige-godkjenninger.svg": {
-    "file": "assets/offentlige-godkjenninger-efe1bbe9.svg",
-    "src": "src/components/cv/ikoner/offentlige-godkjenninger.svg"
-  },
-  "src/components/cv/ikoner/sprak.svg": {
-    "file": "assets/sprak-1c02f4d8.svg",
-    "src": "src/components/cv/ikoner/sprak.svg"
-  },
-  "src/components/cv/ikoner/utdanning.svg": {
-    "file": "assets/utdanning-84bdebbc.svg",
-    "src": "src/components/cv/ikoner/utdanning.svg"
-  },
   "src/data/mock/index.ts": {
-    "file": "assets/index-bd27b604.js",
+    "file": "assets/index-7166c261.js",
     "imports": [
       "index.html"
     ],
