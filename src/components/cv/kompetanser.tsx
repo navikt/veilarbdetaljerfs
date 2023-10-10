@@ -3,7 +3,7 @@ import { Jobbprofil } from '../../data/api/datatyper/arenaperson';
 import EMDASH from '../../utils/emdash';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import ListItem from '@navikt/ds-react/esm/list/ListItem';
-import { ReactComponent as Kompetanserikon } from './ikoner/kompetanser.svg';
+import Kompetanserikon from './ikoner/kompetanser.svg?react';
 
 const Kompetanser = ({ kompetanse }: Pick<Jobbprofil, 'kompetanse'>) => {
     const kompetanser =
