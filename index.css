@@ -43,14 +43,7 @@
     #veilarbpersonflatefs-root,
     .nokkelinfo_panel,
     .overblikk_chips,
-    .info_panel {
-        display: none;
-    }
-
-    #Registrering-panel {
-        display: block;
-    }
-
+    .info_panel,
     #Registrering-panel .info_container,
     #Registrering-panel .informasjonsbolk,
     .navds-modal__header,
@@ -59,8 +52,8 @@
         display: none;
     }
 
-    .personvern_modal_innhold {
-        top: 0;
+    #Registrering-panel {
+        display: block;
     }
 
     .personvern_modal_innhold ul {
