@@ -1,4 +1,5 @@
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
+import { ExternalLinkIcon } from '@navikt/aksel-icons';
 import './registrering.css';
 
 function PersonverninformasjonManuell() {
@@ -22,7 +23,7 @@ function PersonverninformasjonManuell() {
                     Du har krav på at NAV vurderer behovet ditt for veiledning. Dette er en rettighet du har etter
                     NAV-loven § 14a se{' '}
                     <Link href="https://lovdata.no/NL/lov/2006-06-16-20/%C2%A714a">
-                        https://lovdata.no/NL/lov/2006-06-16-20/%C2%A714a
+                        https://lovdata.no/NL/lov/2006-06-16-20/%C2%A714a <ExternalLinkIcon />
                     </Link>
                     .
                 </li>
@@ -67,7 +68,7 @@ function PersonverninformasjonManuell() {
             <Heading level="2" size="xsmall">
                 Behandling av personopplysninger
             </Heading>
-            <BodyShort size="small" spacing={true}>
+            <BodyShort size="small" spacing>
                 Opplysningene dine blir lagret etter arkivloven. NAV bruker anonymiserte personopplysninger om
                 arbeidssøkere til å lage offentlig statistikk om arbeidsmarkedet. Les mer om hvordan NAV behandler
                 personopplysninger på <Link href="https://www.nav.no/personvern">https://www.nav.no/personvern</Link>.

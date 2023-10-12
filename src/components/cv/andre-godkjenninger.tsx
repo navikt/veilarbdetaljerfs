@@ -4,7 +4,7 @@ import { formaterDato } from '../../utils/formater';
 import { safeMap } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
 import EMDASH from '../../utils/emdash';
-import { ReactComponent as Andreikon } from './ikoner/andre-godkjenninger.svg';
+import Andreikon from './ikoner/andre-godkjenninger.svg?react';
 import '../fellesStyling.css';
 
 const AndreGodkjenninger = ({ andreGodkjenninger }: Pick<ArenaPerson, 'andreGodkjenninger'>) => {

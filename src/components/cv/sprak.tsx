@@ -2,7 +2,7 @@ import { ArenaPerson, SprakNiva } from '../../data/api/datatyper/arenaperson';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { safeMap } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import { ReactComponent as Sprakikon } from './ikoner/sprak.svg';
+import Sprakikon from './ikoner/sprak.svg?react';
 
 // String er lagt til for bakoverkompatibilitet
 function mapSprakNivaTilTekst(sprakNiva: SprakNiva | string): string {

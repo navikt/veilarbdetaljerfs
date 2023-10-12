@@ -1,6 +1,5 @@
 import React from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import '../../../index.css';
 
 interface Props {
     header: string;

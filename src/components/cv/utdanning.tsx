@@ -3,7 +3,7 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formaterDato } from '../../utils/formater';
 import { safeMap, safeSort } from '../../utils';
 import { BodyShort } from '@navikt/ds-react';
-import { ReactComponent as Utdanningsikon } from './ikoner/utdanning.svg';
+import Utdanningsikon from './ikoner/utdanning.svg?react';
 
 const Utdanning = ({ utdanning }: Pick<ArenaPerson, 'utdanning'>) => {
     const sortedUtdanning = utdanning.sort((a, b) => safeSort(b.tilDato, a.tilDato));
