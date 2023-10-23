@@ -31,8 +31,8 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     );
 }
 
-function Fullmakter(props: Pick<VergeOgFullmaktData, 'fullmakter'>) {
-    const { fullmakter: fullmakter } = props;
+function Fullmakter(props: Pick<VergeOgFullmaktData, 'fullmakt'>) {
+    const { fullmakt: fullmakter } = props;
 
     const Fullmaktinnhold = () => {
         if (isNotEmptyArray(fullmakter)) {
