@@ -39,7 +39,7 @@ const Personaliainnhold = () => {
 
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakter ?? [];
+    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakt ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
         return <Laster />;
@@ -70,7 +70,7 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakter fullmakter={fullmakter} />
+                <Fullmakter fullmakt={fullmakter} />
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>

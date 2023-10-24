@@ -65,5 +65,5 @@ export interface Fullmakt {
 
 export interface VergeOgFullmaktData {
     vergemaalEllerFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[];
-    fullmakter: Fullmakt[];
+    fullmakt: Fullmakt[];
 }
