@@ -16,6 +16,7 @@ export class Veilarbdetaljer extends HTMLElement {
         super();
         this.#root = document.createElement('div');
         this.#root.id = WEB_COMPONENT_APPNAVN;
+        this.#root.style.height = '100%';
     }
 
     static get observedAttributes() {
