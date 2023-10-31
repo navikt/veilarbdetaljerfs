@@ -765,25 +765,25 @@ const mockEndringIRegistreringsData: EndringIRegistreringsdata = {
 };
 
 export const veilarbpersonHandlers: RequestHandler[] = [
-    rest.get('/veilarbperson/api/person/cv_jobbprofil', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/person/hent-cv_jobbprofil', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(cvOgJobbonsker));
     }),
-    rest.get('/veilarbperson/api/person/aktorid', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/person/hent-aktorid', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(aktorId));
     }),
-    rest.get('/veilarbperson/api/person/registrering', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/person/hent-registrering', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(ordinaerRegistering));
     }),
-    rest.post('/veilarbperson/api/person/registrering/endringer', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/person/registrering/hent-endringer', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(mockEndringIRegistreringsData));
     }),
-    rest.get('/veilarbperson/api/v2/person', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/hent-person', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(personalia));
     }),
-    rest.get('/veilarbperson/api/v2/person/vergeOgFullmakt', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(mockVergeOgFullmakt));
     }),
-    rest.get('/veilarbperson/api/v2/person/tolk', (_, res, ctx) => {
+    rest.post('/veilarbperson/api/v3/person/hent-tolk', (_, res, ctx) => {
         return res(ctx.delay(500), ctx.json(mockTilrettelagtKommunikasjon));
     })
 ];
