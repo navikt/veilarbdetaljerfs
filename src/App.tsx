@@ -62,9 +62,9 @@ const App = (props: AppProps) => {
             <SWRConfig
                 value={{
                     shouldRetryOnError: false,
-                    revalidateIfStale: false,
+                    revalidateIfStale: true,
                     revalidateOnFocus: false,
-                    revalidateOnReconnect: false
+                    revalidateOnReconnect: true
                 }}
             >
                 <div className="overblikk">
