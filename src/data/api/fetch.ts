@@ -108,18 +108,18 @@ export const useCvOgJobbonsker = (fnr?: string) => {
 };
 
 export const useUnderOppfolging = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
-        `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`,
-        fetcher
+    const url = `/veilarboppfolging/api/v2/hent-underOppfolging`;
+    const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
 export const useOppfolgingsstatus = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
-        `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
-        fetcher
+    const url = `/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus`;
+    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
@@ -171,9 +171,9 @@ export const useVergeOgFullmakt = (fnr?: string) => {
 };
 
 export const useYtelser = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
-        `/veilarboppfolging/api/person/${fnr}/ytelser`,
-        fetcher
+    const url = `/veilarboppfolging/api/v2/person/hent-ytelser`;
+    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
