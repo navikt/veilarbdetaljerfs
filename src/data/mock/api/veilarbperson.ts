@@ -375,7 +375,7 @@ const personalia: PersonaliaInfo = {
             erEgenAnsatt: false,
             harVeilederTilgang: true,
             gradering: Gradering.UKJENT,
-            dodsdato: null,
+            dodsdato: '2023-11-11',
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
         }
     ],
