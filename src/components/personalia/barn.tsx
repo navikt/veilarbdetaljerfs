@@ -20,7 +20,7 @@ function BorSammen(props: { barn: PersonsBarn }) {
 }
 
 function EnkeltBarn(props: { barn: PersonsBarn }) {
-    const { fornavn, fodselsdato, gradering, erEgenAnsatt, harVeilederTilgang } = props.barn;
+    const { fornavn, fodselsdato, dodsdato, gradering, erEgenAnsatt, harVeilederTilgang } = props.barn;
     const alder = finnAlder(props.barn);
     const graderingTekst = gradering && gradering !== Gradering.UGRADERT ? graderingBeskrivelseBarn(gradering) : null;
 
@@ -47,7 +47,7 @@ function EnkeltBarn(props: { barn: PersonsBarn }) {
                     </BodyShort>
                     <BodyShort size="small">{formateStringInUpperAndLowerCase(fornavn)}</BodyShort>
                     <BodyShort size="small" className="typografi_dato">
-                        {formaterDato(fodselsdato)}
+                        {formaterDato(fodselsdato)} {dodsdato && `– ${formaterDato(dodsdato)}`}
                     </BodyShort>
                     <BorSammen barn={props.barn} />
                     {graderingTekst && <BodyShort size="small">{graderingTekst}</BodyShort>}
