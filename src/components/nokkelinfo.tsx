@@ -24,7 +24,7 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefonnummer } from '../utils/formater';
-import { kalkulerAlder } from '../utils/date-utils';
+import { finnAlder, kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
@@ -109,9 +109,7 @@ const Nokkelinfoinnhold = () => {
         [];
 
     const barnNavn: string =
-        barnUnder21.length > 0
-            ? barnUnder21.map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`).join(', ')
-            : EMDASH;
+        barnUnder21.length > 0 ? barnUnder21.map((barn) => `${barn.fornavn} (${finnAlder(barn)})`).join(', ') : EMDASH;
 
     const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined): StringOrNothing => {
         switch (errorStatus) {
