@@ -15,8 +15,9 @@ import Telefon from './telefon';
 
 const Kontaktinformasjon = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = 'B640';
 
-    const person = usePersonalia(fnr);
+    const person = usePersonalia(fnr, behandlingsnummer);
 
     const telefon: PersonaliaTelefon[] = person.data?.telefon ?? [];
     const epost: OrNothing<PersonaliaEpost> = person.data?.epost;

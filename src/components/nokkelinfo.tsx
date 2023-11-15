@@ -31,13 +31,14 @@ import './nokkelinfo.css';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = 'B640';
 
     const {
         data: oppfolgingsstatusData,
         error: oppfolgingsstatusError,
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr, behandlingsnummer);
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
     const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr);
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
