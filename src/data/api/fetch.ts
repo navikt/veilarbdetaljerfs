@@ -157,10 +157,10 @@ export const useEndringIRegistrering = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useTolk = (fnr?: string) => {
+export const useTolk = (fnr?: string, behandlingsnummer?: string) => {
     const url = '/veilarbperson/api/v3/person/hent-tolk';
     const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };

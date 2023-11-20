@@ -12,9 +12,10 @@ import { hentMalform } from '../../utils/konstanter';
 
 const LandOgSprak = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = 'B640';
 
     const person = usePersonalia(fnr);
-    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr, behandlingsnummer);
 
     const statsborgerskap: string[] = person.data?.statsborgerskap ?? [];
     const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolkData;
