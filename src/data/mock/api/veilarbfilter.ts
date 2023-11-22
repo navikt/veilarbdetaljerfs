@@ -1,7 +1,7 @@
-import { rest } from 'msw';
-import { RequestHandler } from 'msw';
+import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { LiveStorage } from '@mswjs/storage';
 import { overblikkVisningResponse } from '../../api/fetch';
+import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
 const chips: overblikkVisningResponse = {
     overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia']
@@ -10,15 +10,16 @@ const chips: overblikkVisningResponse = {
 const lagredeInformasjonsbokser = new LiveStorage<string[]>('lagredeInformasjonsbokser', chips.overblikkVisning);
 
 export const veilarbfilterHandlers: RequestHandler[] = [
-    rest.get('/veilarbfilter/api/overblikkvisning', (_, res, ctx) => {
+    http.get('/veilarbfilter/api/overblikkvisning', async () => {
         const data = lagredeInformasjonsbokser.getValue();
-        return res(ctx.delay(500), ctx.json(data));
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(data);
     }),
 
-    rest.post('/veilarbfilter/api/overblikkvisning', (req, res, ctx) => {
-        req.json().then((data) => {
-            lagredeInformasjonsbokser.update(() => data);
-        });
-        return res(ctx.delay(500), ctx.status(204));
+    http.post('/veilarbfilter/api/overblikkvisning', async ({ request }) => {
+        const requestBody = (await request.json()) as string[];
+        lagredeInformasjonsbokser.update(() => requestBody);
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return new HttpResponse(null, { status: 204 });
     })
 ];

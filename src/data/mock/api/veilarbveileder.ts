@@ -1,6 +1,6 @@
-import { rest } from 'msw';
-import { RequestHandler } from 'msw';
+import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { VeilederData } from '../../api/datatyper/veileder';
+import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
 const veileder: VeilederData = {
     etternavn: 'Veiledersen',
@@ -10,7 +10,8 @@ const veileder: VeilederData = {
 };
 
 export const veilarbveilederHandlers: RequestHandler[] = [
-    rest.get('/veilarbveileder/api/veileder/:veilederId', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(veileder));
+    http.get('/veilarbveileder/api/veileder/:veilederId', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(veileder);
     })
 ];

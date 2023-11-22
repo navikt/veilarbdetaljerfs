@@ -1,8 +1,8 @@
-import { rest } from 'msw';
 import { UnderOppfolgingData } from '../../api/datatyper/underOppfolgingData';
 import { OppfolgingsstatusData } from '../../api/datatyper/oppfolgingsstatus';
 import { YtelseData } from '../../api/datatyper/ytelse';
-import { RequestHandler } from 'msw';
+import { delay, http, HttpResponse, RequestHandler } from 'msw';
+import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
 const oppfolging: UnderOppfolgingData = {
     erManuell: true,
@@ -62,13 +62,16 @@ const ytelsestatus: YtelseData = {
 };
 
 export const veilarboppfolgingHandlers: RequestHandler[] = [
-    rest.post('/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(oppfolgingstatus));
+    http.post('/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(oppfolgingstatus);
     }),
-    rest.post('/veilarboppfolging/api/v2/person/hent-ytelser', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(ytelsestatus));
+    http.post('/veilarboppfolging/api/v2/person/hent-ytelser', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(ytelsestatus);
     }),
-    rest.post('/veilarboppfolging/api/v2/hent-underOppfolging', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(oppfolging));
+    http.post('/veilarboppfolging/api/v2/hent-underOppfolging', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(oppfolging);
     })
 ];
