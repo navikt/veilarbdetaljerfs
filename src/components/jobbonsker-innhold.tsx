@@ -86,7 +86,7 @@ const Jobbonskerinnhold = () => {
         );
     }
 
-    if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
+    if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404 || !cvOgJobbonskerData?.jobbprofil) {
         return (
             <Alert inline variant="info" size="small">
                 Ingen jobbønsker registrert.{' '}
