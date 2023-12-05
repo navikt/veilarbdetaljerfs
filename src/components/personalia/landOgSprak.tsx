@@ -8,11 +8,11 @@ import { Errormelding, Laster } from '../felles/minikomponenter';
 import StatsborgerskapInfo from './statsborgerskapinfo';
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
-import { hentMalform } from '../../utils/konstanter';
+import { hentBehandlingsnummer, hentMalform } from '../../utils/konstanter';
 
 const LandOgSprak = () => {
     const { fnr } = useAppStore();
-    const behandlingsnummer = 'B640';
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const person = usePersonalia(fnr);
     const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr, behandlingsnummer);

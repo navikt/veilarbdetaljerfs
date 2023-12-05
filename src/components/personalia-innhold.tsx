@@ -13,10 +13,11 @@ import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
-    const behandlingsnummer = 'B640';
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
     const {

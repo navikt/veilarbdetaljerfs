@@ -28,10 +28,11 @@ import { finnAlder, kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
-    const behandlingsnummer = 'B640';
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const {
         data: oppfolgingsstatusData,
