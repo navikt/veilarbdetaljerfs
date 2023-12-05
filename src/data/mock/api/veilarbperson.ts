@@ -1,5 +1,4 @@
-import { rest } from 'msw';
-import { RequestHandler } from 'msw';
+import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import {
     ArenaPerson,
     FagdokumentType,
@@ -13,6 +12,7 @@ import { VergemaalEllerFullmaktOmfangType, VergeOgFullmaktData, Vergetype } from
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { RegistreringsData } from '../../api/datatyper/registreringsData';
 import { EndringIRegistreringsdata } from '../../api/datatyper/endringIRegistreringsData';
+import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -375,7 +375,7 @@ const personalia: PersonaliaInfo = {
             erEgenAnsatt: false,
             harVeilederTilgang: true,
             gradering: Gradering.UKJENT,
-            dodsdato: null,
+            dodsdato: '2023-11-11',
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
         }
     ],
@@ -524,7 +524,7 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
             }
         }
     ],
-    fullmakter: [
+    fullmakt: [
         {
             motpartsPersonident: '1234567890',
             motpartsPersonNavn: {
@@ -765,25 +765,32 @@ const mockEndringIRegistreringsData: EndringIRegistreringsdata = {
 };
 
 export const veilarbpersonHandlers: RequestHandler[] = [
-    rest.get('/veilarbperson/api/person/cv_jobbprofil', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(cvOgJobbonsker));
+    http.post('/veilarbperson/api/v3/person/hent-cv_jobbprofil', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(cvOgJobbonsker);
     }),
-    rest.get('/veilarbperson/api/person/aktorid', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(aktorId));
+    http.post('/veilarbperson/api/v3/person/hent-aktorid', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(aktorId);
     }),
-    rest.get('/veilarbperson/api/person/registrering', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(ordinaerRegistering));
+    http.post('/veilarbperson/api/v3/person/hent-registrering', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(ordinaerRegistering);
     }),
-    rest.post('/veilarbperson/api/person/registrering/endringer', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(mockEndringIRegistreringsData));
+    http.post('/veilarbperson/api/v3/person/registrering/hent-endringer', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(mockEndringIRegistreringsData);
     }),
-    rest.get('/veilarbperson/api/v2/person', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(personalia));
+    http.post('/veilarbperson/api/v3/hent-person', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(personalia);
     }),
-    rest.get('/veilarbperson/api/v2/person/vergeOgFullmakt', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(mockVergeOgFullmakt));
+    http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(mockVergeOgFullmakt);
     }),
-    rest.get('/veilarbperson/api/v2/person/tolk', (_, res, ctx) => {
-        return res(ctx.delay(500), ctx.json(mockTilrettelagtKommunikasjon));
+    http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(mockTilrettelagtKommunikasjon);
     })
 ];

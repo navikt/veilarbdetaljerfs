@@ -2,7 +2,7 @@ import { ArenaPerson, Fagdokumentasjon, FagdokumentType } from '../../data/api/d
 import EMDASH from '../../utils/emdash';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { BodyShort } from '@navikt/ds-react';
-import { ReactComponent as Fagbrevikon } from './ikoner/fagbrev.svg';
+import Fagbrevikon from './ikoner/fagbrev.svg?react';
 
 const fagdokumentTypeTilTekst = (fagdokumentType: FagdokumentType): string => {
     switch (fagdokumentType) {

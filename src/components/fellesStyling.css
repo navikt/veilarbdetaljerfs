@@ -59,7 +59,6 @@
 }
 
 .typografi_dato {
-    margin-bottom: var(--a-spacing-2);
     font-style: italic;
 }
 
@@ -75,4 +74,9 @@
 .personopplysningslenke {
     display: flex;
     justify-content: flex-end;
+}
+
+#arbeidsforholdikon {
+    height: 1.5rem;
+    width: 1.5rem;
 }

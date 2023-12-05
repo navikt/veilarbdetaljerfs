@@ -12,6 +12,7 @@ import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
 import TilToppenKnapp from './components/felles/til-toppen-knapp';
 import { trackAmplitude } from './amplitude/amplitude';
+import '../index.css';
 
 export interface AppProps {
     fnr?: string;
@@ -33,11 +34,7 @@ const App = (props: AppProps) => {
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
             const lagretData = overblikkFilter.data.overblikkVisning;
-            if (lagretData.length > 0) {
-                setValgteInformasjonsbokser(lagretData);
-            } else {
-                setValgteInformasjonsbokser(informasjonsboksAlternativer);
-            }
+            setValgteInformasjonsbokser(lagretData);
         }
     }, [informasjonsboksAlternativer, overblikkFilter.data]);
 
@@ -65,9 +62,9 @@ const App = (props: AppProps) => {
             <SWRConfig
                 value={{
                     shouldRetryOnError: false,
-                    revalidateIfStale: false,
+                    revalidateIfStale: true,
                     revalidateOnFocus: false,
-                    revalidateOnReconnect: false
+                    revalidateOnReconnect: true
                 }}
             >
                 <div className="overblikk">
@@ -182,11 +179,11 @@ const App = (props: AppProps) => {
                                 size="small"
                                 variant="secondary"
                             >
-                                Lagre visning
+                                Lagre visning for alle brukere
                             </Button>
                             {visLagreInfo ? (
                                 <Alert variant="success" role="status" inline size="small">
-                                    Visning er lagret!
+                                    Visning er lagret. Du vil se de samme boksene på alle brukere.
                                 </Alert>
                             ) : null}
                             {visLagreFeil ? (
@@ -198,7 +195,12 @@ const App = (props: AppProps) => {
 
                         <section className="main_grid">
                             {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                                <Panel border className="info_panel" key={valgtInformasjonsboks}>
+                                <Panel
+                                    border
+                                    className="info_panel"
+                                    key={valgtInformasjonsboks}
+                                    id={`${valgtInformasjonsboks}-panel`}
+                                >
                                     <Heading spacing level="2" size="medium" className="panel_header">
                                         {valgtInformasjonsboks}
                                     </Heading>

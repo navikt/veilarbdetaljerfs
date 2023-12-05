@@ -24,22 +24,24 @@ import {
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefonnummer } from '../utils/formater';
-import { kalkulerAlder } from '../utils/date-utils';
+import { finnAlder, kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const {
         data: oppfolgingsstatusData,
         error: oppfolgingsstatusError,
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr, behandlingsnummer);
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
-    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr, behandlingsnummer);
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
     const {
         data: cvOgJobbonskerData,
@@ -109,9 +111,7 @@ const Nokkelinfoinnhold = () => {
         [];
 
     const barnNavn: string =
-        barnUnder21.length > 0
-            ? barnUnder21.map((barn) => `${barn.fornavn} (${kalkulerAlder(new Date(barn.fodselsdato))})`).join(', ')
-            : EMDASH;
+        barnUnder21.length > 0 ? barnUnder21.map((barn) => `${barn.fornavn} (${finnAlder(barn)})`).join(', ') : EMDASH;
 
     const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined): StringOrNothing => {
         switch (errorStatus) {

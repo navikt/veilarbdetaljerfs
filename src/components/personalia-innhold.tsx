@@ -13,16 +13,18 @@ import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
         isLoading: vergeOgFullmaktLoading
-    } = useVergeOgFullmakt(fnr);
+    } = useVergeOgFullmakt(fnr, behandlingsnummer);
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
@@ -39,7 +41,7 @@ const Personaliainnhold = () => {
 
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakter ?? [];
+    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakt ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
         return <Laster />;
@@ -70,7 +72,7 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakter fullmakter={fullmakter} />
+                <Fullmakter fullmakt={fullmakter} />
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>

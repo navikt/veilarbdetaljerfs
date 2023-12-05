@@ -72,3 +72,7 @@ export function hentMalform(malform: OrNothing<string>) {
             return EMDASH;
     }
 }
+
+export function hentBehandlingsnummer() {
+    return 'B640';
+}

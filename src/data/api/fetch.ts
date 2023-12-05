@@ -28,8 +28,13 @@ export interface overblikkVisningResponse {
     overblikkVisning: string[];
 }
 
+export interface pdlRequest {
+    fnr: string | null;
+    behandlingsnummer: string | null;
+}
+
 export interface Fnr {
-    fodselsnummer: string | null;
+    fnr: string | null;
 }
 
 const handterRespons = async (respons: Response) => {
@@ -65,6 +70,11 @@ const fetcher = async (url: string) => {
     return handterRespons(respons);
 };
 
+const fetchWithPost = async (url: string, requestBody: FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr) => {
+    const respons = await fetch(url, createPOSToptions(requestBody));
+    return handterRespons(respons);
+};
+
 export const sendEventTilVeilarbperson = async (event: FrontendEvent) => {
     const url = `/veilarbperson/api/logger/event`;
     const respons = await fetch(url, createPOSToptions(event));
@@ -94,95 +104,90 @@ export const useOverblikkFilter = () => {
     return { data, isLoading, error, reFetch: mutate };
 };
 export const useCvOgJobbonsker = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
-        `/veilarbperson/api/person/cv_jobbprofil?fnr=${fnr}`,
-        fetcher
+    const url = '/veilarbperson/api/v3/person/hent-cv_jobbprofil';
+    const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
 export const useUnderOppfolging = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
-        `/veilarboppfolging/api/underoppfolging?fnr=${fnr}`,
-        fetcher
+    const url = `/veilarboppfolging/api/v2/hent-underOppfolging`;
+    const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
 export const useOppfolgingsstatus = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
-        `/veilarboppfolging/api/person/${fnr}/oppfolgingsstatus`,
-        fetcher
+    const url = `/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus`;
+    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
-export const usePersonalia = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(
-        `/veilarbperson/api/v2/person?fnr=${fnr}`,
-        fetcher
+export const usePersonalia = (fnr?: string, behandlingsnummer?: string) => {
+    const url = '/veilarbperson/api/v3/hent-person';
+    const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };
 };
 
 export const useRegistrering = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(
-        `/veilarbperson/api/person/registrering?fnr=${fnr}`,
-        fetcher
+    const url = '/veilarbperson/api/v3/person/hent-registrering';
+    const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
 export const useEndringIRegistrering = (fnr?: string) => {
-    const fetchWithPost = async (url: string) => {
-        const respons = await fetch(url, createPOSToptions({ fodselsnummer: fnr ?? null }));
-        return handterRespons(respons);
-    };
-
-    const { data, error, isLoading } = useSWR<EndringIRegistreringsdata, ErrorMessage>(
-        fnr ? `/veilarbperson/api/person/registrering/endringer` : null,
-        fetchWithPost
+    const url = '/veilarbperson/api/v3/person/registrering/hent-endringer';
+    const { data, error, isLoading } = useSWR<EndringIRegistreringsdata, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
-export const useTolk = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(
-        `/veilarbperson/api/v2/person/tolk?fnr=${fnr}`,
-        fetcher
+export const useTolk = (fnr?: string, behandlingsnummer?: string) => {
+    const url = '/veilarbperson/api/v3/person/hent-tolk';
+    const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };
 };
 
-export const useVergeOgFullmakt = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(
-        `/veilarbperson/api/v2/person/vergeOgFullmakt?fnr=${fnr}`,
-        fetcher
+export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => {
+    const url = '/veilarbperson/api/v3/person/hent-vergeOgFullmakt';
+    const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };
 };
 
 export const useYtelser = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
-        `/veilarboppfolging/api/person/${fnr}/ytelser`,
-        fetcher
+    const url = `/veilarboppfolging/api/v2/person/hent-ytelser`;
+    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
 };
 
 export const useAktorId = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(
-        `/veilarbperson/api/person/aktorid?fnr=${fnr}`,
-        fetcher
+    const url = '/veilarbperson/api/v3/person/hent-aktorid';
+    const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
