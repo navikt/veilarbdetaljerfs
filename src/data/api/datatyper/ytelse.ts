@@ -10,7 +10,7 @@ export interface VedtakType {
     aktivitetsfase: StringOrNothing;
     vedtakstype: StringOrNothing;
     status: StringOrNothing;
-    fradato: DatoType;
+    fradato?: OrNothing<DatoType>;
     tildato?: OrNothing<DatoType>;
 }
 
