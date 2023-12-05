@@ -13,16 +13,18 @@ import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
         isLoading: vergeOgFullmaktLoading
-    } = useVergeOgFullmakt(fnr);
+    } = useVergeOgFullmakt(fnr, behandlingsnummer);
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =

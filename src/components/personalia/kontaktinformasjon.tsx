@@ -12,11 +12,13 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import Adresser from './adresser';
 import Epost from './e-post';
 import Telefon from './telefon';
+import { hentBehandlingsnummer } from '../../utils/konstanter.ts';
 
 const Kontaktinformasjon = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = hentBehandlingsnummer();
 
-    const person = usePersonalia(fnr);
+    const person = usePersonalia(fnr, behandlingsnummer);
 
     const telefon: PersonaliaTelefon[] = person.data?.telefon ?? [];
     const epost: OrNothing<PersonaliaEpost> = person.data?.epost;

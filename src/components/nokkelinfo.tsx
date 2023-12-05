@@ -28,18 +28,20 @@ import { finnAlder, kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
+    const behandlingsnummer = hentBehandlingsnummer();
 
     const {
         data: oppfolgingsstatusData,
         error: oppfolgingsstatusError,
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr, behandlingsnummer);
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
-    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr, behandlingsnummer);
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
     const {
         data: cvOgJobbonskerData,
