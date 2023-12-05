@@ -28,6 +28,11 @@ export interface overblikkVisningResponse {
     overblikkVisning: string[];
 }
 
+export interface pdlRequest {
+    fnr: string | null;
+    behandlingsnummer: string | null;
+}
+
 export interface Fnr {
     fnr: string | null;
 }
@@ -65,7 +70,7 @@ const fetcher = async (url: string) => {
     return handterRespons(respons);
 };
 
-const fetchWithPost = async (url: string, requestBody: FrontendEvent | overblikkVisningRequest | Fnr) => {
+const fetchWithPost = async (url: string, requestBody: FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr) => {
     const respons = await fetch(url, createPOSToptions(requestBody));
     return handterRespons(respons);
 };
@@ -125,10 +130,10 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const usePersonalia = (fnr?: string) => {
+export const usePersonalia = (fnr?: string, behandlingsnummer?: string) => {
     const url = '/veilarbperson/api/v3/hent-person';
     const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };
@@ -152,19 +157,19 @@ export const useEndringIRegistrering = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useTolk = (fnr?: string) => {
+export const useTolk = (fnr?: string, behandlingsnummer?: string) => {
     const url = '/veilarbperson/api/v3/person/hent-tolk';
     const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };
 };
 
-export const useVergeOgFullmakt = (fnr?: string) => {
+export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => {
     const url = '/veilarbperson/api/v3/person/hent-vergeOgFullmakt';
     const { data, error, isLoading } = useSWR<VergeOgFullmaktData, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
+        fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
     return { data, isLoading, error };
