@@ -8,7 +8,6 @@ import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { byggPamUrl } from '../utils';
-import ListItem from '@navikt/ds-react/esm/list/ListItem';
 import { trackAmplitude } from '../amplitude/amplitude';
 
 const asciiTilNorsk = (tekst: string) => {
@@ -77,10 +76,10 @@ const Jobbonskerinnhold = () => {
             <Alert variant="info" size="small">
                 Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
                 <List as="ul" size="small">
-                    <ListItem>
+                    <List.Item>
                         Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn på
                         nav.no og oppdatere CV-en sin.
-                    </ListItem>
+                    </List.Item>
                 </List>
             </Alert>
         );

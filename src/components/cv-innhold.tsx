@@ -19,7 +19,6 @@ import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
-import ListItem from '@navikt/ds-react/esm/list/ListItem';
 import { trackAmplitude } from '../amplitude/amplitude';
 
 const Cvinnhold = () => {
@@ -58,9 +57,9 @@ const Cvinnhold = () => {
             <Alert variant="info" size="small">
                 Du kan ikke se CV-en, be brukeren om å:
                 <List as="ul" size="small">
-                    <ListItem>Logge inn på arbeidsplassen.no</ListItem>
-                    <ListItem>Lese teksten om at du må dele CV-en med NAV</ListItem>
-                    <ListItem>Gå videre og gjennomføre det tjenesten ber om</ListItem>
+                    <List.Item>Logge inn på arbeidsplassen.no</List.Item>
+                    <List.Item>Lese teksten om at du må dele CV-en med NAV</List.Item>
+                    <List.Item>Gå videre og gjennomføre det tjenesten ber om</List.Item>
                 </List>
                 Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
             </Alert>
