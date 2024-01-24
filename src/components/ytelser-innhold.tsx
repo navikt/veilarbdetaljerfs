@@ -19,7 +19,7 @@ const Ytelsesinnhold = () => {
     if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtaksliste)) {
         return (
             <Alert inline variant="info" size="small">
-                Ingen ytelser registrert
+                Ingen ytelser registrert.
             </Alert>
         );
     }
