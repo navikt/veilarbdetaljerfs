@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Deploy til prod-gcp
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/obo-nais-prod.yaml
