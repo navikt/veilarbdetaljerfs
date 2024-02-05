@@ -16,10 +16,8 @@ export function PrintKnappModal() {
     };
 
     return (
-        <div className="personvern_modal_header">
-            <Button variant="primary" type="button" onClick={handleBtnClick}>
-                Skriv ut
-            </Button>
-        </div>
+        <Button variant="primary" type="button" onClick={handleBtnClick}>
+            Skriv ut
+        </Button>
     );
 }

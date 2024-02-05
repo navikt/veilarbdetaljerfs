@@ -32,7 +32,7 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
             >
                 Personverninformasjon, rettigheter og plikter
             </Button>
-            <Modal id="personvern_modal" open={visPrintModal} onClose={() => setVisPrintModal(false)}>
+            <Modal open={visPrintModal} onClose={() => setVisPrintModal(false)}>
                 <Modal.Header>
                     <PrintKnappModal />
                 </Modal.Header>
