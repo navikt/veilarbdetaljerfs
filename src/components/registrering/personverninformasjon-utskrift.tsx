@@ -5,7 +5,6 @@ import PersonverninformasjonManuell from './personverninformasjon-manuell';
 import { PrinterSmallIcon } from '@navikt/aksel-icons';
 import { RegistreringType } from '../../data/api/datatyper/registreringsData';
 import { PrintKnappModal } from './print-knapp-modal';
-import './registrering.css';
 import { trackAmplitude } from '../../amplitude/amplitude';
 
 function erSykmeldt(type?: RegistreringType) {

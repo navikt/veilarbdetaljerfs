@@ -1,5 +1,4 @@
 import { BodyLong, Heading, Link, List } from '@navikt/ds-react';
-import './registrering.css';
 
 function PersonverninformasjonManuell() {
     return (

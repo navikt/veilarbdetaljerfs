@@ -1,5 +1,4 @@
 import { Button } from '@navikt/ds-react';
-import './registrering.css';
 import { trackAmplitude } from '../../amplitude/amplitude';
 
 export function PrintKnappModal() {
