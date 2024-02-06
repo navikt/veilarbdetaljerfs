@@ -1,6 +1,5 @@
 import { BodyShort, Heading, Panel } from '@navikt/ds-react';
 import { OrdinaerRegistrering, Registrering } from '../../data/api/datatyper/registreringsData';
-import './registrering.css';
 import { innsatsgruppeBeskrivelse } from '../../utils/text-mapper';
 
 interface Props {

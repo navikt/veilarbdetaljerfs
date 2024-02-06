@@ -43,12 +43,10 @@ const Ytelsesinnhold = () => {
                                     vedtak.fradato
                                         ? `${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year}`
                                         : 'Ingen fradato'
-                                }
-                                -
-                                ${
+                                } – ${
                                     vedtak.tildato
                                         ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
-                                        : 'Ingen tildato'
+                                        : 'Ingen til-dato'
                                 }`}
                             />
                         </Informasjonsbolk>
