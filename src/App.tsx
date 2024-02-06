@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react';
 import Nokkelinfo from './components/nokkelinfo';
 import StoreProvider from './stores/store-provider';
 import Cvinnhold from './components/cv-innhold';
@@ -6,12 +7,12 @@ import Oppfolgingsinnhold from './components/oppfolging-innhold';
 import Personaliainnhold from './components/personalia-innhold';
 import Registreringsinnhold from './components/registrering-innhold';
 import Ytelsesinnhold from './components/ytelser-innhold';
-import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
-import { useEffect, useMemo, useState } from 'react';
+import TilToppenKnapp from './components/felles/til-toppen-knapp';
+import PersonverninformasjonManuell from './components/registrering/personverninformasjon-manuell';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
-import TilToppenKnapp from './components/felles/til-toppen-knapp';
 import { trackAmplitude } from './amplitude/amplitude';
+import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import '../index.css';
 
 export interface AppProps {
@@ -212,6 +213,10 @@ const App = (props: AppProps) => {
                 </div>
             </SWRConfig>
             <TilToppenKnapp />
+
+            <div id="kun_til_printing">
+                <PersonverninformasjonManuell />
+            </div>
         </main>
     );
 };

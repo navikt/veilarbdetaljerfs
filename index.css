@@ -39,26 +39,29 @@
     color: var(--a-text-subtle);
 }
 
+#kun_til_printing {
+    display: none;
+}
+
 @media print {
     #veilarbpersonflatefs-root,
     .nokkelinfo_panel,
     .overblikk_chips,
     .info_panel,
-    #Registrering-panel .info_container,
-    #Registrering-panel .informasjonsbolk,
-    .navds-modal__header,
-    .panel_header,
     #til-toppen-knapp {
         display: none;
     }
 
-    #Registrering-panel {
+    #kun_til_printing {
         display: block;
     }
 
-    .personvern_modal_innhold ul {
-        margin-top: 0.25rem;
-        margin-bottom: 0.25rem;
+    @page {
+        margin: 2cm;
+    }
+
+    @page:first {
+        margin-top: 1cm;
     }
 
     a:link:after,
