@@ -1,0 +1,2 @@
+not_dependabot:
+- head-branch: ['^(?!dependabot).*'] // Branch does not start with dependabot
