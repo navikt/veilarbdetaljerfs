@@ -39,7 +39,7 @@
         "eslint-plugin-react-refresh": "0.4.5",
         "globals": "14.0.0",
         "jsdom": "24.0.0",
-        "msw": "2.2.2",
+        "msw": "2.2.3",
         "prettier": "3.2.5",
         "typescript": "5.3.3",
         "typescript-eslint": "7.1.0",
