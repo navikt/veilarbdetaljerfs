@@ -13,7 +13,7 @@ import Adresser from './adresser';
 import Epost from './e-post';
 import Telefon from './telefon';
 import { hentBehandlingsnummer } from '../../utils/konstanter.ts';
-import { safeSort } from "../../utils";
+import { safeSort } from '../../utils';
 
 const Kontaktinformasjon = () => {
     const { fnr } = useAppStore();
@@ -22,7 +22,7 @@ const Kontaktinformasjon = () => {
     const person = usePersonalia(fnr, behandlingsnummer);
 
     const telefon: PersonaliaTelefon[] = person.data?.telefon ?? [];
-    const sortertTelefon = telefon.sort((a, b) => (safeSort(a.prioritet, b.prioritet)));
+    const sortertTelefon = telefon.sort((a, b) => safeSort(a.prioritet, b.prioritet));
     const epost: OrNothing<PersonaliaEpost> = person.data?.epost;
     const bostedsadresse: OrNothing<Bostedsadresse> = person.data?.bostedsadresse;
     const oppholdsadresse: OrNothing<Oppholdsadresse> = person.data?.oppholdsadresse;
