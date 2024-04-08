@@ -17,9 +17,9 @@
     },
     "dependencies": {
         "@mswjs/storage": "0.1.0",
-        "@navikt/aksel-icons": "6.3.3",
-        "@navikt/ds-css": "6.3.3",
-        "@navikt/ds-react": "6.3.3",
+        "@navikt/aksel-icons": "6.3.6",
+        "@navikt/ds-css": "6.3.6",
+        "@navikt/ds-react": "6.3.6",
         "constate": "3.3.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",
