@@ -27,3 +27,7 @@ Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Git
 ## For NAV-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen [#team-obo-poao](https://nav-it.slack.com/archives/C02G0292ULW).
+
+## Kode generert av GitHub Copilot
+
+Dette repoet bruker GitHub Copilot til å generere kode.
