@@ -5,7 +5,7 @@ export interface Veileder {
         navn: string;
     };
 }
-type Besvarelse = Record<string, string>;
+type Besvarelse = Record<string, string | null>;
 
 interface RegistreringBase {
     opprettetDato: string;
@@ -40,6 +40,4 @@ export interface Sporsmal {
     sporsmalId: string;
     sporsmal: string;
     svar: string;
-    endretAv?: string;
-    endretDato?: string;
 }

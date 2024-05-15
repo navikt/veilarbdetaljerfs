@@ -1,7 +1,7 @@
 import { BodyShort } from '@navikt/ds-react';
-import { Registrering } from '../../data/api/datatyper/registreringsData';
-import { formaterDato } from '../../utils/formater';
-import Informasjonsbolk from '../felles/informasjonsbolk';
+import { Registrering } from '../../../data/api/datatyper/registreringsData.ts';
+import { formaterDato } from '../../../utils/formater.ts';
+import Informasjonsbolk from '../../felles/informasjonsbolk.tsx';
 
 export const RegistrertHeader = (props: { registrering?: Registrering }) => {
     if (!props.registrering) {
