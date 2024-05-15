@@ -10,6 +10,7 @@ spec:
   port: 8080
   ingresses:
     - https://veilarbdetaljer.intern.dev.nav.no
+    - https://veilarbdetaljer.ansatt.dev.nav.no
   liveness:
     path: /internal/alive
     initialDelay: 10
@@ -37,7 +38,10 @@ spec:
         {
           "fallbackStrategy": "SERVE_INDEX_HTML",
           "cors": {
-            "origin": "https://veilarbpersonflate.intern.dev.nav.no"
+            "origin": [
+              "https://veilarbpersonflate.intern.dev.nav.no",
+              "https://veilarbpersonflate.ansatt.dev.nav.no"
+            ]
           },
           "header": {
             "csp": {
