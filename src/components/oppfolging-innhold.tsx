@@ -14,7 +14,7 @@ import {
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
-import {hentBehandlingsnummer} from "../utils/konstanter.ts";
+import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
