@@ -14,16 +14,17 @@ import {
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
+import {hentBehandlingsnummer} from "../utils/konstanter.ts";
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
-
+    const behandlingsnummer = hentBehandlingsnummer();
     const {
         data: oppfolgingsstatusData,
         error: oppfolgingsstatusError,
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const {
         data: veilederData,
         error: veilederError,

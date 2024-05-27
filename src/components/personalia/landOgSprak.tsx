@@ -14,8 +14,8 @@ const LandOgSprak = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
 
-    const person = usePersonalia(fnr);
-    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr, behandlingsnummer);
+    const person = usePersonalia(fnr!, behandlingsnummer);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr!, behandlingsnummer);
 
     const statsborgerskap: string[] = person.data?.statsborgerskap ?? [];
     const tilrettelagtKommunikasjon: OrNothing<TilrettelagtKommunikasjonData> = tolkData;

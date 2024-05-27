@@ -130,7 +130,7 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const usePersonalia = (fnr?: string, behandlingsnummer?: string) => {
+export const usePersonalia = (fnr: string, behandlingsnummer: string) => {
     const url = '/veilarbperson/api/v3/hent-person';
     const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
@@ -157,7 +157,7 @@ export const useEndringIRegistrering = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useTolk = (fnr?: string, behandlingsnummer?: string) => {
+export const useTolk = (fnr: string, behandlingsnummer: string) => {
     const url = '/veilarbperson/api/v3/person/hent-tolk';
     const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })

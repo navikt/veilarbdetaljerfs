@@ -19,7 +19,7 @@ const Kontaktinformasjon = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
 
-    const person = usePersonalia(fnr, behandlingsnummer);
+    const person = usePersonalia(fnr!, behandlingsnummer);
 
     const telefon: PersonaliaTelefon[] = person.data?.telefon ?? [];
     const sortertTelefon = telefon.sort((a, b) => safeSort(a.prioritet, b.prioritet));

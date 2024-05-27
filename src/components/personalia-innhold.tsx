@@ -19,7 +19,7 @@ const Personaliainnhold = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
 
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
