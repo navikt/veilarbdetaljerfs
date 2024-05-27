@@ -39,9 +39,9 @@ const Nokkelinfoinnhold = () => {
         error: oppfolgingsstatusError,
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr, behandlingsnummer);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
-    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr, behandlingsnummer);
+    const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr!, behandlingsnummer);
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
     const {
         data: cvOgJobbonskerData,
