@@ -13,6 +13,13 @@ import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtK
 import { RegistreringsData } from '../../api/datatyper/registreringsData';
 import { EndringIRegistreringsdata } from '../../api/datatyper/endringIRegistreringsData';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import {
+    JaEllerNei,
+    OpplysningerOmArbeidssoker,
+    Profilering,
+    ProfilertTil,
+    UtdanningGodkjentValg
+} from '@navikt/arbeidssokerregisteret-utils';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -679,7 +686,7 @@ const sykmeldtRegistering: RegistreringsData = {
     type: 'SYKMELDT'
 };
 
-const opplysninerOmArbeidssoeker = {
+const opplysninerOmArbeidssoeker: OpplysningerOmArbeidssoker = {
     opplysningerOmArbeidssoekerId: '3fa85f64-5717-4562-b3fc-2c963f66afa7',
     periodeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
     sendtInnAv: {
@@ -693,14 +700,14 @@ const opplysninerOmArbeidssoeker = {
     },
     utdanning: {
         nus: '7',
-        bestaatt: 'JA',
-        godkjent: 'JA'
+        bestaatt: JaEllerNei.JA,
+        godkjent: UtdanningGodkjentValg.NEI
     },
     helse: {
-        helsetilstandHindrerArbeid: 'JA'
+        helsetilstandHindrerArbeid: JaEllerNei.JA
     },
     annet: {
-        andreForholdHindrerArbeid: 'JA'
+        andreForholdHindrerArbeid: JaEllerNei.JA
     },
     jobbsituasjon: [
         {
@@ -718,7 +725,7 @@ const opplysninerOmArbeidssoeker = {
     ]
 };
 
-const profilering = {
+const profilering: Profilering = {
     profileringId: '3fa85f64-5717-4562-b3fc-2c963f66afa8',
     periodeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
     opplysningerOmArbeidssoekerId: '3fa85f64-5717-4562-b3fc-2c963f66afa7',
@@ -730,7 +737,7 @@ const profilering = {
         kilde: 'string',
         aarsak: 'string'
     },
-    profilertTil: 'ANTATT_BEHOV_FOR_VEILEDNING',
+    profilertTil: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
     jobbetSammenhengendeSeksAvTolvSisteManeder: true,
     alder: 0
 };
