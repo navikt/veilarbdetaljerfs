@@ -8,7 +8,7 @@ import { OpplysningerOmArbeidssoker } from '@navikt/arbeidssokerregisteret-utils
 import { Sykemeldtregistrering } from './registrering/sykemeldtregistrering/sykemeldtregistrering';
 import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering';
 
-const finnGjeldendeRegistrering = (
+const rendreForGjeldendeRegistrering = (
     sykemeldtRegistrering: Registrering | null,
     opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker | null
 ) => {
@@ -62,12 +62,12 @@ const Registreringsinnhold = () => {
         return <Errormelding />;
     }
 
-    const Element = finnGjeldendeRegistrering(
+    const Registreringskomponent = rendreForGjeldendeRegistrering(
         registreringData?.registrering ?? null,
         opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker ?? null
     );
-    return Element ? (
-        <Element
+    return Registreringskomponent ? (
+        <Registreringskomponent
             sykemeldtregistrering={registreringData?.registrering}
             opplysningerOmArbeidssoekerMedProfilering={
                 opplysningerOmArbedissoekerMedProfilering ?? { opplysningerOmArbeidssoeker: null, profilering: null }
