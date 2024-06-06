@@ -4,7 +4,7 @@ import {
     SporsmalId,
     SPORSMAL_TEKSTER
 } from '@navikt/arbeidssokerregisteret-utils';
-import { Sporsmalvisning, SporsmalvisningFlerSvar } from '../sporsmalsvisning.tsx';
+import { Sporsmalvisning, SporsmalvisningFlerSvar } from '../sporsmalsvisning';
 
 interface Props {
     opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker;

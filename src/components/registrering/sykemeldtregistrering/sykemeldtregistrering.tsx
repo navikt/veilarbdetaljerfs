@@ -1,8 +1,8 @@
 import { HStack } from '@navikt/ds-react';
-import { RegistrertHeader } from './registrertHeader.tsx';
-import { SporsmalsListe } from './sporsmolvisning.tsx';
-import PersonverninformasjonUtskrift from '../personverninformasjon-utskrift.tsx';
-import { Registrering } from '../../../data/api/datatyper/registreringsData.ts';
+import { RegistrertHeader } from './registrertHeader';
+import { SporsmalsListe } from './sporsmolvisning';
+import PersonverninformasjonUtskrift from '../personverninformasjon-utskrift';
+import { Registrering } from '../../../data/api/datatyper/registreringsData';
 
 interface Props {
     sykemeldtregistrering?: Registrering;

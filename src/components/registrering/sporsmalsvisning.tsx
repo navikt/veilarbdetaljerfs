@@ -1,5 +1,5 @@
 import { BodyShort } from '@navikt/ds-react';
-import EMDASH from '../../utils/emdash.ts';
+import EMDASH from '../../utils/emdash';
 
 interface Props {
     sporsmal: string;

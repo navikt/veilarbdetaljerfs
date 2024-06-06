@@ -1,5 +1,5 @@
 import { BodyShort, Label } from '@navikt/ds-react';
-import Informasjonsbolk from '../../felles/informasjonsbolk.tsx';
+import Informasjonsbolk from '../../felles/informasjonsbolk';
 import { Profilering } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {

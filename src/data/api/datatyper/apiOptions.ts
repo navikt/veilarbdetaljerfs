@@ -1,4 +1,4 @@
-import { RequestTypes } from '../fetch.ts';
+import { RequestTypes } from '../fetch';
 
 export const GEToptions = {
     method: 'GET',

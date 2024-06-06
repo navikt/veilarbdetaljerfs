@@ -1,6 +1,6 @@
 import { BodyShort } from '@navikt/ds-react';
-import { formaterDato } from '../../../utils/formater.ts';
-import Informasjonsbolk from '../../felles/informasjonsbolk.tsx';
+import { formaterDato } from '../../../utils/formater';
+import Informasjonsbolk from '../../felles/informasjonsbolk';
 import { SendtInnAv } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {
@@ -11,9 +11,9 @@ export const RegistrertHeader = ({ sendtInnAv }: Props) => {
 
     const overskrift = erManuellBruker ? 'Registrert av NAV' : 'Brukerens siste svar fra registreringen';
 
-    const regDato = sendtInnAv.tidspunkt ? 'Registrert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
+    const regDato = sendtInnAv.tidspunkt ? 'Sist registrert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
 
-    const registrertAv = erManuellBruker ? `Registrert av: ${sendtInnAv.utfoertAv.id}` : null;
+    const registrertAv = erManuellBruker ? `Sist registrert av: ${sendtInnAv.utfoertAv.id}` : null;
 
     return (
         <Informasjonsbolk header={overskrift} headerTypo="ingress">

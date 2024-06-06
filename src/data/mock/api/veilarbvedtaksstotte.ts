@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
-import { Hovedmal, Innsatsgruppe } from '../../api/datatyper/siste14aVedtak.ts';
+import { DEFAULT_DELAY_MILLISECONDS } from './index';
+import { Hovedmal, Innsatsgruppe } from '../../api/datatyper/siste14aVedtak';
 
 export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
     http.post('/veilarbvedtaksstotte/api/v2/hent-siste-14a-vedtak', async () => {

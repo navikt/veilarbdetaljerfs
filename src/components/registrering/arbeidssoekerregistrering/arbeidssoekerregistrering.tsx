@@ -1,12 +1,12 @@
 import { HStack } from '@navikt/ds-react';
-import { RegistrertHeader } from './registrertHeader.tsx';
+import { RegistrertHeader } from './registrertHeader';
 
-import { SporsmalsListe } from './sporsmlsvisning.tsx';
+import { SporsmalsListe } from './sporsmlsvisning';
 import React from 'react';
-import { JobbetSammenhengende } from './jobbetsammenhengende.tsx';
-import PersonverninformasjonUtskrift from '../personverninformasjon-utskrift.tsx';
-import { ForeslattProfilering } from './foreslatt-profilering.tsx';
-import { OpplysningerOmArbeidssokerMedProfilering } from '../../../data/api/fetch.ts';
+import { JobbetSammenhengende } from './jobbetsammenhengende';
+import PersonverninformasjonUtskrift from '../personverninformasjon-utskrift';
+import { ForeslattProfilering } from './foreslatt-profilering';
+import { OpplysningerOmArbeidssokerMedProfilering } from '../../../data/api/fetch';
 
 interface Props {
     opplysningerOmArbeidssoekerMedProfilering: OpplysningerOmArbeidssokerMedProfilering;

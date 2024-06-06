@@ -1,6 +1,6 @@
 import { BodyShort, Box, Heading, Loader } from '@navikt/ds-react';
-import { profilertTilBeskrivelse } from '../../../utils/text-mapper.ts';
-import { useSiste14aVedtak } from '../../../data/api/fetch.ts';
+import { profilertTilBeskrivelse } from '../../../utils/text-mapper';
+import { useSiste14aVedtak } from '../../../data/api/fetch';
 import { Profilering } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {

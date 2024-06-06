@@ -3,7 +3,7 @@ import { veilarbpersonHandlers } from './veilarbperson';
 import { veilarbveilederHandlers } from './veilarbveileder';
 import { veilarbfilterHandlers } from './veilarbfilter';
 import { RequestHandler } from 'msw';
-import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte.ts';
+import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
 
 export const DEFAULT_DELAY_MILLISECONDS: number = 100;
 

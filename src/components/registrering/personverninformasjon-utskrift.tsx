@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal } from '@navikt/ds-react';
-import PersonverninformasjonSykmeldt from './sykemeldtregistrering/personverninformasjon-sykmeldt.tsx';
-import PersonverninformasjonManuell from './arbeidssoekerregistrering/personverninformasjon-manuell.tsx';
+import PersonverninformasjonSykmeldt from './sykemeldtregistrering/personverninformasjon-sykmeldt';
+import PersonverninformasjonManuell from './arbeidssoekerregistrering/personverninformasjon-manuell';
 import { PrinterSmallIcon } from '@navikt/aksel-icons';
 import { PrintKnappModal } from './print-knapp-modal';
 import { trackAmplitude } from '../../amplitude/amplitude';

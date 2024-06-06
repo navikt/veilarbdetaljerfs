@@ -3,10 +3,10 @@ import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { useOpplysningerOmArbeidssoekerMedProfilering, useRegistrering } from '../data/api/fetch';
-import { Registrering } from '../data/api/datatyper/registreringsData.ts';
+import { Registrering } from '../data/api/datatyper/registreringsData';
 import { OpplysningerOmArbeidssoker } from '@navikt/arbeidssokerregisteret-utils';
-import { Sykemeldtregistrering } from './registrering/sykemeldtregistrering/sykemeldtregistrering.tsx';
-import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering.tsx';
+import { Sykemeldtregistrering } from './registrering/sykemeldtregistrering/sykemeldtregistrering';
+import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering';
 
 const finnGjeldendeRegistrering = (
     sykemeldtRegistrering: Registrering | null,
@@ -43,6 +43,7 @@ const Registreringsinnhold = () => {
         registreringError?.status === 204 ||
         registreringError?.status === 404 ||
         registreringData?.type === 'ORDINAER';
+
     const harIkkeRegistrering =
         opplysningerOmArbedissoekerMedProfileringError?.status == 204 ||
         !opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker;

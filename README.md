@@ -13,7 +13,7 @@ For å kunne hente ned @navikt/arbeidssokerregisteret-utils må du legge til en 
 //npm.pkg.github.com/:_authToken=TOKEN
 @navikt:registry=https://npm.pkg.github.com
 ```
-[Se navikt/frontend](https://github.com/navikt/frontend?tab=readme-ov-file#installere-pakker-lokalt)
+[Se navikt/frontend](https://github.com/navikt/frontend?tab=readme-ov-file#installere-pakker-lokalt) for å se hvordan du kan generere et token på github.
 
 **Kjøre opp applikasjonen lokalt:**
 

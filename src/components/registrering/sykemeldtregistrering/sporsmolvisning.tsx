@@ -1,6 +1,6 @@
-import { Registrering } from '../../../data/api/datatyper/registreringsData.ts';
+import { Registrering } from '../../../data/api/datatyper/registreringsData';
 import '../../fellesStyling.css';
-import { Sporsmalvisning } from '../sporsmalsvisning.tsx';
+import { Sporsmalvisning } from '../sporsmalsvisning';
 
 export const SporsmalsListe = (props: { registrering?: Registrering }) => {
     if (!props.registrering || !props.registrering.teksterForBesvarelse) {
