@@ -13,6 +13,13 @@ import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtK
 import { RegistreringsData } from '../../api/datatyper/registreringsData';
 import { EndringIRegistreringsdata } from '../../api/datatyper/endringIRegistreringsData';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import {
+    JaEllerNei,
+    OpplysningerOmArbeidssoker,
+    Profilering,
+    ProfilertTil,
+    UtdanningGodkjentValg
+} from '@navikt/arbeidssokerregisteret-utils';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -573,6 +580,9 @@ const mockTilrettelagtKommunikasjon: TilrettelagtKommunikasjonData = {
     tegnspraak: 'Fransk'
 };
 
+// Kan brukes for å teste gammel ordinær registrering istedenfor sykmeldt registrering
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ordinaerRegistering: RegistreringsData = {
     type: 'ORDINAER',
     registrering: {
@@ -639,47 +649,103 @@ const ordinaerRegistering: RegistreringsData = {
 
 // Kan brukes for å teste sykmeldt registrering istedenfor ordinær registrering
 // @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sykmeldtRegistering: RegistreringsData = {
     registrering: {
-        opprettetDato: '2018-08-30T09:17:28.386804+02:00',
+        opprettetDato: '2022-06-17T13:41:43.122+02:00',
         besvarelse: {
-            fremtidigSituasjon: 'NY_ARBEIDSGIVER',
-            utdanning: 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
-            utdanningBestatt: 'NEI',
-            utdanningGodkjentNorge: 'JA',
-            andreUtfordringer: 'NEI'
+            utdanning: null,
+            utdanningBestatt: null,
+            utdanningGodkjent: null,
+            helseHinder: null,
+            andreForhold: null,
+            sisteStilling: null,
+            dinSituasjon: null,
+            fremtidigSituasjon: 'SAMME_ARBEIDSGIVER',
+            tilbakeIArbeid: 'JA_REDUSERT_STILLING'
         },
         teksterForBesvarelse: [
             {
                 sporsmalId: 'fremtidigSituasjon',
                 sporsmal: 'Hva tenker du om din fremtidige situasjon?',
-                svar: 'Jeg trenger ny jobb'
+                svar: 'Jeg skal tilbake til jobben jeg har'
             },
             {
-                sporsmalId: 'utdanning',
-                sporsmal: 'Hva er din høyeste fullførte utdanning?',
-                svar: 'Videregående, fagbrev eller svennebrev (3 år eller mer)'
-            },
-            {
-                sporsmalId: 'utdanningGodkjent',
-                sporsmal: 'Er utdanningen din godkjent i Norge?',
-                svar: 'Ja'
-            },
-            {
-                sporsmalId: 'utdanningBestatt',
-                sporsmal: 'Er utdanningen din bestått?',
-                svar: 'Nei'
-            },
-            {
-                sporsmalId: 'andreForhold',
-                sporsmal: 'Er det noe annet enn helsen din som NAV bør ta hensyn til?',
-                svar: 'Nei'
+                sporsmalId: 'tilbakeIArbeid',
+                sporsmal: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
+                svar: 'Ja, i redusert stilling'
             }
-        ]
-    }
+        ],
+        manueltRegistrertAv: {
+            ident: 'Z991227',
+            enhet: {
+                id: '0501',
+                navn: 'NAV Lillehammer-Gausdal'
+            }
+        }
+    },
+    type: 'SYKMELDT'
 };
 
+const opplysninerOmArbeidssoeker: OpplysningerOmArbeidssoker = {
+    opplysningerOmArbeidssoekerId: '3fa85f64-5717-4562-b3fc-2c963f66afa7',
+    periodeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    sendtInnAv: {
+        tidspunkt: '2024-09-29T11:22:33.444Z',
+        utfoertAv: {
+            type: 'VEILEDER',
+            id: 'Z1234567'
+        },
+        kilde: 'string',
+        aarsak: 'string'
+    },
+    utdanning: {
+        nus: '7',
+        bestaatt: JaEllerNei.JA,
+        godkjent: UtdanningGodkjentValg.NEI
+    },
+    helse: {
+        helsetilstandHindrerArbeid: JaEllerNei.JA
+    },
+    annet: {
+        andreForholdHindrerArbeid: JaEllerNei.JA
+    },
+    jobbsituasjon: [
+        {
+            beskrivelse: 'HAR_SAGT_OPP',
+            detaljer: {
+                prosent: '25'
+            }
+        },
+        {
+            beskrivelse: 'ER_PERMITTERT',
+            detaljer: {
+                prosent: '95'
+            }
+        }
+    ]
+};
+
+const profilering: Profilering = {
+    profileringId: '3fa85f64-5717-4562-b3fc-2c963f66afa8',
+    periodeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    opplysningerOmArbeidssoekerId: '3fa85f64-5717-4562-b3fc-2c963f66afa7',
+    sendtInnAv: {
+        tidspunkt: '2021-09-29T11:22:33.444Z',
+        utfoertAv: {
+            type: 'VEIELEDER'
+        },
+        kilde: 'string',
+        aarsak: 'string'
+    },
+    profilertTil: ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING,
+    jobbetSammenhengendeSeksAvTolvSisteManeder: true,
+    alder: 0
+};
+
+const opplysningerMedProfilering = {
+    opplysningerOmArbeidssoeker: opplysninerOmArbeidssoeker,
+    profilering: profilering
+};
 const mockEndringIRegistreringsData: EndringIRegistreringsdata = {
     erBesvarelsenEndret: true,
     endretAv: 'BRUKER',
@@ -775,7 +841,7 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     }),
     http.post('/veilarbperson/api/v3/person/hent-registrering', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(ordinaerRegistering);
+        return HttpResponse.json(sykmeldtRegistering);
     }),
     http.post('/veilarbperson/api/v3/person/registrering/hent-endringer', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
@@ -792,5 +858,9 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(mockTilrettelagtKommunikasjon);
+    }),
+    http.post('/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(opplysningerMedProfilering);
     })
 ];

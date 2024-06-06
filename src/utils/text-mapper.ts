@@ -11,7 +11,7 @@ import { VeilederData } from '../data/api/datatyper/veileder';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { VedtakType } from '../data/api/datatyper/ytelse';
 import { VEDTAKSSTATUSER } from './konstanter.ts';
-import { InnsatsgruppeType } from '../data/api/datatyper/registreringsData';
+import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -48,13 +48,13 @@ export function mapHovedmalTilTekst(hovedmal: OrNothing<Hovedmal | ArenaHovedmal
     }
 }
 
-export function innsatsgruppeBeskrivelse(innsatsgruppe: InnsatsgruppeType) {
-    switch (innsatsgruppe) {
-        case 'STANDARD_INNSATS':
+export function profilertTilBeskrivelse(profilertTil: ProfilertTil) {
+    switch (profilertTil) {
+        case ProfilertTil.ANTATT_GODE_MULIGHETER:
             return 'Antatt rask overgang til arbeid: Vurder om brukeren har gode muligheter til å beholde eller komme i jobb på egenhånd.';
-        case 'SITUASJONSBESTEMT_INNSATS':
+        case ProfilertTil.ANTATT_BEHOV_FOR_VEILEDNING:
             return 'Antatt behov for veiledning: Vurder brukerens jobbmuligheter og behov for veiledning.';
-        case 'BEHOV_FOR_ARBEIDSEVNEVURDERING':
+        case ProfilertTil.OPPGITT_HINDRINGER:
             return 'Brukeren har oppgitt hindringer: Vurder brukerens jobbmuligheter og behov for veiledning.';
         default:
             return '';
