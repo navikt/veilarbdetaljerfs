@@ -12,7 +12,7 @@ import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
-import { EndringIRegistreringsdata } from './datatyper/endringIRegistreringsData';
+import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -36,6 +36,20 @@ export interface pdlRequest {
 export interface Fnr {
     fnr: string | null;
 }
+
+interface Siste14aVedtak {
+    innsatsgruppe: string;
+    hovedmal: string;
+    fattetDato: string;
+    fraArena: boolean;
+}
+
+export interface OpplysningerOmArbeidssokerMedProfilering {
+    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker | null;
+    profilering: Profilering | null;
+}
+
+export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
@@ -70,7 +84,7 @@ const fetcher = async (url: string) => {
     return handterRespons(respons);
 };
 
-const fetchWithPost = async (url: string, requestBody: FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr) => {
+const fetchWithPost = async (url: string, requestBody: RequestTypes) => {
     const respons = await fetch(url, createPOSToptions(requestBody));
     return handterRespons(respons);
 };
@@ -148,12 +162,20 @@ export const useRegistrering = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useEndringIRegistrering = (fnr?: string) => {
-    const url = '/veilarbperson/api/v3/person/registrering/hent-endringer';
-    const { data, error, isLoading } = useSWR<EndringIRegistreringsdata, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
+export const useOpplysningerOmArbeidssoekerMedProfilering = (fnr?: string) => {
+    const url = '/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering';
+    const { data, error, isLoading } = useSWR<OpplysningerOmArbeidssokerMedProfilering, ErrorMessage>(
+        fnr ? url : null,
+        () => fetchWithPost(url, { fnr: fnr ?? null })
     );
 
+    return { data, isLoading, error };
+};
+export const useSiste14aVedtak = (fnr?: string) => {
+    const url = '/veilarbvedtaksstotte/api/v2/hent-siste-14a-vedtak';
+    const { data, error, isLoading } = useSWR<Siste14aVedtak, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
+    );
     return { data, isLoading, error };
 };
 

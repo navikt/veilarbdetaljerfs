@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import { Button, Modal } from '@navikt/ds-react';
-import PersonverninformasjonSykmeldt from './personverninformasjon-sykmeldt';
-import PersonverninformasjonManuell from './personverninformasjon-manuell';
+import PersonverninformasjonSykmeldt from './sykemeldtregistrering/personverninformasjon-sykmeldt';
+import PersonverninformasjonManuell from './arbeidssoekerregistrering/personverninformasjon-manuell';
 import { PrinterSmallIcon } from '@navikt/aksel-icons';
-import { RegistreringType } from '../../data/api/datatyper/registreringsData';
 import { PrintKnappModal } from './print-knapp-modal';
 import { trackAmplitude } from '../../amplitude/amplitude';
 
-function erSykmeldt(type?: RegistreringType) {
-    return type && type === 'SYKMELDT';
+function erSykmeldt(type: string) {
+    return type === 'SYKMELDT';
 }
 
-function erOrdinaer(type?: RegistreringType) {
-    return type && type === 'ORDINAER';
+function erOrdinaer(type: string) {
+    return type === 'ORDINAER';
 }
 
-function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
+interface Props {
+    type: 'ORDINAER' | 'SYKMELDT';
+}
+
+function PersonverninformasjonUtskrift({ type }: Props) {
     const [visPrintModal, setVisPrintModal] = useState<boolean>(false);
     const handleBtnClick = () => {
         trackAmplitude({ name: 'modal åpnet', data: { tekst: 'Personverninformasjon, rettigheter og plikter' } });
@@ -36,8 +39,8 @@ function PersonverninformasjonUtskrift(props: { type?: RegistreringType }) {
                     <PrintKnappModal />
                 </Modal.Header>
                 <Modal.Body>
-                    {erSykmeldt(props.type) && <PersonverninformasjonSykmeldt />}
-                    {erOrdinaer(props.type) && <PersonverninformasjonManuell />}
+                    {erSykmeldt(type) && <PersonverninformasjonSykmeldt />}
+                    {erOrdinaer(type) && <PersonverninformasjonManuell />}
                 </Modal.Body>
             </Modal>
         </>

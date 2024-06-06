@@ -1,50 +1,80 @@
-import { Alert, HStack } from '@navikt/ds-react';
+import React from 'react';
+import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
-import { ForeslattProfilering } from './registrering/foreslatt-profilering';
-import { JobbetSammenhengende } from './registrering/jobbetsammenhengende';
-import PersonverninformasjonUtskrift from './registrering/personverninformasjon-utskrift';
-import { useEndringIRegistrering, useRegistrering } from '../data/api/fetch';
-import { SporsmalsListe } from './registrering/sporsmolvisning';
-import { RegistrertHeader } from './registrering/registrert';
+import { useOpplysningerOmArbeidssoekerMedProfilering, useRegistrering } from '../data/api/fetch';
+import { Registrering } from '../data/api/datatyper/registreringsData';
+import { OpplysningerOmArbeidssoker } from '@navikt/arbeidssokerregisteret-utils';
+import { Sykemeldtregistrering } from './registrering/sykemeldtregistrering/sykemeldtregistrering';
+import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering';
+
+const rendreForGjeldendeRegistrering = (
+    sykemeldtRegistrering: Registrering | null,
+    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker | null
+) => {
+    if (!sykemeldtRegistrering && opplysningerOmArbeidssoeker) {
+        return Arbeidssoekerregistrering;
+    }
+    if (!opplysningerOmArbeidssoeker && sykemeldtRegistrering) {
+        return Sykemeldtregistrering;
+    }
+    if (opplysningerOmArbeidssoeker && sykemeldtRegistrering) {
+        return Date.parse(sykemeldtRegistrering.opprettetDato) >
+            Date.parse(opplysningerOmArbeidssoeker.sendtInnAv.tidspunkt)
+            ? Sykemeldtregistrering
+            : Arbeidssoekerregistrering;
+    }
+    return null;
+};
 
 const Registreringsinnhold = () => {
     const { fnr } = useAppStore();
 
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
-    const { data: endringerIRegistreringsdata } = useEndringIRegistrering(fnr);
 
-    if (registreringLoading) {
+    const {
+        data: opplysningerOmArbedissoekerMedProfilering,
+        error: opplysningerOmArbedissoekerMedProfileringError,
+        isLoading: opplysningerOmArbedissoekerMedProfileringLoading
+    } = useOpplysningerOmArbeidssoekerMedProfilering(fnr);
+
+    const harIkkeSykeRegistrering =
+        !registreringData?.registrering ||
+        registreringError?.status === 204 ||
+        registreringError?.status === 404 ||
+        registreringData?.type === 'ORDINAER';
+
+    const harIkkeRegistrering =
+        opplysningerOmArbedissoekerMedProfileringError?.status == 204 ||
+        !opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker;
+
+    if (registreringLoading || opplysningerOmArbedissoekerMedProfileringLoading) {
         return <Laster />;
     }
 
-    if (registreringError?.status === 204 || registreringError?.status === 404 || !registreringData?.registrering) {
+    if (harIkkeRegistrering && harIkkeSykeRegistrering) {
         return (
             <Alert inline variant="info" size="small">
                 Brukeren har ikke registrert seg via den nye registreringsløsningen.
             </Alert>
         );
-    } else if (registreringError) {
+    } else if (registreringError || opplysningerOmArbedissoekerMedProfileringError) {
         return <Errormelding />;
     }
 
-    const brukerRegistrering = registreringData?.registrering;
-    const type = registreringData?.type;
-
-    return (
-        <HStack gap="4">
-            <RegistrertHeader registrering={brukerRegistrering} />
-            <SporsmalsListe
-                registrering={brukerRegistrering}
-                endringerIRegistreringsdata={endringerIRegistreringsdata}
-            />
-            <JobbetSammenhengende registrering={brukerRegistrering} />
-            {brukerRegistrering && brukerRegistrering.manueltRegistrertAv != null && (
-                <PersonverninformasjonUtskrift type={type} />
-            )}
-            <ForeslattProfilering registrering={brukerRegistrering} />
-        </HStack>
+    const Registreringskomponent = rendreForGjeldendeRegistrering(
+        registreringData?.registrering ?? null,
+        opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker ?? null
     );
+    return Registreringskomponent ? (
+        <Registreringskomponent
+            sykemeldtregistrering={registreringData?.registrering}
+            opplysningerOmArbeidssoekerMedProfilering={
+                opplysningerOmArbedissoekerMedProfilering ?? { opplysningerOmArbeidssoeker: null, profilering: null }
+            }
+            fnr={fnr ?? null}
+        />
+    ) : null;
 };
 
 export default Registreringsinnhold;

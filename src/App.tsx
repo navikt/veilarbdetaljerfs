@@ -8,7 +8,7 @@ import Personaliainnhold from './components/personalia-innhold';
 import Registreringsinnhold from './components/registrering-innhold';
 import Ytelsesinnhold from './components/ytelser-innhold';
 import TilToppenKnapp from './components/felles/til-toppen-knapp';
-import PersonverninformasjonManuell from './components/registrering/personverninformasjon-manuell';
+import PersonverninformasjonManuell from './components/registrering/arbeidssoekerregistrering/personverninformasjon-manuell';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
 import { trackAmplitude } from './amplitude/amplitude';
