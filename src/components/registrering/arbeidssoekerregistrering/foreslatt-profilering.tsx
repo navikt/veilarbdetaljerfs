@@ -19,7 +19,7 @@ export const ForeslattProfilering = ({ fnr, profilering }: Props) => {
         return <Loader size="small" />;
     }
 
-    if (siste14avedtakError || siste14avedtak == null) {
+    if (siste14avedtakError || siste14avedtak != null) {
         return null;
     }
 

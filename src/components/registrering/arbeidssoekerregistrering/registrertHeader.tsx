@@ -11,9 +11,9 @@ export const RegistrertHeader = ({ sendtInnAv }: Props) => {
 
     const overskrift = erManuellBruker ? 'Registrert av NAV' : 'Brukerens siste svar fra registreringen';
 
-    const regDato = sendtInnAv.tidspunkt ? 'Sist registrert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
+    const regDato = sendtInnAv.tidspunkt ? 'Sist oppdatert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
 
-    const registrertAv = erManuellBruker ? `Sist registrert av: ${sendtInnAv.utfoertAv.id}` : null;
+    const registrertAv = erManuellBruker ? `Sist oppdatert av: ${sendtInnAv.utfoertAv.id}` : null;
 
     return (
         <Informasjonsbolk header={overskrift} headerTypo="ingress">
