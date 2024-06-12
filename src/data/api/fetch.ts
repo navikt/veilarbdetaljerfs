@@ -45,6 +45,7 @@ interface Siste14aVedtak {
 }
 
 export interface OpplysningerOmArbeidssokerMedProfilering {
+    arbeidssoekerperiodeStartet?: string;
     opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker | null;
     profilering: Profilering | null;
 }
