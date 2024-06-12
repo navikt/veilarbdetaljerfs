@@ -5,15 +5,17 @@ import { SendtInnAv } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {
     sendtInnAv: SendtInnAv;
+    arbeidssoekerperiodeStartet?: string;
 }
-export const RegistrertHeader = ({ sendtInnAv }: Props) => {
+export const RegistrertHeader = ({ sendtInnAv, arbeidssoekerperiodeStartet }: Props) => {
     const erManuellBruker = sendtInnAv.utfoertAv.type === 'VEILEDER';
 
     const overskrift = erManuellBruker ? 'Registrert av NAV' : 'Brukerens siste svar fra registreringen';
 
-    const regDato = sendtInnAv.tidspunkt ? 'Sist oppdatert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
+    const regDato = arbeidssoekerperiodeStartet ? 'Registrert: ' + formaterDato(arbeidssoekerperiodeStartet) : null;
+    const sistOppdatert = sendtInnAv.tidspunkt ? 'Sist oppdatert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
 
-    const registrertAv = erManuellBruker ? `Sist oppdatert av: ${sendtInnAv.utfoertAv.id}` : null;
+    const sistOppdatertAv = erManuellBruker ? `Sist oppdatert av: ${sendtInnAv.utfoertAv.id}` : null;
 
     return (
         <Informasjonsbolk header={overskrift} headerTypo="ingress">
@@ -21,7 +23,10 @@ export const RegistrertHeader = ({ sendtInnAv }: Props) => {
                 {regDato}
             </BodyShort>
             <BodyShort className="registrering_dato" size="small">
-                {registrertAv}
+                {sistOppdatert}
+            </BodyShort>
+            <BodyShort className="registrering_dato" size="small">
+                {sistOppdatertAv}
             </BodyShort>
         </Informasjonsbolk>
     );
