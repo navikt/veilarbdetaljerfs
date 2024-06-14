@@ -8,6 +8,7 @@ import Sivilstand from './personalia/sivilstand';
 import { Fullmakt, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
 import Fullmakter from './personalia/fullmakt';
+import RepresentasjonFullmaktgiver from './personalia/representasjon-fullmakt.tsx';
 import './fellesStyling.css';
 import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
@@ -19,7 +20,11 @@ const Personaliainnhold = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
 
-    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
+    const { data: personData,
+            error: personError,
+            isLoading: personLoading
+    } = usePersonalia(fnr!, behandlingsnummer);
+
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
@@ -73,6 +78,7 @@ const Personaliainnhold = () => {
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                 <Fullmakter fullmakt={fullmakter} />
+                <RepresentasjonFullmaktgiver />
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>
