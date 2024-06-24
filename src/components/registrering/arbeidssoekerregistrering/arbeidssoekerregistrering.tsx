@@ -14,7 +14,11 @@ interface Props {
 }
 
 export const Arbeidssoekerregistrering = ({
-    opplysningerOmArbeidssoekerMedProfilering: { opplysningerOmArbeidssoeker, profilering },
+    opplysningerOmArbeidssoekerMedProfilering: {
+        arbeidssoekerperiodeStartet,
+        opplysningerOmArbeidssoeker,
+        profilering
+    },
     fnr
 }: Props) => {
     if (!opplysningerOmArbeidssoeker) {
@@ -23,7 +27,10 @@ export const Arbeidssoekerregistrering = ({
 
     return (
         <HStack gap="4">
-            <RegistrertHeader sendtInnAv={opplysningerOmArbeidssoeker.sendtInnAv} />
+            <RegistrertHeader
+                sendtInnAv={opplysningerOmArbeidssoeker.sendtInnAv}
+                arbeidssoekerperiodeStartet={arbeidssoekerperiodeStartet}
+            />
             <SporsmalsListe opplysningerOmArbeidssoeker={opplysningerOmArbeidssoeker} />
             {profilering && <JobbetSammenhengende profilering={profilering} />}
             {opplysningerOmArbeidssoeker.sendtInnAv.utfoertAv.type === 'VEILEDER' && (

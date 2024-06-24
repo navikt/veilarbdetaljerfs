@@ -775,6 +775,7 @@ const profilering: Profilering = {
 };
 
 const opplysningerMedProfilering = {
+    arbeidssoekerperiodeStartet: '2024-04-23T13:04:40.739Z',
     opplysningerOmArbeidssoeker: opplysninerOmArbeidssoeker,
     profilering: profilering
 };
