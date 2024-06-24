@@ -8,7 +8,9 @@ import {
     useTolk,
     useVeileder,
     useYtelser,
-    useCvOgJobbonsker
+    useCvOgJobbonsker,
+    useOpplysningerOmArbeidssoekerMedProfilering,
+    OpplysningerOmArbeidssokerMedProfilering
 } from '../data/api/fetch';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
@@ -29,6 +31,35 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { RegistreringsData } from '../data/api/datatyper/registreringsData.ts';
+
+const finnRegistreringsDato = (
+    registreringData?: RegistreringsData,
+    arbeidssoekerregistrering?: OpplysningerOmArbeidssokerMedProfilering
+): StringOrNothing => {
+    const regDatoSykemeldtregistrering =
+        !!registreringData && registreringData.type === 'SYKMELDT'
+            ? registreringData.registrering?.opprettetDato
+            : null;
+    const regDatoArbeidssoekerregistrering =
+        !!arbeidssoekerregistrering && arbeidssoekerregistrering.arbeidssoekerperiodeStartet
+            ? arbeidssoekerregistrering.arbeidssoekerperiodeStartet
+            : null;
+
+    if (regDatoSykemeldtregistrering && !regDatoArbeidssoekerregistrering) {
+        return regDatoSykemeldtregistrering;
+    }
+    if (!regDatoSykemeldtregistrering && !!regDatoArbeidssoekerregistrering) {
+        return regDatoArbeidssoekerregistrering;
+    }
+    if (!!regDatoSykemeldtregistrering && !!regDatoArbeidssoekerregistrering) {
+        return Date.parse(regDatoSykemeldtregistrering) > Date.parse(regDatoArbeidssoekerregistrering)
+            ? regDatoSykemeldtregistrering
+            : regDatoArbeidssoekerregistrering;
+    }
+
+    return null;
+};
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -41,6 +72,11 @@ const Nokkelinfoinnhold = () => {
     } = useOppfolgingsstatus(fnr);
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
+    const {
+        data: opplysningerOmArbedissoekerMedProfilering,
+        error: opplysningerOmArbedissoekerMedProfileringError,
+        isLoading: opplysningerOmArbedissoekerMedProfileringLoading
+    } = useOpplysningerOmArbeidssoekerMedProfilering(fnr);
     const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr!, behandlingsnummer);
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
     const {
@@ -62,7 +98,8 @@ const Nokkelinfoinnhold = () => {
         tolkLoading ||
         ytelserLoading ||
         cvOgJobbonskerLoading ||
-        veilederLoading
+        veilederLoading ||
+        opplysningerOmArbedissoekerMedProfileringLoading
     ) {
         return <Laster />;
     }
@@ -89,7 +126,8 @@ const Nokkelinfoinnhold = () => {
         registreringError ||
         tolkError ||
         ytelserError ||
-        veilederError
+        veilederError ||
+        opplysningerOmArbedissoekerMedProfileringError
     ) {
         return <Errormelding />;
     }
@@ -101,7 +139,10 @@ const Nokkelinfoinnhold = () => {
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
-    const datoRegistrert: StringOrNothing = registreringData?.registrering?.opprettetDato;
+    const datoRegistrert: StringOrNothing = finnRegistreringsDato(
+        registreringData,
+        opplysningerOmArbedissoekerMedProfilering
+    );
     const MAX_ALDER_BARN = 21;
     const barnUnder21: PersonsBarn[] =
         (personData?.barn &&
