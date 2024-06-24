@@ -20,7 +20,7 @@ import {
     ProfilertTil,
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
-import { OmraadeHandlingType, RepresentasjonFullmakt } from '../../api/datatyper/fullmakt.ts';
+import { OmraadeHandlingType, Fullmakt } from '../../api/datatyper/fullmakt.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -576,7 +576,7 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
     ]
 };
 
-const mockRepresentasjonFullmakt: RepresentasjonFullmakt[] = [
+const mockFullmakt: Fullmakt[] = [
     {
         'fullmaktId': "1202",
         'registrert': "2024-06-04T07:45:36.770323Z",
@@ -889,7 +889,7 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     }),
     http.post('/veilarbperson/api/v3/person/hent-representasjon-fullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockRepresentasjonFullmakt);
+        return HttpResponse.json(mockFullmakt);
     }),
     http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
