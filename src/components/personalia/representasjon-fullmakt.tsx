@@ -1,5 +1,5 @@
 import { BodyShort } from '@navikt/ds-react';
-import { RepresentasjonFullmakt } from '../../data/api/datatyper/fullmakt.ts';
+import { Fullmakt } from '../../data/api/datatyper/fullmakt.ts';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { formateStringInUpperAndLowerCase, formaterDato } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
@@ -7,7 +7,7 @@ import { isNotEmptyArray } from '../../utils/felles-typer';
 import { useFullmakt } from '../../data/api/fetch.ts';
 import { useAppStore } from '../../stores/app-store.ts';
 
-function FullmektigEllerFullmaktsgiver(props: { fullmakt: RepresentasjonFullmakt }) {
+function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     const { fullmaktsgiver, fullmaktsgiverNavn,
         fullmektig, fullmektigsNavn,
         omraade,
@@ -44,7 +44,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: RepresentasjonFullmakt
 const RepresentasjonFullmaktsgiver = () => {
     const { fnr } = useAppStore();
     const fullmakt = useFullmakt(fnr!).data;
-
+    console.log("fullmakt:", fullmakt);
     const Fullmaktinnhold = () => {
         if (fullmakt !== undefined && isNotEmptyArray(fullmakt)) {
                 return fullmakt.map((fullmakt, index) => (

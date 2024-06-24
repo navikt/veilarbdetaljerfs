@@ -1,14 +1,14 @@
 import { StringOrNothing } from '../../../utils/felles-typer.ts';
 
-export interface RepresentasjonFullmakt {
+export interface Fullmakt {
     fullmaktId: StringOrNothing;
     registrert: StringOrNothing;
     registrertAv: StringOrNothing;
     fullmaktsgiver: StringOrNothing;
     fullmektig: StringOrNothing;
     omraade: OmraadeMedHandling[] ;
-    gyldigFraOgMed: string | null;
-    gyldigTilOgMed: string | null;
+    gyldigFraOgMed: StringOrNothing;
+    gyldigTilOgMed: StringOrNothing;
     opplysningsId: StringOrNothing;
     endringsId: StringOrNothing;
     fullmaktsgiverNavn: StringOrNothing;
