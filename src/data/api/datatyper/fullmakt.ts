@@ -1,22 +1,17 @@
 import { StringOrNothing } from '../../../utils/felles-typer.ts';
 
+export interface FullmaktData {
+    fullmakt: Fullmakt[]
+}
+
 export interface Fullmakt {
-    fullmaktId: StringOrNothing;
-    registrert: StringOrNothing;
-    registrertAv: StringOrNothing;
     fullmaktsgiver: StringOrNothing;
     fullmektig: StringOrNothing;
     omraade: OmraadeMedHandling[] ;
     gyldigFraOgMed: StringOrNothing;
     gyldigTilOgMed: StringOrNothing;
-    opplysningsId: StringOrNothing;
-    endringsId: StringOrNothing;
     fullmaktsgiverNavn: StringOrNothing;
     fullmektigsNavn: StringOrNothing;
-    opphoert: boolean;
-    kilde: StringOrNothing;
-    status: StringOrNothing;
-    endretAv: StringOrNothing;
 }
 
 export interface OmraadeMedHandling {
