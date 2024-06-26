@@ -43,13 +43,13 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
 
 const RepresentasjonFullmaktsgiver = () => {
     const { fnr } = useAppStore();
-    const fullmakt = useFullmakt(fnr!).data;
-    console.log("fullmakt:", fullmakt);
+    const fullmaktData = useFullmakt(fnr!).data;
+    console.log("fullmakt:", fullmaktData);
     const Fullmaktinnhold = () => {
-        if (fullmakt !== undefined && isNotEmptyArray(fullmakt)) {
-                return fullmakt.map((fullmakt, index) => (
+        if (fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt)) {
+                return fullmaktData.fullmakt.map((fullmakt, index) => (
                 <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
-            ));
+           ));
         } else {
             return <>{EMDASH}</>;
         }

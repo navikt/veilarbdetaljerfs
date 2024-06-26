@@ -20,7 +20,7 @@ import {
     ProfilertTil,
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
-import { OmraadeHandlingType, Fullmakt } from '../../api/datatyper/fullmakt.ts';
+import { OmraadeHandlingType, FullmaktData } from '../../api/datatyper/fullmakt.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -576,35 +576,29 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
     ]
 };
 
-const mockFullmakt: Fullmakt[] = [
-    {
-        'fullmaktId': "1202",
-        'registrert': "2024-06-04T07:45:36.770323Z",
-        'registrertAv': "19827397213",
-        'endretAv': null,
-        'opphoert': false,
-        'fullmaktsgiver': "19827397213",
-        'fullmektig': "04877498455",
-        'omraade': [
-            {
-                'tema': "OPP",
-                'handling': [
-                    OmraadeHandlingType.LES,
-                    OmraadeHandlingType.SKRIV,
-                    OmraadeHandlingType.KOMMUNISER
-                ]
-            }
-        ],
-        'gyldigFraOgMed': "2024-06-04",
-        'gyldigTilOgMed': "2025-05-31",
-        'opplysningsId': null,
-        'endringsId': null,
-        'status': null,
-        'kilde': "BRUKER SELV",
-        'fullmaktsgiverNavn': "SMAL ARK",
-        'fullmektigsNavn': "IDIOTSIKKER PERSILLE"
-    }
-]
+
+const mockFullmakt: FullmaktData = {
+    fullmakt: [
+        {
+            fullmaktsgiver: "19827397213",
+            fullmektig: "04877498455",
+            omraade: [
+                {
+                    'tema': "Oppfølging",
+                    'handling': [
+                        OmraadeHandlingType.LES,
+                        OmraadeHandlingType.SKRIV,
+                        OmraadeHandlingType.KOMMUNISER
+                    ]
+                }
+            ],
+            gyldigFraOgMed: "2024-06-04",
+            gyldigTilOgMed: "2025-05-31",
+            fullmaktsgiverNavn: "SMAL ARK",
+            fullmektigsNavn: "IDIOTSIKKER PERSILLE"
+        }
+    ]
+};
 
 
 const mockTilrettelagtKommunikasjon: TilrettelagtKommunikasjonData = {
@@ -900,4 +894,5 @@ export const veilarbpersonHandlers: RequestHandler[] = [
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(opplysningerMedProfilering);
     })
+
 ];
