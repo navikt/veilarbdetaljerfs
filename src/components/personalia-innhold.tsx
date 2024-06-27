@@ -8,7 +8,7 @@ import Sivilstand from './personalia/sivilstand';
 import { Fullmakt, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
 import Fullmakter from './personalia/fullmakt';
-import RepresentasjonFullmaktgiver from './personalia/representasjon-fullmakt.tsx';
+import FullmaktListe from './personalia/representasjon-fullmakt.tsx';
 import './fellesStyling.css';
 import {
     BRUK_NY_KILDE_TIL_FULLMAKT,
@@ -85,7 +85,9 @@ const Personaliainnhold = () => {
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
                 <Fullmakter fullmakt={fullmakter} />
-                {reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && (<RepresentasjonFullmaktgiver />)}
+                { reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] &&
+                    <FullmaktListe />
+                }
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>

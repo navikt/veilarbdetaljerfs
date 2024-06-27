@@ -208,12 +208,10 @@ export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => 
 };
 
 export const useFullmakt = (fnr?: string) => {
-    const url: string = '/veilarbperson/api/v3/person/hent-representasjon-fullmakt';
-    console.log("Fullmakt url:", url);
+    const url: string = '/veilarbperson/api/v3/person/hent-fullmakt';
     const { data, error, isLoading } = useSWR<FullmaktData, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null })
     );
-    console.log("fullmakt data: ", data);
     return { data, isLoading, error };
 };
 

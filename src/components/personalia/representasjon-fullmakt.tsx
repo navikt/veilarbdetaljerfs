@@ -18,48 +18,35 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
 
     return (
         <div className="underinformasjon">
-            <BodyShort size="small" className="body_header">
-                <b>
-                    {formateStringInUpperAndLowerCase('Fullmaktsgiver')}: {fullmaktsgiver}
-                </b>
-            </BodyShort>
-            <BodyShort size="small">Fullmaktsgivernavn: {fullmaktsgiverNavn}</BodyShort>
-            <BodyShort size="small" className="body_header">
-                <b>
-                    {formateStringInUpperAndLowerCase('Fullmektig')}: {fullmektig}
-                </b>
-            </BodyShort>
-            <BodyShort size="small">Fullmektigsnavn: {fullmektigsNavn}</BodyShort>
+            <BodyShort size="small" className="body_header"><b>{`Fullmaktsgiver: ${fullmaktsgiver}`}</b></BodyShort>
+            <BodyShort size="small">{`Fullmaktsgivernavn: ${formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}`}</BodyShort>
+            <BodyShort size="small" className="body_header"><b>{`Fullmektig: ${(fullmektig)}`}</b></BodyShort>
+            <BodyShort size="small">{`Fullmektigsnavn: ${formateStringInUpperAndLowerCase(fullmektigsNavn)}`}</BodyShort>
             <BodyShort size="small">{`Gjelder ${gjeldendeOmraader}`}</BodyShort>
-            <BodyShort size="small" className="typografi_dato">
-                Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
-            </BodyShort>
-            <BodyShort size="small" className="typografi_dato">
-                Gyldig til og med: {formaterDato(gyldigTilOgMed)}
-            </BodyShort>
+            <BodyShort size="small" className="typografi_dato">Gyldig fra og med: {formaterDato(gyldigFraOgMed)}</BodyShort>
+            <BodyShort size="small" className="typografi_dato">Gyldig til og med: {formaterDato(gyldigTilOgMed)}</BodyShort>
         </div>
     );
 }
 
-const RepresentasjonFullmaktsgiver = () => {
+const FullmaktListe = () => {
     const { fnr } = useAppStore();
     const fullmaktData = useFullmakt(fnr!).data;
-    console.log("fullmakt:", fullmaktData);
     const Fullmaktinnhold = () => {
         if (fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt)) {
-                return fullmaktData.fullmakt.map((fullmakt, index) => (
+            fullmaktData.fullmakt.map((fullmakt, index) =>
                 <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
-           ));
+            );
         } else {
             return <>{EMDASH}</>;
         }
     };
 
     return (
-        <Informasjonsbolk header="Representajon Fullmakter" headerTypo="ingress">
+        <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
             <Fullmaktinnhold />
         </Informasjonsbolk>
     );
 }
 
-export default RepresentasjonFullmaktsgiver;
+export default FullmaktListe;
