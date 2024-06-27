@@ -34,9 +34,9 @@ const FullmaktListe = () => {
     const fullmaktData = useFullmakt(fnr!).data;
     const Fullmaktinnhold = () => {
         if (fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt)) {
-            fullmaktData.fullmakt.map((fullmakt, index) =>
-                <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
-            );
+            return fullmaktData.fullmakt.map((fullmakt, index) => (
+                    <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
+            ));
         } else {
             return <>{EMDASH}</>;
         }
