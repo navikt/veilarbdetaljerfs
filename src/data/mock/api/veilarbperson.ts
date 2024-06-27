@@ -882,7 +882,7 @@ export const veilarbpersonHandlers: RequestHandler[] = [
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(mockVergeOgFullmakt);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-representasjon-fullmakt', async () => {
+    http.post('/veilarbperson/api/v3/person/hent-fullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(mockFullmakt);
     }),
