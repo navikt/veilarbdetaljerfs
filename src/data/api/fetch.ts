@@ -37,11 +37,17 @@ export interface Fnr {
     fnr: string | null;
 }
 
-interface Siste14aVedtak {
+export interface Siste14aVedtak {
     innsatsgruppe: string;
     hovedmal: string;
     fattetDato: string;
     fraArena: boolean;
+}
+
+export interface GjeldendeOppfolgingsperiode {
+    uuid: string;
+    startDato: Date;
+    sluttDato: Date;
 }
 
 export interface OpplysningerOmArbeidssokerMedProfilering {
@@ -69,7 +75,7 @@ const handterRespons = async (respons: Response) => {
     }
 
     try {
-        return await respons.json();
+        return await respons.text().then((res) => (!res ? null : JSON.parse(res)));
     } catch (err) {
         throw {
             error: err,
@@ -220,6 +226,16 @@ export const useVeileder = (veilederId: StringOrNothing) => {
     const { data, error, isLoading } = useSWR<VeilederData, ErrorMessage>(
         veilederId ? `/veilarbveileder/api/veileder/` + veilederId : null,
         fetcher
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
+    const url = `/veilarboppfolging/api/v3/oppfolging/hent-gjeldende-periode`;
+    const { data, error, isLoading } = useSWR<GjeldendeOppfolgingsperiode, ErrorMessage>(
+        fnr ? `${url}/${fnr}fnr` : null,
+        () => fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
