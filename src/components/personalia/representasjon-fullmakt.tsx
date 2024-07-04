@@ -15,7 +15,8 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     const handlingsType = omraade
         .map((OmraadeHandlingType) => {
             return OmraadeHandlingType.handling;
-        }).join(', ');
+        })
+        .join(', ');
 
     return (
         <div className="underinformasjon">
