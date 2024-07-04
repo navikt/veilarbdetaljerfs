@@ -253,7 +253,7 @@ export const useFeature = () => {
     const features = ALL_TOGGLES.map((element) => 'feature=' + element).join('&');
     const url = `/obo-unleash/api/feature?${features}`;
     const { data, error, isLoading } = useSWR<OboUnleashFeatures, ErrorMessage>(url, fetcher);
-    return {data, isLoading, error};
+    return { data, isLoading, error };
 };
 
 export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
