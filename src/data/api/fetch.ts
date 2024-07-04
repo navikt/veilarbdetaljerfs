@@ -58,7 +58,7 @@ export const BRUK_NY_KILDE_TIL_FULLMAKT = 'obo.personflate.reprfullmakt';
 export const ALL_TOGGLES = [BRUK_NY_KILDE_TIL_FULLMAKT];
 
 export interface OboUnleashFeatures {
-    [BRUK_NY_KILDE_TIL_FULLMAKT] : boolean;
+    [BRUK_NY_KILDE_TIL_FULLMAKT]: boolean;
 }
 
 const handterRespons = async (respons: Response) => {
@@ -243,9 +243,9 @@ export const useVeileder = (veilederId: StringOrNothing) => {
 };
 
 export const useFeature = () => {
-    const features = ALL_TOGGLES.map(element => 'feature=' + element).join('&');
+    const features = ALL_TOGGLES.map((element) => 'feature=' + element).join('&');
     const url = `/obo-unleash/api/feature?${features}`;
-    const { data, error, isLoading} = useSWR<OboUnleashFeatures, ErrorMessage>(url, fetcher);
+    const { data, error, isLoading } = useSWR<OboUnleashFeatures, ErrorMessage>(url, fetcher);
 
-    return {data, isLoading, error};
-}
+    return { data, isLoading, error };
+};

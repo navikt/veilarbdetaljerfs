@@ -576,30 +576,24 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
     ]
 };
 
-
 const mockFullmakt: FullmaktData = {
     fullmakt: [
         {
-            fullmaktsgiver: "19827397213",
-            fullmektig: "04877498455",
+            fullmaktsgiver: '19827397213',
+            fullmektig: '04877498455',
             omraade: [
                 {
-                    'tema': "Oppfølging",
-                    'handling': [
-                        OmraadeHandlingType.LES,
-                        OmraadeHandlingType.SKRIV,
-                        OmraadeHandlingType.KOMMUNISER
-                    ]
+                    tema: 'Oppfølging',
+                    handling: [OmraadeHandlingType.LES, OmraadeHandlingType.SKRIV, OmraadeHandlingType.KOMMUNISER]
                 }
             ],
-            gyldigFraOgMed: "2024-06-04",
-            gyldigTilOgMed: "2025-05-31",
-            fullmaktsgiverNavn: "SMAL ARK",
-            fullmektigsNavn: "IDIOTSIKKER PERSILLE"
+            gyldigFraOgMed: '2024-06-04',
+            gyldigTilOgMed: '2025-05-31',
+            fullmaktsgiverNavn: 'SMAL ARK',
+            fullmektigsNavn: 'IDIOTSIKKER PERSILLE'
         }
     ]
 };
-
 
 const mockTilrettelagtKommunikasjon: TilrettelagtKommunikasjonData = {
     talespraak: 'Engelsk',
@@ -894,5 +888,4 @@ export const veilarbpersonHandlers: RequestHandler[] = [
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(opplysningerMedProfilering);
     })
-
 ];

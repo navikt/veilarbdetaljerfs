@@ -8,23 +8,41 @@ import { useFullmakt } from '../../data/api/fetch.ts';
 import { useAppStore } from '../../stores/app-store.ts';
 
 function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
-    const { fullmaktsgiver, fullmaktsgiverNavn,
-        fullmektig, fullmektigsNavn,
-        omraade,
-        gyldigFraOgMed, gyldigTilOgMed } =
+    const { fullmaktsgiver, fullmaktsgiverNavn, fullmektig, fullmektigsNavn, omraade, gyldigFraOgMed, gyldigTilOgMed } =
         props.fullmakt;
 
-   const gjeldendeOmraader = omraade.map((omraade) => omraade.tema).join(', ');
+    const gjeldendeOmraader = omraade.map((omraade) => omraade.tema).join(', ');
+    const handlingsType = omraade
+        .map((OmraadeHandlingType) => {
+            return OmraadeHandlingType.handling;
+        }).join(', ');
 
     return (
         <div className="underinformasjon">
-            <BodyShort size="small" className="body_header"><b>{`Fullmaktsgiver: ${fullmaktsgiver}`}</b></BodyShort>
-            <BodyShort size="small">{`Fullmaktsgivernavn: ${formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}`}</BodyShort>
-            <BodyShort size="small" className="body_header"><b>{`Fullmektig: ${(fullmektig)}`}</b></BodyShort>
-            <BodyShort size="small">{`Fullmektigsnavn: ${formateStringInUpperAndLowerCase(fullmektigsNavn)}`}</BodyShort>
-            <BodyShort size="small">{`Gjelder ${gjeldendeOmraader}`}</BodyShort>
-            <BodyShort size="small" className="typografi_dato">Gyldig fra og med: {formaterDato(gyldigFraOgMed)}</BodyShort>
-            <BodyShort size="small" className="typografi_dato">Gyldig til og med: {formaterDato(gyldigTilOgMed)}</BodyShort>
+            <BodyShort size="small" spacing>
+                <BodyShort size="small" className="body_header">
+                    <b>{`Fullmaktsgiver:`}</b> {fullmaktsgiver}
+                </BodyShort>
+                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}</BodyShort>
+            </BodyShort>
+            <BodyShort size="small" spacing>
+                <BodyShort size="small" className="body_header">
+                    <b>{`Fullmektig:`}</b> {fullmektig}
+                </BodyShort>
+                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmektigsNavn)}</BodyShort>
+            </BodyShort>
+            <BodyShort size="small" spacing>
+                <BodyShort size="small" className="body_header">
+                    <b>{`Område:`}</b> {gjeldendeOmraader}
+                </BodyShort>
+                <BodyShort size="small">Handling type: {handlingsType.toLowerCase()}</BodyShort>
+                <BodyShort size="small" className="typografi_dato">
+                    Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
+                </BodyShort>
+                <BodyShort size="small" className="typografi_dato">
+                    Gyldig til og med: {formaterDato(gyldigTilOgMed)}
+                </BodyShort>
+            </BodyShort>
         </div>
     );
 }
@@ -35,7 +53,7 @@ const FullmaktListe = () => {
     const Fullmaktinnhold = () => {
         if (fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt)) {
             return fullmaktData.fullmakt.map((fullmakt, index) => (
-                    <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
+                <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
             ));
         } else {
             return <>{EMDASH}</>;
@@ -47,6 +65,6 @@ const FullmaktListe = () => {
             <Fullmaktinnhold />
         </Informasjonsbolk>
     );
-}
+};
 
 export default FullmaktListe;
