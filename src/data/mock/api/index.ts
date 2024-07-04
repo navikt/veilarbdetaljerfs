@@ -14,5 +14,5 @@ export const allHandlers: RequestHandler[] = [
     ...veilarboppfolgingHandlers,
     ...veilarbfilterHandlers,
     ...veilarbvedtaksstotteHandlers,
-    ...veilarbpersonflatefsHandlers,
+    ...veilarbpersonflatefsHandlers
 ];

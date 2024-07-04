@@ -1,13 +1,13 @@
 import { StringOrNothing } from '../../../utils/felles-typer.ts';
 
 export interface FullmaktData {
-    fullmakt: Fullmakt[]
+    fullmakt: Fullmakt[];
 }
 
 export interface Fullmakt {
     fullmaktsgiver: StringOrNothing;
     fullmektig: StringOrNothing;
-    omraade: OmraadeMedHandling[] ;
+    omraade: OmraadeMedHandling[];
     gyldigFraOgMed: StringOrNothing;
     gyldigTilOgMed: StringOrNothing;
     fullmaktsgiverNavn: StringOrNothing;

@@ -27,10 +27,7 @@ const Personaliainnhold = () => {
     const behandlingsnummer = hentBehandlingsnummer();
     const reprFullmaktToogle: OboUnleashFeatures | undefined = useFeature().data;
 
-    const { data: personData,
-            error: personError,
-            isLoading: personLoading
-    } = usePersonalia(fnr!, behandlingsnummer);
+    const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
 
     const {
         data: vergeOgFullmaktData,
@@ -84,10 +81,11 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakter fullmakt={fullmakter} />
-                { reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] &&
-                    <FullmaktListe />
-                }
+                {reprFullmaktToogle && !reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && (
+                    <Fullmakter fullmakt={fullmakter} />
+                )}
+
+                {reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && <FullmaktListe />}
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>
