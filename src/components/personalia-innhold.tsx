@@ -84,7 +84,6 @@ const Personaliainnhold = () => {
                 {reprFullmaktToogle && !reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && (
                     <Fullmakter fullmakt={fullmakter} />
                 )}
-
                 {reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && <FullmaktListe />}
             </span>
             <EndrePersonopplysninger fnr={fnr} />

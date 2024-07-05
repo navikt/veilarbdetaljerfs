@@ -3,7 +3,7 @@ import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
 const mockFeatures: OboUnleashFeatures = {
-    [BRUK_NY_KILDE_TIL_FULLMAKT]: true
+    [BRUK_NY_KILDE_TIL_FULLMAKT]: false
 };
 
 export const veilarbpersonflatefsHandlers: RequestHandler[] = [
