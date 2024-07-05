@@ -20,6 +20,7 @@ import {
     ProfilertTil,
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
+import { OmraadeHandlingType, FullmaktData } from '../../api/datatyper/fullmakt.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -575,6 +576,25 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
     ]
 };
 
+const mockFullmakt: FullmaktData = {
+    fullmakt: [
+        {
+            fullmaktsgiver: '19827397213',
+            fullmektig: '04877498455',
+            omraade: [
+                {
+                    tema: 'Oppfølging',
+                    handling: [OmraadeHandlingType.LES, OmraadeHandlingType.SKRIV, OmraadeHandlingType.KOMMUNISER]
+                }
+            ],
+            gyldigFraOgMed: '2024-06-04',
+            gyldigTilOgMed: '2025-05-31',
+            fullmaktsgiverNavn: 'SMAL ARK',
+            fullmektigsNavn: 'IDIOTSIKKER PERSILLE'
+        }
+    ]
+};
+
 const mockTilrettelagtKommunikasjon: TilrettelagtKommunikasjonData = {
     talespraak: 'Engelsk',
     tegnspraak: 'Fransk'
@@ -855,6 +875,10 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(mockVergeOgFullmakt);
+    }),
+    http.post('/veilarbperson/api/v3/person/hent-fullmakt', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(mockFullmakt);
     }),
     http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);

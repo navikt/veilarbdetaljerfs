@@ -8,8 +8,15 @@ import Sivilstand from './personalia/sivilstand';
 import { Fullmakt, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
 import Vergemaal from './personalia/vergemaal';
 import Fullmakter from './personalia/fullmakt';
+import FullmaktListe from './personalia/representasjon-fullmakt.tsx';
 import './fellesStyling.css';
-import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
+import {
+    BRUK_NY_KILDE_TIL_FULLMAKT,
+    OboUnleashFeatures,
+    useFeature,
+    usePersonalia,
+    useVergeOgFullmakt
+} from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
@@ -18,8 +25,10 @@ import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
+    const reprFullmaktToogle: OboUnleashFeatures | undefined = useFeature().data;
 
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
+
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
@@ -72,7 +81,10 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                <Fullmakter fullmakt={fullmakter} />
+                {reprFullmaktToogle && !reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && (
+                    <Fullmakter fullmakt={fullmakter} />
+                )}
+                {reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && <FullmaktListe />}
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>
