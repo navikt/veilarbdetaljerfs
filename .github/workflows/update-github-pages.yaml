@@ -18,8 +18,11 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          registry-url: "https://npm.pkg.github.com"
       - name: Install dependencies
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build mock application
         run: npm run build:gh-pages
       - name: Update GitHub pages
