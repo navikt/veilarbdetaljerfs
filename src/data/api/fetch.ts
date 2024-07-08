@@ -13,6 +13,7 @@ import { AktorId } from './datatyper/aktor-id';
 import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
 import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
+import { FullmaktData } from './datatyper/fullmakt.ts';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -57,6 +58,14 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 }
 
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
+
+export const BRUK_NY_KILDE_TIL_FULLMAKT = 'obo.personflate.reprfullmakt';
+
+export const ALL_TOGGLES = [BRUK_NY_KILDE_TIL_FULLMAKT];
+
+export interface OboUnleashFeatures {
+    [BRUK_NY_KILDE_TIL_FULLMAKT]: boolean;
+}
 
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
@@ -204,6 +213,15 @@ export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => 
     return { data, isLoading, error };
 };
 
+export const useFullmakt = (fnr?: string) => {
+    const url: string = '/veilarbperson/api/v3/person/hent-fullmakt';
+    const { data, error, isLoading } = useSWR<FullmaktData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
+    );
+
+    return { data, isLoading, error };
+};
+
 export const useYtelser = (fnr?: string) => {
     const url = `/veilarboppfolging/api/v2/person/hent-ytelser`;
     const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(fnr ? url : null, () =>
@@ -227,6 +245,14 @@ export const useVeileder = (veilederId: StringOrNothing) => {
         veilederId ? `/veilarbveileder/api/veileder/` + veilederId : null,
         fetcher
     );
+
+    return { data, isLoading, error };
+};
+
+export const useFeature = () => {
+    const features = ALL_TOGGLES.map((element) => 'feature=' + element).join('&');
+    const url = `/obo-unleash/api/feature?${features}`;
+    const { data, error, isLoading } = useSWR<OboUnleashFeatures, ErrorMessage>(url, fetcher);
 
     return { data, isLoading, error };
 };
