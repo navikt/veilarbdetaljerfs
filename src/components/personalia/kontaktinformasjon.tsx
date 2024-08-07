@@ -14,6 +14,7 @@ import Epost from './e-post';
 import Telefon from './telefon';
 import { hentBehandlingsnummer } from '../../utils/konstanter.ts';
 import { safeSort } from '../../utils';
+import { ReservasjonKrr } from './reservasjon-krr.tsx';
 
 const Kontaktinformasjon = () => {
     const { fnr } = useAppStore();
@@ -30,6 +31,7 @@ const Kontaktinformasjon = () => {
 
     return (
         <Informasjonsbolk header="Kontaktinformasjon" headerTypo="ingress">
+            <ReservasjonKrr />
             <Telefon telefon={sortertTelefon} />
             <Epost epost={epost} />
             <Adresser

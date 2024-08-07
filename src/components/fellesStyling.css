@@ -79,3 +79,7 @@
     height: 1.5rem;
     width: 1.5rem;
 }
+
+.reservert-krr-info {
+    margin-bottom: var(--a-spacing-2);
+}
