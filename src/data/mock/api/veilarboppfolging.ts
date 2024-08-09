@@ -3,6 +3,7 @@ import { OppfolgingsstatusData } from '../../api/datatyper/oppfolgingsstatus';
 import { YtelseData } from '../../api/datatyper/ytelse';
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { OppfolgingData } from '../../api/datatyper/oppfolging.ts';
 
 const oppfolging: UnderOppfolgingData = {
     erManuell: true,
@@ -61,6 +62,20 @@ const ytelsestatus: YtelseData = {
     ]
 };
 
+const oppfolgingData: OppfolgingData = {
+    erIkkeArbeidssokerUtenOppfolging: true,
+    fnr: '12345678910',
+    harSkriveTilgang: true,
+    kanStarteOppfolging: true,
+    kanVarsles: false,
+    manuell: false,
+    oppfolgingsPerioder: [],
+    reservasjonKRR: true,
+    registrertKRR: true,
+    underKvp: false,
+    underOppfolging: true
+};
+
 export const veilarboppfolgingHandlers: RequestHandler[] = [
     http.post('/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
@@ -73,5 +88,9 @@ export const veilarboppfolgingHandlers: RequestHandler[] = [
     http.post('/veilarboppfolging/api/v2/hent-underOppfolging', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(oppfolging);
+    }),
+    http.post('/veilarboppfolging/api/v3/oppfolging/hent-status', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(oppfolgingData);
     })
 ];

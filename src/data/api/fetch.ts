@@ -14,6 +14,7 @@ import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
 import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData } from './datatyper/fullmakt.ts';
+import { OppfolgingData } from './datatyper/oppfolging.ts';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -145,6 +146,15 @@ export const useCvOgJobbonsker = (fnr?: string) => {
 export const useUnderOppfolging = (fnr?: string) => {
     const url = `/veilarboppfolging/api/v2/hent-underOppfolging`;
     const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(fnr ? url : null, () =>
+        fetchWithPost(url, { fnr: fnr ?? null })
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useOppfolging = (fnr?: string) => {
+    const url = `/veilarboppfolging/api/v3/oppfolging/hent-status`;
+    const { data, error, isLoading } = useSWR<OppfolgingData, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null })
     );
 
