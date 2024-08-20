@@ -11,7 +11,8 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     const { fullmaktsgiver, fullmaktsgiverNavn, fullmektig, fullmektigsNavn, omraade, gyldigFraOgMed, gyldigTilOgMed } =
         props.fullmakt;
 
-    const handlingsType = omraade.filter(omraade => omraade.tema === 'Oppfølging')
+    const handlingsType = omraade
+        .filter((omraade) => omraade.tema === 'Oppfølging')
         .map((OmraadeHandlingType) => {
             return OmraadeHandlingType.handling.join(', ');
         })
@@ -51,16 +52,19 @@ const FullmaktListe = () => {
     const { fnr } = useAppStore();
     const fullmaktData = useFullmakt(fnr!).data;
     const harFullmaktData = fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt);
-    const fullmaktMedOppfolging = fullmaktData?.fullmakt
-        .filter(fullmakt => fullmakt.omraade.some(omraade => omraade.tema === 'Oppfølging'));
+    const fullmaktMedOppfolging = fullmaktData?.fullmakt.filter((fullmakt) =>
+        fullmakt.omraade.some((omraade) => omraade.tema === 'Oppfølging')
+    );
 
     return (
         <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
-            {harFullmaktData && fullmaktMedOppfolging?.length ?
+            {harFullmaktData && fullmaktMedOppfolging?.length ? (
                 fullmaktMedOppfolging?.map((fullmakt, index) => (
                     <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
-                )) : <>{EMDASH}</>
-            }
+                ))
+            ) : (
+                <>{EMDASH}</>
+            )}
         </Informasjonsbolk>
     );
 };
