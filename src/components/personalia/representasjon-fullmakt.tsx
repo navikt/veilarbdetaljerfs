@@ -17,42 +17,42 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
         })
         .join(', ');
 
-        return (
+    return (
+        <div className="info-for-en-fullmakt">
             <div className="underinformasjon">
-                <BodyShort size="small" spacing>
-                    <BodyShort size="small" className="body_header">
-                        <b>Fullmaktsgiver:</b> {fullmaktsgiver}
-                    </BodyShort>
-                    <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}</BodyShort>
+                <BodyShort size="small" className="body_header">
+                    <b>Fullmaktsgiver:</b> {fullmaktsgiver}
                 </BodyShort>
-                <BodyShort size="small" spacing>
-                    <BodyShort size="small" className="body_header">
-                        <b>Fullmektig:</b> {fullmektig}
-                    </BodyShort>
-                    <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmektigsNavn)}</BodyShort>
+                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}</BodyShort>
+            </div>
+            <div className="underinformasjon">
+                <BodyShort size="small" className="body_header">
+                    <b>Fullmektig:</b> {fullmektig}
                 </BodyShort>
-                <BodyShort size="small" spacing>
-                    <BodyShort size="small" className="body_header">
-                        <b>Område:</b> Oppfølging
-                    </BodyShort>
-                    <BodyShort size="small">Handling type: {handlingsType.toLowerCase()}</BodyShort>
-                    <BodyShort size="small" className="typografi_dato">
-                        Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
-                    </BodyShort>
-                    <BodyShort size="small" className="typografi_dato">
-                        Gyldig til og med: {formaterDato(gyldigTilOgMed)}
-                    </BodyShort>
+                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmektigsNavn)}</BodyShort>
+            </div>
+            <div className="underinformasjon">
+                <BodyShort size="small" className="body_header">
+                    <b>Område:</b> Oppfølging
+                </BodyShort>
+                <BodyShort size="small">Handlingstype: {handlingsType.toLowerCase()}</BodyShort>
+                <BodyShort size="small" className="typografi_dato">
+                    Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
+                </BodyShort>
+                <BodyShort size="small" className="typografi_dato">
+                    Gyldig til og med: {formaterDato(gyldigTilOgMed)}
                 </BodyShort>
             </div>
-        );
+        </div>
+    );
 }
 
 const FullmaktListe = () => {
     const { fnr } = useAppStore();
     const fullmaktData = useFullmakt(fnr!).data;
     const harFullmaktData = fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt);
-    const fullmaktMedOppfolging = fullmaktData?.fullmakt.filter(fullmakt =>
-        fullmakt.omraade.some(omraade => omraade.tema === 'Oppfølging')) ;
+    const fullmaktMedOppfolging = fullmaktData?.fullmakt
+        .filter(fullmakt => fullmakt.omraade.some(omraade => omraade.tema === 'Oppfølging'));
 
     return (
         <Informasjonsbolk header="Fullmakter" headerTypo="ingress">

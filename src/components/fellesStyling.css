@@ -83,3 +83,7 @@
 .reservert-krr-info {
     margin-bottom: var(--a-spacing-2);
 }
+
+.info-for-en-fullmakt:not(:last-of-type) {
+    margin-bottom: var(--a-spacing-8);
+}
