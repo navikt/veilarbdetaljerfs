@@ -11,14 +11,16 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     const { fullmaktsgiver, fullmaktsgiverNavn, fullmektig, fullmektigsNavn, omraade, gyldigFraOgMed, gyldigTilOgMed } =
         props.fullmakt;
 
-    const gjeldendeOmraader = omraade.map((omraade) => omraade.tema).join(', ');
-    const handlingsType = omraade
-        .map((OmraadeHandlingType) => {
-            return OmraadeHandlingType.handling;
-        })
-        .join(',');
+    const erOmraadeOppfolging = omraade.map(omraade => omraade.tema)
+        .includes('Oppfølging');
 
-    if (gjeldendeOmraader.includes('Oppfølging')) {
+    const handlingsType = omraade.filter(omraade => omraade.tema === 'Oppfølging')
+        .map((OmraadeHandlingType) => {
+            return OmraadeHandlingType.handling.join(', ');
+        })
+        .join(', ');
+
+    if (erOmraadeOppfolging) {
         return (
             <div className="underinformasjon">
                 <BodyShort size="small" spacing>
@@ -35,7 +37,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
                 </BodyShort>
                 <BodyShort size="small" spacing>
                     <BodyShort size="small" className="body_header">
-                        <b>Område:</b> {gjeldendeOmraader}
+                        <b>Område:</b> Oppfølging
                     </BodyShort>
                     <BodyShort size="small">Handling type: {handlingsType.toLowerCase()}</BodyShort>
                     <BodyShort size="small" className="typografi_dato">
