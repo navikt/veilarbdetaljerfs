@@ -50,26 +50,22 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
             </div>
         );
     } else {
-        return <>{EMDASH}</>;
+        return <>{EMDASH}</>
     }
 }
 
 const FullmaktListe = () => {
     const { fnr } = useAppStore();
     const fullmaktData = useFullmakt(fnr!).data;
-    const Fullmaktinnhold = () => {
-        if (fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt)) {
-            return fullmaktData.fullmakt.map((fullmakt, index) => (
-                <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
-            ));
-        } else {
-            return <>{EMDASH}</>;
-        }
-    };
+    const harFullmaktData = fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt);
 
     return (
         <Informasjonsbolk header="Fullmakter" headerTypo="ingress">
-            <Fullmaktinnhold />
+            {harFullmaktData ?
+                fullmaktData.fullmakt.map((fullmakt, index) => (
+                    <FullmektigEllerFullmaktsgiver fullmakt={fullmakt} key={index} />
+                )) : <>{EMDASH}</>
+            }
         </Informasjonsbolk>
     );
 };
