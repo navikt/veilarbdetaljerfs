@@ -16,36 +16,40 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
         .map((OmraadeHandlingType) => {
             return OmraadeHandlingType.handling;
         })
-        .join(', ');
+        .join(',');
 
-    return (
-        <div className="underinformasjon">
-            <BodyShort size="small" spacing>
-                <BodyShort size="small" className="body_header">
-                    <b>{`Fullmaktsgiver:`}</b> {fullmaktsgiver}
+    if (gjeldendeOmraader.includes('Oppfølging')) {
+        return (
+            <div className="underinformasjon">
+                <BodyShort size="small" spacing>
+                    <BodyShort size="small" className="body_header">
+                        <b>Fullmaktsgiver:</b> {fullmaktsgiver}
+                    </BodyShort>
+                    <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}</BodyShort>
                 </BodyShort>
-                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}</BodyShort>
-            </BodyShort>
-            <BodyShort size="small" spacing>
-                <BodyShort size="small" className="body_header">
-                    <b>{`Fullmektig:`}</b> {fullmektig}
+                <BodyShort size="small" spacing>
+                    <BodyShort size="small" className="body_header">
+                        <b>Fullmektig:</b> {fullmektig}
+                    </BodyShort>
+                    <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmektigsNavn)}</BodyShort>
                 </BodyShort>
-                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmektigsNavn)}</BodyShort>
-            </BodyShort>
-            <BodyShort size="small" spacing>
-                <BodyShort size="small" className="body_header">
-                    <b>{`Område:`}</b> {gjeldendeOmraader}
+                <BodyShort size="small" spacing>
+                    <BodyShort size="small" className="body_header">
+                        <b>Område:</b> {gjeldendeOmraader}
+                    </BodyShort>
+                    <BodyShort size="small">Handling type: {handlingsType.toLowerCase()}</BodyShort>
+                    <BodyShort size="small" className="typografi_dato">
+                        Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
+                    </BodyShort>
+                    <BodyShort size="small" className="typografi_dato">
+                        Gyldig til og med: {formaterDato(gyldigTilOgMed)}
+                    </BodyShort>
                 </BodyShort>
-                <BodyShort size="small">Handling type: {handlingsType.toLowerCase()}</BodyShort>
-                <BodyShort size="small" className="typografi_dato">
-                    Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
-                </BodyShort>
-                <BodyShort size="small" className="typografi_dato">
-                    Gyldig til og med: {formaterDato(gyldigTilOgMed)}
-                </BodyShort>
-            </BodyShort>
-        </div>
-    );
+            </div>
+        );
+    } else {
+        return <>{EMDASH}</>;
+    }
 }
 
 const FullmaktListe = () => {
