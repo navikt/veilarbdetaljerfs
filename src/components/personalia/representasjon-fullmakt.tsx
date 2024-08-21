@@ -1,7 +1,7 @@
 import { BodyShort } from '@navikt/ds-react';
 import { Fullmakt } from '../../data/api/datatyper/fullmakt.ts';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { formateStringInUpperAndLowerCase, formaterDato } from '../../utils/formater';
+import { formaterDato } from '../../utils/formater';
 import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 import { useFullmakt } from '../../data/api/fetch.ts';
@@ -24,13 +24,13 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
                 <BodyShort size="small" className="body_header">
                     <b>Fullmaktsgiver:</b> {fullmaktsgiver}
                 </BodyShort>
-                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmaktsgiverNavn)}</BodyShort>
+                <BodyShort size="small">{fullmaktsgiverNavn}</BodyShort>
             </div>
             <div className="underinformasjon">
                 <BodyShort size="small" className="body_header">
                     <b>Fullmektig:</b> {fullmektig}
                 </BodyShort>
-                <BodyShort size="small">{formateStringInUpperAndLowerCase(fullmektigsNavn)}</BodyShort>
+                <BodyShort size="small">{fullmektigsNavn}</BodyShort>
             </div>
             <div className="underinformasjon">
                 <BodyShort size="small" className="body_header">
