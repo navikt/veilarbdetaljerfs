@@ -591,6 +591,20 @@ const mockFullmakt: FullmaktData = {
             gyldigTilOgMed: '2025-05-31',
             fullmaktsgiverNavn: 'SMAL ARK',
             fullmektigsNavn: 'IDIOTSIKKER PERSILLE'
+        },
+        {
+            fullmaktsgiver: '19827397213',
+            fullmektig: '04877498456',
+            omraade: [
+                {
+                    tema: 'Oppfølging',
+                    handling: [OmraadeHandlingType.LES, OmraadeHandlingType.SKRIV, OmraadeHandlingType.KOMMUNISER]
+                }
+            ],
+            gyldigFraOgMed: '2024-06-04',
+            gyldigTilOgMed: '2025-05-31',
+            fullmaktsgiverNavn: 'SMAL ARK2',
+            fullmektigsNavn: 'IDIOTSIKKER PERSILLE'
         }
     ]
 };
