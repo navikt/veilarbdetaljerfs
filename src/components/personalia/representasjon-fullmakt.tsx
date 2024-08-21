@@ -36,7 +36,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
                 <BodyShort size="small" className="body_header">
                     <b>Område:</b> Oppfølging
                 </BodyShort>
-                <BodyShort size="small">Handlingstype: {handlingsType.toLowerCase()}</BodyShort>
+                <BodyShort size="small">Handlingstype(r): {handlingsType.toLowerCase()}</BodyShort>
                 <BodyShort size="small" className="typografi_dato">
                     Gyldig fra og med: {formaterDato(gyldigFraOgMed)}
                 </BodyShort>
@@ -52,7 +52,7 @@ const FullmaktListe = () => {
     const { fnr } = useAppStore();
     const fullmaktData = useFullmakt(fnr!).data;
     const harFullmaktData = fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt);
-    const fullmaktMedOppfolging = fullmaktData?.fullmakt.filter((fullmakt) =>
+    const fullmaktMedOppfolging = fullmaktData?.fullmakt?.filter((fullmakt) =>
         fullmakt.omraade.some((omraade) => omraade.tema === 'Oppfølging')
     );
 
