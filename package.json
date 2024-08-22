@@ -28,7 +28,7 @@
         "vite-plugin-svgr": "4.2.0"
     },
     "devDependencies": {
-        "@eslint/js": "9.8.0",
+        "@eslint/js": "9.9.0",
         "@mswjs/data": "0.16.1",
         "@testing-library/react": "16.0.0",
         "@types/react": "18.3.3",
