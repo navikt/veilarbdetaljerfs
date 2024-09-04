@@ -46,7 +46,11 @@ spec:
           "header": {
             "csp": {
               "connectSrc": ["'self'", "wss:", "*.nav.no", "*.adeo.no"]
+             },
+            "corp": {
+            "policy": "cross-origin"
              }
+                 }
           },
           "gcs": {
             "bucketName": "obo-veilarbdetaljerfs-dev"
