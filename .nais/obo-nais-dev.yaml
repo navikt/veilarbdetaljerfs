@@ -50,7 +50,6 @@ spec:
             "corp": {
             "policy": "cross-origin"
              }
-                 }
           },
           "gcs": {
             "bucketName": "obo-veilarbdetaljerfs-dev"
