@@ -5,6 +5,7 @@ import { veilarbfilterHandlers } from './veilarbfilter';
 import { RequestHandler } from 'msw';
 import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
 import { veilarbpersonflatefsHandlers } from './veilarbpersonflatefs.ts';
+import { veilarbarenaHandlers } from './veilarbarena.ts';
 
 export const DEFAULT_DELAY_MILLISECONDS: number = 100;
 
@@ -14,5 +15,6 @@ export const allHandlers: RequestHandler[] = [
     ...veilarboppfolgingHandlers,
     ...veilarbfilterHandlers,
     ...veilarbvedtaksstotteHandlers,
-    ...veilarbpersonflatefsHandlers
+    ...veilarbpersonflatefsHandlers,
+    ...veilarbarenaHandlers
 ];
