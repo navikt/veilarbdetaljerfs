@@ -178,7 +178,7 @@ const Nokkelinfoinnhold = () => {
                 errorMessage={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
             />
             <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
-            <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtaksliste)} />
+            <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtak)} />
         </span>
     );
 };

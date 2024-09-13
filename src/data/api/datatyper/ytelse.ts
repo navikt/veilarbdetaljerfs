@@ -1,19 +1,13 @@
-import { OrNothing, StringOrNothing } from '../../../utils/felles-typer';
-
-export interface DatoType {
-    year: string;
-    month: string;
-    day: string;
-}
+import { StringOrNothing } from '../../../utils/felles-typer';
 
 export interface VedtakType {
     aktivitetsfase: StringOrNothing;
-    vedtakstype: StringOrNothing;
+    type: StringOrNothing;
     status: StringOrNothing;
-    fradato?: OrNothing<DatoType>;
-    tildato?: OrNothing<DatoType>;
+    fraDato?: StringOrNothing;
+    tilDato?: StringOrNothing;
 }
 
 export interface YtelseData {
-    vedtaksliste: VedtakType[];
+    vedtak: VedtakType[];
 }
