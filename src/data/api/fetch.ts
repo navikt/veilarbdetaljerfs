@@ -233,7 +233,7 @@ export const useFullmakt = (fnr?: string) => {
 };
 
 export const useYtelser = (fnr?: string) => {
-    const url = `/veilarboppfolging/api/v2/person/hent-ytelser`;
+    const url = `/veilarbarena/api/v2/arena/hent-ytelser`;
     const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null })
     );

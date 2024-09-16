@@ -6,6 +6,7 @@ import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { isNotEmptyArray } from '../utils/felles-typer';
 import { useYtelser } from '../data/api/fetch';
 import Informasjonsbolk from './felles/informasjonsbolk';
+import { formaterDato } from '../utils/formater.ts';
 
 const Ytelsesinnhold = () => {
     const { fnr } = useAppStore();
@@ -16,7 +17,7 @@ const Ytelsesinnhold = () => {
         return <Laster />;
     }
 
-    if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtaksliste)) {
+    if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtak)) {
         return (
             <Alert inline variant="info" size="small">
                 Ingen ytelser registrert.
@@ -31,22 +32,16 @@ const Ytelsesinnhold = () => {
     return (
         <>
             <span className="info_container">
-                {ytelserData?.vedtaksliste.map((vedtak, index) => (
+                {ytelserData?.vedtak.map((vedtaket, index) => (
                     <div key={index}>
-                        <Informasjonsbolk header={vedtak.vedtakstype || EMDASH} headerTypo="ingress">
-                            <EnkeltInformasjon header="Vedtakstatus" value={vedtak.status || EMDASH} />
-                            <EnkeltInformasjon header="Aktivitetsfase" value={vedtak.aktivitetsfase || EMDASH} />
+                        <Informasjonsbolk header={vedtaket.type || EMDASH} headerTypo="ingress">
+                            <EnkeltInformasjon header="Vedtakstatus" value={vedtaket.status || EMDASH} />
+                            <EnkeltInformasjon header="Aktivitetsfase" value={vedtaket.aktivitetsfase || EMDASH} />
                             <EnkeltInformasjon
                                 header="Fra dato / Til dato"
                                 value={`                       
-                                ${
-                                    vedtak.fradato
-                                        ? `${vedtak.fradato.day}.${vedtak.fradato.month}.${vedtak.fradato.year}`
-                                        : 'Ingen fradato'
-                                } – ${
-                                    vedtak.tildato
-                                        ? `${vedtak.tildato.day}.${vedtak.tildato.month}.${vedtak.tildato.year}`
-                                        : 'Ingen til-dato'
+                                ${vedtaket.fraDato ? `${formaterDato(vedtaket.fraDato)}` : 'Ingen fra-dato'} – ${
+                                    vedtaket.tilDato ? `${formaterDato(vedtaket.tilDato)}` : 'Ingen til-dato'
                                 }`}
                             />
                         </Informasjonsbolk>
