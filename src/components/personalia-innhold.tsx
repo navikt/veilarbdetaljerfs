@@ -5,15 +5,11 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import { kalkulerAlder } from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
-import { Fullmakt, VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/vergeOgFullmakt';
+import { VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/Verge.ts';
 import Vergemaal from './personalia/vergemaal';
-import Fullmakter from './personalia/fullmakt';
 import FullmaktListe from './personalia/representasjon-fullmakt.tsx';
 import './fellesStyling.css';
 import {
-    BRUK_NY_KILDE_TIL_FULLMAKT,
-    OboUnleashFeatures,
-    useFeature,
     usePersonalia,
     useVergeOgFullmakt
 } from '../data/api/fetch';
@@ -25,10 +21,7 @@ import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
-    const reprFullmaktToogle: OboUnleashFeatures | undefined = useFeature().data;
-
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
-
     const {
         data: vergeOgFullmaktData,
         error: vergeOgFullmaktError,
@@ -50,7 +43,6 @@ const Personaliainnhold = () => {
 
     const vergemaalFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[] =
         vergeOgFullmaktData?.vergemaalEllerFremtidsfullmakt ?? [];
-    const fullmakter: Fullmakt[] = vergeOgFullmaktData?.fullmakt ?? [];
 
     if (personLoading || vergeOgFullmaktLoading) {
         return <Laster />;
@@ -81,10 +73,7 @@ const Personaliainnhold = () => {
                 <Barn barn={filtrertBarneListe} />
                 <LandOgSprak />
                 <Vergemaal vergemaalEllerFremtidsfullmakt={vergemaalFremtidsfullmakt} />
-                {reprFullmaktToogle && !reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && (
-                    <Fullmakter fullmakt={fullmakter} />
-                )}
-                {reprFullmaktToogle && reprFullmaktToogle[BRUK_NY_KILDE_TIL_FULLMAKT] && <FullmaktListe />}
+                <FullmaktListe />
             </span>
             <EndrePersonopplysninger fnr={fnr} />
         </>

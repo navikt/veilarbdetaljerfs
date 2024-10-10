@@ -4,7 +4,7 @@ import {
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
     VergemaalEllerFullmaktOmfangType
-} from '../../data/api/datatyper/vergeOgFullmakt';
+} from '../../data/api/datatyper/Verge.ts';
 import { BodyShort } from '@navikt/ds-react';
 import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
