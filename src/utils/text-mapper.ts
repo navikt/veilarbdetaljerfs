@@ -156,6 +156,6 @@ export function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
     }
     return vedtaksliste
         ?.filter((vedtak) => vedtak.status === VEDTAKSSTATUSER.iverksatt)
-        .map((vedtak) => vedtak.vedtakstype)
+        .map((vedtak) => vedtak.type)
         .join(', ');
 }

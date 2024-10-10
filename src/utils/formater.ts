@@ -3,13 +3,7 @@ import { PersonaliaTelefon } from '../data/api/datatyper/personalia';
 import EMDASH from './emdash';
 import { OrNothing, isNullOrUndefined } from './felles-typer';
 
-export interface DatoType {
-    year: string;
-    month: string;
-    day: string;
-}
-
-export function formaterDato(datoObjekt: DatoType | string | undefined | null, onlyYearMonth?: boolean) {
+export function formaterDato(datoObjekt: Date | string | undefined | null, onlyYearMonth?: boolean) {
     if (isNullOrUndefined(datoObjekt)) {
         return EMDASH;
     }
@@ -22,7 +16,7 @@ export function formaterDato(datoObjekt: DatoType | string | undefined | null, o
         lokalDato = new Date(datoObjekt);
     } else {
         lokalDato = new Date(
-            Date.UTC(Number(datoObjekt?.year), Number(datoObjekt?.month) - 1, Number(datoObjekt?.day))
+            Date.UTC(Number(datoObjekt?.getFullYear()), Number(datoObjekt?.getMonth()), Number(datoObjekt?.getDay()))
         );
     }
     const shortOption: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short' };
