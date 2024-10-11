@@ -5,7 +5,7 @@ import { Errormelding, Laster } from './felles/minikomponenter';
 import { kalkulerAlder } from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
-import { VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/Verge.ts';
+import { VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/verge';
 import Vergemaal from './personalia/vergemaal';
 import FullmaktListe from './personalia/representasjon-fullmakt.tsx';
 import './fellesStyling.css';

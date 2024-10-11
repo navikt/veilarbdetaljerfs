@@ -42,6 +42,6 @@ export interface VergemaalEllerFremtidsfullmakt {
     folkeregistermetadata: Folkeregistermetadata;
 }
 
-export interface Verge {
+export interface Vergemål {
     vergemaalEllerFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[];
 }

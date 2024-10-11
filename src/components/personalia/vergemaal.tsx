@@ -1,10 +1,10 @@
 import {
     Vergetype,
-    VergeOgFullmaktData,
+    Vergemål,
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
-    VergemaalEllerFullmaktOmfangType
-} from '../../data/api/datatyper/Verge.ts';
+    VergemaalEllerFullmaktOmfangType,
+} from '../../data/api/datatyper/verge';
 import { BodyShort } from '@navikt/ds-react';
 import { formaterDato } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
@@ -101,7 +101,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
     return null;
 }
 
-function Vergemaal(props: Pick<VergeOgFullmaktData, 'vergemaalEllerFremtidsfullmakt'>) {
+function Vergemaal(props: Pick<Vergemål, 'vergemaalEllerFremtidsfullmakt'>) {
     const { vergemaalEllerFremtidsfullmakt } = props;
 
     let vergemaalListe;
