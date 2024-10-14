@@ -8,7 +8,7 @@ import {
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
-import { VergemaalEllerFullmaktOmfangType, VergeOgFullmaktData, Vergetype } from '../../api/datatyper/vergeOgFullmakt';
+import { VergemaalEllerFullmaktOmfangType, Vergemål, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { RegistreringsData } from '../../api/datatyper/registreringsData';
 import { EndringIRegistreringsdata } from '../../api/datatyper/endringIRegistreringsData';
@@ -512,7 +512,7 @@ const personalia: PersonaliaInfo = {
     malform: 'Polsk'
 };
 
-const mockVergeOgFullmakt: VergeOgFullmaktData = {
+const mockVerge: Vergemål = {
     vergemaalEllerFremtidsfullmakt: [
         {
             type: Vergetype.MINDREAARIG,
@@ -530,48 +530,6 @@ const mockVergeOgFullmakt: VergeOgFullmaktData = {
                 ajourholdstidspunkt: '2021-03-02T13:00:42',
                 gyldighetstidspunkt: null
             }
-        }
-    ],
-    fullmakt: [
-        {
-            motpartsPersonident: '1234567890',
-            motpartsPersonNavn: {
-                fornavn: 'Ola',
-                mellomnavn: null,
-                etternavn: 'Nordmann',
-                forkortetNavn: 'Nordmann Ola'
-            },
-            motpartsRolle: 'FULLMEKTIG',
-            omraader: [
-                {
-                    kode: 'AAP',
-                    beskrivelse: 'Arbeidsavklaringspenger'
-                },
-                {
-                    kode: 'DAG',
-                    beskrivelse: 'Dagpenger'
-                }
-            ],
-            gyldigFraOgMed: '2021-03-02T13:00:42',
-            gyldigTilOgMed: '2021-03-03T13:00:42'
-        },
-        {
-            motpartsPersonident: '1234567891',
-            motpartsPersonNavn: {
-                fornavn: 'Ola',
-                mellomnavn: null,
-                etternavn: 'Nordmann',
-                forkortetNavn: 'Nordmann Ola'
-            },
-            motpartsRolle: 'FULLMAKTSGIVER',
-            omraader: [
-                {
-                    kode: '*',
-                    beskrivelse: 'alle ytelser'
-                }
-            ],
-            gyldigFraOgMed: '2021-03-04T13:00:42',
-            gyldigTilOgMed: '2021-03-05T13:00:42'
         }
     ]
 };
@@ -888,7 +846,7 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     }),
     http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockVergeOgFullmakt);
+        return HttpResponse.json(mockVerge);
     }),
     http.post('/veilarbperson/api/v3/person/hent-fullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);

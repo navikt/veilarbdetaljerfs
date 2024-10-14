@@ -18,13 +18,6 @@ export enum VergemaalEllerFullmaktOmfangType {
     PERSONLIGE_OG_OEKONOMISKE_INTERESSER = 'PERSONLIGE_OG_OEKONOMISKE_INTERESSER'
 }
 
-export interface Navn {
-    fornavn: string;
-    mellomnavn: StringOrNothing;
-    etternavn: string;
-    forkortetNavn: string;
-}
-
 export interface VergeNavn {
     fornavn: string;
     mellomnavn: StringOrNothing;
@@ -49,21 +42,6 @@ export interface VergemaalEllerFremtidsfullmakt {
     folkeregistermetadata: Folkeregistermetadata;
 }
 
-export interface Omraade {
-    kode: string;
-    beskrivelse: string;
-}
-
-export interface Fullmakt {
-    motpartsPersonident: StringOrNothing;
-    motpartsPersonNavn: Navn;
-    motpartsRolle: StringOrNothing;
-    omraader: Omraade[];
-    gyldigFraOgMed: StringOrNothing;
-    gyldigTilOgMed: StringOrNothing;
-}
-
-export interface VergeOgFullmaktData {
+export interface Vergemål {
     vergemaalEllerFremtidsfullmakt: VergemaalEllerFremtidsfullmakt[];
-    fullmakt: Fullmakt[];
 }
