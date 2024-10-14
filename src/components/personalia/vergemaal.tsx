@@ -3,7 +3,7 @@ import {
     Vergemål,
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
-    VergemaalEllerFullmaktOmfangType,
+    VergemaalEllerFullmaktOmfangType
 } from '../../data/api/datatyper/verge';
 import { BodyShort } from '@navikt/ds-react';
 import { formaterDato } from '../../utils/formater';

@@ -9,10 +9,7 @@ import { VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/verge';
 import Vergemaal from './personalia/vergemaal';
 import FullmaktListe from './personalia/representasjon-fullmakt.tsx';
 import './fellesStyling.css';
-import {
-    usePersonalia,
-    useVergeOgFullmakt
-} from '../data/api/fetch';
+import { usePersonalia, useVergeOgFullmakt } from '../data/api/fetch';
 import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
