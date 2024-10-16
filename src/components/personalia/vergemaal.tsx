@@ -1,6 +1,6 @@
 import {
     Vergetype,
-    Vergemål,
+    Vergemal,
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
     VergemaalEllerFullmaktOmfangType
@@ -101,7 +101,7 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
     return null;
 }
 
-function Vergemaal(props: Pick<Vergemål, 'vergemaalEllerFremtidsfullmakt'>) {
+function Vergemaal(props: Pick<Vergemal, 'vergemaalEllerFremtidsfullmakt'>) {
     const { vergemaalEllerFremtidsfullmakt } = props;
 
     let vergemaalListe;

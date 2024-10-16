@@ -8,7 +8,7 @@ import {
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
-import { VergemaalEllerFullmaktOmfangType, Vergemål, Vergetype } from '../../api/datatyper/verge';
+import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { RegistreringsData } from '../../api/datatyper/registreringsData';
 import { EndringIRegistreringsdata } from '../../api/datatyper/endringIRegistreringsData';
@@ -512,7 +512,7 @@ const personalia: PersonaliaInfo = {
     malform: 'Polsk'
 };
 
-const mockVerge: Vergemål = {
+const mockVerge: Vergemal = {
     vergemaalEllerFremtidsfullmakt: [
         {
             type: Vergetype.MINDREAARIG,
