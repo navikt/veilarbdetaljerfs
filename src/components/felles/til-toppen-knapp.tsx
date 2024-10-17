@@ -7,12 +7,8 @@ import { trackAmplitude } from '../../amplitude/amplitude';
 const TilToppenKnapp = () => {
     const [synlig, setSynlig] = useState(false);
 
-    const synlighet = () => {
-        window.scrollY > 450 ? setSynlig(true) : setSynlig(false);
-    };
-
     useEffect(() => {
-        window.addEventListener('scroll', synlighet);
+        window.addEventListener('scroll', () => setSynlig(window.scrollY > 450));
     });
 
     return (

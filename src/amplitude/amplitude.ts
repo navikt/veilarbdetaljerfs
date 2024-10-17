@@ -22,8 +22,8 @@ export const maskereFodselsnummer = (data?: Record<string, unknown>) => {
 
     try {
         return JSON.parse(maskertObjekt);
-    } catch (e) {
-        console.error('kunne ikke maskrere data korrekt før sending til amplitude');
+    } catch {
+        console.error('Kunne ikke maskere data korrekt før sending til amplitude.');
     }
     return {};
 };
