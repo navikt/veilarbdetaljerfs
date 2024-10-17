@@ -6,7 +6,7 @@ import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunika
 import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
 import { YtelseData } from './datatyper/ytelse';
-import { Vergemål } from './datatyper/verge';
+import { Vergemal } from './datatyper/verge';
 import { ArenaPerson } from './datatyper/arenaperson';
 import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
 import { AktorId } from './datatyper/aktor-id';
@@ -216,7 +216,7 @@ export const useTolk = (fnr: string, behandlingsnummer: string) => {
 
 export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => {
     const url = '/veilarbperson/api/v3/person/hent-vergeOgFullmakt';
-    const { data, error, isLoading } = useSWR<Vergemål, ErrorMessage>(fnr ? url : null, () =>
+    const { data, error, isLoading } = useSWR<Vergemal, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
     );
 
