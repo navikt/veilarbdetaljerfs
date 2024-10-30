@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { Button, Modal } from '@navikt/ds-react';
-import PersonverninformasjonSykmeldt from './sykemeldtregistrering/personverninformasjon-sykmeldt';
 import PersonverninformasjonManuell from './arbeidssoekerregistrering/personverninformasjon-manuell';
 import { PrinterSmallIcon } from '@navikt/aksel-icons';
 import { PrintKnappModal } from './print-knapp-modal';
 import { trackAmplitude } from '../../amplitude/amplitude';
-
-function erSykmeldt(type: string) {
-    return type === 'SYKMELDT';
-}
 
 function erOrdinaer(type: string) {
     return type === 'ORDINAER';
@@ -38,10 +33,7 @@ function PersonverninformasjonUtskrift({ type }: Props) {
                 <Modal.Header>
                     <PrintKnappModal />
                 </Modal.Header>
-                <Modal.Body>
-                    {erSykmeldt(type) && <PersonverninformasjonSykmeldt />}
-                    {erOrdinaer(type) && <PersonverninformasjonManuell />}
-                </Modal.Body>
+                <Modal.Body>{erOrdinaer(type) && <PersonverninformasjonManuell />}</Modal.Body>
             </Modal>
         </>
     );
