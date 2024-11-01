@@ -1,7 +1,6 @@
 import { createPOSToptions, GEToptions } from './datatyper/apiOptions';
 import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 import { PersonaliaInfo } from './datatyper/personalia';
-import { RegistreringsData } from './datatyper/registreringsData';
 import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunikasjon';
 import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
@@ -174,15 +173,6 @@ export const usePersonalia = (fnr: string, behandlingsnummer: string) => {
     const url = '/veilarbperson/api/v3/hent-person';
     const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(fnr ? url : null, () =>
         fetchWithPost(url, { fnr: fnr ?? null, behandlingsnummer: behandlingsnummer })
-    );
-
-    return { data, isLoading, error };
-};
-
-export const useRegistrering = (fnr?: string) => {
-    const url = '/veilarbperson/api/v3/person/hent-registrering';
-    const { data, error, isLoading } = useSWR<RegistreringsData, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };

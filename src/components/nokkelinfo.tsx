@@ -4,13 +4,11 @@ import { useAppStore } from '../stores/app-store';
 import {
     useOppfolgingsstatus,
     usePersonalia,
-    useRegistrering,
     useTolk,
     useVeileder,
     useYtelser,
     useCvOgJobbonsker,
-    useOpplysningerOmArbeidssoekerMedProfilering,
-    OpplysningerOmArbeidssokerMedProfilering
+    useOpplysningerOmArbeidssoekerMedProfilering
 } from '../data/api/fetch';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
@@ -31,35 +29,6 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
-import { RegistreringsData } from '../data/api/datatyper/registreringsData.ts';
-
-const finnRegistreringsDato = (
-    registreringData?: RegistreringsData,
-    arbeidssoekerregistrering?: OpplysningerOmArbeidssokerMedProfilering
-): StringOrNothing => {
-    const regDatoSykemeldtregistrering =
-        !!registreringData && registreringData.type === 'SYKMELDT'
-            ? registreringData.registrering?.opprettetDato
-            : null;
-    const regDatoArbeidssoekerregistrering =
-        !!arbeidssoekerregistrering && arbeidssoekerregistrering.arbeidssoekerperiodeStartet
-            ? arbeidssoekerregistrering.arbeidssoekerperiodeStartet
-            : null;
-
-    if (regDatoSykemeldtregistrering && !regDatoArbeidssoekerregistrering) {
-        return regDatoSykemeldtregistrering;
-    }
-    if (!regDatoSykemeldtregistrering && !!regDatoArbeidssoekerregistrering) {
-        return regDatoArbeidssoekerregistrering;
-    }
-    if (!!regDatoSykemeldtregistrering && !!regDatoArbeidssoekerregistrering) {
-        return Date.parse(regDatoSykemeldtregistrering) > Date.parse(regDatoArbeidssoekerregistrering)
-            ? regDatoSykemeldtregistrering
-            : regDatoArbeidssoekerregistrering;
-    }
-
-    return null;
-};
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -71,7 +40,6 @@ const Nokkelinfoinnhold = () => {
         isLoading: oppfolgingsstatusLoading
     } = useOppfolgingsstatus(fnr);
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
-    const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
     const {
         data: opplysningerOmArbedissoekerMedProfilering,
         error: opplysningerOmArbedissoekerMedProfileringError,
@@ -94,7 +62,6 @@ const Nokkelinfoinnhold = () => {
     if (
         oppfolgingsstatusLoading ||
         personLoading ||
-        registreringLoading ||
         tolkLoading ||
         ytelserLoading ||
         cvOgJobbonskerLoading ||
@@ -108,8 +75,6 @@ const Nokkelinfoinnhold = () => {
         oppfolgingsstatusError?.status === 404 ||
         personError?.status === 204 ||
         personError?.status === 404 ||
-        registreringError?.status === 204 ||
-        registreringError?.status === 404 ||
         tolkError?.status === 204 ||
         tolkError?.status === 404 ||
         ytelserError?.status === 204 ||
@@ -123,7 +88,6 @@ const Nokkelinfoinnhold = () => {
     } else if (
         oppfolgingsstatusError ||
         personError ||
-        registreringError ||
         tolkError ||
         ytelserError ||
         veilederError ||
@@ -139,10 +103,8 @@ const Nokkelinfoinnhold = () => {
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
-    const datoRegistrert: StringOrNothing = finnRegistreringsDato(
-        registreringData,
-        opplysningerOmArbedissoekerMedProfilering
-    );
+    const datoRegistrert: StringOrNothing =
+        opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
     const MAX_ALDER_BARN = 21;
     const barnUnder21: PersonsBarn[] =
         (personData?.barn &&

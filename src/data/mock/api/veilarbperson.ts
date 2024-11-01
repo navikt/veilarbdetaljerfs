@@ -10,8 +10,6 @@ import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
-import { RegistreringsData } from '../../api/datatyper/registreringsData';
-import { EndringIRegistreringsdata } from '../../api/datatyper/endringIRegistreringsData';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 import {
     JaEllerNei,
@@ -572,112 +570,6 @@ const mockTilrettelagtKommunikasjon: TilrettelagtKommunikasjonData = {
     tegnspraak: 'Fransk'
 };
 
-// Kan brukes for å teste gammel ordinær registrering istedenfor sykmeldt registrering
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ordinaerRegistering: RegistreringsData = {
-    type: 'ORDINAER',
-    registrering: {
-        opprettetDato: '2018-08-30T09:17:28.386804+02:00',
-        manueltRegistrertAv: {
-            ident: 'Z21345567',
-            enhet: {
-                id: '1234',
-                navn: 'NAV TESTHEIM'
-            }
-        },
-        besvarelse: {
-            utdanning: 'VIDEREGAENDE_FAGBREV_SVENNEBREV',
-            utdanningBestatt: 'JA',
-            utdanningGodkjent: 'JA',
-            helseHinder: 'NEI',
-            andreForhold: 'NEI',
-            sisteStilling: 'INGEN_SVAR',
-            dinSituasjon: 'DELTIDSJOBB_VIL_MER'
-        },
-        profilering: {
-            jobbetSammenhengendeSeksAvTolvSisteManeder: true,
-            innsatsgruppe: 'BEHOV_FOR_ARBEIDSEVNEVURDERING'
-        },
-        teksterForBesvarelse: [
-            {
-                sporsmalId: 'dinSituasjon',
-                sporsmal: 'Hvorfor registrerer du deg?',
-                svar: 'Jeg har deltidsjobb, men vil jobbe mer'
-            },
-            {
-                sporsmalId: 'sisteStilling',
-                sporsmal: 'Din siste jobb',
-                svar: 'Fotpleier'
-            },
-            {
-                sporsmalId: 'utdanning',
-                sporsmal: 'Hva er din høyeste fullførte utdanning?',
-                svar: 'Videregående, fagbrev eller svennebrev (3 år eller mer)'
-            },
-            {
-                sporsmalId: 'utdanningGodkjent',
-                sporsmal: 'Er utdanningen din godkjent i Norge?',
-                svar: 'Ja'
-            },
-            {
-                sporsmalId: 'utdanningBestatt',
-                sporsmal: 'Er utdanningen din bestått?',
-                svar: 'Ja'
-            },
-            {
-                sporsmalId: 'helseHinder',
-                sporsmal: 'Trenger du oppfølging i forbindelse med helseutfordringer?',
-                svar: 'Nei'
-            },
-            {
-                sporsmalId: 'andreForhold',
-                sporsmal: 'Trenger du oppfølging i forbindelse med andre utfordringer?',
-                svar: 'Nei'
-            }
-        ]
-    }
-};
-
-// Kan brukes for å teste sykmeldt registrering istedenfor ordinær registrering
-// @ts-ignore
-const sykmeldtRegistering: RegistreringsData = {
-    registrering: {
-        opprettetDato: '2022-06-17T13:41:43.122+02:00',
-        besvarelse: {
-            utdanning: null,
-            utdanningBestatt: null,
-            utdanningGodkjent: null,
-            helseHinder: null,
-            andreForhold: null,
-            sisteStilling: null,
-            dinSituasjon: null,
-            fremtidigSituasjon: 'SAMME_ARBEIDSGIVER',
-            tilbakeIArbeid: 'JA_REDUSERT_STILLING'
-        },
-        teksterForBesvarelse: [
-            {
-                sporsmalId: 'fremtidigSituasjon',
-                sporsmal: 'Hva tenker du om din fremtidige situasjon?',
-                svar: 'Jeg skal tilbake til jobben jeg har'
-            },
-            {
-                sporsmalId: 'tilbakeIArbeid',
-                sporsmal: 'Tror du at du kommer tilbake i jobb før du har vært sykmeldt i 52 uker?',
-                svar: 'Ja, i redusert stilling'
-            }
-        ],
-        manueltRegistrertAv: {
-            ident: 'Z991227',
-            enhet: {
-                id: '0501',
-                navn: 'NAV Lillehammer-Gausdal'
-            }
-        }
-    },
-    type: 'SYKMELDT'
-};
-
 const opplysninerOmArbeidssoeker: OpplysningerOmArbeidssoker = {
     opplysningerOmArbeidssoekerId: '3fa85f64-5717-4562-b3fc-2c963f66afa7',
     periodeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
@@ -715,7 +607,7 @@ const opplysninerOmArbeidssoeker: OpplysningerOmArbeidssoker = {
             }
         }
     ]
-};
+} as OpplysningerOmArbeidssoker;
 
 const profilering: Profilering = {
     profileringId: '3fa85f64-5717-4562-b3fc-2c963f66afa8',
@@ -739,89 +631,6 @@ const opplysningerMedProfilering = {
     opplysningerOmArbeidssoeker: opplysninerOmArbeidssoeker,
     profilering: profilering
 };
-const mockEndringIRegistreringsData: EndringIRegistreringsdata = {
-    erBesvarelsenEndret: true,
-    endretAv: 'BRUKER',
-    registreringsTidspunkt: '2023-07-17T11:27:25.299658',
-    registreringsId: 10004400,
-    opprettetAv: 'BRUKER',
-    endretTidspunkt: '2023-07-18T11:24:03.158629',
-    besvarelse: {
-        helseHinder: {
-            endretAv: null,
-            verdi: 'NEI',
-            gjelderTilDato: null,
-            gjelderFraDato: null,
-            endretTidspunkt: null
-        },
-        utdanning: {
-            verdi: 'HOYERE_UTDANNING_1_TIL_4',
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        },
-        utdanningBestatt: {
-            verdi: 'JA',
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        },
-        utdanningGodkjent: {
-            verdi: 'JA',
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        },
-        andreForhold: {
-            verdi: 'NEI',
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        },
-        sisteStilling: {
-            verdi: 'INGEN_SVAR',
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        },
-        dinSituasjon: {
-            verdi: 'OPPSIGELSE',
-            tilleggsData: {
-                forsteArbeidsdagDato: null,
-                sisteArbeidsdagDato: '2023-07-31',
-                oppsigelseDato: '2023-07-19',
-                gjelderFraDato: null,
-                permitteringsProsent: null,
-                stillingsProsent: null,
-                permitteringForlenget: null,
-                harNyJobb: null
-            },
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: 'BRUKER',
-            endretTidspunkt: '2023-07-18T11:24:03.136693338'
-        },
-        fremtidigSituasjon: {
-            verdi: null,
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        },
-        tilbakeIArbeid: {
-            verdi: null,
-            gjelderFraDato: null,
-            gjelderTilDato: null,
-            endretAv: null,
-            endretTidspunkt: null
-        }
-    }
-};
 
 export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-cv_jobbprofil', async () => {
@@ -831,14 +640,6 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-aktorid', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(aktorId);
-    }),
-    http.post('/veilarbperson/api/v3/person/hent-registrering', async () => {
-        await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(sykmeldtRegistering);
-    }),
-    http.post('/veilarbperson/api/v3/person/registrering/hent-endringer', async () => {
-        await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockEndringIRegistreringsData);
     }),
     http.post('/veilarbperson/api/v3/hent-person', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);

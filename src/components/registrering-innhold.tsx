@@ -2,35 +2,11 @@ import React from 'react';
 import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
-import { useOpplysningerOmArbeidssoekerMedProfilering, useRegistrering } from '../data/api/fetch';
-import { Registrering } from '../data/api/datatyper/registreringsData';
-import { OpplysningerOmArbeidssoker } from '@navikt/arbeidssokerregisteret-utils';
-import { Sykemeldtregistrering } from './registrering/sykemeldtregistrering/sykemeldtregistrering';
+import { useOpplysningerOmArbeidssoekerMedProfilering } from '../data/api/fetch';
 import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering';
-
-const rendreForGjeldendeRegistrering = (
-    sykemeldtRegistrering: Registrering | null,
-    opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker | null
-) => {
-    if (!sykemeldtRegistrering && opplysningerOmArbeidssoeker) {
-        return Arbeidssoekerregistrering;
-    }
-    if (!opplysningerOmArbeidssoeker && sykemeldtRegistrering) {
-        return Sykemeldtregistrering;
-    }
-    if (opplysningerOmArbeidssoeker && sykemeldtRegistrering) {
-        return Date.parse(sykemeldtRegistrering.opprettetDato) >
-            Date.parse(opplysningerOmArbeidssoeker.sendtInnAv.tidspunkt)
-            ? Sykemeldtregistrering
-            : Arbeidssoekerregistrering;
-    }
-    return null;
-};
 
 const Registreringsinnhold = () => {
     const { fnr } = useAppStore();
-
-    const { data: registreringData, error: registreringError, isLoading: registreringLoading } = useRegistrering(fnr);
 
     const {
         data: opplysningerOmArbedissoekerMedProfilering,
@@ -38,43 +14,30 @@ const Registreringsinnhold = () => {
         isLoading: opplysningerOmArbedissoekerMedProfileringLoading
     } = useOpplysningerOmArbeidssoekerMedProfilering(fnr);
 
-    const harIkkeSykeRegistrering =
-        !registreringData?.registrering ||
-        registreringError?.status === 204 ||
-        registreringError?.status === 404 ||
-        registreringData?.type === 'ORDINAER';
-
     const harIkkeRegistrering =
         opplysningerOmArbedissoekerMedProfileringError?.status == 204 ||
         !opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker;
 
-    if (registreringLoading || opplysningerOmArbedissoekerMedProfileringLoading) {
+    if (opplysningerOmArbedissoekerMedProfileringLoading) {
         return <Laster />;
     }
 
-    if (harIkkeRegistrering && harIkkeSykeRegistrering) {
+    if (harIkkeRegistrering) {
         return (
             <Alert inline variant="info" size="small">
-                Brukeren har ikke registrert seg via den nye registreringsløsningen.
+                Brukeren har ikke registrert seg som arbeidssøker og har ikke en aktiv arbeidssøkerperiode.
             </Alert>
         );
-    } else if (registreringError || opplysningerOmArbedissoekerMedProfileringError) {
+    } else if (opplysningerOmArbedissoekerMedProfileringError) {
         return <Errormelding />;
     }
 
-    const Registreringskomponent = rendreForGjeldendeRegistrering(
-        registreringData?.registrering ?? null,
-        opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker ?? null
-    );
-    return Registreringskomponent ? (
-        <Registreringskomponent
-            sykemeldtregistrering={registreringData?.registrering}
-            opplysningerOmArbeidssoekerMedProfilering={
-                opplysningerOmArbedissoekerMedProfilering ?? { opplysningerOmArbeidssoeker: null, profilering: null }
-            }
+    return (
+        <Arbeidssoekerregistrering
+            opplysningerOmArbeidssoekerMedProfilering={opplysningerOmArbedissoekerMedProfilering}
             fnr={fnr ?? null}
         />
-    ) : null;
+    );
 };
 
 export default Registreringsinnhold;
