@@ -7,7 +7,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build --base=https://veilarbdetaljer.intern.nav.no",
-    "build:dev": "tsc && vite build --base=https://veilarbdetaljer.intern.dev.nav.no",
+    "build:dev": "tsc && vite build --base=https://cdn.nav.no/obo/dev/overblikk-modia/build/",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prettier:check": "prettier --check src --config .prettierrc.json",
