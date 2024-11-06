@@ -32,6 +32,10 @@
     padding-bottom: var(--a-spacing-2);
 }
 
+.enkeltinfo_value_tillegsinfo {
+    display: block;
+}
+
 .copy_header {
     font-weight: var(--a-font-weight-bold);
 }

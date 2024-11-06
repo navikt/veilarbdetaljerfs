@@ -25,7 +25,7 @@ const Registreringsinnhold = () => {
     if (harIkkeRegistrering) {
         return (
             <Alert inline variant="info" size="small">
-                Brukeren har ikke registrert seg som arbeidssøker og har ikke en aktiv arbeidssøkerperiode.
+                Brukeren har ikke registrert seg i Arbeidssøkerregisteret og har ikke en aktiv arbeidssøkerperiode.
             </Alert>
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {

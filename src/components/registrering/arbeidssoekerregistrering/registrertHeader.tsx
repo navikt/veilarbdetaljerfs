@@ -10,7 +10,9 @@ interface Props {
 export const RegistrertHeader = ({ sendtInnAv, arbeidssoekerperiodeStartet }: Props) => {
     const erManuellBruker = sendtInnAv.utfoertAv.type === 'VEILEDER';
 
-    const overskrift = erManuellBruker ? 'Registrert av NAV' : 'Brukerens siste svar fra registreringen';
+    const overskrift = erManuellBruker
+        ? 'Registrert av NAV i Arbeidssøkerregisteret'
+        : 'Brukerens siste svar i Arbeidssøkerregisteret';
 
     const regDato = arbeidssoekerperiodeStartet ? 'Registrert: ' + formaterDato(arbeidssoekerperiodeStartet) : null;
     const sistOppdatert = sendtInnAv.tidspunkt ? 'Sist oppdatert: ' + formaterDato(sendtInnAv.tidspunkt) : null;
