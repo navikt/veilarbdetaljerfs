@@ -12,7 +12,7 @@ export function hentKilde(master: OrNothing<string>) {
         case 'krr':
             return 'i Kontakt- og reservasjonsregisteret';
         case 'pdl':
-            return 'av NAV';
+            return 'av Nav';
         case 'freg':
             return 'i Folkeregisteret';
         default:

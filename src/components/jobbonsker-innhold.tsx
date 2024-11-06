@@ -77,7 +77,7 @@ const Jobbonskerinnhold = () => {
                 Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
                 <List as="ul" size="small">
                     <List.Item>
-                        Bruker må informeres om NAVs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn på
+                        Bruker må informeres om Navs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn på
                         nav.no og oppdatere CV-en sin.
                     </List.Item>
                 </List>

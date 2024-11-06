@@ -11,7 +11,7 @@ export const RegistrertHeader = ({ sendtInnAv, arbeidssoekerperiodeStartet }: Pr
     const erManuellBruker = sendtInnAv.utfoertAv.type === 'VEILEDER';
 
     const overskrift = erManuellBruker
-        ? 'Registrert av NAV i Arbeidssøkerregisteret'
+        ? 'Registrert av Nav i Arbeidssøkerregisteret'
         : 'Brukerens siste svar i Arbeidssøkerregisteret';
 
     const regDato = arbeidssoekerperiodeStartet ? 'Registrert: ' + formaterDato(arbeidssoekerperiodeStartet) : null;
