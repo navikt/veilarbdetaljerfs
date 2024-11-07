@@ -18,7 +18,7 @@ export function EnkeltInformasjon({ header, value = EMDASH, errorMessage, tilleg
             {!errorMessage && (
                 <BodyShort size="small" className="enkeltinfo_value">
                     {value}
-                    {tilleggsinfo && <i className="enkeltinfo_value_tillegsinfo">{tilleggsinfo}</i>}
+                    {tilleggsinfo && <i>{'\n' + tilleggsinfo}</i>}
                 </BodyShort>
             )}
             {errorMessage && (
