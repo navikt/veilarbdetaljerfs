@@ -56,7 +56,7 @@ const Oppfolgingsinnhold = () => {
             veilederError
         ]);
 
-        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode midtstill midtstill feilkode={feilkodeEllerNull} />;
     }
 
     return (

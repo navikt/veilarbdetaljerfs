@@ -26,7 +26,7 @@ const Ytelsesinnhold = () => {
     }
 
     if (ytelserError) {
-        return <AlertMedFeilkode feilkode={ytelserError?.korrelasjonsId} />;
+        return <AlertMedFeilkode midtstill feilkode={ytelserError?.korrelasjonsId} />;
     }
 
     return (

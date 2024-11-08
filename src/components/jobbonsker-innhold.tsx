@@ -112,7 +112,7 @@ const Jobbonskerinnhold = () => {
     if (cvOgJobbonskerError || underOppfolgingError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
 
-        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull} />;
     }
 
     if (cvOgJobbonskerData?.jobbprofil) {
@@ -160,7 +160,7 @@ const Jobbonskerinnhold = () => {
         );
     }
     // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
-    return <AlertMedFeilkode />;
+    return <AlertMedFeilkode midtstill />;
 };
 
 export default Jobbonskerinnhold;

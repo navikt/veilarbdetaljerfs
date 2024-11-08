@@ -103,7 +103,7 @@ const Nokkelinfoinnhold = () => {
             opplysningerOmArbedissoekerMedProfileringError
         ]);
 
-        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull} />;
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;

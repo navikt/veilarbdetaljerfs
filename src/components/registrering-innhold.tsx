@@ -29,7 +29,7 @@ const Registreringsinnhold = () => {
             </Alert>
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {
-        return <AlertMedFeilkode feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId} />;
+        return <AlertMedFeilkode midtstill feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId} />;
     }
 
     return (
