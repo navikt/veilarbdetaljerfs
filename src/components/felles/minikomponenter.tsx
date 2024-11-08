@@ -29,12 +29,12 @@ export const AlertMedFeilkode: React.FC<AlertMedFeilkodeProps> = ({
 }: AlertMedFeilkodeProps) => {
     const innhald = (
         <Alert variant={variant} size={size} {...rest}>
-            {children}
+            <div>{children}</div>
             {feilkode && (
-                <>
+                <div>
                     <br />
                     <em>Feilkode: {feilkode}.</em>
-                </>
+                </div>
             )}
         </Alert>
     );
