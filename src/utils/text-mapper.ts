@@ -18,7 +18,7 @@ export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegr
         case 'IVURD':
             return 'Ikke vurdert';
         case 'OPPFI':
-            return 'Helserelatert arbeidsrettet oppfølging i NAV';
+            return 'Helserelatert arbeidsrettet oppfølging i Nav';
         case 'VURDI':
             return 'Sykmeldt, oppfølging på arbeidsplassen';
         case 'VURDU':

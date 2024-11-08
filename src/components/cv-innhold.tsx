@@ -58,7 +58,7 @@ const Cvinnhold = () => {
                 Du kan ikke se CV-en, be brukeren om å:
                 <List as="ul" size="small">
                     <List.Item>Logge inn på arbeidsplassen.no</List.Item>
-                    <List.Item>Lese teksten om at du må dele CV-en med NAV</List.Item>
+                    <List.Item>Lese teksten om at du må dele CV-en med Nav</List.Item>
                     <List.Item>Gå videre og gjennomføre det tjenesten ber om</List.Item>
                 </List>
                 Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.

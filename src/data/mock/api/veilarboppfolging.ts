@@ -11,7 +11,7 @@ const oppfolging: UnderOppfolgingData = {
 
 const oppfolgingstatus: OppfolgingsstatusData = {
     oppfolgingsenhet: {
-        navn: 'NAV TestHeim',
+        navn: 'Nav TestHeim',
         enhetId: '007'
     },
     veilederId: 'Z123456',

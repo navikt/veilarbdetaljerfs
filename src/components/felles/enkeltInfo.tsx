@@ -6,9 +6,10 @@ interface Props {
     header: string;
     value?: StringOrNothing;
     errorMessage?: StringOrNothing;
+    tilleggsinfo?: StringOrNothing;
 }
 
-export function EnkeltInformasjon({ header, value = EMDASH, errorMessage }: Props) {
+export function EnkeltInformasjon({ header, value = EMDASH, errorMessage, tilleggsinfo }: Props) {
     return (
         <span>
             <BodyShort size="small" className="body_header">
@@ -17,6 +18,7 @@ export function EnkeltInformasjon({ header, value = EMDASH, errorMessage }: Prop
             {!errorMessage && (
                 <BodyShort size="small" className="enkeltinfo_value">
                     {value}
+                    {tilleggsinfo && <i>{'\n' + tilleggsinfo}</i>}
                 </BodyShort>
             )}
             {errorMessage && (

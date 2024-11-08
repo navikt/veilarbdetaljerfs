@@ -388,7 +388,7 @@ const personalia: PersonaliaInfo = {
     kontonummer: '12345678911',
     geografiskEnhet: {
         enhetsnummer: '0106',
-        navn: 'NAV Fredrikstad'
+        navn: 'Nav Fredrikstad'
     },
     telefon: [
         {

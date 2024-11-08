@@ -139,7 +139,11 @@ const Nokkelinfoinnhold = () => {
                 value={jobbonsker}
                 errorMessage={mapErrorCvOgJobbonsker(cvOgJobbonskerError?.status)}
             />
-            <EnkeltInformasjon header="Registrert dato" value={formaterDato(datoRegistrert)} />
+            <EnkeltInformasjon
+                header="Registrert dato"
+                value={formaterDato(datoRegistrert)}
+                tilleggsinfo={datoRegistrert ? 'Arbeidssøkerregisteret' : null}
+            />
             <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtak)} />
         </span>
     );
