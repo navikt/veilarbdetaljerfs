@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { VeilederData } from '../../api/datatyper/veileder';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, fellesMockResponseHeaders } from './index.ts';
 
 const veileder: VeilederData = {
     etternavn: 'Veiledersen',
@@ -12,6 +12,6 @@ const veileder: VeilederData = {
 export const veilarbveilederHandlers: RequestHandler[] = [
     http.get('/veilarbveileder/api/veileder/:veilederId', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(veileder);
+        return HttpResponse.json(veileder, { headers: { ...fellesMockResponseHeaders } });
     })
 ];

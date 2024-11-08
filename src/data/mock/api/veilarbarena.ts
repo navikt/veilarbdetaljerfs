@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, fellesMockResponseHeaders } from './index.ts';
 import { YtelseData } from '../../api/datatyper/ytelse.ts';
 
 const ytelsestatus: YtelseData = {
@@ -29,6 +29,6 @@ const ytelsestatus: YtelseData = {
 export const veilarbarenaHandlers: RequestHandler[] = [
     http.post('/veilarbarena/api/v2/arena/hent-ytelser', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(ytelsestatus);
+        return HttpResponse.json(ytelsestatus, { headers: { ...fellesMockResponseHeaders } });
     })
 ];
