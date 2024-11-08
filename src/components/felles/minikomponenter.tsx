@@ -1,5 +1,6 @@
-import { Alert, Loader } from '@navikt/ds-react';
+import { Alert, AlertProps, Loader } from '@navikt/ds-react';
 import './minikomponenter.css';
+import React from 'react';
 
 export const Laster = () => (
     <div className="midtstill">
@@ -7,18 +8,19 @@ export const Laster = () => (
     </div>
 );
 
-type ErrormeldingProps = {
+interface AlertMedFeilkodeProps extends AlertProps {
     feilkode?: string | null;
-};
+}
 
-const defaultErrorMeldingProps: ErrormeldingProps = { feilkode: null } as const;
-
-export const Errormelding = (props: ErrormeldingProps = defaultErrorMeldingProps) => {
-    const { feilkode } = props;
-
+export const AlertMedFeilkode: React.FC<AlertMedFeilkodeProps> = ({
+    feilkode = null,
+    variant = 'error',
+    size = 'small',
+    ...rest
+}: AlertMedFeilkodeProps) => {
     return (
         <div className="midtstill">
-            <Alert variant="error" size="small">
+            <Alert variant={variant} size={size} {...rest}>
                 Noe gikk galt! Prøv igjen om noen minutter.
                 {feilkode && (
                     <>

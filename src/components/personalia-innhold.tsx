@@ -1,7 +1,7 @@
 import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import { kalkulerAlder } from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
@@ -56,7 +56,7 @@ const Personaliainnhold = () => {
     } else if (personError || vergeOgFullmaktError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([personError, vergeOgFullmaktError]);
 
-        return <Errormelding feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
     }
 
     return (

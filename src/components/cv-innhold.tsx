@@ -3,7 +3,7 @@ import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { Alert, Link, List, HStack } from '@navikt/ds-react';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
 import Arbeidserfaring from './cv/arbeidserfaring';
@@ -93,7 +93,7 @@ const Cvinnhold = () => {
     if (cvOgJobbonskerError || underOppfolgingError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
 
-        return <Errormelding feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
     }
 
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
@@ -137,7 +137,7 @@ const Cvinnhold = () => {
         );
     }
     // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
-    return <Errormelding />;
+    return <AlertMedFeilkode />;
 };
 
 export default Cvinnhold;

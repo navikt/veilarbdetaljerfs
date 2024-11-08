@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import { useOpplysningerOmArbeidssoekerMedProfilering } from '../data/api/fetch';
 import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering';
 
@@ -29,7 +29,7 @@ const Registreringsinnhold = () => {
             </Alert>
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {
-        return <Errormelding feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId} />;
+        return <AlertMedFeilkode feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId} />;
     }
 
     return (

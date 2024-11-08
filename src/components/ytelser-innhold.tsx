@@ -1,6 +1,6 @@
 import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { isNotEmptyArray } from '../utils/felles-typer';
@@ -26,7 +26,7 @@ const Ytelsesinnhold = () => {
     }
 
     if (ytelserError) {
-        return <Errormelding feilkode={ytelserError?.korrelasjonsId} />;
+        return <AlertMedFeilkode feilkode={ytelserError?.korrelasjonsId} />;
     }
 
     return (

@@ -1,5 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { Laster, Errormelding } from './felles/minikomponenter';
+import { Laster, AlertMedFeilkode } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
     useOppfolgingsstatus,
@@ -103,7 +103,7 @@ const Nokkelinfoinnhold = () => {
             opplysningerOmArbedissoekerMedProfileringError
         ]);
 
-        return <Errormelding feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;

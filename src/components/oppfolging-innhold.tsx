@@ -1,4 +1,4 @@
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
@@ -56,7 +56,7 @@ const Oppfolgingsinnhold = () => {
             veilederError
         ]);
 
-        return <Errormelding feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
     }
 
     return (

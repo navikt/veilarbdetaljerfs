@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
 import { Alert, Link, List } from '@navikt/ds-react';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
@@ -112,7 +112,7 @@ const Jobbonskerinnhold = () => {
     if (cvOgJobbonskerError || underOppfolgingError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
 
-        return <Errormelding feilkode={feilkodeEllerNull} />;
+        return <AlertMedFeilkode feilkode={feilkodeEllerNull} />;
     }
 
     if (cvOgJobbonskerData?.jobbprofil) {
@@ -160,7 +160,7 @@ const Jobbonskerinnhold = () => {
         );
     }
     // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
-    return <Errormelding />;
+    return <AlertMedFeilkode />;
 };
 
 export default Jobbonskerinnhold;

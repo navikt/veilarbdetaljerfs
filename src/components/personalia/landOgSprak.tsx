@@ -4,7 +4,7 @@ import { usePersonalia, useTolk } from '../../data/api/fetch';
 import { useAppStore } from '../../stores/app-store';
 import { OrNothing } from '../../utils/felles-typer';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { Errormelding, Laster } from '../felles/minikomponenter';
+import { AlertMedFeilkode, Laster } from '../felles/minikomponenter';
 import StatsborgerskapInfo from './statsborgerskapinfo';
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
@@ -37,7 +37,7 @@ const LandOgSprak = () => {
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
-                <Errormelding feilkode={tolkError?.korrelasjonsId} />
+                <AlertMedFeilkode feilkode={tolkError?.korrelasjonsId} />
             </Panel>
         );
     }
