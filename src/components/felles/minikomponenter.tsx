@@ -8,8 +8,10 @@ export const Laster = () => (
     </div>
 );
 
-interface AlertMedFeilkodeProps extends AlertProps {
+interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'children'> {
     feilkode?: string | null;
+    variant?: AlertProps['variant'];
+    children?: AlertProps['children'];
 }
 
 export const AlertMedFeilkode: React.FC<AlertMedFeilkodeProps> = ({

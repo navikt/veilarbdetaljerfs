@@ -1,4 +1,3 @@
-import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
@@ -7,6 +6,7 @@ import { isNotEmptyArray } from '../utils/felles-typer';
 import { useYtelser } from '../data/api/fetch';
 import Informasjonsbolk from './felles/informasjonsbolk';
 import { formaterDato } from '../utils/formater.ts';
+import { Alert } from '@navikt/ds-react';
 
 const Ytelsesinnhold = () => {
     const { fnr } = useAppStore();
