@@ -37,7 +37,7 @@ const LandOgSprak = () => {
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
-                <Errormelding />
+                <Errormelding feilkode={tolkError?.korrelasjonsId} />
             </Panel>
         );
     }

@@ -1,4 +1,4 @@
-import { Laster, Errormelding } from './felles/minikomponenter';
+import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
@@ -15,6 +15,7 @@ import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -49,7 +50,13 @@ const Oppfolgingsinnhold = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (oppfolgingsstatusError || personError || veilederError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([
+            oppfolgingsstatusError,
+            personError,
+            veilederError
+        ]);
+
+        return <Errormelding feilkode={feilkodeEllerNull} />;
     }
 
     return (

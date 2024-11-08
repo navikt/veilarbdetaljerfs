@@ -29,7 +29,7 @@ const Registreringsinnhold = () => {
             </Alert>
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {
-        return <Errormelding />;
+        return <Errormelding feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId} />;
     }
 
     return (

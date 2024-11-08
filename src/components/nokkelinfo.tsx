@@ -29,6 +29,7 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -93,7 +94,16 @@ const Nokkelinfoinnhold = () => {
         veilederError ||
         opplysningerOmArbedissoekerMedProfileringError
     ) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([
+            oppfolgingsstatusError,
+            personError,
+            tolkError,
+            ytelserError,
+            veilederError,
+            opplysningerOmArbedissoekerMedProfileringError
+        ]);
+
+        return <Errormelding feilkode={feilkodeEllerNull} />;
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;

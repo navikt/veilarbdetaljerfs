@@ -20,6 +20,7 @@ import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 
 const Cvinnhold = () => {
     const { fnr } = useAppStore();
@@ -90,7 +91,9 @@ const Cvinnhold = () => {
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
+
+        return <Errormelding feilkode={feilkodeEllerNull} />;
     }
 
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
@@ -133,6 +136,7 @@ const Cvinnhold = () => {
             </>
         );
     }
+    // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
     return <Errormelding />;
 };
 

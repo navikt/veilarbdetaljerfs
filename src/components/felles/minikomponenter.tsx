@@ -1,4 +1,4 @@
-import { Loader, Alert } from '@navikt/ds-react';
+import { Alert, Loader } from '@navikt/ds-react';
 import './minikomponenter.css';
 
 export const Laster = () => (
@@ -7,10 +7,26 @@ export const Laster = () => (
     </div>
 );
 
-export const Errormelding = () => (
-    <div className="midtstill">
-        <Alert variant="error" size="small">
-            Noe gikk galt! Prøv igjen om noen minutter.
-        </Alert>
-    </div>
-);
+type ErrormeldingProps = {
+    feilkode?: string | null;
+};
+
+const defaultErrorMeldingProps: ErrormeldingProps = { feilkode: null } as const;
+
+export const Errormelding = (props: ErrormeldingProps = defaultErrorMeldingProps) => {
+    const { feilkode } = props;
+
+    return (
+        <div className="midtstill">
+            <Alert variant="error" size="small">
+                Noe gikk galt! Prøv igjen om noen minutter.
+                {feilkode && (
+                    <>
+                        <br />
+                        <em>Feilkode: {feilkode}.</em>
+                    </>
+                )}
+            </Alert>
+        </div>
+    );
+};

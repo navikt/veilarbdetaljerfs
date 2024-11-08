@@ -14,6 +14,7 @@ import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
@@ -53,7 +54,9 @@ const Personaliainnhold = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (personError || vergeOgFullmaktError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([personError, vergeOgFullmaktError]);
+
+        return <Errormelding feilkode={feilkodeEllerNull} />;
     }
 
     return (

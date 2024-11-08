@@ -9,6 +9,7 @@ import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { byggPamUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {
@@ -109,7 +110,9 @@ const Jobbonskerinnhold = () => {
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
+
+        return <Errormelding feilkode={feilkodeEllerNull} />;
     }
 
     if (cvOgJobbonskerData?.jobbprofil) {
@@ -156,6 +159,7 @@ const Jobbonskerinnhold = () => {
             </>
         );
     }
+    // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
     return <Errormelding />;
 };
 

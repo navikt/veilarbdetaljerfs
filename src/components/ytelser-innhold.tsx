@@ -26,7 +26,7 @@ const Ytelsesinnhold = () => {
     }
 
     if (ytelserError) {
-        return <Errormelding />;
+        return <Errormelding feilkode={ytelserError?.korrelasjonsId} />;
     }
 
     return (
