@@ -74,7 +74,7 @@ const Jobbonskerinnhold = () => {
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Alert variant="info" size="small">
+            <AlertMedFeilkode variant="info" feilkode={cvOgJobbonskerError.korrelasjonsId}>
                 Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
                 <List as="ul" size="small">
                     <List.Item>
@@ -82,13 +82,13 @@ const Jobbonskerinnhold = () => {
                         nav.no og oppdatere CV-en sin.
                     </List.Item>
                 </List>
-            </Alert>
+            </AlertMedFeilkode>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404 || !cvOgJobbonskerData?.jobbprofil) {
         return (
-            <Alert inline variant="info" size="small">
+            <AlertMedFeilkode inline variant="info" feilkode={cvOgJobbonskerError?.korrelasjonsId}>
                 Ingen jobbønsker registrert.{' '}
                 {erManuell && aktorId && (
                     <Link
@@ -105,7 +105,7 @@ const Jobbonskerinnhold = () => {
                         Registrer her
                     </Link>
                 )}
-            </Alert>
+            </AlertMedFeilkode>
         );
     }
 

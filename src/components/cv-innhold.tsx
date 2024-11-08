@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Alert, Link, List, HStack } from '@navikt/ds-react';
+import { HStack, Link, List } from '@navikt/ds-react';
 import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -46,16 +46,12 @@ const Cvinnhold = () => {
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return (
-            <Alert variant="info" size="small">
-                Bruker er ikke under arbeidsrettet oppfølging
-            </Alert>
-        );
+        return <AlertMedFeilkode variant="info">Bruker er ikke under arbeidsrettet oppfølging</AlertMedFeilkode>;
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Alert variant="info" size="small">
+            <AlertMedFeilkode variant="info" feilkode={cvOgJobbonskerError.korrelasjonsId}>
                 Du kan ikke se CV-en, be brukeren om å:
                 <List as="ul" size="small">
                     <List.Item>Logge inn på arbeidsplassen.no</List.Item>
@@ -63,13 +59,13 @@ const Cvinnhold = () => {
                     <List.Item>Gå videre og gjennomføre det tjenesten ber om</List.Item>
                 </List>
                 Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
-            </Alert>
+            </AlertMedFeilkode>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Alert inline variant="info" size="small">
+            <AlertMedFeilkode inline variant="info" feilkode={cvOgJobbonskerError.korrelasjonsId}>
                 Ingen CV registrert.{' '}
                 {erManuell && aktorId && (
                     <Link
@@ -86,7 +82,7 @@ const Cvinnhold = () => {
                         Registrer her
                     </Link>
                 )}
-            </Alert>
+            </AlertMedFeilkode>
         );
     }
 
