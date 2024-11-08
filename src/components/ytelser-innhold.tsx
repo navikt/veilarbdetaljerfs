@@ -1,5 +1,5 @@
 import { useAppStore } from '../stores/app-store';
-import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import EMDASH from '../utils/emdash';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { isNotEmptyArray } from '../utils/felles-typer';
@@ -7,6 +7,7 @@ import { useYtelser } from '../data/api/fetch';
 import Informasjonsbolk from './felles/informasjonsbolk';
 import { formaterDato } from '../utils/formater.ts';
 import { Alert } from '@navikt/ds-react';
+import { Laster } from './felles/laster.tsx';
 
 const Ytelsesinnhold = () => {
     const { fnr } = useAppStore();

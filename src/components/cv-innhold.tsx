@@ -3,7 +3,7 @@ import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { HStack, Link, List } from '@navikt/ds-react';
-import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
 import Arbeidserfaring from './cv/arbeidserfaring';
@@ -21,6 +21,7 @@ import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
 import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const Cvinnhold = () => {
     const { fnr } = useAppStore();

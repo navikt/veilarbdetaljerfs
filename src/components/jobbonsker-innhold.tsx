@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
 import { Alert, Link, List } from '@navikt/ds-react';
-import { AlertMedFeilkode, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
@@ -10,6 +10,7 @@ import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/f
 import { byggPamUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
 import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {

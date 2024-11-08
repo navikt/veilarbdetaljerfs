@@ -4,11 +4,12 @@ import { usePersonalia, useTolk } from '../../data/api/fetch';
 import { useAppStore } from '../../stores/app-store';
 import { OrNothing } from '../../utils/felles-typer';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { AlertMedFeilkode, Laster } from '../felles/minikomponenter';
+import { AlertMedFeilkode } from '../felles/alert-med-feilkode.tsx';
 import StatsborgerskapInfo from './statsborgerskapinfo';
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
 import { hentBehandlingsnummer, hentMalform } from '../../utils/konstanter';
+import { Laster } from '../felles/laster.tsx';
 
 const LandOgSprak = () => {
     const { fnr } = useAppStore();

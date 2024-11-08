@@ -1,12 +1,6 @@
-import { Alert, AlertProps, Loader } from '@navikt/ds-react';
-import './minikomponenter.css';
+import { Alert, AlertProps } from '@navikt/ds-react';
+import './felles.css';
 import React from 'react';
-
-export const Laster = () => (
-    <div className="midtstill">
-        <Loader size="3xlarge" />
-    </div>
-);
 
 interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'children' | 'className'> {
     /* Props spesifikke for AlertMedFeilkode */
