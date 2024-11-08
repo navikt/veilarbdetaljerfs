@@ -15,7 +15,7 @@ import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerreg
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
 
-interface ErrorMessage {
+export interface ErrorMessage {
     error: Error | unknown;
     status?: number | null;
     info: StringOrNothing;
