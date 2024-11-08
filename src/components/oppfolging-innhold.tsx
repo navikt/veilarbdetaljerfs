@@ -56,7 +56,11 @@ const Oppfolgingsinnhold = () => {
             veilederError
         ]);
 
-        return <AlertMedFeilkode midtstill midtstill feilkode={feilkodeEllerNull} />;
+        return (
+            <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     return (

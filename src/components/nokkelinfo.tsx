@@ -103,7 +103,11 @@ const Nokkelinfoinnhold = () => {
             opplysningerOmArbedissoekerMedProfileringError
         ]);
 
-        return <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull} />;
+        return (
+            <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;

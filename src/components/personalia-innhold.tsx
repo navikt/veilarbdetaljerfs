@@ -56,7 +56,11 @@ const Personaliainnhold = () => {
     } else if (personError || vergeOgFullmaktError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([personError, vergeOgFullmaktError]);
 
-        return <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull} />;
+        return (
+            <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     return (

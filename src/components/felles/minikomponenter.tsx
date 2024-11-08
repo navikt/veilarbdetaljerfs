@@ -8,12 +8,15 @@ export const Laster = () => (
     </div>
 );
 
-interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'children'> {
+interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'children' | 'className'> {
+    /* Props spesifikke for AlertMedFeilkode */
     feilkode?: string | null;
-    variant?: AlertProps['variant'];
-    children?: AlertProps['children'];
-    className?: string;
     midtstill?: boolean;
+
+    /* Props fra Alert */
+    variant?: AlertProps['variant'];
+    children: AlertProps['children'];
+    className?: AlertProps['className'];
 }
 
 export const AlertMedFeilkode: React.FC<AlertMedFeilkodeProps> = ({
@@ -21,11 +24,12 @@ export const AlertMedFeilkode: React.FC<AlertMedFeilkodeProps> = ({
     variant = 'error',
     size = 'small',
     midtstill = false,
+    children,
     ...rest
 }: AlertMedFeilkodeProps) => {
     const innhald = (
         <Alert variant={variant} size={size} {...rest}>
-            Noe gikk galt! Prøv igjen om noen minutter.
+            {children}
             {feilkode && (
                 <>
                     <br />

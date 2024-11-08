@@ -93,7 +93,11 @@ const Cvinnhold = () => {
     if (cvOgJobbonskerError || underOppfolgingError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
 
-        return <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull} />;
+        return (
+            <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
@@ -137,7 +141,7 @@ const Cvinnhold = () => {
         );
     }
     // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
-    return <AlertMedFeilkode midtstill />;
+    return <AlertMedFeilkode midtstill>Noe gikk galt! Prøv igjen om noen minutter.</AlertMedFeilkode>;
 };
 
 export default Cvinnhold;
