@@ -34,7 +34,7 @@ jobs:
               run: npm run build:dev
               env:
                   PUBLIC_URL: https://veilarbdetaljer.intern.dev.nav.no
-            - name: Upload to NAV CDN
+            - name: Upload to Nav CDN Dev
               uses: nais/deploy/actions/cdn-upload/v2@master
               with:
                 team: obo
