@@ -9,8 +9,7 @@ export default defineConfig({
     plugins: [react(), svgr()],
     build: {
         manifest: 'asset-manifest.json',
-        sourcemap: true,
-        outDir: 'build'
+        sourcemap: true
     },
     test: {
         globals: true,

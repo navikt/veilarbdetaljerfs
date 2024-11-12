@@ -34,13 +34,13 @@ jobs:
               run: npm run build:dev
               env:
                   PUBLIC_URL: https://veilarbdetaljer.intern.dev.nav.no
-            - name: Upload to CDN
+            - name: Upload to NAV CDN
               uses: nais/deploy/actions/cdn-upload/v2@master
               with:
                 team: obo
-                source: ./build
-                destination: dev/overblikk-modia
-                no_cache_paths: dev/overblikk-modia/build/asset-manifest.json
+                source: ./dist
+                destination: dev/veilarbdetaljerfs
+                no_cache_paths: dev/veilarbdetaljerfs/dist/asset-manifest.json
                 identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
                 project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
             - name: Authenticate to Google Cloud
@@ -51,4 +51,4 @@ jobs:
             - name: Set up Cloud SDK
               uses: google-github-actions/setup-gcloud@v2
             - name: Upload files to GCS
-              run: gsutil -m rsync -r build gs://obo-veilarbdetaljerfs-dev
+              run: gsutil -m rsync -r dist gs://obo-veilarbdetaljerfs-dev
