@@ -2,7 +2,7 @@ import { Alert, AlertProps } from '@navikt/ds-react';
 import './felles.css';
 import React from 'react';
 
-/**
+/*
  * TypeScript sin "Omit" utility type lar oss konstruere en ny type uten de oppgitte feltene.
  * Vi bruker den her slik at vi skal kunne definere "variant" og "className" som optional (de er i utgangspunktet påkrevd i "AlertProps").
  */
