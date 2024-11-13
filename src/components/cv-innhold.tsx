@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { HStack, Link, List } from '@navikt/ds-react';
+import { Alert, HStack, Link, List } from '@navikt/ds-react';
 import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -47,12 +47,12 @@ const Cvinnhold = () => {
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return <AlertMedFeilkode variant="info">Bruker er ikke under arbeidsrettet oppfølging</AlertMedFeilkode>;
+        return <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>;
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <AlertMedFeilkode variant="info" feilkode={cvOgJobbonskerError.korrelasjonsId}>
+            <Alert variant="info">
                 Du kan ikke se CV-en, be brukeren om å:
                 <List as="ul" size="small">
                     <List.Item>Logge inn på arbeidsplassen.no</List.Item>
@@ -60,13 +60,13 @@ const Cvinnhold = () => {
                     <List.Item>Gå videre og gjennomføre det tjenesten ber om</List.Item>
                 </List>
                 Ved å gjøre dette får brukeren informasjon om behandlingsgrunnlaget, og du vil se CV-en.
-            </AlertMedFeilkode>
+            </Alert>
         );
     }
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <AlertMedFeilkode inline variant="info" feilkode={cvOgJobbonskerError.korrelasjonsId}>
+            <Alert inline variant="info">
                 Ingen CV registrert.{' '}
                 {erManuell && aktorId && (
                     <Link
@@ -83,7 +83,7 @@ const Cvinnhold = () => {
                         Registrer her
                     </Link>
                 )}
-            </AlertMedFeilkode>
+            </Alert>
         );
     }
 
