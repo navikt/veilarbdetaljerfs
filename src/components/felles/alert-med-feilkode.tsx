@@ -17,7 +17,7 @@ interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'className'
     className?: AlertProps['className'];
 }
 
-export const AlertMedFeilkode: React.FC<AlertMedFeilkodeProps> = ({
+export const AlertMedFeilkode = ({
     feilkode = null,
     variant = 'error',
     size = 'small',
