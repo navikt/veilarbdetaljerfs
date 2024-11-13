@@ -17,12 +17,13 @@ import {
     usePersonalia,
     useVeileder,
     useSiste14aVedtak,
+    OboFeatureToggles,
+    useFeature,
     VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
 } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
-
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -39,10 +40,12 @@ const Oppfolgingsinnhold = () => {
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
+    const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
+
     const {
         data: siste14avedtak
-  //      error: siste14avedtakError,
-  //      isLoading: siste14avedtakLoading
+        //      error: siste14avedtakError,
+        //      isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
@@ -71,10 +74,20 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                {VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE &&
-                <DobbeltInformasjon header="Innsatsgruppe (gjeldende $ 14a-vedtak)" values={[siste14avedtak?.innsatsgruppe, siste14avedtak?.fattetDato]} />}
-                {VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE &&
-                <DobbeltInformasjon header="Hovedmål (gjeldende $ 14a-vedtak)" values={[siste14avedtak?.hovedmal, siste14avedtak?.fattetDato]} />}
+                {visInnsatsgruppeHovedmalToggle &&
+                    visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
+                        <DobbeltInformasjon
+                            header="Innsatsgruppe (gjeldende $ 14a-vedtak)"
+                            values={[siste14avedtak?.innsatsgruppe, siste14avedtak?.fattetDato]}
+                        />
+                    )}
+                {visInnsatsgruppeHovedmalToggle &&
+                    visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
+                        <DobbeltInformasjon
+                            header="Hovedmål (gjeldende $ 14a-vedtak)"
+                            values={[siste14avedtak?.hovedmal, siste14avedtak?.fattetDato]}
+                        />
+                    )}
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
