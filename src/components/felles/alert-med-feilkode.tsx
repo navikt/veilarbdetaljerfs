@@ -2,14 +2,18 @@ import { Alert, AlertProps } from '@navikt/ds-react';
 import './felles.css';
 import React from 'react';
 
-interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'children' | 'className'> {
+/**
+ * TypeScript sin "Omit" utility type lar oss konstruere en ny type uten de oppgitte feltene.
+ * Vi bruker den her slik at vi skal kunne definere "variant" og "className" som optional (de er i utgangspunktet påkrevd i "AlertProps").
+ */
+interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'className'> {
     /* Props spesifikke for AlertMedFeilkode */
     feilkode?: string | null;
     midtstill?: boolean;
 
     /* Props fra Alert */
+    /* Syntaksen AlertProps[...] lar oss bevare typehintingen/tillatte typer fra de respektive feltene, slik at vi slipper å vedlikeholde disse selv. */
     variant?: AlertProps['variant'];
-    children: AlertProps['children'];
     className?: AlertProps['className'];
 }
 
