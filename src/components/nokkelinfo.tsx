@@ -105,7 +105,7 @@ const Nokkelinfoinnhold = () => {
         ]);
 
         return (
-            <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull}>
+            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
                 Noe gikk galt! Prøv igjen om noen minutter.
             </AlertMedFeilkode>
         );

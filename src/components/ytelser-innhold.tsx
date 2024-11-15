@@ -28,7 +28,7 @@ const Ytelsesinnhold = () => {
 
     if (ytelserError) {
         return (
-            <AlertMedFeilkode midtstill feilkode={ytelserError?.korrelasjonsId}>
+            <AlertMedFeilkode feilkode={ytelserError?.korrelasjonsId}>
                 Noe gikk galt! Prøv igjen om noen minutter.
             </AlertMedFeilkode>
         );

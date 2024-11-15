@@ -31,7 +31,7 @@ const Registreringsinnhold = () => {
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {
         return (
-            <AlertMedFeilkode midtstill feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId}>
+            <AlertMedFeilkode feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId}>
                 Noe gikk galt! Prøv igjen om noen minutter.
             </AlertMedFeilkode>
         );

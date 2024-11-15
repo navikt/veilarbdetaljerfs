@@ -58,7 +58,7 @@ const Personaliainnhold = () => {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([personError, vergeOgFullmaktError]);
 
         return (
-            <AlertMedFeilkode midtstill feilkode={feilkodeEllerNull}>
+            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
                 Noe gikk galt! Prøv igjen om noen minutter.
             </AlertMedFeilkode>
         );
