@@ -1,9 +1,10 @@
 import React from 'react';
 import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import { useOpplysningerOmArbeidssoekerMedProfilering } from '../data/api/fetch';
 import { Arbeidssoekerregistrering } from './registrering/arbeidssoekerregistrering/arbeidssoekerregistrering';
+import { Laster } from './felles/laster.tsx';
 
 const Registreringsinnhold = () => {
     const { fnr } = useAppStore();
@@ -29,7 +30,11 @@ const Registreringsinnhold = () => {
             </Alert>
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {
-        return <Errormelding />;
+        return (
+            <AlertMedFeilkode feilkode={opplysningerOmArbedissoekerMedProfileringError?.korrelasjonsId}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     return (

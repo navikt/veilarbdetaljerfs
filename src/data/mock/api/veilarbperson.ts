@@ -10,7 +10,7 @@ import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, fellesMockResponseHeaders } from './index.ts';
 import {
     JaEllerNei,
     OpplysningerOmArbeidssoker,
@@ -18,7 +18,7 @@ import {
     ProfilertTil,
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
-import { OmraadeHandlingType, FullmaktData } from '../../api/datatyper/fullmakt.ts';
+import { FullmaktData, OmraadeHandlingType } from '../../api/datatyper/fullmakt.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -635,30 +635,30 @@ const opplysningerMedProfilering = {
 export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-cv_jobbprofil', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(cvOgJobbonsker);
+        return HttpResponse.json(cvOgJobbonsker, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarbperson/api/v3/person/hent-aktorid', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(aktorId);
+        return HttpResponse.json(aktorId, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarbperson/api/v3/hent-person', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(personalia);
+        return HttpResponse.json(personalia, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockVerge);
+        return HttpResponse.json(mockVerge, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarbperson/api/v3/person/hent-fullmakt', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockFullmakt);
+        return HttpResponse.json(mockFullmakt, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockTilrettelagtKommunikasjon);
+        return HttpResponse.json(mockTilrettelagtKommunikasjon, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(opplysningerMedProfilering);
+        return HttpResponse.json(opplysningerMedProfilering, { headers: { ...fellesMockResponseHeaders } });
     })
 ];

@@ -1,7 +1,7 @@
 import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import { kalkulerAlder } from '../utils/date-utils';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
@@ -14,6 +14,8 @@ import Kontaktinformasjon from './personalia/kontaktinformasjon';
 import LandOgSprak from './personalia/landOgSprak';
 import { EndrePersonopplysninger } from './personalia/endre-personopplysninger.tsx';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const Personaliainnhold = () => {
     const { fnr } = useAppStore();
@@ -53,7 +55,13 @@ const Personaliainnhold = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (personError || vergeOgFullmaktError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([personError, vergeOgFullmaktError]);
+
+        return (
+            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     return (

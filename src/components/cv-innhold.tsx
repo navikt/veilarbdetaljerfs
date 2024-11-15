@@ -2,8 +2,8 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Alert, Link, List, HStack } from '@navikt/ds-react';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { Alert, HStack, Link, List } from '@navikt/ds-react';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
 import Arbeidserfaring from './cv/arbeidserfaring';
@@ -20,6 +20,8 @@ import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
 import { byggPamUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const Cvinnhold = () => {
     const { fnr } = useAppStore();
@@ -45,16 +47,12 @@ const Cvinnhold = () => {
     }
 
     if (!underOppfolgingData?.underOppfolging) {
-        return (
-            <Alert variant="info" size="small">
-                Bruker er ikke under arbeidsrettet oppfølging
-            </Alert>
-        );
+        return <Alert variant="info">Bruker er ikke under arbeidsrettet oppfølging</Alert>;
     }
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Alert variant="info" size="small">
+            <Alert variant="info">
                 Du kan ikke se CV-en, be brukeren om å:
                 <List as="ul" size="small">
                     <List.Item>Logge inn på arbeidsplassen.no</List.Item>
@@ -68,7 +66,7 @@ const Cvinnhold = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404) {
         return (
-            <Alert inline variant="info" size="small">
+            <Alert inline variant="info">
                 Ingen CV registrert.{' '}
                 {erManuell && aktorId && (
                     <Link
@@ -90,7 +88,13 @@ const Cvinnhold = () => {
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
+
+        return (
+            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     if (cvOgJobbonskerData && Object.keys(cvOgJobbonskerData).length) {
@@ -133,7 +137,8 @@ const Cvinnhold = () => {
             </>
         );
     }
-    return <Errormelding />;
+    // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
+    return <AlertMedFeilkode>Noe gikk galt! Prøv igjen om noen minutter.</AlertMedFeilkode>;
 };
 
 export default Cvinnhold;

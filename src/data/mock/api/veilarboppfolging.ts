@@ -1,7 +1,7 @@
 import { UnderOppfolgingData } from '../../api/datatyper/underOppfolgingData';
 import { OppfolgingsstatusData } from '../../api/datatyper/oppfolgingsstatus';
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, fellesMockResponseHeaders } from './index.ts';
 import { OppfolgingData } from '../../api/datatyper/oppfolging.ts';
 
 const oppfolging: UnderOppfolgingData = {
@@ -37,14 +37,14 @@ const oppfolgingData: OppfolgingData = {
 export const veilarboppfolgingHandlers: RequestHandler[] = [
     http.post('/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(oppfolgingstatus);
+        return HttpResponse.json(oppfolgingstatus, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarboppfolging/api/v2/hent-underOppfolging', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(oppfolging);
+        return HttpResponse.json(oppfolging, { headers: { ...fellesMockResponseHeaders } });
     }),
     http.post('/veilarboppfolging/api/v3/oppfolging/hent-status', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(oppfolgingData);
+        return HttpResponse.json(oppfolgingData, { headers: { ...fellesMockResponseHeaders } });
     })
 ];

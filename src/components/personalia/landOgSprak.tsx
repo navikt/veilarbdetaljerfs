@@ -4,11 +4,12 @@ import { usePersonalia, useTolk } from '../../data/api/fetch';
 import { useAppStore } from '../../stores/app-store';
 import { OrNothing } from '../../utils/felles-typer';
 import Informasjonsbolk from '../felles/informasjonsbolk';
-import { Errormelding, Laster } from '../felles/minikomponenter';
+import { AlertMedFeilkode } from '../felles/alert-med-feilkode.tsx';
 import StatsborgerskapInfo from './statsborgerskapinfo';
 import TilrettelagtKommunikasjon from './tilrettelagtKommunikasjon';
 import { EnkeltInformasjon } from '../felles/enkeltInfo';
 import { hentBehandlingsnummer, hentMalform } from '../../utils/konstanter';
+import { Laster } from '../felles/laster.tsx';
 
 const LandOgSprak = () => {
     const { fnr } = useAppStore();
@@ -37,7 +38,9 @@ const LandOgSprak = () => {
                 <Heading spacing level="2" size="medium" className="panel_header">
                     Personalia
                 </Heading>
-                <Errormelding />
+                <AlertMedFeilkode feilkode={tolkError?.korrelasjonsId}>
+                    Noe gikk galt! Prøv igjen om noen minutter.
+                </AlertMedFeilkode>
             </Panel>
         );
     }

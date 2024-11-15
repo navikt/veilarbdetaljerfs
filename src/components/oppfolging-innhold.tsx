@@ -1,4 +1,4 @@
-import { Laster, Errormelding } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
@@ -15,6 +15,8 @@ import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
 import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -49,7 +51,17 @@ const Oppfolgingsinnhold = () => {
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (oppfolgingsstatusError || personError || veilederError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([
+            oppfolgingsstatusError,
+            personError,
+            veilederError
+        ]);
+
+        return (
+            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     return (

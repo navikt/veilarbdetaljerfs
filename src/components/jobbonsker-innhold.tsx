@@ -2,13 +2,15 @@ import { useAppStore } from '../stores/app-store';
 import { JobbprofilOppstartstype } from '../data/api/datatyper/arenaperson';
 import { RedigerCV } from './cv/rediger-cv';
 import { Alert, Link, List } from '@navikt/ds-react';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { byggPamUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {
@@ -73,7 +75,7 @@ const Jobbonskerinnhold = () => {
 
     if (cvOgJobbonskerError?.status === 401 || cvOgJobbonskerError?.status === 403) {
         return (
-            <Alert variant="info" size="small">
+            <Alert variant="info">
                 Du har ikke tilgang til å se jobbønsker for denne brukeren. Årsaker kan være
                 <List as="ul" size="small">
                     <List.Item>
@@ -87,7 +89,7 @@ const Jobbonskerinnhold = () => {
 
     if (cvOgJobbonskerError?.status === 204 || cvOgJobbonskerError?.status === 404 || !cvOgJobbonskerData?.jobbprofil) {
         return (
-            <Alert inline variant="info" size="small">
+            <Alert inline variant="info">
                 Ingen jobbønsker registrert.{' '}
                 {erManuell && aktorId && (
                     <Link
@@ -109,7 +111,13 @@ const Jobbonskerinnhold = () => {
     }
 
     if (cvOgJobbonskerError || underOppfolgingError) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([cvOgJobbonskerError, underOppfolgingError]);
+
+        return (
+            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </AlertMedFeilkode>
+        );
     }
 
     if (cvOgJobbonskerData?.jobbprofil) {
@@ -156,7 +164,8 @@ const Jobbonskerinnhold = () => {
             </>
         );
     }
-    return <Errormelding />;
+    // TODO: Kan vi bruke korrelasjonsId/feilkode her, og i så fall kva for ein skal vi bruke? 2024-11-08, Sondre
+    return <AlertMedFeilkode>Noe gikk galt! Prøv igjen om noen minutter.</AlertMedFeilkode>;
 };
 
 export default Jobbonskerinnhold;

@@ -1,5 +1,5 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { Laster, Errormelding } from './felles/minikomponenter';
+import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import { useAppStore } from '../stores/app-store';
 import {
     useOppfolgingsstatus,
@@ -29,6 +29,8 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
+import { Laster } from './felles/laster.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -93,7 +95,22 @@ const Nokkelinfoinnhold = () => {
         veilederError ||
         opplysningerOmArbedissoekerMedProfileringError
     ) {
-        return <Errormelding />;
+        const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([
+            oppfolgingsstatusError,
+            personError,
+            tolkError,
+            ytelserError,
+            veilederError,
+            opplysningerOmArbedissoekerMedProfileringError
+        ]);
+
+        return (
+            <div className="nokkelinfo_feilmelding">
+                <AlertMedFeilkode feilkode={feilkodeEllerNull}>
+                    Noe gikk galt! Prøv igjen om noen minutter.
+                </AlertMedFeilkode>
+            </div>
+        );
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;

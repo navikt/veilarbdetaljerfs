@@ -87,3 +87,9 @@
 .info-for-en-fullmakt:not(:last-of-type) {
     margin-bottom: var(--a-spacing-8);
 }
+
+.midtstill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
