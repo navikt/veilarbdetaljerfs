@@ -65,7 +65,8 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
 export const BRUK_NY_KILDE_TIL_FULLMAKT = 'obo.personflate.reprfullmakt';
-export const VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE = 'veilarbdetaljerfs.vis_innsatsgruppe_hovedmal_fra_veilarbvedtaksstotte';
+export const VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE =
+    'veilarbdetaljerfs.vis_innsatsgruppe_hovedmal_fra_veilarbvedtaksstotte';
 
 export const ALL_TOGGLES = [BRUK_NY_KILDE_TIL_FULLMAKT, VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE];
 
@@ -275,10 +276,6 @@ export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
 };
 export const useKodeverk14a = () => {
     const url = `/open/api/kodeverk/innsatsgruppeoghovedmal`;
-    const { data, error, isLoading } = useSWR<Kodeverk14a, ErrorMessage>(
-        () => fetcher(url)
-    );
-
+    const { data, error, isLoading } = useSWR<Kodeverk14a, ErrorMessage>(url, fetcher);
     return { data, isLoading, error };
-}
-
+};
