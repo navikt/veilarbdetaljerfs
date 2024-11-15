@@ -14,6 +14,7 @@ import useSWR from 'swr';
 import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
+import { HovedmalType, InnsatsgruppeType } from './datatyper/kodeverk14aData.ts';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -43,6 +44,10 @@ export interface Siste14aVedtak {
     hovedmal: string;
     fattetDato: string;
     fraArena: boolean;
+}
+export interface Kodeverk14a {
+    innsatsgrupper: InnsatsgruppeType[];
+    hovedmal: HovedmalType[];
 }
 
 export interface GjeldendeOppfolgingsperiode {
@@ -268,3 +273,12 @@ export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
 
     return { data, isLoading, error };
 };
+export const useKodeverk14a = () => {
+    const url = `/open/api/kodeverk/innsatsgruppeoghovedmal`;
+    const { data, error, isLoading } = useSWR<Kodeverk14a, ErrorMessage>(
+        () => fetcher(url)
+    );
+
+    return { data, isLoading, error };
+}
+

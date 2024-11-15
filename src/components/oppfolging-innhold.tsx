@@ -17,6 +17,7 @@ import {
     usePersonalia,
     useVeileder,
     useSiste14aVedtak,
+    useKodeverk14a,
     OboFeatureToggles,
     useFeature,
     VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
@@ -41,18 +42,44 @@ const Oppfolgingsinnhold = () => {
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
     const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
-
     const {
-        data: siste14avedtak
-        //      error: siste14avedtakError,
-        //      isLoading: siste14avedtakLoading
+        data: kodeverk14a,
+             error: kodeverk14aError,
+             isLoading: kodeverk14aLoading
+    } = useKodeverk14a();
+    const {
+        data: siste14avedtak,
+             error: siste14avedtakError,
+             isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
+
+
+
+    const hentInnsatsgruppeBeskrivelse = (gruppe: string | undefined) => {
+        // @ts-ignore
+
+        console.log('siste14avedtak',  siste14avedtak, 'kodeverk14a ', kodeverk14a);
+        if (kodeverk14a) {
+        // skal hente beskrivelse fra kodeverk14a
+            return (`beskrivelsen kommer ${gruppe}`);
+        } else {
+            return (`beskrivelsen kommer ikke ${gruppe}`);
+        }
+    };
+    const hentHovedmalBeskrivelse = (mal: string | undefined) => {
+        if (kodeverk14a) {
+            // skal hente beskrivelse fra kodeverk14a
+            return (`beskrivelsen kommer ${mal}`);
+        } else {
+            return (`beskrivelsen kommer ikke ${mal}`);
+        }
+    };
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
-    if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
+    if (oppfolgingsstatusLoading || personLoading || veilederLoading || kodeverk14aLoading || siste14avedtakLoading) {
         return <Laster />;
     }
 
@@ -62,7 +89,9 @@ const Oppfolgingsinnhold = () => {
         personError?.status === 204 ||
         personError?.status === 404 ||
         veilederError?.status === 204 ||
-        veilederError?.status === 404
+        veilederError?.status === 404  ||
+        kodeverk14aError?.status === 404 ||
+        siste14avedtakError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (oppfolgingsstatusError || personError || veilederError) {
@@ -78,14 +107,14 @@ const Oppfolgingsinnhold = () => {
                     visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
                         <DobbeltInformasjon
                             header="Innsatsgruppe (gjeldende $ 14a-vedtak)"
-                            values={[siste14avedtak?.innsatsgruppe, siste14avedtak?.fattetDato]}
+                            values={[hentInnsatsgruppeBeskrivelse(siste14avedtak?.innsatsgruppe), siste14avedtak?.fattetDato]}
                         />
                     )}
                 {visInnsatsgruppeHovedmalToggle &&
                     visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
                         <DobbeltInformasjon
                             header="Hovedmål (gjeldende $ 14a-vedtak)"
-                            values={[siste14avedtak?.hovedmal, siste14avedtak?.fattetDato]}
+                            values={[hentHovedmalBeskrivelse(siste14avedtak?.hovedmal), siste14avedtak?.fattetDato]}
                         />
                     )}
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
