@@ -15,6 +15,12 @@
     line-height: var(--a-font-line-height-medium);
 }
 
+.nokkelinfo_feilmelding {
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media only screen and (max-width: 1023px) {
     .nokkelinfo_container {
         grid-template-columns: 1fr 1fr 1fr;

@@ -1,5 +1,5 @@
-import { Alert, AlertProps } from '@navikt/ds-react';
-import './felles.css';
+import { Alert, AlertProps, CopyButton, Link, ReadMore, VStack } from '@navikt/ds-react';
+import './alert-med-feilkode.css';
 import React from 'react';
 
 /*
@@ -9,7 +9,6 @@ import React from 'react';
 interface AlertMedFeilkodeProps extends Omit<AlertProps, 'variant' | 'className'> {
     /* Props spesifikke for AlertMedFeilkode */
     feilkode?: string | null;
-    midtstill?: boolean;
 
     /* Props fra Alert */
     /* Syntaksen AlertProps[...] lar oss bevare typehintingen/tillatte typer fra de respektive feltene, slik at vi slipper å vedlikeholde disse selv. */
@@ -21,21 +20,31 @@ export const AlertMedFeilkode = ({
     feilkode = null,
     variant = 'error',
     size = 'small',
-    midtstill = false,
     children,
     ...rest
 }: AlertMedFeilkodeProps) => {
-    const innhald = (
-        <Alert variant={variant} size={size} {...rest}>
-            <div>{children}</div>
-            {feilkode && (
-                <div>
-                    <br />
-                    <em>Feilkode: {feilkode}.</em>
-                </div>
-            )}
+    return (
+        <Alert className="alert-med-feilkode__innhold" variant={variant} size={size} {...rest}>
+            <VStack gap="2">
+                {children}
+                <ReadMore size="small" header={'Melde ifra om feil?'} className="alert-med-feilkode__read-more">
+                    {feilkode ? (
+                        <VStack align="start" gap="1">
+                            <div>
+                                For å melde inn feil kan du gå til{' '}
+                                <Link href="https://jira.adeo.no/plugins/servlet/desk">Porten</Link>. Oppgi følgende
+                                kode for å gjøre det lettere for oss å finne ut hva som er galt: {feilkode}
+                            </div>
+                            <CopyButton copyText={feilkode} size="xsmall" text="Kopier feilkode" />
+                        </VStack>
+                    ) : (
+                        <div>
+                            For å melde inn feil kan du gå til{' '}
+                            <Link href="https://jira.adeo.no/plugins/servlet/desk">Porten</Link>.
+                        </div>
+                    )}
+                </ReadMore>
+            </VStack>
         </Alert>
     );
-
-    return midtstill ? <div className="midtstill">{innhald}</div> : innhald;
 };

@@ -105,9 +105,11 @@ const Nokkelinfoinnhold = () => {
         ]);
 
         return (
-            <AlertMedFeilkode feilkode={feilkodeEllerNull}>
-                Noe gikk galt! Prøv igjen om noen minutter.
-            </AlertMedFeilkode>
+            <div className="nokkelinfo_feilmelding">
+                <AlertMedFeilkode feilkode={feilkodeEllerNull}>
+                    Noe gikk galt! Prøv igjen om noen minutter.
+                </AlertMedFeilkode>
+            </div>
         );
     }
 
