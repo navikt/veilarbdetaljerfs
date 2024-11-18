@@ -1,7 +1,7 @@
 import { Laster, Errormelding } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
-import { OrNothing } from '../utils/felles-typer';
+import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
     hentGeografiskEnhetTekst,
@@ -49,25 +49,29 @@ const Oppfolgingsinnhold = () => {
     } = useSiste14aVedtak(fnr);
     const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
 
-    function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: string): string {
-        return kodeverk14a?.kodeverk?.innsatsgrupper
-            .filter((kodeverkInnsatsgrupppe) => kodeverkInnsatsgrupppe.kode === innsatsgruppe)
-            .map((kodeverkInnsatsgrupppe) => {
-                const innsatsgruppeTekst =
-                    kodeverkInnsatsgrupppe.kode.charAt(0) +
-                    kodeverkInnsatsgrupppe.kode
-                        .slice(1, kodeverkInnsatsgrupppe.kode.indexOf('_INNSATS'))
-                        .replaceAll('_', ' ')
-                        .toLowerCase();
-                const innsatsgruppeBeskrivelse = kodeverkInnsatsgrupppe.beskrivelse;
-                return `${innsatsgruppeBeskrivelse} (${innsatsgruppeTekst})`;
-            });
+    function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: string): StringOrNothing {
+        return innsatsgruppe
+            ? kodeverk14a?.kodeverk?.innsatsgrupper
+                  .filter((kodeverkInnsatsgrupppe) => kodeverkInnsatsgrupppe.kode === innsatsgruppe)
+                  .map((kodeverkInnsatsgrupppe) => {
+                      const innsatsgruppeTekst =
+                          kodeverkInnsatsgrupppe.kode.charAt(0) +
+                          kodeverkInnsatsgrupppe.kode
+                              .slice(1, kodeverkInnsatsgrupppe.kode.indexOf('_INNSATS'))
+                              .replaceAll('_', ' ')
+                              .toLowerCase();
+                      const innsatsgruppeBeskrivelse = kodeverkInnsatsgrupppe.beskrivelse;
+                      return `${innsatsgruppeBeskrivelse} (${innsatsgruppeTekst})`;
+                  })
+            : '';
     }
 
-    const hentBeskrivelseTilHovedmal = (hovedmal: string): string => {
-        return kodeverk14a?.kodeverk?.hovedmal
-            .filter((kodeverkHovedmal) => kodeverkHovedmal.kode === hovedmal)
-            .map((kodeverkHovedmal) => kodeverkHovedmal.beskrivelse);
+    const hentBeskrivelseTilHovedmal = (hovedmal: string): StringOrNothing => {
+        return hovedmal
+            ? kodeverk14a?.kodeverk?.hovedmal
+                  .filter((kodeverkHovedmal) => kodeverkHovedmal.kode === hovedmal)
+                  .map((kodeverkHovedmal) => kodeverkHovedmal.beskrivelse)
+            : '';
     };
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
