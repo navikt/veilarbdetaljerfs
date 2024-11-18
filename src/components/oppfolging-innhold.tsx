@@ -25,6 +25,7 @@ import {
 import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
+import { formaterDato } from '../utils/formater.ts';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -40,35 +41,33 @@ const Oppfolgingsinnhold = () => {
         error: veilederError,
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
-
-    const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
-
-    const { data: kodeverk14a, error: kodeverk14aError, isLoading: kodeverk14aLoading } = useKodeverk14a();
-
+    const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
     const {
         data: siste14avedtak,
         error: siste14avedtakError,
         isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
+    const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
 
-    const hentInnsatsgruppeBeskrivelse = (gruppe: string | undefined) => {
-        // @ts-ignore
+    function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: string): string {
+        return kodeverk14a?.kodeverk?.innsatsgrupper
+            .filter((kodeverkInnsatsgrupppe) => kodeverkInnsatsgrupppe.kode === innsatsgruppe)
+            .map((kodeverkInnsatsgrupppe) => {
+                const innsatsgruppeTekst =
+                    kodeverkInnsatsgrupppe.kode.charAt(0) +
+                    kodeverkInnsatsgrupppe.kode
+                        .slice(1, kodeverkInnsatsgrupppe.kode.indexOf('_INNSATS'))
+                        .replaceAll('_', ' ')
+                        .toLowerCase();
+                const innsatsgruppeBeskrivelse = kodeverkInnsatsgrupppe.beskrivelse;
+                return `${innsatsgruppeBeskrivelse} (${innsatsgruppeTekst})`;
+            });
+    }
 
-        console.log('siste14avedtak', siste14avedtak, 'kodeverk14a ', kodeverk14a);
-        if (kodeverk14a) {
-            // skal hente beskrivelse fra kodeverk14a
-            return `beskrivelsen kommer ${gruppe}`;
-        } else {
-            return `beskrivelsen kommer ikke ${gruppe}`;
-        }
-    };
-    const hentHovedmalBeskrivelse = (mal: string | undefined) => {
-        if (kodeverk14a) {
-            // skal hente beskrivelse fra kodeverk14a
-            return `beskrivelsen kommer ${mal}`;
-        } else {
-            return `beskrivelsen kommer ikke ${mal}`;
-        }
+    const hentBeskrivelseTilHovedmal = (hovedmal: string): string => {
+        return kodeverk14a?.kodeverk?.hovedmal
+            .filter((kodeverkHovedmal) => kodeverkHovedmal.kode === hovedmal)
+            .map((kodeverkHovedmal) => kodeverkHovedmal.beskrivelse);
     };
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
@@ -90,7 +89,7 @@ const Oppfolgingsinnhold = () => {
         siste14avedtakError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (oppfolgingsstatusError || personError || veilederError) {
+    } else if (oppfolgingsstatusError || personError || veilederError || kodeverk14aError || siste14avedtakError) {
         return <Errormelding />;
     }
 
@@ -104,8 +103,8 @@ const Oppfolgingsinnhold = () => {
                         <DobbeltInformasjon
                             header="Innsatsgruppe (gjeldende $ 14a-vedtak)"
                             values={[
-                                hentInnsatsgruppeBeskrivelse(siste14avedtak?.innsatsgruppe),
-                                siste14avedtak?.fattetDato
+                                hentBeskrivelseTilInnsatsgruppe(siste14avedtak?.innsatsgruppe),
+                                `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
                             ]}
                         />
                     )}
@@ -113,7 +112,10 @@ const Oppfolgingsinnhold = () => {
                     visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
                         <DobbeltInformasjon
                             header="Hovedmål (gjeldende $ 14a-vedtak)"
-                            values={[hentHovedmalBeskrivelse(siste14avedtak?.hovedmal), siste14avedtak?.fattetDato]}
+                            values={[
+                                hentBeskrivelseTilHovedmal(siste14avedtak?.hovedmal),
+                                `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
+                            ]}
                         />
                     )}
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
