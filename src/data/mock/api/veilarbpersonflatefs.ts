@@ -1,4 +1,8 @@
-import { OboFeatureToggles, BRUK_NY_KILDE_TIL_FULLMAKT , VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE } from '../../api/fetch';
+import {
+    OboFeatureToggles,
+    BRUK_NY_KILDE_TIL_FULLMAKT,
+    VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
+} from '../../api/fetch';
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
