@@ -54,6 +54,6 @@ export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
     }),
     http.get('/open/api/kodeverk/innsatsgruppeoghovedmal', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json({ kodeverk: kodeverkdata });
+        return HttpResponse.json(kodeverkdata);
     })
 ];

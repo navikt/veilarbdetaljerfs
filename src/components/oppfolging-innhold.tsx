@@ -26,6 +26,7 @@ import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
 import { formaterDato } from '../utils/formater.ts';
+import { InnsatsgruppeType } from '../data/api/datatyper/kodeverk14aData.ts';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -49,28 +50,41 @@ const Oppfolgingsinnhold = () => {
     } = useSiste14aVedtak(fnr);
     const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
 
-    function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: string): StringOrNothing {
-        return innsatsgruppe
-            ? kodeverk14a?.kodeverk?.innsatsgrupper
-                  .filter((kodeverkInnsatsgrupppe) => kodeverkInnsatsgrupppe.kode === innsatsgruppe)
-                  .map((kodeverkInnsatsgrupppe) => {
-                      const innsatsgruppeTekst =
-                          kodeverkInnsatsgrupppe.kode.charAt(0) +
-                          kodeverkInnsatsgrupppe.kode
-                              .slice(1, kodeverkInnsatsgrupppe.kode.indexOf('_INNSATS'))
-                              .replaceAll('_', ' ')
-                              .toLowerCase();
-                      const innsatsgruppeBeskrivelse = kodeverkInnsatsgrupppe.beskrivelse;
-                      return `${innsatsgruppeBeskrivelse} (${innsatsgruppeTekst})`;
-                  })
-            : '';
+    function KonverterInnsatsgruppeKodeTilTekst(innsatsgruppeObj: OrNothing<InnsatsgruppeType>) {
+        if (innsatsgruppeObj != undefined) {
+            const initialStorBokstav = innsatsgruppeObj.kode.charAt(0);
+            const restTekstISmoBokstav = innsatsgruppeObj.kode
+                .slice(1, innsatsgruppeObj?.kode.indexOf('_INNSATS'))
+                .replaceAll('_', ' ')
+                .toLowerCase();
+            return initialStorBokstav + restTekstISmoBokstav;
+        }
+        return '';
     }
 
-    const hentBeskrivelseTilHovedmal = (hovedmal: string): StringOrNothing => {
+    function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: StringOrNothing) {
+        if (innsatsgruppe) {
+            const innsatsgruppeObj: OrNothing<InnsatsgruppeType> = kodeverk14a?.innsatsgrupper.filter(
+                (kodeverkInnsatsgrupppe) =>
+                    Object.values(kodeverkInnsatsgrupppe).some((kodeverkInnsatsgrupppe) =>
+                        kodeverkInnsatsgrupppe.includes(innsatsgruppe)
+                    )
+            )[0];
+
+            const innsatsgruppeKodeTekst = KonverterInnsatsgruppeKodeTilTekst(innsatsgruppeObj);
+
+            const innsatsgruppeBeskrivelse = innsatsgruppeObj?.beskrivelse;
+            return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
+        } else {
+            return ' ';
+        }
+    }
+
+    const hentBeskrivelseTilHovedmal = (hovedmal: StringOrNothing) => {
         return hovedmal
-            ? kodeverk14a?.kodeverk?.hovedmal
-                  .filter((kodeverkHovedmal) => kodeverkHovedmal.kode === hovedmal)
-                  .map((kodeverkHovedmal) => kodeverkHovedmal.beskrivelse)
+            ? kodeverk14a?.hovedmal.filter((kodeverkHovedmal) =>
+                  Object.values(kodeverkHovedmal).some((kodeverkHovedmal) => kodeverkHovedmal.includes(hovedmal))
+              )[0].beskrivelse
             : '';
     };
 
