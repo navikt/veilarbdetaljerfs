@@ -52,7 +52,7 @@ export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
             fraArena: true
         });
     }),
-    http.get('/open/api/kodeverk/innsatsgruppeoghovedmal', async () => {
+    http.get('/veilarbvedtaksstotte/open/api/kodeverk/innsatsgruppeoghovedmal', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(kodeverkdata);
     })

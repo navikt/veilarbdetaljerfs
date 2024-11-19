@@ -271,7 +271,7 @@ export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
     return { data, isLoading, error };
 };
 export const useKodeverk14a = () => {
-    const url = `/open/api/kodeverk/innsatsgruppeoghovedmal`;
+    const url = `/veilarbvedtaksstotte/open/api/kodeverk/innsatsgruppeoghovedmal`;
     const { data, error, isLoading } = useSWR<Kodeverk14a, ErrorMessage>(url, fetcher);
     return { data, isLoading, error };
 };
