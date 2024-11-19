@@ -47,7 +47,7 @@ export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json({
             innsatsgruppe: Innsatsgruppe.GRADERT_VARIG_TILPASSET_INNSATS,
-            hovedmal: Hovedmal.BEHOLDE_ARBEID,
+            hovedmal: Hovedmal.OKE_DELTAKELSE,
             fattetDato: new Date().toISOString(),
             fraArena: true
         });

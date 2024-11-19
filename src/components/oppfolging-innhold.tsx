@@ -26,7 +26,8 @@ import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
 import { formaterDato } from '../utils/formater.ts';
-import { InnsatsgruppeType } from '../data/api/datatyper/kodeverk14aData.ts';
+import { HovedmalType, InnsatsgruppeType } from '../data/api/datatyper/kodeverk14aData.ts';
+import EMDASH from '../utils/emdash.ts';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -64,28 +65,33 @@ const Oppfolgingsinnhold = () => {
 
     function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: StringOrNothing) {
         if (innsatsgruppe) {
-            const innsatsgruppeObj: OrNothing<InnsatsgruppeType> = kodeverk14a?.innsatsgrupper.filter(
+            const kodeverkInnsatsgruppeObj: OrNothing<InnsatsgruppeType> = kodeverk14a?.innsatsgrupper.filter(
                 (kodeverkInnsatsgrupppe) =>
                     Object.values(kodeverkInnsatsgrupppe).some((kodeverkInnsatsgrupppe) =>
                         kodeverkInnsatsgrupppe.includes(innsatsgruppe)
                     )
             )[0];
 
-            const innsatsgruppeKodeTekst = KonverterInnsatsgruppeKodeTilTekst(innsatsgruppeObj);
+            const innsatsgruppeKodeTekst = KonverterInnsatsgruppeKodeTilTekst(kodeverkInnsatsgruppeObj);
 
-            const innsatsgruppeBeskrivelse = innsatsgruppeObj?.beskrivelse;
+            const innsatsgruppeBeskrivelse = kodeverkInnsatsgruppeObj?.beskrivelse;
             return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
         } else {
-            return ' ';
+            return EMDASH;
         }
     }
 
     const hentBeskrivelseTilHovedmal = (hovedmal: StringOrNothing) => {
-        return hovedmal
-            ? kodeverk14a?.hovedmal.filter((kodeverkHovedmal) =>
-                  Object.values(kodeverkHovedmal).some((kodeverkHovedmal) => kodeverkHovedmal.includes(hovedmal))
-              )[0].beskrivelse
-            : '';
+        if (hovedmal === Hovedmal.OKE_DELTAKELSE) {
+            return 'Øke deltagelse eller mål om arbeid';
+        } else if (hovedmal) {
+            const kodeverkHovedmalObj: OrNothing<HovedmalType> = kodeverk14a?.hovedmal.filter((kodeverkHovedmal) =>
+                Object.values(kodeverkHovedmal).some((kodeverkHovedmal) => kodeverkHovedmal.includes(hovedmal))
+            )[0];
+            return kodeverkHovedmalObj?.beskrivelse;
+        } else {
+            return EMDASH;
+        }
     };
 
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
