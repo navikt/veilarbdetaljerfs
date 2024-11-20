@@ -53,14 +53,12 @@ const Oppfolgingsinnhold = () => {
 
     function KonverterInnsatsgruppeKodeTilTekst(innsatsgruppeObj: OrNothing<InnsatsgruppeType>) {
         if (innsatsgruppeObj != undefined) {
-            const initialStorBokstav = innsatsgruppeObj.kode.charAt(0);
-            const restTekstISmoBokstav = innsatsgruppeObj.kode
-                .slice(1, innsatsgruppeObj?.kode.indexOf('_INNSATS'))
+            return innsatsgruppeObj.kode
+                .slice(0, innsatsgruppeObj?.kode.indexOf('_INNSATS'))
                 .replaceAll('_', ' ')
                 .toLowerCase();
-            return initialStorBokstav + restTekstISmoBokstav;
         }
-        return '';
+        return EMDASH;
     }
 
     function hentBeskrivelseTilInnsatsgruppe(innsatsgruppe: StringOrNothing) {
@@ -71,9 +69,7 @@ const Oppfolgingsinnhold = () => {
                         kodeverkInnsatsgrupppe.includes(innsatsgruppe)
                     )
             )[0];
-
             const innsatsgruppeKodeTekst = KonverterInnsatsgruppeKodeTilTekst(kodeverkInnsatsgruppeObj);
-
             const innsatsgruppeBeskrivelse = kodeverkInnsatsgruppeObj?.beskrivelse;
             return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
         } else {
