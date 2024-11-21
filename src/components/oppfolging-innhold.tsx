@@ -1,7 +1,7 @@
 import { Laster, Errormelding } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
-import { OrNothing, StringOrNothing } from '../utils/felles-typer';
+import { isNullOrUndefined, OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
     hentGeografiskEnhetTekst,
@@ -51,9 +51,9 @@ const Oppfolgingsinnhold = () => {
     } = useSiste14aVedtak(fnr);
     const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
 
-    function KonverterInnsatsgruppeKodeTilTekst(innsatsgruppeObj: OrNothing<InnsatsgruppeType>) {
-        if (innsatsgruppeObj != undefined) {
-            return innsatsgruppeObj.kode
+    function konverterInnsatsgruppeKodeTilTekst(innsatsgruppeObj: OrNothing<InnsatsgruppeType>) {
+        if (!isNullOrUndefined(innsatsgruppeObj)) {
+            return innsatsgruppeObj?.kode
                 .slice(0, innsatsgruppeObj?.kode.indexOf('_INNSATS'))
                 .replaceAll('_', ' ')
                 .toLowerCase();
@@ -69,7 +69,7 @@ const Oppfolgingsinnhold = () => {
                         kodeverkInnsatsgrupppe.includes(innsatsgruppe)
                     )
             )[0];
-            const innsatsgruppeKodeTekst = KonverterInnsatsgruppeKodeTilTekst(kodeverkInnsatsgruppeObj);
+            const innsatsgruppeKodeTekst = konverterInnsatsgruppeKodeTilTekst(kodeverkInnsatsgruppeObj);
             const innsatsgruppeBeskrivelse = kodeverkInnsatsgruppeObj?.beskrivelse;
             return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
         } else {
@@ -119,29 +119,32 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
                 {visInnsatsgruppeHovedmalToggle &&
-                    visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
-                        <DobbeltInformasjon
-                            header="Innsatsgruppe (gjeldende $ 14a-vedtak)"
-                            values={[
-                                hentBeskrivelseTilInnsatsgruppe(siste14avedtak?.innsatsgruppe),
-                                `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
-                            ]}
-                        />
-                    )}
+                visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+                    <DobbeltInformasjon
+                        header="Innsatsgruppe (gjeldende $ 14a-vedtak)"
+                        values={[
+                            hentBeskrivelseTilInnsatsgruppe(siste14avedtak?.innsatsgruppe),
+                            `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
+                        ]}
+                    />
+                ) : (
+                    <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
+                )}
                 {visInnsatsgruppeHovedmalToggle &&
-                    visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
-                        <DobbeltInformasjon
-                            header="Hovedmål (gjeldende $ 14a-vedtak)"
-                            values={[
-                                hentBeskrivelseTilHovedmal(siste14avedtak?.hovedmal),
-                                `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
-                            ]}
-                        />
-                    )}
-                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+                    <DobbeltInformasjon
+                        header="Hovedmål (gjeldende $ 14a-vedtak)"
+                        values={[
+                            hentBeskrivelseTilHovedmal(siste14avedtak?.hovedmal),
+                            `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
+                        ]}
+                    />
+                ) : (
+                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                )}
+
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
-                <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
             </span>
             <Alert variant="info" size="small" className="panel_infoboks">
                 Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
