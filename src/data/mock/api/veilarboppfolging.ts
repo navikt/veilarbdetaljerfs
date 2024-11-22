@@ -17,7 +17,7 @@ const oppfolgingstatus: OppfolgingsstatusData = {
     veilederId: 'Z123456',
     formidlingsgruppe: 'ARBS',
     servicegruppe: 'BKART',
-    hovedmaalkode: 'BEHOLDEA'
+    hovedmaalkode: 'OKEDELT'
 };
 
 const oppfolgingData: OppfolgingData = {

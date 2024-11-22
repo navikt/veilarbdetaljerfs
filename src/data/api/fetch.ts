@@ -14,6 +14,7 @@ import useSWR from 'swr';
 import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
+import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
 
 interface ErrorMessage {
     error: Error | unknown;
@@ -60,11 +61,14 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
 export const BRUK_NY_KILDE_TIL_FULLMAKT = 'obo.personflate.reprfullmakt';
+export const VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE =
+    'veilarbdetaljerfs.vis_innsatsgruppe_hovedmal_fra_veilarbvedtaksstotte';
 
-export const ALL_TOGGLES = [BRUK_NY_KILDE_TIL_FULLMAKT];
+export const ALL_TOGGLES = [BRUK_NY_KILDE_TIL_FULLMAKT, VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE];
 
 export interface OboFeatureToggles {
     [BRUK_NY_KILDE_TIL_FULLMAKT]: boolean;
+    [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE]: boolean;
 }
 
 const handterRespons = async (respons: Response) => {
@@ -264,5 +268,10 @@ export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
         () => fetchWithPost(url, { fnr: fnr ?? null })
     );
 
+    return { data, isLoading, error };
+};
+export const useKodeverk14a = () => {
+    const url = `/veilarbvedtaksstotte/open/api/kodeverk/innsatsgruppeoghovedmal`;
+    const { data, error, isLoading } = useSWR<Kodeverk14a, ErrorMessage>(url, fetcher);
     return { data, isLoading, error };
 };
