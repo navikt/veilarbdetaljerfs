@@ -108,10 +108,12 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
-            <Alert variant="info" size="small" className="panel_infoboks">
-                Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
-                "Oppfølgingsvedtak".
-            </Alert>
+            {visInnsatsgruppeHovedmalToggle && !visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] &&
+                <Alert variant="info" size="small" className="panel_infoboks">
+                    Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til
+                    fanen "Oppfølgingsvedtak".
+                </Alert>
+            }
         </>
     );
 };

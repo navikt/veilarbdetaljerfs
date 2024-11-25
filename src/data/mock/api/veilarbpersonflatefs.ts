@@ -3,7 +3,7 @@ import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
 
 const mockFeatures: OboFeatureToggles = {
-    [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE]: false
+    [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE]: true
 };
 
 export const veilarbpersonflatefsHandlers: RequestHandler[] = [
