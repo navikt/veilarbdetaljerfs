@@ -146,14 +146,12 @@ const Nokkelinfoinnhold = () => {
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-            {visInnsatsgruppeHovedmalToggle &&
-            visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
                 <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
             ) : (
                 <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
             )}
-            {visInnsatsgruppeHovedmalToggle &&
-            visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
                 <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
             ) : (
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />

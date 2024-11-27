@@ -76,8 +76,7 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                {visInnsatsgruppeHovedmalToggle &&
-                visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+                {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
                     <InnsatsGruppe
                         innsatsgruppe={siste14avedtak?.innsatsgruppe}
                         fattetDato={siste14avedtak?.fattetDato}
@@ -85,8 +84,7 @@ const Oppfolgingsinnhold = () => {
                 ) : (
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
-                {visInnsatsgruppeHovedmalToggle &&
-                visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+                {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
                     <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
                 ) : (
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
@@ -94,8 +92,7 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
-            {visInnsatsgruppeHovedmalToggle &&
-                !visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
+            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
                     <Alert variant="info" size="small" className="panel_infoboks">
                         Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til
                         fanen "Oppfølgingsvedtak".
