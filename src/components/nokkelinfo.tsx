@@ -8,7 +8,11 @@ import {
     useVeileder,
     useYtelser,
     useCvOgJobbonsker,
-    useOpplysningerOmArbeidssoekerMedProfilering
+    useOpplysningerOmArbeidssoekerMedProfilering,
+    useSiste14aVedtak,
+    OboFeatureToggles,
+    useFeature,
+    VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
 } from '../data/api/fetch';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
@@ -29,6 +33,8 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
+import { InnsatsGruppe } from './innsatsgruppe.tsx';
+import { Hovedmaal } from './hovedmal.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -59,6 +65,14 @@ const Nokkelinfoinnhold = () => {
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
+    const {
+        data: siste14avedtak,
+        error: siste14avedtakError,
+        isLoading: siste14avedtakLoading
+    } = useSiste14aVedtak(fnr);
+
+    const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
+
     if (
         oppfolgingsstatusLoading ||
         personLoading ||
@@ -66,7 +80,8 @@ const Nokkelinfoinnhold = () => {
         ytelserLoading ||
         cvOgJobbonskerLoading ||
         veilederLoading ||
-        opplysningerOmArbedissoekerMedProfileringLoading
+        opplysningerOmArbedissoekerMedProfileringLoading ||
+        siste14avedtakLoading
     ) {
         return <Laster />;
     }
@@ -82,7 +97,9 @@ const Nokkelinfoinnhold = () => {
         cvOgJobbonskerError?.status === 204 ||
         cvOgJobbonskerError?.status === 404 ||
         veilederError?.status === 204 ||
-        veilederError?.status === 404
+        veilederError?.status === 404 ||
+        siste14avedtakError?.status === 204 ||
+        siste14avedtakError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (
@@ -129,8 +146,16 @@ const Nokkelinfoinnhold = () => {
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-            <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-            <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
+            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+                <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
+            ) : (
+                <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
+            )}
+            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
+                <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
+            ) : (
+                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+            )}
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
