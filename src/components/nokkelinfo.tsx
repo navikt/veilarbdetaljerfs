@@ -10,7 +10,6 @@ import {
     useCvOgJobbonsker,
     useOpplysningerOmArbeidssoekerMedProfilering,
     useSiste14aVedtak,
-    useKodeverk14a,
     OboFeatureToggles,
     useFeature,
     VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
@@ -21,7 +20,7 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
-    getVedtakForVisning, hentBeskrivelseTilHovedmal, hentBeskrivelseTilInnsatsgruppe,
+    getVedtakForVisning,
     hentTolkTekst,
     hentVeilederTekst,
     mapHovedmalTilTekst,
@@ -34,7 +33,8 @@ import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
-import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
+import { InnsatsGruppe } from './innsatsgruppe.tsx';
+import { Hovedmaal } from './hovedmal.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -65,8 +65,6 @@ const Nokkelinfoinnhold = () => {
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
-    const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
-
     const {
         data: siste14avedtak,
         error: siste14avedtakError,
@@ -83,7 +81,6 @@ const Nokkelinfoinnhold = () => {
         cvOgJobbonskerLoading ||
         veilederLoading ||
         opplysningerOmArbedissoekerMedProfileringLoading ||
-        kodeverk14aLoading ||
         siste14avedtakLoading
     ) {
         return <Laster />;
@@ -101,7 +98,6 @@ const Nokkelinfoinnhold = () => {
         cvOgJobbonskerError?.status === 404 ||
         veilederError?.status === 204 ||
         veilederError?.status === 404 ||
-        kodeverk14aError?.status === 404 ||
         siste14avedtakError?.status === 204 ||
         siste14avedtakError?.status === 404
     ) {
@@ -152,25 +148,13 @@ const Nokkelinfoinnhold = () => {
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
             {visInnsatsgruppeHovedmalToggle &&
             visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                <DobbeltInformasjon
-                    header="Innsatsgruppe (gjeldende § 14a-vedtak)"
-                    values={[
-                        hentBeskrivelseTilInnsatsgruppe(siste14avedtak?.innsatsgruppe, kodeverk14a),
-                        `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
-                    ]}
-                />
+                <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
             ) : (
                 <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
             )}
             {visInnsatsgruppeHovedmalToggle &&
             visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                <DobbeltInformasjon
-                    header="Hovedmål (gjeldende § 14a-vedtak)"
-                    values={[
-                        hentBeskrivelseTilHovedmal(siste14avedtak?.hovedmal, kodeverk14a),
-                        `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
-                    ]}
-                />
+                <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
             ) : (
                 <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
             )}

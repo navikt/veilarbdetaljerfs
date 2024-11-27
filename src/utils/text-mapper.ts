@@ -12,7 +12,6 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { VedtakType } from '../data/api/datatyper/ytelse';
 import { VEDTAKSSTATUSER } from './konstanter.ts';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-import { HovedmalType, InnsatsgruppeType, Kodeverk14a } from '../data/api/datatyper/kodeverk14aData.ts';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -160,42 +159,8 @@ export function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
         .map((vedtak) => vedtak.type)
         .join(', ');
 }
-const konverterInnsatsgruppeKodeTilTekst = (innsatsgruppeObj: OrNothing<InnsatsgruppeType>) => {
-    if (!isNullOrUndefined(innsatsgruppeObj)) {
-        return innsatsgruppeObj?.kode
-            .slice(0, innsatsgruppeObj?.kode.indexOf('_INNSATS'))
-            .replaceAll('_', ' ')
-            .toLowerCase();
-    }
-    return EMDASH;
-}
 
-export const hentBeskrivelseTilInnsatsgruppe = (innsatsgruppe: StringOrNothing, kodeverk14a: OrNothing<Kodeverk14a>) => {
-    if (innsatsgruppe) {
-        const kodeverkInnsatsgruppeObj: OrNothing<InnsatsgruppeType> = kodeverk14a?.innsatsgrupper.filter(
-            (kodeverkInnsatsgruppe) =>
-                Object.values(kodeverkInnsatsgruppe).some((kodeverkInnsatsgruppe) =>
-                    kodeverkInnsatsgruppe.includes(innsatsgruppe)
-                )
-        )[0];
-        const innsatsgruppeKodeTekst = konverterInnsatsgruppeKodeTilTekst(kodeverkInnsatsgruppeObj);
-        const innsatsgruppeBeskrivelse = kodeverkInnsatsgruppeObj?.beskrivelse;
-        return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
-    } else {
-        return EMDASH;
-    }
-}
 
-export const hentBeskrivelseTilHovedmal = (hovedmal: StringOrNothing, kodeverk14a: OrNothing<Kodeverk14a>) => {
-    if (hovedmal === Hovedmal.OKE_DELTAKELSE) {
-        return 'Øke deltagelse eller mål om arbeid';
-    } else if (hovedmal) {
-        const kodeverkHovedmalObj: OrNothing<HovedmalType> = kodeverk14a?.hovedmal.filter((kodeverkHovedmal) =>
-            Object.values(kodeverkHovedmal).some((kodeverkHovedmal) => kodeverkHovedmal.includes(hovedmal))
-        )[0];
-        return kodeverkHovedmalObj?.beskrivelse;
-    } else {
-        return EMDASH;
-    }
-};
+
+
 

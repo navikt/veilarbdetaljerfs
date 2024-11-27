@@ -4,8 +4,6 @@ import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper
 import { OrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
-    hentBeskrivelseTilHovedmal,
-    hentBeskrivelseTilInnsatsgruppe,
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
     hentVeilederTekst,
@@ -19,15 +17,14 @@ import {
     usePersonalia,
     useVeileder,
     useSiste14aVedtak,
-    useKodeverk14a,
     OboFeatureToggles,
     useFeature,
     VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
 } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
-import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
-import { formaterDato } from '../utils/formater.ts';
+import { InnsatsGruppe } from './innsatsgruppe.tsx';
+import { Hovedmaal } from './hovedmal.tsx';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -43,7 +40,7 @@ const Oppfolgingsinnhold = () => {
         error: veilederError,
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
-    const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
+
     const {
         data: siste14avedtak,
         error: siste14avedtakError,
@@ -55,7 +52,7 @@ const Oppfolgingsinnhold = () => {
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
-    if (oppfolgingsstatusLoading || personLoading || veilederLoading || kodeverk14aLoading || siste14avedtakLoading) {
+    if (oppfolgingsstatusLoading || personLoading || veilederLoading || siste14avedtakLoading) {
         return <Laster />;
     }
 
@@ -66,12 +63,11 @@ const Oppfolgingsinnhold = () => {
         personError?.status === 404 ||
         veilederError?.status === 204 ||
         veilederError?.status === 404 ||
-        kodeverk14aError?.status === 404 ||
         siste14avedtakError?.status === 204 ||
         siste14avedtakError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (oppfolgingsstatusError || personError || veilederError || kodeverk14aError || siste14avedtakError) {
+    } else if (oppfolgingsstatusError || personError || veilederError || siste14avedtakError) {
         return <Errormelding />;
     }
 
@@ -82,29 +78,16 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
                 {visInnsatsgruppeHovedmalToggle &&
                 visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                    <DobbeltInformasjon
-                        header="Innsatsgruppe (gjeldende § 14a-vedtak)"
-                        values={[
-                            hentBeskrivelseTilInnsatsgruppe(siste14avedtak?.innsatsgruppe, kodeverk14a),
-                            `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
-                        ]}
-                    />
+                    <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
                 ) : (
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
                 {visInnsatsgruppeHovedmalToggle &&
                 visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                    <DobbeltInformasjon
-                        header="Hovedmål (gjeldende § 14a-vedtak)"
-                        values={[
-                            hentBeskrivelseTilHovedmal(siste14avedtak?.hovedmal, kodeverk14a),
-                            `Vedtaksdato: ${formaterDato(siste14avedtak?.fattetDato)}`
-                        ]}
-                    />
+                    <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
                 ) : (
                     <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
                 )}
-
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
