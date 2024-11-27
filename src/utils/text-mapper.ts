@@ -159,8 +159,3 @@ export function getVedtakForVisning(vedtaksliste: VedtakType[] | undefined) {
         .map((vedtak) => vedtak.type)
         .join(', ');
 }
-
-
-
-
-
