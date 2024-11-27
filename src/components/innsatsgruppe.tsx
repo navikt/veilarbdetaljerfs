@@ -5,6 +5,7 @@ import { Errormelding, Laster } from './felles/minikomponenter.tsx';
 import { isNullOrUndefined, OrNothing, StringOrNothing } from '../utils/felles-typer.ts';
 import { InnsatsgruppeType } from '../data/api/datatyper/kodeverk14aData.ts';
 import EMDASH from '../utils/emdash.ts';
+import { EnkeltInformasjon } from './felles/enkeltInfo.tsx';
 
 interface Props {
     innsatsgruppe: StringOrNothing;
@@ -43,14 +44,19 @@ export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
             const innsatsgruppeBeskrivelse = kodeverkInnsatsgruppeObj?.beskrivelse;
             return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
         } else {
-            return EMDASH;
+            return 'Har ikke et gjeldende § 14 a-vedtak';
         }
     };
 
-    return (
+    return innsatsgruppe ? (
         <DobbeltInformasjon
             header="Innsatsgruppe (gjeldende § 14a-vedtak)"
             values={[hentBeskrivelseTilInnsatsgruppe(innsatsgruppe), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
+        />
+    ) : (
+        <EnkeltInformasjon
+            header="Innsatsgruppe (gjeldende § 14a-vedtak)"
+            value="Har ikke et gjeldende § 14 a-vedtak"
         />
     );
 };

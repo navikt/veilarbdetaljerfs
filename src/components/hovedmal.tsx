@@ -6,6 +6,7 @@ import { Errormelding, Laster } from './felles/minikomponenter.tsx';
 import { useKodeverk14a } from '../data/api/fetch.ts';
 import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
 import { formaterDato } from '../utils/formater.ts';
+import { EnkeltInformasjon } from './felles/enkeltInfo.tsx';
 
 interface Props {
     hovedmal: StringOrNothing;
@@ -35,10 +36,12 @@ export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
         }
     };
 
-    return (
+    return hovedmal ? (
         <DobbeltInformasjon
             header="Hovedmål (gjeldende § 14a-vedtak)"
             values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
         />
+    ) : (
+        <EnkeltInformasjon header="Hovedmål (gjeldende § 14a-vedtak)" value={'Har ikke et gjeldende § 14 a-vedtak'} />
     );
 };
