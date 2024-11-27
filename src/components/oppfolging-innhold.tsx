@@ -78,7 +78,10 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
                 {visInnsatsgruppeHovedmalToggle &&
                 visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                    <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
+                    <InnsatsGruppe
+                        innsatsgruppe={siste14avedtak?.innsatsgruppe}
+                        fattetDato={siste14avedtak?.fattetDato}
+                    />
                 ) : (
                     <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
                 )}
@@ -91,12 +94,13 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
-            {visInnsatsgruppeHovedmalToggle && !visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] &&
-                <Alert variant="info" size="small" className="panel_infoboks">
-                    Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til
-                    fanen "Oppfølgingsvedtak".
-                </Alert>
-            }
+            {visInnsatsgruppeHovedmalToggle &&
+                !visInnsatsgruppeHovedmalToggle[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
+                    <Alert variant="info" size="small" className="panel_infoboks">
+                        Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til
+                        fanen "Oppfølgingsvedtak".
+                    </Alert>
+                )}
         </>
     );
 };

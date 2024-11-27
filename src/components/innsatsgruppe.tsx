@@ -10,16 +10,14 @@ interface Props {
     innsatsgruppe: StringOrNothing;
     fattetDato: StringOrNothing;
 }
-export const InnsatsGruppe = ({innsatsgruppe, fattetDato} : Props ) => {
-    const {
-        data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError
-    } = useKodeverk14a();
+export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
+    const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
 
-    if ( kodeverk14aLoading) {
+    if (kodeverk14aLoading) {
         return <Laster />;
     }
 
-    if ( kodeverk14aError ) {
+    if (kodeverk14aError) {
         return <Errormelding />;
     }
 
@@ -31,7 +29,7 @@ export const InnsatsGruppe = ({innsatsgruppe, fattetDato} : Props ) => {
                 .toLowerCase();
         }
         return EMDASH;
-    }
+    };
 
     const hentBeskrivelseTilInnsatsgruppe = (innsatsgruppe: StringOrNothing) => {
         if (innsatsgruppe) {
@@ -47,15 +45,12 @@ export const InnsatsGruppe = ({innsatsgruppe, fattetDato} : Props ) => {
         } else {
             return EMDASH;
         }
-    }
+    };
 
     return (
         <DobbeltInformasjon
             header="Innsatsgruppe (gjeldende § 14a-vedtak)"
-            values={[
-                hentBeskrivelseTilInnsatsgruppe(innsatsgruppe),
-                `Vedtaksdato: ${formaterDato(fattetDato)}`
-            ]}
+            values={[hentBeskrivelseTilInnsatsgruppe(innsatsgruppe), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
         />
-    )
-}
+    );
+};

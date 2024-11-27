@@ -12,9 +12,7 @@ interface Props {
     fattetDato: StringOrNothing;
 }
 export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
-    const {
-        data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError
-    } = useKodeverk14a();
+    const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
 
     if (kodeverk14aLoading) {
         return <Laster />;
@@ -40,9 +38,7 @@ export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
     return (
         <DobbeltInformasjon
             header="Hovedmål (gjeldende § 14a-vedtak)"
-            values={[hentBeskrivelseTilHovedmal(hovedmal),
-                `Vedtaksdato: ${formaterDato(fattetDato)}`
-            ]}
+            values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
         />
-    )
-}
+    );
+};
