@@ -56,7 +56,7 @@ export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
     ) : (
         <EnkeltInformasjon
             header="Innsatsgruppe (gjeldende § 14a-vedtak)"
-            value="Har ikke et gjeldende § 14 a-vedtak"
+            value={hentBeskrivelseTilInnsatsgruppe(innsatsgruppe)}
         />
     );
 };
