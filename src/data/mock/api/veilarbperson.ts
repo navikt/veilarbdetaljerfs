@@ -385,7 +385,6 @@ const personalia: PersonaliaInfo = {
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
         }
     ],
-    kontonummer: '12345678911',
     geografiskEnhet: {
         enhetsnummer: '0106',
         navn: 'Nav Fredrikstad'

@@ -155,7 +155,6 @@ export interface Kontaktadresse {
 
 export interface PersonaliaInfo extends GrunnPersonalia {
     barn: PersonsBarn[];
-    kontonummer: string;
     geografiskEnhet: OrNothing<Enhet>;
     telefon: PersonaliaTelefon[];
     epost: OrNothing<PersonaliaEpost>;
