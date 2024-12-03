@@ -1,7 +1,6 @@
 import { OrNothing, StringOrNothing } from '../utils/felles-typer.ts';
 import { HovedmalType } from '../data/api/datatyper/kodeverk14aData.ts';
 import { Hovedmal } from '../data/api/datatyper/siste14aVedtak.ts';
-import EMDASH from '../utils/emdash.ts';
 import { Errormelding, Laster } from './felles/minikomponenter.tsx';
 import { useKodeverk14a } from '../data/api/fetch.ts';
 import { DobbeltInformasjon } from './felles/dobbelinfo.tsx';
@@ -32,7 +31,7 @@ export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
             )[0];
             return kodeverkHovedmalObj?.beskrivelse;
         } else {
-            return EMDASH;
+            return "Har ikke et gjeldende § 14 a-vedtak";
         }
     };
 
@@ -42,6 +41,6 @@ export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
             values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
         />
     ) : (
-        <EnkeltInformasjon header="Hovedmål (gjeldende § 14a-vedtak)" value={'Har ikke et gjeldende § 14 a-vedtak'} />
+        <EnkeltInformasjon header="Hovedmål (gjeldende § 14a-vedtak)" value={hentBeskrivelseTilHovedmal(hovedmal)} />
     );
 };
