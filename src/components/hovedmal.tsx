@@ -38,10 +38,10 @@ export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
 
     return hovedmal ? (
         <DobbeltInformasjon
-            header="Hovedmål (gjeldende § 14a-vedtak)"
+            header="Hovedmål (gjeldende § 14 a-vedtak)"
             values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
         />
     ) : (
-        <EnkeltInformasjon header="Hovedmål (gjeldende § 14a-vedtak)" value={'Har ikke et gjeldende § 14 a-vedtak'} />
+        <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value={'Har ikke et gjeldende § 14 a-vedtak'} />
     );
 };
