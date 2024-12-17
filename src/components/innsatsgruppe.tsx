@@ -50,12 +50,12 @@ export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
 
     return innsatsgruppe ? (
         <DobbeltInformasjon
-            header="Innsatsgruppe (gjeldende § 14a-vedtak)"
+            header="Innsatsgruppe (gjeldende § 14 a-vedtak)"
             values={[hentBeskrivelseTilInnsatsgruppe(innsatsgruppe), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
         />
     ) : (
         <EnkeltInformasjon
-            header="Innsatsgruppe (gjeldende § 14a-vedtak)"
+            header="Innsatsgruppe (gjeldende § 14 a-vedtak)"
             value={hentBeskrivelseTilInnsatsgruppe(innsatsgruppe)}
         />
     );
