@@ -10,7 +10,6 @@ import {
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { useOppfolgingsstatus, usePersonalia, useSiste14aVedtak, useVeileder } from '../data/api/fetch';
-import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
@@ -67,10 +66,6 @@ const Oppfolgingsinnhold = () => {
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
-            <Alert variant="info" size="small" className="panel_infoboks">
-                Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
-                "Oppfølgingsvedtak".
-            </Alert>
         </>
     );
 };

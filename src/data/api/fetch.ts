@@ -60,10 +60,6 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
-export const ALL_TOGGLES = [];
-
-export type OboFeatureToggles = Record<string, boolean>;
-
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
         throw {
@@ -242,14 +238,6 @@ export const useVeileder = (veilederId: StringOrNothing) => {
         veilederId ? `/veilarbveileder/api/veileder/` + veilederId : null,
         fetcher
     );
-
-    return { data, isLoading, error };
-};
-
-export const useFeature = () => {
-    const features = ALL_TOGGLES.map((element) => 'feature=' + element).join('&');
-    const url = `/obo-unleash/api/feature?${features}`;
-    const { data, error, isLoading } = useSWR<OboFeatureToggles, ErrorMessage>(url, fetcher);
 
     return { data, isLoading, error };
 };
