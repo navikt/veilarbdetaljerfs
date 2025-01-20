@@ -12,31 +12,35 @@ interface Props {
 
 export const SporsmalsListe = ({ opplysningerOmArbeidssoeker }: Props) => {
     const tekst = lagHentTekstForSprak(SPORSMAL_TEKSTER, 'nb');
+    const tekstEllerNull = (verdi: string | undefined) => (verdi ? tekst(verdi) : null);
+
     return (
         <div className="info_container">
             <Sporsmalvisning
-                sporsmal={tekst(SporsmalId.utdanning)}
-                svar={tekst(opplysningerOmArbeidssoeker.utdanning.nus)}
+                sporsmal={tekstEllerNull(SporsmalId.utdanning)}
+                svar={tekstEllerNull(opplysningerOmArbeidssoeker.utdanning?.nus)}
             />
             <Sporsmalvisning
-                sporsmal={tekst(SporsmalId.utdanningBestatt)}
-                svar={tekst(opplysningerOmArbeidssoeker.utdanning.bestaatt)}
+                sporsmal={tekstEllerNull(SporsmalId.utdanningBestatt)}
+                svar={tekstEllerNull(opplysningerOmArbeidssoeker.utdanning?.bestaatt)}
             />
             <Sporsmalvisning
-                sporsmal={tekst(SporsmalId.utdanningGodkjent)}
-                svar={tekst(opplysningerOmArbeidssoeker.utdanning.godkjent)}
+                sporsmal={tekstEllerNull(SporsmalId.utdanningGodkjent)}
+                svar={tekstEllerNull(opplysningerOmArbeidssoeker.utdanning?.godkjent)}
             />
             <SporsmalvisningFlerSvar
-                sporsmal={tekst(SporsmalId.dinSituasjon)}
-                svar={opplysningerOmArbeidssoeker.jobbsituasjon.map((situasjon) => tekst(situasjon.beskrivelse))}
+                sporsmal={tekstEllerNull(SporsmalId.dinSituasjon)}
+                svar={opplysningerOmArbeidssoeker.jobbsituasjon?.map((situasjon) =>
+                    tekstEllerNull(situasjon.beskrivelse)
+                )}
             />
             <Sporsmalvisning
-                sporsmal={tekst(SporsmalId.andreForhold)}
-                svar={tekst(opplysningerOmArbeidssoeker.annet.andreForholdHindrerArbeid)}
+                sporsmal={tekstEllerNull(SporsmalId.andreForhold)}
+                svar={tekstEllerNull(opplysningerOmArbeidssoeker.annet?.andreForholdHindrerArbeid)}
             />
             <Sporsmalvisning
-                sporsmal={tekst(SporsmalId.helseHinder)}
-                svar={tekst(opplysningerOmArbeidssoeker.helse.helsetilstandHindrerArbeid)}
+                sporsmal={tekstEllerNull(SporsmalId.helseHinder)}
+                svar={tekstEllerNull(opplysningerOmArbeidssoeker.helse?.helsetilstandHindrerArbeid)}
             />
         </div>
     );
