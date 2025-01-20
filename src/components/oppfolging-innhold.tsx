@@ -1,4 +1,4 @@
-import { Laster, Errormelding } from './felles/minikomponenter';
+import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
@@ -7,20 +7,10 @@ import {
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
     hentVeilederTekst,
-    mapHovedmalTilTekst,
-    mapInnsatsgruppeTilTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
-import {
-    useOppfolgingsstatus,
-    usePersonalia,
-    useVeileder,
-    useSiste14aVedtak,
-    OboFeatureToggles,
-    useFeature,
-    VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
-} from '../data/api/fetch';
+import { useOppfolgingsstatus, usePersonalia, useSiste14aVedtak, useVeileder } from '../data/api/fetch';
 import { Alert } from '@navikt/ds-react';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
@@ -46,10 +36,13 @@ const Oppfolgingsinnhold = () => {
         error: siste14avedtakError,
         isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
-    const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
 
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
     if (oppfolgingsstatusLoading || personLoading || veilederLoading || siste14avedtakLoading) {
@@ -76,28 +69,15 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                    <InnsatsGruppe
-                        innsatsgruppe={siste14avedtak?.innsatsgruppe}
-                        fattetDato={siste14avedtak?.fattetDato}
-                    />
-                ) : (
-                    <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-                )}
-                {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                    <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
-                ) : (
-                    <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-                )}
+                <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
+                <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
-            {!visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] && (
-                <Alert variant="info" size="small" className="panel_infoboks">
-                    Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
-                    "Oppfølgingsvedtak".
-                </Alert>
-            )}
+            <Alert variant="info" size="small" className="panel_infoboks">
+                Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
+                "Oppfølgingsvedtak".
+            </Alert>
         </>
     );
 };

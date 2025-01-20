@@ -60,14 +60,9 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
-export const VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE =
-    'veilarbdetaljerfs.vis_innsatsgruppe_hovedmal_fra_veilarbvedtaksstotte';
+export const ALL_TOGGLES = [];
 
-export const ALL_TOGGLES = [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE];
-
-export interface OboFeatureToggles {
-    [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE]: boolean;
-}
+export type OboFeatureToggles = Record<string, boolean>;
 
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {

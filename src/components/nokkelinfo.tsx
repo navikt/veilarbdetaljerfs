@@ -1,33 +1,24 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { Laster, Errormelding } from './felles/minikomponenter';
+import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
+    useCvOgJobbonsker,
     useOppfolgingsstatus,
+    useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
+    useSiste14aVedtak,
     useTolk,
     useVeileder,
-    useYtelser,
-    useCvOgJobbonsker,
-    useOpplysningerOmArbeidssoekerMedProfilering,
-    useSiste14aVedtak,
-    OboFeatureToggles,
-    useFeature,
-    VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE
+    useYtelser
 } from '../data/api/fetch';
 import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import {
-    getVedtakForVisning,
-    hentTolkTekst,
-    hentVeilederTekst,
-    mapHovedmalTilTekst,
-    mapInnsatsgruppeTilTekst
-} from '../utils/text-mapper';
+import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst } from '../utils/text-mapper';
 import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
-import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefonnummer } from '../utils/formater';
+import { formaterDato, formaterTelefonnummer, formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { finnAlder, kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
@@ -70,8 +61,6 @@ const Nokkelinfoinnhold = () => {
         error: siste14avedtakError,
         isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
-
-    const visInnsatsgruppeHovedmalToggle: OboFeatureToggles | undefined = useFeature().data;
 
     if (
         oppfolgingsstatusLoading ||
@@ -118,7 +107,11 @@ const Nokkelinfoinnhold = () => {
     const onsketYrkeTitles: string[] = cvOgJobbonskerData?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
     const jobbonsker: string = onsketYrkeTitles.length > 0 ? onsketYrkeTitles.join(', ') : EMDASH;
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
     const datoRegistrert: StringOrNothing =
         opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
@@ -146,16 +139,8 @@ const Nokkelinfoinnhold = () => {
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
-            ) : (
-                <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
-            )}
-            {visInnsatsgruppeHovedmalToggle?.[VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE] ? (
-                <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
-            ) : (
-                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-            )}
+            <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
+            <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
