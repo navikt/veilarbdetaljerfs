@@ -162,6 +162,11 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
+export const useHarTilgangTilBruker = (fnr?: string) => {
+    const url = '/veilarbperson/api/v3/person/hent-tilgangTilBruker';
+    return useSWR<boolean, ErrorMessage>(fnr ? url : null, () => fetchWithPost(url, { fnr: fnr ?? null }));
+};
+
 export const usePersonalia = (fnr: string, behandlingsnummer: string) => {
     const url = '/veilarbperson/api/v3/hent-person';
     const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(fnr ? url : null, () =>
