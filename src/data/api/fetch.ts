@@ -60,15 +60,6 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
-export const VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE =
-    'veilarbdetaljerfs.vis_innsatsgruppe_hovedmal_fra_veilarbvedtaksstotte';
-
-export const ALL_TOGGLES = [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE];
-
-export interface OboFeatureToggles {
-    [VIS_INNSATSGRUPPE_HOVEDMAL_FRA_VEILARBVEDTAKSSTOTTE]: boolean;
-}
-
 const handterRespons = async (respons: Response) => {
     if (respons.status >= 400) {
         throw {
@@ -247,14 +238,6 @@ export const useVeileder = (veilederId: StringOrNothing) => {
         veilederId ? `/veilarbveileder/api/veileder/` + veilederId : null,
         fetcher
     );
-
-    return { data, isLoading, error };
-};
-
-export const useFeature = () => {
-    const features = ALL_TOGGLES.map((element) => 'feature=' + element).join('&');
-    const url = `/obo-unleash/api/feature?${features}`;
-    const { data, error, isLoading } = useSWR<OboFeatureToggles, ErrorMessage>(url, fetcher);
 
     return { data, isLoading, error };
 };
