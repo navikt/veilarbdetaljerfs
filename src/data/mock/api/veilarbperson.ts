@@ -659,5 +659,9 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(opplysningerMedProfilering);
+    }),
+    http.post('/veilarbperson/api/v3/person/hent-tilgangTilBruker', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(true);
     })
 ];

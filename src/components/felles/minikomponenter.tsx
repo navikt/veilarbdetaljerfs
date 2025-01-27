@@ -14,3 +14,19 @@ export const Errormelding = () => (
         </Alert>
     </div>
 );
+
+export const MidtstiltMelding = ({
+    size,
+    variant,
+    text
+}: {
+    size: 'medium' | 'small';
+    variant: 'error' | 'warning';
+    text: string;
+}) => (
+    <div className="midtstill">
+        <Alert variant={variant} size={size}>
+            {text}
+        </Alert>
+    </div>
+);
