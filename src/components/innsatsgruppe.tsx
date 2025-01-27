@@ -11,6 +11,7 @@ interface Props {
     innsatsgruppe: StringOrNothing;
     fattetDato: StringOrNothing;
 }
+
 export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
     const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
 
@@ -34,14 +35,11 @@ export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
 
     const hentBeskrivelseTilInnsatsgruppe = (innsatsgruppe: StringOrNothing) => {
         if (innsatsgruppe) {
-            const kodeverkInnsatsgruppeObj: OrNothing<InnsatsgruppeType> = kodeverk14a?.innsatsgrupper.filter(
-                (kodeverkInnsatsgruppe) =>
-                    Object.values(kodeverkInnsatsgruppe).some((kodeverkInnsatsgruppe) =>
-                        kodeverkInnsatsgruppe.includes(innsatsgruppe)
-                    )
+            const kodeverkForInnsatsgruppe: OrNothing<InnsatsgruppeType> = kodeverk14a?.innsatsgrupper.filter(
+                (kodeverk) => kodeverk.kode === innsatsgruppe
             )[0];
-            const innsatsgruppeKodeTekst = konverterInnsatsgruppeKodeTilTekst(kodeverkInnsatsgruppeObj);
-            const innsatsgruppeBeskrivelse = kodeverkInnsatsgruppeObj?.beskrivelse;
+            const innsatsgruppeKodeTekst = konverterInnsatsgruppeKodeTilTekst(kodeverkForInnsatsgruppe);
+            const innsatsgruppeBeskrivelse = kodeverkForInnsatsgruppe?.beskrivelse;
             return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
         } else {
             return 'Har ikke et gjeldende § 14 a-vedtak';
