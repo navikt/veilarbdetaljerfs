@@ -11,6 +11,11 @@
     margin: 0 auto;
 }
 
+.midtstill {
+    margin: 0 auto;
+    width: fit-content;
+}
+
 .main_grid {
     column-count: 2;
     padding: 0 var(--a-spacing-10) var(--a-spacing-10);
