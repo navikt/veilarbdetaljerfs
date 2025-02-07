@@ -45,12 +45,7 @@ const kodeverkdata: Kodeverk14a = {
 export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
     http.post('/veilarbvedtaksstotte/api/v2/hent-siste-14a-vedtak', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json({
-            innsatsgruppe: Innsatsgruppe.GRADERT_VARIG_TILPASSET_INNSATS,
-            hovedmal: Hovedmal.OKE_DELTAKELSE,
-            fattetDato: new Date().toISOString(),
-            fraArena: true
-        });
+        return new HttpResponse(null, { status: 404 });
     }),
     http.get('/veilarbvedtaksstotte/open/api/kodeverk/innsatsgruppeoghovedmal', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
