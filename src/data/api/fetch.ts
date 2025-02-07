@@ -48,8 +48,8 @@ export interface Siste14aVedtak {
 
 export interface GjeldendeOppfolgingsperiode {
     uuid: string;
-    startDato: Date;
-    sluttDato: Date;
+    startDato: string;
+    sluttDato: string;
 }
 
 export interface OpplysningerOmArbeidssokerMedProfilering {
