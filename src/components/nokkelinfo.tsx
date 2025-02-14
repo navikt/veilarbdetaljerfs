@@ -26,7 +26,7 @@ import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
-import { sjekkOmSiste14aVedtakErGjeldende } from '../utils/gjeldende-14a-vetak.ts';
+import { sjekkOmSiste14aVedtakErGjeldende } from '../utils/gjeldende-14a-vedtak.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
