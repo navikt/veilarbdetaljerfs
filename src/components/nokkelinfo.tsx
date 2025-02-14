@@ -2,7 +2,9 @@ import { Heading, Panel } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
+    Siste14aVedtak,
     useCvOgJobbonsker,
+    useGjeldendeOppfolgingsperiode,
     useOppfolgingsstatus,
     useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
@@ -24,6 +26,7 @@ import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
+import { sjekkOmSiste14aVedtakErGjeldende } from '../utils/gjeldende-14a-vedtak.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -47,18 +50,27 @@ const Nokkelinfoinnhold = () => {
         error: cvOgJobbonskerError,
         isLoading: cvOgJobbonskerLoading
     } = useCvOgJobbonsker(fnr);
-
     const {
         data: veilederData,
         error: veilederError,
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
-
     const {
         data: siste14avedtak,
         error: siste14avedtakError,
         isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
+    const {
+        data: gjeldendeOppfolgingsperiode,
+        error: gjeldendeOppfolgingsperiodeError,
+        isLoading: gjeldendeOppfolgingsperiodeLoading
+    } = useGjeldendeOppfolgingsperiode(fnr);
+    const gjeldende14aVedtak: OrNothing<Siste14aVedtak> = sjekkOmSiste14aVedtakErGjeldende(
+        siste14avedtak,
+        gjeldendeOppfolgingsperiode
+    )
+        ? siste14avedtak
+        : null;
 
     if (
         oppfolgingsstatusLoading ||
@@ -68,7 +80,8 @@ const Nokkelinfoinnhold = () => {
         cvOgJobbonskerLoading ||
         veilederLoading ||
         opplysningerOmArbedissoekerMedProfileringLoading ||
-        siste14avedtakLoading
+        siste14avedtakLoading ||
+        gjeldendeOppfolgingsperiodeLoading
     ) {
         return <Laster />;
     }
@@ -86,7 +99,9 @@ const Nokkelinfoinnhold = () => {
         veilederError?.status === 204 ||
         veilederError?.status === 404 ||
         siste14avedtakError?.status === 204 ||
-        siste14avedtakError?.status === 404
+        siste14avedtakError?.status === 404 ||
+        gjeldendeOppfolgingsperiodeError?.status === 204 ||
+        gjeldendeOppfolgingsperiodeError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (
@@ -95,7 +110,9 @@ const Nokkelinfoinnhold = () => {
         tolkError ||
         ytelserError ||
         veilederError ||
-        opplysningerOmArbedissoekerMedProfileringError
+        opplysningerOmArbedissoekerMedProfileringError ||
+        siste14avedtakError ||
+        gjeldendeOppfolgingsperiodeError
     ) {
         return <Errormelding />;
     }
@@ -131,8 +148,11 @@ const Nokkelinfoinnhold = () => {
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-            <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
-            <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
+            <InnsatsGruppe
+                innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
+                fattetDato={gjeldende14aVedtak?.fattetDato}
+            />
+            <Hovedmaal hovedmal={gjeldende14aVedtak?.hovedmal} fattetDato={gjeldende14aVedtak?.fattetDato} />
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />

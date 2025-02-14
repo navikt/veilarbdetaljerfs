@@ -9,10 +9,18 @@ import {
     hentVeilederTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
-import { useOppfolgingsstatus, usePersonalia, useSiste14aVedtak, useVeileder } from '../data/api/fetch';
+import {
+    Siste14aVedtak,
+    useGjeldendeOppfolgingsperiode,
+    useOppfolgingsstatus,
+    usePersonalia,
+    useSiste14aVedtak,
+    useVeileder
+} from '../data/api/fetch';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
+import { sjekkOmSiste14aVedtakErGjeldende } from '../utils/gjeldende-14a-vedtak.ts';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -34,10 +42,27 @@ const Oppfolgingsinnhold = () => {
         error: siste14avedtakError,
         isLoading: siste14avedtakLoading
     } = useSiste14aVedtak(fnr);
+    const {
+        data: gjeldendeOppfolgingsperiode,
+        error: gjeldendeOppfolgingsperiodeError,
+        isLoading: gjeldendeOppfolgingsperiodeLoading
+    } = useGjeldendeOppfolgingsperiode(fnr);
+    const gjeldende14aVedtak: OrNothing<Siste14aVedtak> = sjekkOmSiste14aVedtakErGjeldende(
+        siste14avedtak,
+        gjeldendeOppfolgingsperiode
+    )
+        ? siste14avedtak
+        : null;
 
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
-    if (oppfolgingsstatusLoading || personLoading || veilederLoading || siste14avedtakLoading) {
+    if (
+        oppfolgingsstatusLoading ||
+        personLoading ||
+        veilederLoading ||
+        siste14avedtakLoading ||
+        gjeldendeOppfolgingsperiodeLoading
+    ) {
         return <Laster />;
     }
 
@@ -49,10 +74,18 @@ const Oppfolgingsinnhold = () => {
         veilederError?.status === 204 ||
         veilederError?.status === 404 ||
         siste14avedtakError?.status === 204 ||
-        siste14avedtakError?.status === 404
+        siste14avedtakError?.status === 404 ||
+        gjeldendeOppfolgingsperiodeError?.status === 204 ||
+        gjeldendeOppfolgingsperiodeError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (oppfolgingsstatusError || personError || veilederError || siste14avedtakError) {
+    } else if (
+        oppfolgingsstatusError ||
+        personError ||
+        veilederError ||
+        siste14avedtakError ||
+        gjeldendeOppfolgingsperiodeError
+    ) {
         return <Errormelding />;
     }
 
@@ -61,8 +94,11 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                <InnsatsGruppe innsatsgruppe={siste14avedtak?.innsatsgruppe} fattetDato={siste14avedtak?.fattetDato} />
-                <Hovedmaal hovedmal={siste14avedtak?.hovedmal} fattetDato={siste14avedtak?.fattetDato} />
+                <InnsatsGruppe
+                    innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
+                    fattetDato={gjeldende14aVedtak?.fattetDato}
+                />
+                <Hovedmaal hovedmal={gjeldende14aVedtak?.hovedmal} fattetDato={gjeldende14aVedtak?.fattetDato} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>

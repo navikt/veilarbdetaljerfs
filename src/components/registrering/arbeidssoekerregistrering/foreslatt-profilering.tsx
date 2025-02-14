@@ -37,7 +37,7 @@ export const ForeslattProfilering = ({ fnr, profilering }: Props) => {
             return false;
         }
         const periodeStartetdato = gjeldendeOppfolgingsperiode?.startDato
-            ? Date.parse(gjeldendeOppfolgingsperiode.startDato.toString())
+            ? Date.parse(gjeldendeOppfolgingsperiode.startDato)
             : null;
         const vedtakFattetDato = siste14avedtak?.fattetDato ? Date.parse(siste14avedtak.fattetDato) : null;
 
