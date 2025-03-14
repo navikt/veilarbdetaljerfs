@@ -5,6 +5,7 @@ export interface Kodeverk14a {
 
 export type InnsatsgruppeType = {
     kode: Innsatsgruppe;
+    gammelKode: GammelInnsatsgruppe;
     beskrivelse: string;
     arenakode: ArenaKode;
 };
@@ -21,6 +22,14 @@ export enum Hovedmal {
 }
 
 export enum Innsatsgruppe {
+    GODE_MULIGHETER = 'GODE_MULIGHETER',
+    TRENGER_VEILEDNING = 'TRENGER_VEILEDNING',
+    TRENGER_VEILEDNING_NEDSATT_ARBEIDSEVNE = 'TRENGER_VEILEDNING_NEDSATT_ARBEIDSEVNE',
+    JOBBE_DELVIS = 'JOBBE_DELVIS',
+    LITEN_MULIGHET_TIL_A_JOBBE = 'LITEN_MULIGHET_TIL_A_JOBBE'
+}
+
+export enum GammelInnsatsgruppe {
     STANDARD_INNSATS = 'STANDARD_INNSATS',
     SITUASJONSBESTEMT_INNSATS = 'SITUASJONSBESTEMT_INNSATS',
     SPESIELT_TILPASSET_INNSATS = 'SPESIELT_TILPASSET_INNSATS',

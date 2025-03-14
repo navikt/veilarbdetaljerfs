@@ -4,7 +4,6 @@ import { useKodeverk14a } from '../data/api/fetch.ts';
 import { Errormelding, Laster } from './felles/minikomponenter.tsx';
 import { isNullOrUndefined, OrNothing, StringOrNothing } from '../utils/felles-typer.ts';
 import { InnsatsgruppeType } from '../data/api/datatyper/kodeverk14aData.ts';
-import EMDASH from '../utils/emdash.ts';
 import { EnkeltInformasjon } from './felles/enkeltInfo.tsx';
 
 interface Props {
@@ -24,13 +23,13 @@ export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
     }
 
     const konverterInnsatsgruppeKodeTilTekst = (innsatsgruppeObj: OrNothing<InnsatsgruppeType>) => {
-        if (!isNullOrUndefined(innsatsgruppeObj)) {
-            return innsatsgruppeObj?.kode
-                .slice(0, innsatsgruppeObj?.kode.indexOf('_INNSATS'))
+        if (!isNullOrUndefined(innsatsgruppeObj?.gammelKode)) {
+            return `(${innsatsgruppeObj?.gammelKode
+                .slice(0, innsatsgruppeObj?.gammelKode.indexOf('_INNSATS'))
                 .replaceAll('_', ' ')
-                .toLowerCase();
+                .toLowerCase()})`;
         }
-        return EMDASH;
+        return '';
     };
 
     const hentBeskrivelseTilInnsatsgruppe = (innsatsgruppe: StringOrNothing) => {
@@ -40,7 +39,7 @@ export const InnsatsGruppe = ({ innsatsgruppe, fattetDato }: Props) => {
             )[0];
             const innsatsgruppeKodeTekst = konverterInnsatsgruppeKodeTilTekst(kodeverkForInnsatsgruppe);
             const innsatsgruppeBeskrivelse = kodeverkForInnsatsgruppe?.beskrivelse;
-            return `${innsatsgruppeBeskrivelse} (${innsatsgruppeKodeTekst})`;
+            return `${innsatsgruppeBeskrivelse} ${innsatsgruppeKodeTekst}`;
         } else {
             return 'Har ikke et gjeldende § 14 a-vedtak';
         }
