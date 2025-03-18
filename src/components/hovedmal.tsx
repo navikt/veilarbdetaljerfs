@@ -1,6 +1,5 @@
 import { OrNothing, StringOrNothing } from '../utils/felles-typer.ts';
-import { HovedmalType } from '../data/api/datatyper/kodeverk14aData.ts';
-import { Hovedmal } from '../data/api/datatyper/siste14aVedtak.ts';
+import { HovedmalType, Hovedmal } from '../data/api/datatyper/kodeverk14aData.ts';
 import EMDASH from '../utils/emdash.ts';
 import { Errormelding, Laster } from './felles/minikomponenter.tsx';
 import { useKodeverk14a } from '../data/api/fetch.ts';

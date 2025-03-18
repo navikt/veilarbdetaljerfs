@@ -1,11 +1,6 @@
 import { BodyShort, Box, Heading, Loader } from '@navikt/ds-react';
 import { profilertTilBeskrivelse } from '../../../utils/text-mapper';
-import {
-    GjeldendeOppfolgingsperiode,
-    Siste14aVedtak,
-    useGjeldendeOppfolgingsperiode,
-    useSiste14aVedtak
-} from '../../../data/api/fetch';
+import { useGjeldende14aVedtak } from '../../../data/api/fetch';
 import { Profilering } from '@navikt/arbeidssokerregisteret-utils';
 
 interface Props {
@@ -15,40 +10,16 @@ interface Props {
 
 export const ForeslattProfilering = ({ fnr, profilering }: Props) => {
     const {
-        data: siste14avedtak,
-        error: siste14avedtakError,
-        isLoading: siste14avedtakLoading
-    } = useSiste14aVedtak(fnr);
-    const {
-        data: gjeldendeOppfolgingsperiode,
-        error: gjeldendeOppfolgingsperiodeError,
-        isLoading: gjeldendeOppfolgingsperiodeLoading
-    } = useGjeldendeOppfolgingsperiode(fnr);
+        data: gjeldende14avedtak,
+        error: gjeldende14avedtakError,
+        isLoading: gjeldende14avedtakLoading
+    } = useGjeldende14aVedtak(fnr);
 
-    if (siste14avedtakLoading || gjeldendeOppfolgingsperiodeLoading) {
+    if (gjeldende14avedtakLoading) {
         return <Loader size="small" />;
     }
 
-    const detErFattetVedtakIDenneOppfolgingsperioden = (
-        gjeldendeOppfolgingsperiode?: GjeldendeOppfolgingsperiode,
-        siste14avedtak?: Siste14aVedtak
-    ) => {
-        if (!siste14avedtak) {
-            return false;
-        }
-        const periodeStartetdato = gjeldendeOppfolgingsperiode?.startDato
-            ? Date.parse(gjeldendeOppfolgingsperiode.startDato)
-            : null;
-        const vedtakFattetDato = siste14avedtak?.fattetDato ? Date.parse(siste14avedtak.fattetDato) : null;
-
-        return periodeStartetdato && vedtakFattetDato && vedtakFattetDato > periodeStartetdato;
-    };
-
-    if (
-        siste14avedtakError ||
-        gjeldendeOppfolgingsperiodeError ||
-        detErFattetVedtakIDenneOppfolgingsperioden(gjeldendeOppfolgingsperiode, siste14avedtak)
-    ) {
+    if (gjeldende14avedtakError || !gjeldende14avedtak) {
         return null;
     }
 

@@ -2,13 +2,11 @@ import { Heading, Panel } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
-    Siste14aVedtak,
     useCvOgJobbonsker,
-    useGjeldendeOppfolgingsperiode,
     useOppfolgingsstatus,
     useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
-    useSiste14aVedtak,
+    useGjeldende14aVedtak,
     useTolk,
     useVeileder,
     useYtelser
@@ -26,7 +24,6 @@ import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
-import { sjekkOmSiste14aVedtakErGjeldende } from '../utils/gjeldende-14a-vedtak.ts';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -56,21 +53,10 @@ const Nokkelinfoinnhold = () => {
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
     const {
-        data: siste14avedtak,
-        error: siste14avedtakError,
-        isLoading: siste14avedtakLoading
-    } = useSiste14aVedtak(fnr);
-    const {
-        data: gjeldendeOppfolgingsperiode,
-        error: gjeldendeOppfolgingsperiodeError,
-        isLoading: gjeldendeOppfolgingsperiodeLoading
-    } = useGjeldendeOppfolgingsperiode(fnr);
-    const gjeldende14aVedtak: OrNothing<Siste14aVedtak> = sjekkOmSiste14aVedtakErGjeldende(
-        siste14avedtak,
-        gjeldendeOppfolgingsperiode
-    )
-        ? siste14avedtak
-        : null;
+        data: gjeldende14aVedtak,
+        error: gjeldende14aVedtakError,
+        isLoading: gjeldende14aVedtakLoading
+    } = useGjeldende14aVedtak(fnr);
 
     if (
         oppfolgingsstatusLoading ||
@@ -80,8 +66,7 @@ const Nokkelinfoinnhold = () => {
         cvOgJobbonskerLoading ||
         veilederLoading ||
         opplysningerOmArbedissoekerMedProfileringLoading ||
-        siste14avedtakLoading ||
-        gjeldendeOppfolgingsperiodeLoading
+        gjeldende14aVedtakLoading
     ) {
         return <Laster />;
     }
@@ -97,11 +82,7 @@ const Nokkelinfoinnhold = () => {
         cvOgJobbonskerError?.status === 204 ||
         cvOgJobbonskerError?.status === 404 ||
         veilederError?.status === 204 ||
-        veilederError?.status === 404 ||
-        siste14avedtakError?.status === 204 ||
-        siste14avedtakError?.status === 404 ||
-        gjeldendeOppfolgingsperiodeError?.status === 204 ||
-        gjeldendeOppfolgingsperiodeError?.status === 404
+        veilederError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
     } else if (
@@ -111,8 +92,7 @@ const Nokkelinfoinnhold = () => {
         ytelserError ||
         veilederError ||
         opplysningerOmArbedissoekerMedProfileringError ||
-        siste14avedtakError ||
-        gjeldendeOppfolgingsperiodeError
+        gjeldende14aVedtakError
     ) {
         return <Errormelding />;
     }
