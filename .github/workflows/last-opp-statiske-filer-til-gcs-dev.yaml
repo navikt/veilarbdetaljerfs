@@ -40,6 +40,10 @@ jobs:
                 team: obo
                 source: ./dist
                 destination: dev/veilarbdetaljerfs
-                no_cache_paths: dev/veilarbdetaljerfs/dist/asset-manifest.json
                 identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
                 project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+            - name: Set special cache for asset-manifest.json
+              shell: bash
+              run: |
+                gcloud storage objects update gs://${BUCKET_NAME}/dev/veilarbdetaljerfs/dist/asset-manifest.json --cache-control="public, max-age=120, stale-while-revalidate=1800, stale-if-error=600"
