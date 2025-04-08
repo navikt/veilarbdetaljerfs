@@ -46,4 +46,4 @@ jobs:
       - name: Set special cache for asset-manifest.json
         shell: bash
         run: |
-          gcloud storage objects update gs://${BUCKET_NAME}/prod/veilarbdetaljerfs/dist/asset-manifest.json --cache-control="public, max-age=120, stale-while-revalidate=1800, stale-if-err
+          gcloud storage objects update gs://${BUCKET_NAME}/obo/prod/veilarbdetaljerfs/dist/asset-manifest.json --cache-control="public, max-age=120, stale-while-revalidate=1800, stale-if-err
