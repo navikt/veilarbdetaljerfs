@@ -40,8 +40,6 @@ jobs:
           team: obo
           source: ./dist
           destination: prod/veilarbdetaljerfs
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
       - name: Set special cache for asset-manifest.json
         shell: bash
