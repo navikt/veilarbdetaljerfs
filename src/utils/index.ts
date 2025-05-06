@@ -29,8 +29,8 @@ export function safeSort(a: StringOrNothing, b: StringOrNothing) {
     }
 }
 
-export function byggPamUrl(fnr?: string, path = '/cv') {
-    return `https://pam-personbruker-veileder.${finnInternNavDomene()}${path}?fnr=${fnr}`;
+export function byggPamUrl(path = '/min-cv') {
+    return `https://pam-personbruker-veileder.${finnInternNavDomene()}${path}}`;
 }
 
 export function lagPersonforvalterLenke(aktoerIdEllerFnr: string) {

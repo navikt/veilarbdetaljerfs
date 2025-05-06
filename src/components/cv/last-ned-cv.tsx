@@ -9,7 +9,7 @@ export function LastNedCV(props: { erManuell: boolean | undefined; fnr?: string 
         trackAmplitude({ name: 'last ned', data: { type: 'saksdokument', tema: 'CV', tittel: 'CV' } });
         logMetrikk('veilarbdetaljerfs.metrikker.last-ned-cv', { erManuell: props.erManuell });
     };
-    const lastNedCvUrl = byggPamUrl(props.fnr, '/cv/pdf');
+    const lastNedCvUrl = byggPamUrl('/min-cv/pdf');
 
     return (
         <Link onClick={handleOnLastNedLenkeClicked} href={lastNedCvUrl} target="_blank">
