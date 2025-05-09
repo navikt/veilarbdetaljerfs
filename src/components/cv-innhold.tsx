@@ -38,7 +38,7 @@ const Cvinnhold = () => {
     const aktorId = useAktorId(fnr);
 
     const erManuell = underOppfolgingData?.erManuell;
-    const endreCvUrl = byggPamUrl(fnr);
+    const endreCvUrl = byggPamUrl();
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return <Laster />;
