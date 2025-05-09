@@ -30,7 +30,7 @@ export function safeSort(a: StringOrNothing, b: StringOrNothing) {
 }
 
 export function byggPamUrl(path = '/min-cv') {
-    return `https://cv-veileder.${finnInternNavDomene()}${path}}`;
+    return `https://cv-veileder.${finnInternNavDomene()}${path}`;
 }
 
 export function lagPersonforvalterLenke(aktoerIdEllerFnr: string) {
