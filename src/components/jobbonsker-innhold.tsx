@@ -7,7 +7,7 @@ import SistEndret from './felles/sist-endret';
 import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { byggPamUrl } from '../utils';
+import { byggCvUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
 
 const asciiTilNorsk = (tekst: string) => {
@@ -57,7 +57,7 @@ const Jobbonskerinnhold = () => {
     const aktorId = useAktorId(fnr);
 
     const erManuell = underOppfolgingData?.erManuell;
-    const endreCvUrl = byggPamUrl();
+    const endreCvUrl = byggCvUrl();
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return <Laster />;

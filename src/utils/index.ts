@@ -29,7 +29,7 @@ export function safeSort(a: StringOrNothing, b: StringOrNothing) {
     }
 }
 
-export function byggPamUrl(path = '/min-cv') {
+export function byggCvUrl(path = '/min-cv') {
     return `https://cv-veileder.${finnInternNavDomene()}${path}`;
 }
 
