@@ -1,7 +1,7 @@
 import { logMetrikk } from '../../utils/logger';
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { BodyShort, Link } from '@navikt/ds-react';
-import { byggPamUrl } from '../../utils';
+import { byggCvUrl } from '../../utils';
 import { trackAmplitude } from '../../amplitude/amplitude';
 
 export function LastNedCV(props: { erManuell: boolean | undefined; fnr?: string }) {
@@ -9,7 +9,7 @@ export function LastNedCV(props: { erManuell: boolean | undefined; fnr?: string 
         trackAmplitude({ name: 'last ned', data: { type: 'saksdokument', tema: 'CV', tittel: 'CV' } });
         logMetrikk('veilarbdetaljerfs.metrikker.last-ned-cv', { erManuell: props.erManuell });
     };
-    const lastNedCvUrl = byggPamUrl(props.fnr, '/cv/pdf');
+    const lastNedCvUrl = byggCvUrl('/min-cv/pdf');
 
     return (
         <Link onClick={handleOnLastNedLenkeClicked} href={lastNedCvUrl} target="_blank">
