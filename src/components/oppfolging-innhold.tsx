@@ -1,22 +1,20 @@
 import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import { useAppStore } from '../stores/app-store';
-import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
+import { ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
     hentVeilederTekst,
-    mapHovedmalTilTekst,
-    mapInnsatsgruppeTilTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
-import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
-import { useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
-import { Alert } from '@navikt/ds-react';
+import { useOppfolgingsstatus, usePersonalia, useGjeldende14aVedtak, useVeileder } from '../data/api/fetch';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 import { Laster } from './felles/laster.tsx';
+import { InnsatsGruppe } from './innsatsgruppe.tsx';
+import { Hovedmaal } from './hovedmal.tsx';
 
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
@@ -33,11 +31,15 @@ const Oppfolgingsinnhold = () => {
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
-    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
-    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
+    const {
+        data: gjeldende14aVedtak,
+        error: gjeldende14avedtakError,
+        isLoading: gjeldende14avedtakLoading
+    } = useGjeldende14aVedtak(fnr);
 
-    if (oppfolgingsstatusLoading || personLoading || veilederLoading) {
+    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
+
+    if (oppfolgingsstatusLoading || personLoading || veilederLoading || gjeldende14avedtakLoading) {
         return <Laster />;
     }
 
@@ -50,11 +52,12 @@ const Oppfolgingsinnhold = () => {
         veilederError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (oppfolgingsstatusError || personError || veilederError) {
+    } else if (oppfolgingsstatusError || personError || veilederError || gjeldende14avedtakError) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([
             oppfolgingsstatusError,
             personError,
-            veilederError
+            veilederError,
+            gjeldende14avedtakError
         ]);
 
         return (
@@ -69,15 +72,14 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
+                <InnsatsGruppe
+                    innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
+                    fattetDato={gjeldende14aVedtak?.fattetDato}
+                />
+                <Hovedmaal hovedmal={gjeldende14aVedtak?.hovedmal} fattetDato={gjeldende14aVedtak?.fattetDato} />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
                 <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
-                <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
             </span>
-            <Alert variant="info" size="small" className="panel_infoboks">
-                Hovedmål fra oppfølgingsvedtak fattet i Modia vises foreløpig ikke her. For å se dette, gå til fanen
-                "Oppfølgingsvedtak".
-            </Alert>
         </>
     );
 };

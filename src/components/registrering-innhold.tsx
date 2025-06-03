@@ -17,6 +17,10 @@ const Registreringsinnhold = () => {
 
     const harIkkeRegistrering =
         opplysningerOmArbedissoekerMedProfileringError?.status == 204 ||
+        !opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet;
+
+    const harIkkeOpplysningerMenErRegistrert =
+        !!opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet &&
         !opplysningerOmArbedissoekerMedProfilering?.opplysningerOmArbeidssoeker;
 
     if (opplysningerOmArbedissoekerMedProfileringLoading) {
@@ -27,6 +31,13 @@ const Registreringsinnhold = () => {
         return (
             <Alert inline variant="info" size="small">
                 Brukeren har ikke registrert seg i Arbeidssøkerregisteret og har ikke en aktiv arbeidssøkerperiode.
+            </Alert>
+        );
+    } else if (harIkkeOpplysningerMenErRegistrert) {
+        return (
+            <Alert inline variant="warning" size="small">
+                Brukeren har en aktiv arbeidssøkerperiode, men vi klarer ikke hente opplysninger om arbeidssøker fra
+                arbeidssøkerregisteret.
             </Alert>
         );
     } else if (opplysningerOmArbedissoekerMedProfileringError) {

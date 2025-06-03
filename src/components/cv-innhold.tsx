@@ -18,7 +18,7 @@ import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
 import './fellesStyling.css';
-import { byggPamUrl } from '../utils';
+import { byggCvUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
 import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 import { Laster } from './felles/laster.tsx';
@@ -40,7 +40,7 @@ const Cvinnhold = () => {
     const aktorId = useAktorId(fnr);
 
     const erManuell = underOppfolgingData?.erManuell;
-    const endreCvUrl = byggPamUrl(fnr);
+    const endreCvUrl = byggCvUrl();
 
     if (cvOgJobbonskerLoading || underOppfolgingLoading) {
         return <Laster />;

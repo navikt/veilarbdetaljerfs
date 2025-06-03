@@ -14,6 +14,7 @@ import useSWR from 'swr';
 import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
+import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
 
 export interface ErrorMessage {
     error: Error | unknown;
@@ -39,17 +40,16 @@ export interface Fnr {
     fnr: string | null;
 }
 
-export interface Siste14aVedtak {
+export interface Gjeldende14aVedtak {
     innsatsgruppe: string;
     hovedmal: string;
     fattetDato: string;
-    fraArena: boolean;
 }
 
 export interface GjeldendeOppfolgingsperiode {
     uuid: string;
-    startDato: Date;
-    sluttDato: Date;
+    startDato: string;
+    sluttDato: string;
 }
 
 export interface OpplysningerOmArbeidssokerMedProfilering {
@@ -59,14 +59,6 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 }
 
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
-
-export const BRUK_NY_KILDE_TIL_FULLMAKT = 'obo.personflate.reprfullmakt';
-
-export const ALL_TOGGLES = [BRUK_NY_KILDE_TIL_FULLMAKT];
-
-export interface OboFeatureToggles {
-    [BRUK_NY_KILDE_TIL_FULLMAKT]: boolean;
-}
 
 const handterRespons = async (respons: Response) => {
     const korrelasjonsId = respons.headers.get(customResponseHeaders.NAV_CALL_ID);
@@ -175,6 +167,11 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
+export const useHarTilgangTilBruker = (fnr?: string) => {
+    const url = '/veilarbperson/api/v3/person/hent-tilgangTilBruker';
+    return useSWR<boolean, ErrorMessage>(fnr ? url : null, () => fetchWithPost(url, { fnr: fnr ?? null }));
+};
+
 export const usePersonalia = (fnr: string, behandlingsnummer: string) => {
     const url = '/veilarbperson/api/v3/hent-person';
     const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(fnr ? url : null, () =>
@@ -193,12 +190,10 @@ export const useOpplysningerOmArbeidssoekerMedProfilering = (fnr?: string) => {
 
     return { data, isLoading, error };
 };
-export const useSiste14aVedtak = (fnr?: string) => {
-    const url = '/veilarbvedtaksstotte/api/v2/hent-siste-14a-vedtak';
-    const { data, error, isLoading } = useSWR<Siste14aVedtak, ErrorMessage>(fnr ? url : null, () =>
-        fetchWithPost(url, { fnr: fnr ?? null })
-    );
-    return { data, isLoading, error };
+
+export const useGjeldende14aVedtak = (fnr?: string) => {
+    const url = '/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak';
+    return useSWR<Gjeldende14aVedtak, ErrorMessage>(fnr ? url : null, () => fetchWithPost(url, { fnr: fnr ?? null }));
 };
 
 export const useTolk = (fnr: string, behandlingsnummer: string) => {
@@ -255,20 +250,8 @@ export const useVeileder = (veilederId: StringOrNothing) => {
     return { data, isLoading, error };
 };
 
-export const useFeature = () => {
-    const features = ALL_TOGGLES.map((element) => 'feature=' + element).join('&');
-    const url = `/obo-unleash/api/feature?${features}`;
-    const { data, error, isLoading } = useSWR<OboFeatureToggles, ErrorMessage>(url, fetcher);
-
-    return { data, isLoading, error };
-};
-
-export const useGjeldendeOppfolgingsperiode = (fnr?: string) => {
-    const url = `/veilarboppfolging/api/v3/oppfolging/hent-gjeldende-periode`;
-    const { data, error, isLoading } = useSWR<GjeldendeOppfolgingsperiode, ErrorMessage>(
-        fnr ? `${url}/${fnr}fnr` : null,
-        () => fetchWithPost(url, { fnr: fnr ?? null })
-    );
-
+export const useKodeverk14a = () => {
+    const url = `/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal`;
+    const { data, error, isLoading } = useSWR<Kodeverk14a, ErrorMessage>(url, fetcher);
     return { data, isLoading, error };
 };

@@ -4,7 +4,6 @@ import { veilarbveilederHandlers } from './veilarbveileder';
 import { veilarbfilterHandlers } from './veilarbfilter';
 import { RequestHandler } from 'msw';
 import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
-import { veilarbpersonflatefsHandlers } from './veilarbpersonflatefs.ts';
 import { veilarbarenaHandlers } from './veilarbarena.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
@@ -19,6 +18,5 @@ export const allHandlers: RequestHandler[] = [
     ...veilarboppfolgingHandlers,
     ...veilarbfilterHandlers,
     ...veilarbvedtaksstotteHandlers,
-    ...veilarbpersonflatefsHandlers,
     ...veilarbarenaHandlers
 ];

@@ -385,7 +385,6 @@ const personalia: PersonaliaInfo = {
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
         }
     ],
-    kontonummer: '12345678911',
     geografiskEnhet: {
         enhetsnummer: '0106',
         navn: 'Nav Fredrikstad'
@@ -660,5 +659,9 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post('/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
         return HttpResponse.json(opplysningerMedProfilering, { headers: { ...fellesMockResponseHeaders } });
+    }),
+    http.post('/veilarbperson/api/v3/person/hent-tilgangTilBruker', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+        return HttpResponse.json(true, { headers: { ...fellesMockResponseHeaders } });
     })
 ];

@@ -2,28 +2,21 @@ import { Heading, Panel } from '@navikt/ds-react';
 import { AlertMedFeilkode } from './felles/alert-med-feilkode.tsx';
 import { useAppStore } from '../stores/app-store';
 import {
+    useCvOgJobbonsker,
     useOppfolgingsstatus,
+    useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
+    useGjeldende14aVedtak,
     useTolk,
     useVeileder,
-    useYtelser,
-    useCvOgJobbonsker,
-    useOpplysningerOmArbeidssoekerMedProfilering
+    useYtelser
 } from '../data/api/fetch';
-import { ArenaHovedmalKode, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import {
-    getVedtakForVisning,
-    hentTolkTekst,
-    hentVeilederTekst,
-    mapHovedmalTilTekst,
-    mapInnsatsgruppeTilTekst
-} from '../utils/text-mapper';
-import { Hovedmal, Innsatsgruppe } from '../data/api/datatyper/siste14aVedtak';
-import { formatStringInUpperAndLowerCaseUnderscore, formaterDato, formaterTelefonnummer } from '../utils/formater';
+import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst } from '../utils/text-mapper';
+import { formaterDato, formaterTelefonnummer, formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { finnAlder, kalkulerAlder } from '../utils/date-utils';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
@@ -31,6 +24,8 @@ import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { getForsteKorrelasjonsIdEllerNull } from '../utils/feilmelding-utils.ts';
 import { Laster } from './felles/laster.tsx';
+import { InnsatsGruppe } from './innsatsgruppe.tsx';
+import { Hovedmaal } from './hovedmal.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -54,12 +49,16 @@ const Nokkelinfoinnhold = () => {
         error: cvOgJobbonskerError,
         isLoading: cvOgJobbonskerLoading
     } = useCvOgJobbonsker(fnr);
-
     const {
         data: veilederData,
         error: veilederError,
         isLoading: veilederLoading
     } = useVeileder(oppfolgingsstatusData?.veilederId);
+    const {
+        data: gjeldende14aVedtak,
+        error: gjeldende14aVedtakError,
+        isLoading: gjeldende14aVedtakLoading
+    } = useGjeldende14aVedtak(fnr);
 
     if (
         oppfolgingsstatusLoading ||
@@ -68,7 +67,8 @@ const Nokkelinfoinnhold = () => {
         ytelserLoading ||
         cvOgJobbonskerLoading ||
         veilederLoading ||
-        opplysningerOmArbedissoekerMedProfileringLoading
+        opplysningerOmArbedissoekerMedProfileringLoading ||
+        gjeldende14aVedtakLoading
     ) {
         return <Laster />;
     }
@@ -93,7 +93,8 @@ const Nokkelinfoinnhold = () => {
         tolkError ||
         ytelserError ||
         veilederError ||
-        opplysningerOmArbedissoekerMedProfileringError
+        opplysningerOmArbedissoekerMedProfileringError ||
+        gjeldende14aVedtakError
     ) {
         const feilkodeEllerNull = getForsteKorrelasjonsIdEllerNull([
             oppfolgingsstatusError,
@@ -101,7 +102,8 @@ const Nokkelinfoinnhold = () => {
             tolkError,
             ytelserError,
             veilederError,
-            opplysningerOmArbedissoekerMedProfileringError
+            opplysningerOmArbedissoekerMedProfileringError,
+            gjeldende14aVedtakError
         ]);
 
         return (
@@ -118,8 +120,6 @@ const Nokkelinfoinnhold = () => {
     const onsketYrkeTitles: string[] = cvOgJobbonskerData?.jobbprofil?.onsketYrke.map((yrke) => yrke.tittel) || [];
     const jobbonsker: string = onsketYrkeTitles.length > 0 ? onsketYrkeTitles.join(', ') : EMDASH;
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
-    const hovedmaal: OrNothing<Hovedmal | ArenaHovedmalKode> = oppfolgingsstatusData?.hovedmaalkode;
-    const innsatsGruppe: OrNothing<Innsatsgruppe | ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
     const datoRegistrert: StringOrNothing =
         opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
     const MAX_ALDER_BARN = 21;
@@ -146,8 +146,11 @@ const Nokkelinfoinnhold = () => {
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
             <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
-            <EnkeltInformasjon header="Hovedmål" value={mapHovedmalTilTekst(hovedmaal)} />
-            <EnkeltInformasjon header="Innsatsgruppe" value={mapInnsatsgruppeTilTekst(innsatsGruppe)} />
+            <InnsatsGruppe
+                innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
+                fattetDato={gjeldende14aVedtak?.fattetDato}
+            />
+            <Hovedmaal hovedmal={gjeldende14aVedtak?.hovedmal} fattetDato={gjeldende14aVedtak?.fattetDato} />
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />
