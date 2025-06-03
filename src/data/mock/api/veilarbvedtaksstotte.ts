@@ -7,6 +7,7 @@ import {
     Innsatsgruppe,
     Kodeverk14a
 } from '../../api/datatyper/kodeverk14aData.ts';
+import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 const kodeverkdata: Kodeverk14a = {
     innsatsgrupper: [
@@ -62,10 +63,14 @@ const gjeldende14aVekdak = {
 export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
     http.post('/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(gjeldende14aVekdak);
+        return HttpResponse.json(gjeldende14aVekdak, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     }),
     http.get('/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(kodeverkdata);
+        return HttpResponse.json(kodeverkdata, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     })
 ];
