@@ -1,5 +1,10 @@
 import { BodyShort, Detail } from '@navikt/ds-react';
-import { Gradering, PersonaliaPartner, PersonaliaSivilstandNy } from '../../data/api/datatyper/personalia';
+import {
+    Gradering,
+    PersonaliaPartner,
+    PersonaliaSivilstandNy,
+    SivilstandType
+} from '../../data/api/datatyper/personalia';
 import EMDASH from '../../utils/emdash';
 import {
     egenAnsattTekst,
@@ -30,7 +35,7 @@ function SivilstandBolk(props: { sivilstand: PersonaliaSivilstandNy }) {
                     {` ${hentKilde(master)}`}
                 </Detail>
             )}
-            {relasjonsBosted && (
+            {relasjonsBosted && sivilstand !== SivilstandType.ENKE_ELLER_ENKEMANN && (
                 <BodyShort size="small">{` ${hentBorMedPartnerBeskrivelse(relasjonsBosted)}`}</BodyShort>
             )}
             {gradering && gradering !== Gradering.UGRADERT && (

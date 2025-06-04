@@ -7,7 +7,7 @@ import {
     SprakNiva
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
-import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
+import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
@@ -18,7 +18,7 @@ import {
     ProfilertTil,
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
-import { OmraadeHandlingType, FullmaktData } from '../../api/datatyper/fullmakt.ts';
+import { FullmaktData, OmraadeHandlingType } from '../../api/datatyper/fullmakt.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -423,7 +423,7 @@ const personalia: PersonaliaInfo = {
     },
     sivilstandliste: [
         {
-            sivilstand: 'Gift',
+            sivilstand: SivilstandType.GIFT,
             fraDato: '2012-08-20',
             skjermet: null,
             gradering: Gradering.UKJENT,
@@ -432,7 +432,7 @@ const personalia: PersonaliaInfo = {
             registrertDato: null
         },
         {
-            sivilstand: 'Separert_partner',
+            sivilstand: SivilstandType.SEPARERT_PARTNER,
             fraDato: '2019-06-01',
             skjermet: false,
             gradering: Gradering.UKJENT,
@@ -441,7 +441,7 @@ const personalia: PersonaliaInfo = {
             registrertDato: '2019-06-15T10:30:44'
         },
         {
-            sivilstand: 'Skilt',
+            sivilstand: SivilstandType.ENKE_ELLER_ENKEMANN,
             fraDato: '2020-09-03',
             skjermet: true,
             gradering: Gradering.UKJENT,

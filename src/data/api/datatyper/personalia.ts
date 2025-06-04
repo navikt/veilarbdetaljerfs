@@ -14,6 +14,19 @@ export enum RelasjonsBosted {
     UKJENT_BOSTED = 'UKJENT_BOSTED'
 }
 
+export enum SivilstandType {
+    UOPPGITT = 'UOPPGITT',
+    UGIFT = 'UGIFT',
+    GIFT = 'GIFT',
+    SEPARERT = 'SEPARERT',
+    SKILT = 'SKILT',
+    ENKE_ELLER_ENKEMANN = 'ENKE_ELLER_ENKEMANN',
+    REGISTRERT_PARTNER = 'REGISTRERT_PARTNER',
+    SEPARERT_PARTNER = 'SEPARERT_PARTNER',
+    SKILT_PARTNER = 'SKILT_PARTNER',
+    GJENLEVENDE_PARTNER = 'GJENLEVENDE_PARTNER'
+}
+
 export interface GrunnPersonalia {
     fornavn: StringOrNothing;
     fodselsnummer: string;
@@ -45,7 +58,7 @@ export interface PersonaliaPartner {
 }
 
 export interface PersonaliaSivilstandNy {
-    sivilstand: string;
+    sivilstand: SivilstandType;
     fraDato: StringOrNothing;
     skjermet: boolean | null;
     gradering: Gradering;
