@@ -1,4 +1,8 @@
-.alert-med-feilkode__read-more {
+.error-alert-med-feilkode__innhold {
+    width: fit-content;
+}
+
+.error-alert-med-feilkode__read-more {
     /* Overstyrer theme/farger */
     --ac-read-more-text: var(--a-text-default);
     --ac-read-more-hover-bg: var(--a-surface-hover);
