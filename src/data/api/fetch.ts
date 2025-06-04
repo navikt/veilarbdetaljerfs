@@ -20,7 +20,7 @@ export interface ErrorMessage {
     error: Error | unknown;
     status?: number | null;
     info: StringOrNothing;
-    korrelasjonsId: StringOrNothing;
+    korrelasjonId: StringOrNothing;
 }
 
 export interface overblikkVisningRequest {
