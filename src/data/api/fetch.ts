@@ -20,7 +20,7 @@ export interface ErrorMessage {
     error: Error | unknown;
     status?: number | null;
     info: StringOrNothing;
-    korrelasjonId: StringOrNothing;
+    korrelasjonId: string | null;
 }
 
 export interface overblikkVisningRequest {
@@ -61,14 +61,14 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
 export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
 
 const handterRespons = async (respons: Response) => {
-    const korrelasjonsId = respons.headers.get(customResponseHeaders.NAV_CALL_ID) ?? null;
+    const korrelasjonId = respons.headers.get(customResponseHeaders.NAV_CALL_ID) ?? null;
 
     if (respons.status >= 400) {
         throw {
             error: new Error('An error occurred while fetching the data.'),
             status: respons.status,
             info: null,
-            korrelasjonsId
+            korrelasjonId: korrelasjonId
         };
     }
     if (respons.status === 204) {
@@ -76,7 +76,7 @@ const handterRespons = async (respons: Response) => {
             error: null,
             status: respons.status,
             info: null,
-            korrelasjonsId
+            korrelasjonId: korrelasjonId
         };
     }
 
@@ -87,7 +87,7 @@ const handterRespons = async (respons: Response) => {
             error: err,
             status: null,
             info: null,
-            korrelasjonsId
+            korrelasjonId: korrelasjonId
         };
     }
 };
