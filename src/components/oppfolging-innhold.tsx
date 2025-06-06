@@ -9,7 +9,7 @@ import {
     hentVeilederTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
-import { useOppfolgingsstatus, usePersonalia, useGjeldende14aVedtak, useVeileder } from '../data/api/fetch';
+import { useGjeldende14aVedtak, useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
