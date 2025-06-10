@@ -15,7 +15,7 @@ import { trackAmplitude } from './amplitude/amplitude';
 import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import '../index.css';
 import { Tilgangssjekk } from './Tilgangssjekk';
-import { erMock } from './utils/miljo-utils.ts';
+import { erLokalMode } from './utils/miljo-utils.ts';
 import { Utviklerinnstillinger } from './components/utviklerinnstillinger/utviklerinnstillinger.tsx';
 
 export interface AppProps {
@@ -232,7 +232,7 @@ const App = (props: AppProps) => {
             </SWRConfig>
             <TilToppenKnapp />
 
-            {erMock() && <Utviklerinnstillinger />}
+            {erLokalMode() && <Utviklerinnstillinger />}
 
             <div id="kun_til_printing">
                 <PersonverninformasjonManuell />
