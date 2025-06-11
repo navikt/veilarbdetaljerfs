@@ -10,7 +10,7 @@ import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
 import {
     JaEllerNei,
     OpplysningerOmArbeidssoker,
@@ -19,6 +19,7 @@ import {
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData, OmraadeHandlingType } from '../../api/datatyper/fullmakt.ts';
+import { endepunkter } from '../../api/fetch.ts';
 
 const aktorId: AktorId = {
     aktorId: '1234567'
@@ -632,36 +633,108 @@ const opplysningerMedProfilering = {
 };
 
 export const veilarbpersonHandlers: RequestHandler[] = [
-    http.post('/veilarbperson/api/v3/person/hent-cv_jobbprofil', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(cvOgJobbonsker);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-aktorid', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_AKTORID, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_AKTORID
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(aktorId);
     }),
-    http.post('/veilarbperson/api/v3/hent-person', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_PERSON, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_PERSON
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(personalia);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(mockVerge);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-fullmakt', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_FULLMAKT, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_FULLMAKT
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(mockFullmakt);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_TOLK, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_TOLK
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(mockTilrettelagtKommunikasjon);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(opplysningerMedProfilering);
     }),
-    http.post('/veilarbperson/api/v3/person/hent-tilgangTilBruker', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(true);
     })
 ];

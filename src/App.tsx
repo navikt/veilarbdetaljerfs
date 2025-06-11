@@ -15,6 +15,8 @@ import { trackAmplitude } from './amplitude/amplitude';
 import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
 import '../index.css';
 import { Tilgangssjekk } from './Tilgangssjekk';
+import { erLokalMode } from './utils/miljo-utils.ts';
+import { Utviklerinnstillinger } from './components/utviklerinnstillinger/utviklerinnstillinger.tsx';
 
 export interface AppProps {
     fnr?: string;
@@ -88,7 +90,10 @@ const App = (props: AppProps) => {
                                                 trackAmplitude(
                                                     {
                                                         name: 'filtervalg',
-                                                        data: { kategori: alternativ, filternavn: 'oyblikksvisning' }
+                                                        data: {
+                                                            kategori: alternativ,
+                                                            filternavn: 'oyblikksvisning'
+                                                        }
                                                     },
                                                     {
                                                         harTidligereLagret: !!overblikkFilter.data?.overblikkVisning,
@@ -226,6 +231,8 @@ const App = (props: AppProps) => {
                 </div>
             </SWRConfig>
             <TilToppenKnapp />
+
+            {erLokalMode() && <Utviklerinnstillinger />}
 
             <div id="kun_til_printing">
                 <PersonverninformasjonManuell />

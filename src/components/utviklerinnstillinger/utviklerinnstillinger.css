@@ -1,0 +1,5 @@
+.utviklerinnstillinger {
+    bottom: var(--a-spacing-6);
+    left: var(--a-spacing-6);
+    position: fixed;
+}

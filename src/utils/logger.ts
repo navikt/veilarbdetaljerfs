@@ -1,5 +1,5 @@
 import { sendEventTilVeilarbperson } from '../data/api/fetch';
-import { erMock } from './miljo-utils';
+import { erLokalMode } from './miljo-utils';
 
 export interface FrontendEvent {
     name: string;
@@ -12,7 +12,7 @@ export const logMetrikk = (
     fields?: Record<string, unknown>,
     tags?: Record<string, unknown>
 ): void => {
-    if (erMock()) {
+    if (erLokalMode()) {
         console.log('Event', metrikkNavn, 'Fields:', fields, 'Tags:', tags);
     } else {
         sendEventTilVeilarbperson({ name: `${metrikkNavn}`, fields, tags });

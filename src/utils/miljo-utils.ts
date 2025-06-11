@@ -15,8 +15,24 @@ export function finnInternNavDomeneGammelt() {
     return erITestMiljo() ? NAV_INTERN_PREPROD_SUFFIX_GAMMELT : NAV_INTERN_PROD_SUFFIX;
 }
 
-export function erMock() {
-    return import.meta.env.MODE === 'development';
+/**
+ * Hvorvidt applikasjonen er bygget med `mode = lokal`.
+ * `lokal` er en egendefinert [Vite mode](https://vite.dev/guide/env-and-mode#modes) som representerer lokal utvikling.
+ * Dersom applikasjonen bygges/kjøres med `vite --mode lokal` vil denne funksjonen returnere true. Dette kan f.eks. brukes
+ * for å skru på funksjonalitet som bare skal være tilgjengelig ved lokal utvikling.
+ */
+export function erLokalMode() {
+    return import.meta.env.MODE === 'lokal';
+}
+
+/**
+ * Hvorvidt applikasjonen er bygget med `mode = demo`.
+ * `demo` er en egendefinert [Vite mode](https://vite.dev/guide/env-and-mode#modes) som representerer lokal utvikling.
+ * Dersom applikasjonen bygges/kjøres med `vite --mode demo` vil denne funksjonen returnere true. Dette kan f.eks. brukes
+ * for å skru på funksjonalitet som bare skal være tilgjengelig i demo-versjonen av applikasjonen.
+ */
+export function erDemoMode() {
+    return import.meta.env.MODE === 'demo';
 }
 
 const erITestMiljo = (): boolean => {

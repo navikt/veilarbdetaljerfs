@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
+    "start": "vite --mode lokal",
+    "dev": "vite --mode lokal",
     "build": "tsc && vite build --base=https://cdn.nav.no/obo/prod/veilarbdetaljerfs/dist",
     "build:dev": "tsc && vite build --base=https://cdn.nav.no/obo/dev/veilarbdetaljerfs/dist",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
@@ -13,7 +13,7 @@
     "prettier:check": "prettier --check src --config .prettierrc.json",
     "prettier:write": "prettier --write src --config .prettierrc.json",
     "test": "vitest",
-    "build:gh-pages": "tsc && vite build --mode development --base=/veilarbdetaljerfs/",
+    "build:gh-pages": "tsc && vite build --mode demo --base=/veilarbdetaljerfs/",
     "prepare": "husky"
   },
   "dependencies": {

@@ -1,6 +1,7 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
 import { YtelseData } from '../../api/datatyper/ytelse.ts';
+import { endepunkter } from '../../api/fetch.ts';
 
 const ytelsestatus: YtelseData = {
     vedtak: [
@@ -27,8 +28,17 @@ const ytelsestatus: YtelseData = {
     ]
 };
 export const veilarbarenaHandlers: RequestHandler[] = [
-    http.post('/veilarbarena/api/v2/arena/hent-ytelser', async () => {
+    http.post(endepunkter.VEILARBARENA_HENT_YTELSER, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBARENA_HENT_YTELSER
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(ytelsestatus);
     })
 ];
