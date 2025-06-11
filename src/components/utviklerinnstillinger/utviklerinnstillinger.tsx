@@ -17,6 +17,7 @@ const utviklerInnstillingerDefaultState: UtviklerInnstillingerSpesifikk = {
         simulerEndepunktFeil: {
             endepunktKonfigurasjon: Object.fromEntries(
                 Object.values(endepunkter).map((endepunkt) => {
+                    // Denne const-en er med hensikt ikkje inlina for at TypeScript typeinferens skal fungere
                     const konfigurasjonEntry = [
                         endepunkt,
                         {
@@ -64,6 +65,7 @@ const utviklerInnstillingerReducer = (state: UtviklerInnstillingerSpesifikk, act
                         endepunktKonfigurasjon: Object.fromEntries(
                             Object.entries(state.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon).map(
                                 ([endepunkt, konfigurasjon]) => {
+                                    // Denne const-en er med hensikt ikkje inlina for at TypeScript typeinferens skal fungere
                                     const konfigurasjonEntry = [
                                         endepunkt,
                                         {
