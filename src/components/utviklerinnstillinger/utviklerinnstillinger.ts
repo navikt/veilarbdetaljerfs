@@ -18,7 +18,6 @@ export type UtviklerInnstillingerSpesifikk = {
     versjon: number;
     innstillinger: {
         simulerEndepunktFeil: {
-            aktivert: boolean;
             endepunktKonfigurasjon: Record<
                 Endepunkt,
                 {
@@ -30,7 +29,7 @@ export type UtviklerInnstillingerSpesifikk = {
         };
     };
 };
-export const UTVIKLER_INNSTILLINGER_VERSJON = 1;
+export const UTVIKLER_INNSTILLINGER_VERSJON = 2;
 
 export const slettUtviklerinnstillinger = () => localStorage?.removeItem(UTVIKLER_INNSTILLINGER_NOKKEL);
 export const hentUtviklerInnstillinger = () => {
