@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import { erDemoMode, erLokalMode, WEB_COMPONENT_APPNAVN } from './utils/miljo-utils.ts';
 import { Veilarbdetaljer } from './WebComponentWrapper.tsx';
+import { Utviklerinnstillinger } from './components/utviklerinnstillinger/utviklerinnstillinger.tsx';
 
 if (erLokalMode() || erDemoMode()) {
     import('./data/mock/index.ts')
@@ -18,6 +19,7 @@ if (erLokalMode() || erDemoMode()) {
                                 alt="internflate bilde"
                             />
                             <App fnr={'12118323058'} />
+                            {erLokalMode() && <Utviklerinnstillinger />}
                         </React.StrictMode>
                     );
                 })
