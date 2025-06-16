@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS } from './index';
+import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index';
 import {
     ArenaKode,
     GammelInnsatsgruppe,
@@ -7,6 +7,7 @@ import {
     Innsatsgruppe,
     Kodeverk14a
 } from '../../api/datatyper/kodeverk14aData.ts';
+import { endepunkter } from '../../api/fetch.ts';
 
 const kodeverkdata: Kodeverk14a = {
     innsatsgrupper: [
@@ -60,12 +61,30 @@ const gjeldende14aVekdak = {
 };
 
 export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
-    http.post('/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak', async () => {
+    http.post(endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(gjeldende14aVekdak);
     }),
-    http.get('/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal', async () => {
+    http.get(endepunkter.VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(kodeverkdata);
     })
 ];
