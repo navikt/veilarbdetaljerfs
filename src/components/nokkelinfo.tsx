@@ -70,29 +70,20 @@ const Nokkelinfoinnhold = () => {
     ) {
         return <Laster />;
     }
+
     if (
-        oppfolgingsstatusError?.status === 204 ||
-        oppfolgingsstatusError?.status === 404 ||
-        personError?.status === 204 ||
-        personError?.status === 404 ||
-        tolkError?.status === 204 ||
-        tolkError?.status === 404 ||
-        ytelserError?.status === 204 ||
-        ytelserError?.status === 404 ||
-        cvOgJobbonskerError?.status === 204 ||
-        cvOgJobbonskerError?.status === 404 ||
-        veilederError?.status === 204 ||
-        veilederError?.status === 404
-    ) {
-        // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (
-        oppfolgingsstatusError ||
-        personError ||
-        tolkError ||
-        ytelserError ||
-        veilederError ||
-        opplysningerOmArbedissoekerMedProfileringError ||
-        gjeldende14aVedtakError
+        [
+            oppfolgingsstatusError,
+            personError,
+            tolkError,
+            ytelserError,
+            veilederError,
+            opplysningerOmArbedissoekerMedProfileringError,
+            gjeldende14aVedtakError
+        ].some((error) => {
+            // HTTP 404 representerer manglande data og vi tolkar det difor ikkje som feil
+            return error && error.status !== 404;
+        })
     ) {
         return <Errormelding />;
     }
