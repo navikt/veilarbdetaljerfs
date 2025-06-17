@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { LiveStorage } from '@mswjs/storage';
 import { endepunkter, overblikkVisningResponse } from '../../api/fetch';
-import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 const chips: overblikkVisningResponse = {
@@ -15,12 +15,12 @@ export const veilarbfilterHandlers: RequestHandler[] = [
         const data = lagredeInformasjonsbokser.getValue();
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBFILTER_OVERBLIKKVISNING
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(data, {
@@ -33,12 +33,12 @@ export const veilarbfilterHandlers: RequestHandler[] = [
         lagredeInformasjonsbokser.update(() => requestBody);
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBFILTER_OVERBLIKKVISNING
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return new HttpResponse(null, {

@@ -10,7 +10,7 @@ import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
-import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import {
     JaEllerNei,
     OpplysningerOmArbeidssoker,
@@ -637,12 +637,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(cvOgJobbonsker, {
@@ -652,12 +652,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_AKTORID, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_AKTORID
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(aktorId, {
@@ -667,12 +667,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_PERSON, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_PERSON
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(personalia, {
@@ -682,12 +682,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(mockVerge, {
@@ -697,12 +697,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_FULLMAKT, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_FULLMAKT
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(mockFullmakt, {
@@ -712,12 +712,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_TOLK, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_TOLK
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(mockTilrettelagtKommunikasjon, {
@@ -727,12 +727,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(opplysningerMedProfilering, {
@@ -742,12 +742,12 @@ export const veilarbpersonHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(true, {

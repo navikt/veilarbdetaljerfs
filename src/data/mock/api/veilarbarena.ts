@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import { YtelseData } from '../../api/datatyper/ytelse.ts';
 import { endepunkter } from '../../api/fetch.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
@@ -32,12 +32,12 @@ export const veilarbarenaHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBARENA_HENT_YTELSER, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBARENA_HENT_YTELSER
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
         return HttpResponse.json(ytelsestatus, {
