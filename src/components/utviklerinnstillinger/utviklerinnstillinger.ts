@@ -1,6 +1,5 @@
 import { Endepunkt } from '../../data/api/fetch.ts';
 
-type Feilkode = (typeof feilkoder)['4XX'][number] | (typeof feilkoder)['5XX'][number];
 type UtviklerInnstillinger = {
     versjon: number;
     innstillinger: unknown;
@@ -19,31 +18,33 @@ type UtviklerInnstillinger = {
 export type UtviklerInnstillingerSpesifikk = {
     versjon: number;
     innstillinger: {
-        simulerEndepunktFeil: {
-            endepunktKonfigurasjon: Record<
-                Endepunkt,
-                {
-                    endepunkt: Endepunkt;
-                    simulerFeil: boolean;
-                    statuskode: Feilkode | null;
-                }
-            >;
+        simulerEndepunktRespons: {
+            endepunktKonfigurasjon: Record<Endepunkt, EndepunktKonfigurasjon>;
         };
     };
+};
+export type EndepunktKonfigurasjon = {
+    endepunkt: Endepunkt;
+    overstyrRespons: boolean;
+    respons: Pick<Response, 'status'> | null;
 };
 
 /**
  * Key-en som nyttast for å lagre utviklarinnstillingar i LocalStorage.
  */
 export const UTVIKLER_INNSTILLINGER_NOKKEL = 'VEILARBDETALJERFS_UTVIKLER_INNSTILLINGER_NOKKEL';
-export const feilkoder = {
+/**
+ * [HTTP response status codes | MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
+ */
+export const statuskoder = {
+    '2XX': [200, 201, 202, 203, 204, 205, 206, 207, 208, 226],
     '4XX': [
         400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 421, 422, 423,
         424, 425, 426, 428, 429, 431, 451
     ],
     '5XX': [500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511]
 } as const;
-export const UTVIKLER_INNSTILLINGER_VERSJON = 2;
+export const UTVIKLER_INNSTILLINGER_VERSJON = 3;
 
 export const slettUtviklerinnstillinger = () => localStorage?.removeItem(UTVIKLER_INNSTILLINGER_NOKKEL);
 export const hentUtviklerInnstillinger = () => {

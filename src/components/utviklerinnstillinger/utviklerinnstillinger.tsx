@@ -2,10 +2,11 @@ import { ChangeEvent, Reducer, useReducer, useRef, useState } from 'react';
 import { BodyShort, Button, Checkbox, CheckboxGroup, HStack, Popover, Select, VStack } from '@navikt/ds-react';
 import './utviklerinnstillinger.css';
 import {
-    feilkoder,
+    EndepunktKonfigurasjon,
     hentUtviklerInnstillinger,
     lagreUtviklerinnstillinger,
     slettUtviklerinnstillinger,
+    statuskoder,
     UTVIKLER_INNSTILLINGER_VERSJON,
     UtviklerInnstillingerSpesifikk
 } from './utviklerinnstillinger.ts';
@@ -14,22 +15,22 @@ import { Endepunkt, endepunkter } from '../../data/api/fetch.ts';
 const utviklerInnstillingerDefaultState: UtviklerInnstillingerSpesifikk = {
     versjon: UTVIKLER_INNSTILLINGER_VERSJON,
     innstillinger: {
-        simulerEndepunktFeil: {
+        simulerEndepunktRespons: {
             endepunktKonfigurasjon: Object.fromEntries(
                 Object.values(endepunkter).map((endepunkt) => {
-                    // Denne const-en er med hensikt ikkje inlina for at TypeScript typeinferens skal fungere
+                    // Denne const-en er med hensikt ikkje inlina for at vi skal få typesjekking
                     const konfigurasjonEntry = [
                         endepunkt,
                         {
                             endepunkt: endepunkt,
-                            simulerFeil: false,
-                            statuskode: null
+                            overstyrRespons: false,
+                            respons: null
                         }
-                    ];
+                    ] satisfies [Endepunkt, EndepunktKonfigurasjon];
 
                     return konfigurasjonEntry;
                 })
-            )
+            ) as Record<Endepunkt, EndepunktKonfigurasjon>
         }
     }
 };
@@ -60,23 +61,23 @@ const utviklerInnstillingerReducer = (state: UtviklerInnstillingerSpesifikk, act
                 ...state,
                 innstillinger: {
                     ...state.innstillinger,
-                    simulerEndepunktFeil: {
-                        ...state.innstillinger.simulerEndepunktFeil,
+                    simulerEndepunktRespons: {
+                        ...state.innstillinger.simulerEndepunktRespons,
                         endepunktKonfigurasjon: Object.fromEntries(
-                            Object.entries(state.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon).map(
+                            Object.entries(state.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon).map(
                                 ([endepunkt, konfigurasjon]) => {
-                                    // Denne const-en er med hensikt ikkje inlina for at TypeScript typeinferens skal fungere
+                                    // Denne const-en er med hensikt ikkje inlina for at vi skal få typesjekking
                                     const konfigurasjonEntry = [
                                         endepunkt,
                                         {
                                             endepunkt: konfigurasjon.endepunkt,
-                                            simulerFeil: action.data.valgteEndepunkter.some(
+                                            overstyrRespons: action.data.valgteEndepunkter.some(
                                                 (valgtEndepunkt) => endepunkt === valgtEndepunkt
                                             ),
-                                            statuskode: action.data.valgteEndepunkter.some(
+                                            respons: action.data.valgteEndepunkter.some(
                                                 (valgtEndepunkt) => endepunkt === valgtEndepunkt
                                             )
-                                                ? konfigurasjon.statuskode
+                                                ? konfigurasjon?.respons
                                                 : null
                                         }
                                     ];
@@ -87,27 +88,29 @@ const utviklerInnstillingerReducer = (state: UtviklerInnstillingerSpesifikk, act
                         )
                     }
                 }
-            };
+            } satisfies UtviklerInnstillingerSpesifikk;
         }
         case 'ENDEPUNKT_KONFIGURASJON_ENDRET': {
             return {
                 ...state,
                 innstillinger: {
                     ...state.innstillinger,
-                    simulerEndepunktFeil: {
-                        ...state.innstillinger.simulerEndepunktFeil,
+                    simulerEndepunktRespons: {
+                        ...state.innstillinger.simulerEndepunktRespons,
                         endepunktKonfigurasjon: {
-                            ...state.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon,
+                            ...state.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon,
                             [action.data.endepunkt]: {
-                                ...state.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon[
+                                ...state.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon[
                                     action.data.endepunkt as Endepunkt
                                 ],
-                                statuskode: action.data.konfigurasjon.statuskode
+                                respons: {
+                                    status: action.data.konfigurasjon.statuskode
+                                }
                             }
                         }
                     }
                 }
-            };
+            } satisfies UtviklerInnstillingerSpesifikk;
         }
         case 'OVERSKRIV_INNSTILLINGER':
             return action.data.nyState;
@@ -125,7 +128,7 @@ export const Utviklerinnstillinger = () => {
         Reducer<UtviklerInnstillingerSpesifikk, UtviklerInnstillingerAction>
     >(utviklerInnstillingerReducer, lagredeUtviklerInnstillinger ?? utviklerInnstillingerDefaultState);
 
-    const handleSimulerEndepunktFeilEndret = (valgteEndepunkter: Endepunkt[]) => {
+    const handleValgteEndepunkterEndret = (valgteEndepunkter: Endepunkt[]) => {
         utviklerInnstillingerDispatch({ type: 'VALGTE_ENDEPUNKTER_ENDRET', data: { valgteEndepunkter } });
     };
 
@@ -168,16 +171,16 @@ export const Utviklerinnstillinger = () => {
                     <VStack gap="4">
                         <CheckboxGroup
                             value={Object.entries(
-                                utviklerInnstillinger.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon
+                                utviklerInnstillinger.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon
                             )
-                                .filter((konfigurasjonEntry) => konfigurasjonEntry[1].simulerFeil)
+                                .filter((konfigurasjonEntry) => konfigurasjonEntry[1].overstyrRespons)
                                 .map(([endepunkt]) => endepunkt)}
-                            onChange={handleSimulerEndepunktFeilEndret}
+                            onChange={handleValgteEndepunkterEndret}
                             size="small"
-                            legend="Simuler HTTP-feil i endepunkter"
+                            legend="Simuler HTTP-respons i endepunkter"
                         >
                             {Object.entries(
-                                utviklerInnstillinger.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon
+                                utviklerInnstillinger.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon
                             )
                                 .sort(([endepunkt_a], [endepunkt_b]) => endepunkt_a.localeCompare(endepunkt_b))
                                 .map(([endepunkt, konfigurasjon]) => (
@@ -187,9 +190,9 @@ export const Utviklerinnstillinger = () => {
                                                 {endepunkt}
                                             </BodyShort>
                                         </Checkbox>
-                                        {konfigurasjon.simulerFeil && (
+                                        {konfigurasjon.overstyrRespons && (
                                             <Select
-                                                value={`${konfigurasjon.statuskode ?? 400}`}
+                                                value={`${konfigurasjon?.respons?.status ?? 200}`}
                                                 size="small"
                                                 label="Statuskode"
                                                 hideLabel
@@ -197,23 +200,33 @@ export const Utviklerinnstillinger = () => {
                                                     handleEndepunktKonfigurasjonEndret(e, endepunkt as Endepunkt)
                                                 }
                                             >
-                                                <optgroup label="HTTP 4XX">
-                                                    {feilkoder['4XX'].map((feilkode) => (
+                                                <optgroup label="HTTP 2XX">
+                                                    {statuskoder['2XX'].map((statuskode) => (
                                                         <option
-                                                            key={`feilkode_option_${feilkode}`}
-                                                            value={`${feilkode}`}
+                                                            key={`statuskode_option_${statuskode}`}
+                                                            value={`${statuskode}`}
                                                         >
-                                                            {feilkode}
+                                                            {statuskode}
+                                                        </option>
+                                                    ))}
+                                                </optgroup>
+                                                <optgroup label="HTTP 4XX">
+                                                    {statuskoder['4XX'].map((statuskode) => (
+                                                        <option
+                                                            key={`statuskode_option_${statuskode}`}
+                                                            value={`${statuskode}`}
+                                                        >
+                                                            {statuskode}
                                                         </option>
                                                     ))}
                                                 </optgroup>
                                                 <optgroup label="HTTP 5XX">
-                                                    {feilkoder['5XX'].map((feilkode) => (
+                                                    {statuskoder['5XX'].map((statuskode) => (
                                                         <option
-                                                            key={`feilkode_option_${feilkode}`}
-                                                            value={`${feilkode}`}
+                                                            key={`statuskode_option_${statuskode}`}
+                                                            value={`${statuskode}`}
                                                         >
-                                                            {feilkode}
+                                                            {statuskode}
                                                         </option>
                                                     ))}
                                                 </optgroup>
