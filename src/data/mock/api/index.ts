@@ -20,12 +20,12 @@ export const allHandlers: RequestHandler[] = [
 ];
 
 export const hentEndepunktFeilSimuleringKonfigurasjon = (endepunkt: Endepunkt) => {
-    const endepunktSimulerFeilKonfigurasjon =
-        hentUtviklerInnstillinger()?.innstillinger.simulerEndepunktFeil.endepunktKonfigurasjon[endepunkt];
+    const simulerEndepunktResponsKonfigurasjon =
+        hentUtviklerInnstillinger()?.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon[endepunkt];
 
-    if (endepunktSimulerFeilKonfigurasjon?.simulerFeil) {
+    if (simulerEndepunktResponsKonfigurasjon?.overstyrRespons) {
         return new HttpResponse(null, {
-            status: endepunktSimulerFeilKonfigurasjon.statuskode ?? 500
+            status: simulerEndepunktResponsKonfigurasjon.respons?.status ?? 500
         });
     } else {
         return null;
