@@ -1,10 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
-import { WEB_COMPONENT_APPNAVN, erMock } from './utils/miljo-utils.ts';
+import { erDemoMode, erLokalMode, WEB_COMPONENT_APPNAVN } from './utils/miljo-utils.ts';
 import { Veilarbdetaljer } from './WebComponentWrapper.tsx';
+import { Utviklerinnstillinger } from './components/utviklerinnstillinger/utviklerinnstillinger.tsx';
 
-if (erMock()) {
+if (erLokalMode() || erDemoMode()) {
     import('./data/mock/index.ts')
         .then(({ worker }) => {
             worker
@@ -18,6 +19,7 @@ if (erMock()) {
                                 alt="internflate bilde"
                             />
                             <App fnr={'12118323058'} />
+                            {erLokalMode() && <Utviklerinnstillinger />}
                         </React.StrictMode>
                     );
                 })

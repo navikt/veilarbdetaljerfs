@@ -7,10 +7,10 @@ import {
     SprakNiva
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
-import { Gradering, PersonaliaInfo, RelasjonsBosted } from '../../api/datatyper/personalia';
+import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
 import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
 import {
     JaEllerNei,
     OpplysningerOmArbeidssoker,
@@ -19,6 +19,7 @@ import {
     UtdanningGodkjentValg
 } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData, OmraadeHandlingType } from '../../api/datatyper/fullmakt.ts';
+import { endepunkter } from '../../api/fetch.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 const aktorId: AktorId = {
@@ -424,7 +425,7 @@ const personalia: PersonaliaInfo = {
     },
     sivilstandliste: [
         {
-            sivilstand: 'Gift',
+            sivilstand: SivilstandType.GIFT,
             fraDato: '2012-08-20',
             skjermet: null,
             gradering: Gradering.UKJENT,
@@ -433,7 +434,7 @@ const personalia: PersonaliaInfo = {
             registrertDato: null
         },
         {
-            sivilstand: 'Separert_partner',
+            sivilstand: SivilstandType.SEPARERT_PARTNER,
             fraDato: '2019-06-01',
             skjermet: false,
             gradering: Gradering.UKJENT,
@@ -442,7 +443,7 @@ const personalia: PersonaliaInfo = {
             registrertDato: '2019-06-15T10:30:44'
         },
         {
-            sivilstand: 'Skilt',
+            sivilstand: SivilstandType.ENKE_ELLER_ENKEMANN,
             fraDato: '2020-09-03',
             skjermet: true,
             gradering: Gradering.UKJENT,
@@ -633,44 +634,124 @@ const opplysningerMedProfilering = {
 };
 
 export const veilarbpersonHandlers: RequestHandler[] = [
-    http.post('/veilarbperson/api/v3/person/hent-cv_jobbprofil', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(cvOgJobbonsker, {
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     }),
-    http.post('/veilarbperson/api/v3/person/hent-aktorid', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_AKTORID, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(aktorId, { headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() } });
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_AKTORID
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
+        return HttpResponse.json(aktorId, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     }),
-    http.post('/veilarbperson/api/v3/hent-person', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_PERSON, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(personalia, { headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() } });
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_PERSON
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
+        return HttpResponse.json(personalia, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     }),
-    http.post('/veilarbperson/api/v3/person/hent-vergeOgFullmakt', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(mockVerge, { headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() } });
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
+        return HttpResponse.json(mockVerge, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     }),
-    http.post('/veilarbperson/api/v3/person/hent-fullmakt', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_FULLMAKT, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_FULLMAKT
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(mockFullmakt, {
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     }),
-    http.post('/veilarbperson/api/v3/person/hent-tolk', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_TOLK, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_TOLK
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(mockTilrettelagtKommunikasjon, {
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     }),
-    http.post('/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return HttpResponse.json(opplysningerMedProfilering, {
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     }),
-    http.post('/veilarbperson/api/v3/person/hent-tilgangTilBruker', async () => {
+    http.post(endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(true, { headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() } });
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
+        return HttpResponse.json(true, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     })
 ];

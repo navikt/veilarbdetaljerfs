@@ -88,7 +88,10 @@ const App = (props: AppProps) => {
                                                 trackAmplitude(
                                                     {
                                                         name: 'filtervalg',
-                                                        data: { kategori: alternativ, filternavn: 'oyblikksvisning' }
+                                                        data: {
+                                                            kategori: alternativ,
+                                                            filternavn: 'oyblikksvisning'
+                                                        }
                                                     },
                                                     {
                                                         harTidligereLagret: !!overblikkFilter.data?.overblikkVisning,
@@ -226,7 +229,6 @@ const App = (props: AppProps) => {
                 </div>
             </SWRConfig>
             <TilToppenKnapp />
-
             <div id="kun_til_printing">
                 <PersonverninformasjonManuell />
             </div>

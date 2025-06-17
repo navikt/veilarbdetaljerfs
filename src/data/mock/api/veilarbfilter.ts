@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
 import { LiveStorage } from '@mswjs/storage';
-import { overblikkVisningResponse } from '../../api/fetch';
-import { DEFAULT_DELAY_MILLISECONDS } from './index.ts';
+import { endepunkter, overblikkVisningResponse } from '../../api/fetch';
+import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 const chips: overblikkVisningResponse = {
@@ -11,16 +11,36 @@ const chips: overblikkVisningResponse = {
 const lagredeInformasjonsbokser = new LiveStorage<string[]>('lagredeInformasjonsbokser', chips.overblikkVisning);
 
 export const veilarbfilterHandlers: RequestHandler[] = [
-    http.get('/veilarbfilter/api/overblikkvisning', async () => {
+    http.get(endepunkter.VEILARBFILTER_OVERBLIKKVISNING, async () => {
         const data = lagredeInformasjonsbokser.getValue();
         await delay(DEFAULT_DELAY_MILLISECONDS);
-        return HttpResponse.json(data, { headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() } });
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBFILTER_OVERBLIKKVISNING
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
+        return HttpResponse.json(data, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     }),
 
-    http.post('/veilarbfilter/api/overblikkvisning', async ({ request }) => {
+    http.post(endepunkter.VEILARBFILTER_OVERBLIKKVISNING, async ({ request }) => {
         const requestBody = (await request.json()) as string[];
         lagredeInformasjonsbokser.update(() => requestBody);
         await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+            endepunkter.VEILARBFILTER_OVERBLIKKVISNING
+        );
+
+        if (endepunktSimulerFeilKonfigurasjon !== null) {
+            return endepunktSimulerFeilKonfigurasjon;
+        }
+
         return new HttpResponse(null, {
             status: 204,
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
