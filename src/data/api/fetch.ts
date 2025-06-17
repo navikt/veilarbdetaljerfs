@@ -1,4 +1,4 @@
-import { createPOSToptions, GEToptions } from './datatyper/apiOptions';
+import { createPOSToptions, customResponseHeaders, GEToptions } from './datatyper/apiOptions';
 import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 import { PersonaliaInfo } from './datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunikasjon';
@@ -16,10 +16,11 @@ import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
 import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
 
-interface ErrorMessage {
+export interface ErrorMessage {
     error: Error | unknown;
     status?: number | null;
     info: StringOrNothing;
+    korrelasjonId: string | null;
 }
 
 export interface overblikkVisningRequest {
@@ -82,18 +83,22 @@ export const endepunkter = {
 export type Endepunkt = (typeof endepunkter)[keyof typeof endepunkter];
 
 const handterRespons = async (respons: Response) => {
+    const korrelasjonId = respons.headers.get(customResponseHeaders.NAV_CALL_ID) ?? null;
+
     if (respons.status >= 400) {
         throw {
             error: new Error('An error occurred while fetching the data.'),
             status: respons.status,
-            info: null
+            info: null,
+            korrelasjonId: korrelasjonId
         };
     }
     if (respons.status === 204) {
         return {
             error: null,
             status: respons.status,
-            info: null
+            info: null,
+            korrelasjonId: korrelasjonId
         };
     }
 
@@ -103,7 +108,8 @@ const handterRespons = async (respons: Response) => {
         throw {
             error: err,
             status: null,
-            info: null
+            info: null,
+            korrelasjonId: korrelasjonId
         };
     }
 };

@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse, RequestHandler } from 'msw';
-import { DEFAULT_DELAY_MILLISECONDS, hentEndepunktFeilSimuleringKonfigurasjon } from './index';
+import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index';
 import {
     ArenaKode,
     GammelInnsatsgruppe,
@@ -8,6 +8,7 @@ import {
     Kodeverk14a
 } from '../../api/datatyper/kodeverk14aData.ts';
 import { endepunkter } from '../../api/fetch.ts';
+import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 const kodeverkdata: Kodeverk14a = {
     innsatsgrupper: [
@@ -64,27 +65,31 @@ export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
     http.post(endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
-        return HttpResponse.json(gjeldende14aVekdak);
+        return HttpResponse.json(gjeldende14aVekdak, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     }),
     http.get(endepunkter.VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
-        const endepunktSimulerFeilKonfigurasjon = hentEndepunktFeilSimuleringKonfigurasjon(
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
             endepunkter.VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL
         );
 
-        if (endepunktSimulerFeilKonfigurasjon !== null) {
-            return endepunktSimulerFeilKonfigurasjon;
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
         }
 
-        return HttpResponse.json(kodeverkdata);
+        return HttpResponse.json(kodeverkdata, {
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
     })
 ];

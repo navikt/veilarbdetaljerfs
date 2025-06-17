@@ -7,6 +7,7 @@ import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
 import { veilarbarenaHandlers } from './veilarbarena.ts';
 import { Endepunkt } from '../../api/fetch.ts';
 import { hentUtviklerInnstillinger } from '../../../components/utviklerinnstillinger/utviklerinnstillinger.ts';
+import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 export const DEFAULT_DELAY_MILLISECONDS: number = 100;
 
@@ -19,13 +20,14 @@ export const allHandlers: RequestHandler[] = [
     ...veilarbarenaHandlers
 ];
 
-export const hentEndepunktFeilSimuleringKonfigurasjon = (endepunkt: Endepunkt) => {
+export const hentSimulerEndepunktResponsKonfigurasjon = (endepunkt: Endepunkt) => {
     const simulerEndepunktResponsKonfigurasjon =
         hentUtviklerInnstillinger()?.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon[endepunkt];
 
     if (simulerEndepunktResponsKonfigurasjon?.overstyrRespons) {
         return new HttpResponse(null, {
-            status: simulerEndepunktResponsKonfigurasjon.respons?.status ?? 500
+            status: simulerEndepunktResponsKonfigurasjon.respons?.status ?? 500,
+            headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     } else {
         return null;

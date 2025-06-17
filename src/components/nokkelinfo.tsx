@@ -1,12 +1,12 @@
 import { Heading, Panel } from '@navikt/ds-react';
-import { Errormelding, Laster } from './felles/minikomponenter';
+import { Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
     useCvOgJobbonsker,
+    useGjeldende14aVedtak,
     useOppfolgingsstatus,
     useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
-    useGjeldende14aVedtak,
     useTolk,
     useVeileder,
     useYtelser
@@ -24,6 +24,7 @@ import './nokkelinfo.css';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
+import { ErrorAlertMedFeilkode } from './felles/error-alert-med-feilkode.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -85,7 +86,23 @@ const Nokkelinfoinnhold = () => {
             return error && error.status !== 404;
         })
     ) {
-        return <Errormelding />;
+        const feilkoder = [
+            oppfolgingsstatusError,
+            personError,
+            tolkError,
+            ytelserError,
+            veilederError,
+            opplysningerOmArbedissoekerMedProfileringError,
+            gjeldende14aVedtakError
+        ]
+            .map((errorMessage) => errorMessage?.korrelasjonId ?? null)
+            .filter((korrelasjonId) => korrelasjonId !== null);
+
+        return (
+            <ErrorAlertMedFeilkode feilkoder={feilkoder}>
+                Noe gikk galt! Prøv igjen om noen minutter.
+            </ErrorAlertMedFeilkode>
+        );
     }
 
     const telefon: StringOrNothing = personData?.telefon?.find((entry) => entry.prioritet === '1')?.telefonNr;
