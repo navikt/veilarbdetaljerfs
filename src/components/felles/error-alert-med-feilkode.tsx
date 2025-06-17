@@ -29,7 +29,7 @@ export const ErrorAlertMedFeilkode = ({ feilkoder, children }: ErrorAlertMedFeil
                     <VStack align="start" gap="1">
                         <BodyShort size="small">
                             For å melde inn feil kan du gå til{' '}
-                            <Link href="https://jira.adeo.no/plugins/servlet/desk">Porten</Link>.
+                            <Link href="https://jira.adeo.no/plugins/servlet/desk/portal/541/create/1401">Porten</Link>.
                             {feilkoder.length > 0 && (
                                 <>
                                     {' '}
