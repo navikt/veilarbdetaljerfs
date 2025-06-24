@@ -15,6 +15,7 @@ declare global {
     }
     /* tslint:enable:no-unused-variable */
 }
+
 export const maskereFodselsnummer = (data?: Record<string, unknown>) => {
     const maskertObjekt = JSON.stringify(data).replace(/\d{11}/g, (_, indexOfMatch, fullString) =>
         fullString.charAt(indexOfMatch - 1) === '"' ? '***********' : '"***********"'
@@ -27,6 +28,7 @@ export const maskereFodselsnummer = (data?: Record<string, unknown>) => {
     }
     return {};
 };
+
 export const trackAmplitude = (
     { name: eventName, data: eventData }: AmplitudeEvent,
     ekstraData?: Record<string, unknown>

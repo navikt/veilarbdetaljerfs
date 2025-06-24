@@ -2,16 +2,19 @@ import { Alert, BodyShort, CopyButton, Link, List, ReadMore, VStack } from '@nav
 import './alert-med-feilkode.css';
 import React from 'react';
 import { ListItem } from '@navikt/ds-react/List';
+import { trackAmplitude } from '../../amplitude/amplitude.ts';
 
 /**
  * Props for {@link ErrorAlertMedFeilkode}
  *
  * @param feilkoder en liste av feilkoder, default er `[]`
  * @param children generell feiltekst som vil vises før {@link ReadMore}-en, f.eks. "Noe gikk galt! Prøv igjen om noen minutter"
+ * @param aktiverSporing hvorvidt statistikk for klikk på knapper i komponenten skal spores
  */
 interface ErrorAlertMedFeilkodeProps {
     feilkoder: string[];
     children: string;
+    aktiverSporing?: boolean;
 }
 
 /**
@@ -20,12 +23,27 @@ interface ErrorAlertMedFeilkodeProps {
  * * en liste med feilkoder som bruker kan legge ved når man melder inn feil, gitt at
  * {@link ErrorAlertMedFeilkodeProps.feilkoder} inneholder minst et element
  */
-export const ErrorAlertMedFeilkode = ({ feilkoder, children }: ErrorAlertMedFeilkodeProps) => {
+export const ErrorAlertMedFeilkode = ({ feilkoder, children, aktiverSporing = false }: ErrorAlertMedFeilkodeProps) => {
     return (
         <Alert className="error-alert-med-feilkode__innhold" variant="error" size="small">
             <VStack gap="2">
                 {children}
-                <ReadMore size="small" header="Melde fra om feil?" className="error-alert-med-feilkode__read-more">
+                <ReadMore
+                    className="error-alert-med-feilkode__read-more"
+                    header="Melde fra om feil?"
+                    onClick={
+                        aktiverSporing
+                            ? () =>
+                                  trackAmplitude({
+                                      name: 'knapp klikket',
+                                      data: {
+                                          knapptekst: 'Melde fra om feil?'
+                                      }
+                                  })
+                            : undefined
+                    }
+                    size="small"
+                >
                     <VStack align="start" gap="1">
                         <BodyShort size="small">
                             For å melde inn feil kan du gå til{' '}
@@ -47,6 +65,20 @@ export const ErrorAlertMedFeilkode = ({ feilkoder, children }: ErrorAlertMedFeil
                                 </List>
                                 <CopyButton
                                     copyText={feilkoder.join(', ')}
+                                    onClick={
+                                        aktiverSporing
+                                            ? () =>
+                                                  trackAmplitude({
+                                                      name: 'knapp klikket',
+                                                      data: {
+                                                          knapptekst:
+                                                              feilkoder.length > 1
+                                                                  ? `Kopier feilkoder`
+                                                                  : `Kopier feilkode`
+                                                      }
+                                                  })
+                                            : undefined
+                                    }
                                     size="small"
                                     text={feilkoder.length > 1 ? `Kopier feilkoder` : `Kopier feilkode`}
                                 />
