@@ -3,4 +3,5 @@ export type AmplitudeEvent =
     | { name: 'navigere'; data: { lenketekst: string; destinasjon: string } }
     | { name: 'last ned'; data: { type: string; tema: string; tittel: string } }
     | { name: 'filtervalg'; data: { kategori: string; filternavn: string } }
-    | { name: 'modal åpnet'; data: { tekst: string } };
+    | { name: 'modal åpnet'; data: { tekst: string } }
+    | { name: 'knapp klikket'; data: { knapptekst: string } };
