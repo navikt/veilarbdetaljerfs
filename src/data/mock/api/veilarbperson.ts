@@ -523,11 +523,22 @@ const mockVerge: Vergemal = {
                     etternavn: 'etternavn'
                 },
                 motpartsPersonident: '1234567890',
-                omfang: VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER
+                omfang: VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER,
+                tjenesteomraade: [
+                    {
+                        tjenesteoppgave: 'Arbeid',
+                        tjenestevirksomhet: 'Nav'
+                    },
+                    {
+                        tjenesteoppgave: 'Familie',
+                        tjenestevirksomhet: 'Nav'
+                    }
+                ]
             },
             folkeregistermetadata: {
-                ajourholdstidspunkt: '2021-03-02T13:00:42',
-                gyldighetstidspunkt: null
+                ajourholdstidspunkt: '2025-03-02T13:00:42',
+                gyldighetstidspunkt: '2021-03-02T13:00:42',
+                opphoerstidspunkt: '2024-02-02T13:00:42'
             }
         }
     ]

@@ -27,12 +27,19 @@ export interface VergeNavn {
 export interface VergeEllerFullmektig {
     navn: VergeNavn | null;
     motpartsPersonident: StringOrNothing;
-    omfang: VergemaalEllerFullmaktOmfangType;
+    omfang: VergemaalEllerFullmaktOmfangType | null;
+    tjenesteomraade: Tjenesteomraade[];
+}
+
+export interface Tjenesteomraade {
+    tjenesteoppgave: string;
+    tjenestevirksomhet: string;
 }
 
 export interface Folkeregistermetadata {
     ajourholdstidspunkt: StringOrNothing;
     gyldighetstidspunkt: StringOrNothing;
+    opphoerstidspunkt: StringOrNothing;
 }
 
 export interface VergemaalEllerFremtidsfullmakt {

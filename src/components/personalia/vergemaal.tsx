@@ -1,9 +1,9 @@
 import {
-    Vergetype,
-    Vergemal,
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
-    VergemaalEllerFullmaktOmfangType
+    VergemaalEllerFullmaktOmfangType,
+    Vergemal,
+    Vergetype
 } from '../../data/api/datatyper/verge';
 import { BodyShort } from '@navikt/ds-react';
 import { formaterDato } from '../../utils/formater';
@@ -67,19 +67,21 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
                 )}
                 <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
-            <div className="underinformasjon">
-                <BodyShort size="small" className="body_header">
-                    Omfang
-                </BodyShort>
-                <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
-            </div>
+            {omfang && (
+                <div className="underinformasjon">
+                    <BodyShort size="small" className="body_header">
+                        Omfang
+                    </BodyShort>
+                    <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
+                </div>
+            )}
         </div>
     );
 }
 
 function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
     const { type, embete, vergeEllerFullmektig, folkeregistermetadata } = props.vergemaal;
-    const { ajourholdstidspunkt, gyldighetstidspunkt } = folkeregistermetadata;
+    const { gyldighetstidspunkt, opphoerstidspunkt } = folkeregistermetadata;
 
     if (!isNullOrUndefined(props)) {
         return (
@@ -91,8 +93,8 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
                 </BodyShort>
                 <BodyShort size="small">{embete}</BodyShort>
                 <BodyShort size="small" className="typografi_dato">
-                    {`${ajourholdstidspunkt && formaterDato(ajourholdstidspunkt)} - ${
-                        gyldighetstidspunkt ? formaterDato(gyldighetstidspunkt) : ''
+                    {`${gyldighetstidspunkt && formaterDato(gyldighetstidspunkt)} - ${
+                        opphoerstidspunkt ? formaterDato(opphoerstidspunkt) : ''
                     }`}
                 </BodyShort>
             </div>
