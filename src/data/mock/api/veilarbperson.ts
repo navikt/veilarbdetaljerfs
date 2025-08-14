@@ -8,7 +8,12 @@ import {
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
-import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
+import {
+    VergemaalEllerFullmaktOmfangType,
+    VergemaalEllerFullmaktTjenesteoppaveType,
+    Vergemal,
+    Vergetype
+} from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import {
@@ -526,11 +531,23 @@ const mockVerge: Vergemal = {
                 omfang: VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER,
                 tjenesteomraade: [
                     {
-                        tjenesteoppgave: 'Arbeid',
+                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.ARBEID,
                         tjenestevirksomhet: 'Nav'
                     },
                     {
-                        tjenesteoppgave: 'Familie',
+                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.FAMILIE,
+                        tjenestevirksomhet: 'Nav'
+                    },
+                    {
+                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.HJELPEMIDLER,
+                        tjenestevirksomhet: 'Nav'
+                    },
+                    {
+                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.PENSJON,
+                        tjenestevirksomhet: 'Nav'
+                    },
+                    {
+                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.SOSIALE_TJENESTER,
                         tjenestevirksomhet: 'Nav'
                     }
                 ]

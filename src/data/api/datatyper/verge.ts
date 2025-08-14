@@ -18,6 +18,14 @@ export enum VergemaalEllerFullmaktOmfangType {
     PERSONLIGE_OG_OEKONOMISKE_INTERESSER = 'PERSONLIGE_OG_OEKONOMISKE_INTERESSER'
 }
 
+export enum VergemaalEllerFullmaktTjenesteoppaveType {
+    FAMILIE = 'FAMILIE',
+    ARBEID = 'ARBEID',
+    HJELPEMIDLER = 'HJELPEMIDLER',
+    PENSJON = 'PENSJON',
+    SOSIALE_TJENESTER = 'SOSIALE_TJENESTER'
+}
+
 export interface VergeNavn {
     fornavn: string;
     mellomnavn: StringOrNothing;
@@ -32,7 +40,7 @@ export interface VergeEllerFullmektig {
 }
 
 export interface Tjenesteomraade {
-    tjenesteoppgave: string;
+    tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType;
     tjenestevirksomhet: string;
 }
 
