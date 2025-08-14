@@ -31,6 +31,7 @@ const Kontaktinformasjon = () => {
 
     return (
         <Informasjonsbolk header="Kontaktinformasjon" headerTypo="ingress">
+            <p> TEST at det er ute her</p>
             <ReservasjonKrr />
             <Telefon telefon={sortertTelefon} />
             <Epost epost={epost} />
