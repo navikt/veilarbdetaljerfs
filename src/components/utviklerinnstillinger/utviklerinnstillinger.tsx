@@ -54,7 +54,10 @@ type UtviklerInnstillingerAction =
           data: { nyState: UtviklerInnstillingerSpesifikk };
       };
 
-const utviklerInnstillingerReducer = (state: UtviklerInnstillingerSpesifikk, action: UtviklerInnstillingerAction) => {
+const utviklerInnstillingerReducer: Reducer<UtviklerInnstillingerSpesifikk, UtviklerInnstillingerAction> = (
+    state: UtviklerInnstillingerSpesifikk,
+    action: UtviklerInnstillingerAction
+) => {
     switch (action.type) {
         case 'VALGTE_ENDEPUNKTER_ENDRET': {
             return {
@@ -124,9 +127,10 @@ export const Utviklerinnstillinger = () => {
     const [openState, setOpenState] = useState(false);
 
     const [lagredeUtviklerInnstillinger] = useState<UtviklerInnstillingerSpesifikk | null>(hentUtviklerInnstillinger);
-    const [utviklerInnstillinger, utviklerInnstillingerDispatch] = useReducer<
-        Reducer<UtviklerInnstillingerSpesifikk, UtviklerInnstillingerAction>
-    >(utviklerInnstillingerReducer, lagredeUtviklerInnstillinger ?? utviklerInnstillingerDefaultState);
+    const [utviklerInnstillinger, utviklerInnstillingerDispatch] = useReducer(
+        utviklerInnstillingerReducer,
+        lagredeUtviklerInnstillinger ?? utviklerInnstillingerDefaultState
+    );
 
     const handleValgteEndepunkterEndret = (valgteEndepunkter: Endepunkt[]) => {
         utviklerInnstillingerDispatch({ type: 'VALGTE_ENDEPUNKTER_ENDRET', data: { valgteEndepunkter } });
