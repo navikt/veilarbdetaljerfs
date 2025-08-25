@@ -24,7 +24,7 @@ export const ForeslattProfilering = ({ fnr, profilering }: Props) => {
     }
 
     return (
-        <Box padding="4" borderWidth="1" borderRadius="small">
+        <Box padding="space-16" borderWidth="1" borderRadius="small">
             <Heading level="4" size="small">
                 Forslag om brukers muligheter og behov (resultat fra profilering)
             </Heading>

@@ -26,7 +26,7 @@ interface ErrorAlertMedFeilkodeProps {
 export const ErrorAlertMedFeilkode = ({ feilkoder, children, aktiverSporing = false }: ErrorAlertMedFeilkodeProps) => {
     return (
         <Alert className="error-alert-med-feilkode__innhold" variant="error" size="small">
-            <VStack gap="2">
+            <VStack gap="space-8">
                 {children}
                 <ReadMore
                     className="error-alert-med-feilkode__read-more"
@@ -44,7 +44,7 @@ export const ErrorAlertMedFeilkode = ({ feilkoder, children, aktiverSporing = fa
                     }
                     size="small"
                 >
-                    <VStack align="start" gap="1">
+                    <VStack align="start" gap="space-4">
                         <BodyShort size="small">
                             For å melde inn feil kan du gå til{' '}
                             <Link href="https://jira.adeo.no/plugins/servlet/desk/portal/541/create/1401">Porten</Link>.
