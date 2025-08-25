@@ -1,26 +1,23 @@
 .info_panel {
     background: linear-gradient(to bottom, var(--a-surface-neutral-moderate) 55px, white 20px);
     break-inside: avoid-column;
-    margin-bottom: var(--a-spacing-10);
-    border-radius: var(--a-border-radius-large);
-    border-color: var(--a-gray-50);
 }
 
 .panel_header {
     text-align: center;
-    margin-bottom: var(--a-spacing-4);
+    margin-bottom: var(--a-space-16);
 }
 
 .info_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: var(--a-spacing-4);
+    grid-gap: var(--a-space-16);
 }
 
 @media only screen and (max-width: 1279px) {
     .info_container {
         grid-template-columns: 1fr;
-        grid-gap: var(--a-spacing-2);
+        grid-gap: var(--a-space-8);
     }
 }
 
@@ -29,7 +26,7 @@
 }
 
 .enkeltinfo_value {
-    padding-bottom: var(--a-spacing-2);
+    padding-bottom: var(--a-space-8);
 }
 
 .copy_header {
@@ -42,19 +39,19 @@
 }
 
 .with_emdash {
-    margin-top: var(--a-spacing-3);
+    margin-top: var(--a-space-12);
 }
 
 .panel_infoboks {
-    margin-top: var(--a-spacing-4);
+    margin-top: var(--a-space-16);
 }
 
 #personalia_advarsel {
-    margin-bottom: var(--a-spacing-4);
+    margin-bottom: var(--a-space-16);
 }
 
 .cv-lenker {
-    margin-bottom: var(--a-spacing-2);
+    margin-bottom: var(--a-space-8);
 }
 
 .typografi_dato {
@@ -81,9 +78,9 @@
 }
 
 .reservert-krr-info {
-    margin-bottom: var(--a-spacing-2);
+    margin-bottom: var(--a-space-8);
 }
 
 .info-for-en-fullmakt:not(:last-of-type) {
-    margin-bottom: var(--a-spacing-8);
+    margin-bottom: var(--a-space-32);
 }

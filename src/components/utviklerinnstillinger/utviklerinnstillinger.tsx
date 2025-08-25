@@ -172,7 +172,7 @@ export const Utviklerinnstillinger = () => {
                 anchorEl={buttonRef.current}
             >
                 <Popover.Content>
-                    <VStack gap="4">
+                    <VStack gap="space-16">
                         <CheckboxGroup
                             value={Object.entries(
                                 utviklerInnstillinger.innstillinger.simulerEndepunktRespons.endepunktKonfigurasjon
@@ -188,7 +188,7 @@ export const Utviklerinnstillinger = () => {
                             )
                                 .sort(([endepunkt_a], [endepunkt_b]) => endepunkt_a.localeCompare(endepunkt_b))
                                 .map(([endepunkt, konfigurasjon]) => (
-                                    <HStack key={`endepunkt_konfigurasjon_${endepunkt}`} gap="2">
+                                    <HStack key={`endepunkt_konfigurasjon_${endepunkt}`} gap="space-8">
                                         <Checkbox value={endepunkt}>
                                             <BodyShort as="code" size="small">
                                                 {endepunkt}
@@ -239,7 +239,7 @@ export const Utviklerinnstillinger = () => {
                                     </HStack>
                                 ))}
                         </CheckboxGroup>
-                        <HStack gap="2">
+                        <HStack gap="space-8">
                             <Button
                                 onClick={() => {
                                     lagreUtviklerinnstillinger(utviklerInnstillinger);

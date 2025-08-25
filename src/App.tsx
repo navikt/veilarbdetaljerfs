@@ -12,7 +12,7 @@ import PersonverninformasjonManuell from './components/registrering/arbeidssoeke
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
 import { trackAmplitude } from './amplitude/amplitude';
-import { Alert, Button, Chips, Heading, Panel } from '@navikt/ds-react';
+import { Alert, Box, Button, Chips, Heading } from '@navikt/ds-react';
 import '../index.css';
 import { Tilgangssjekk } from './Tilgangssjekk';
 
@@ -211,8 +211,10 @@ const App = (props: AppProps) => {
 
                             <section className="main_grid">
                                 {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                                    <Panel
-                                        border
+                                    <Box
+                                        borderRadius="8"
+                                        padding="4"
+                                        marginBlock="0 10"
                                         className="info_panel"
                                         key={valgtInformasjonsboks}
                                         id={`${valgtInformasjonsboks}-panel`}
@@ -221,7 +223,7 @@ const App = (props: AppProps) => {
                                             {valgtInformasjonsboks}
                                         </Heading>
                                         {mapNavnTilKomponent(valgtInformasjonsboks)}
-                                    </Panel>
+                                    </Box>
                                 ))}
                             </section>
                         </StoreProvider>

@@ -33,10 +33,6 @@ spec:
       destinations:
         - id: elastic
         - id: loki
-  gcp:
-    buckets:
-      - name: obo-veilarbdetaljerfs-dev
-        cascadingDelete: false
   env:
     - name: JSON_CONFIG
       value: >
@@ -55,8 +51,5 @@ spec:
             "corp": {
             "policy": "cross-origin"
              }
-          },
-          "gcs": {
-            "bucketName": "obo-veilarbdetaljerfs-dev"
           }
         }
