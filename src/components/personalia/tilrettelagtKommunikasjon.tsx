@@ -13,7 +13,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
             return (
                 <div className="underinformasjon">
                     <BodyShort size="small" className="body_header">
-                        Tilrettelagt Kommunikasjon
+                        Tilrettelagt kommunikasjon
                     </BodyShort>
                     {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
                     {tegnspraak && <BodyShort size="small">Tegnspråktolk: {tegnspraak}</BodyShort>}
@@ -23,7 +23,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
             return (
                 <div className="underinformasjon">
                     <BodyShort size="small" className="body_header">
-                        Tilrettelagt Kommunikasjon
+                        Tilrettelagt kommunikasjon
                     </BodyShort>
                     {talespraak && <BodyShort size="small">Språktolk: {talespraak}</BodyShort>}
                 </div>
@@ -32,7 +32,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
             return (
                 <div className="underinformasjon">
                     <BodyShort size="small" className="body_header">
-                        Tilrettelagt Kommunikasjon
+                        Tilrettelagt kommunikasjon
                     </BodyShort>
                     {tegnspraak && <BodyShort size="small">Tegnspråktolk: {tegnspraak}</BodyShort>}
                 </div>
@@ -41,7 +41,7 @@ function TilrettelagtKommunikasjon(props: { tilrettelagtKommunikasjon: Tilrettel
     return (
         <div className="underinformasjon">
             <BodyShort size="small" className="body_header">
-                Tilrettelagt Kommunikasjon
+                Tilrettelagt kommunikasjon
             </BodyShort>
             {<BodyShort size="small">{EMDASH}</BodyShort>}
         </div>
