@@ -4,6 +4,8 @@ Klientapplikasjon som på sikt skal ta over for "Detaljer" i Modia arbeidsrettet
 
 Applikasjonen startes/utvikles som en del av et sommerprosjekt for studenter i Team OBO 2023.
 
+Testversjon av løsningen: https://navikt.github.io/veilarbdetaljerfs/
+
 # Komme i gang
 **Installere pakker**
 
