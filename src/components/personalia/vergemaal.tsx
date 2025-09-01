@@ -58,7 +58,7 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
                 <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
 
-            {tjenesteomraade && (
+            {tjenesteomraade.length > 0 && (
                 <div className="underinformasjon">
                     <BodyShort size="small" className="body_header">
                         {tjenesteomraade.length > 1 ? 'Tjenesteområder' : 'Tjenesteområde'}
