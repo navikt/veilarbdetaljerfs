@@ -111,7 +111,7 @@ const Cvinnhold = () => {
 
         return (
             <>
-                <HStack gap="4" className="cv-lenker">
+                <HStack gap="space-16" className="cv-lenker">
                     <LastNedCV erManuell={erManuell} fnr={fnr} />
                     <RedigerCV erManuell={erManuell} endreCvUrl={endreCvUrl} />
                 </HStack>

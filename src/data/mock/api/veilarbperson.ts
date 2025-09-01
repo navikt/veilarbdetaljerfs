@@ -371,7 +371,7 @@ const personalia: PersonaliaInfo = {
         {
             fornavn: 'Harry',
             fodselsdato: '2014-05-24',
-            gradering: Gradering.UKJENT,
+            gradering: Gradering.STRENGT_FORTROLIG,
             erEgenAnsatt: false,
             harVeilederTilgang: false,
             dodsdato: null,
@@ -385,6 +385,15 @@ const personalia: PersonaliaInfo = {
             gradering: Gradering.UKJENT,
             dodsdato: '2023-11-11',
             relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
+        },
+        {
+            fornavn: 'Mari',
+            fodselsdato: '2025-07-04',
+            erEgenAnsatt: false,
+            harVeilederTilgang: true,
+            gradering: Gradering.UGRADERT,
+            dodsdato: null,
+            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED
         }
     ],
     geografiskEnhet: {

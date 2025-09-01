@@ -26,7 +26,7 @@ export const Arbeidssoekerregistrering = ({
     }
 
     return (
-        <HStack gap="4">
+        <HStack gap="space-16">
             <RegistrertHeader
                 sendtInnAv={opplysningerOmArbeidssoeker.sendtInnAv}
                 arbeidssoekerperiodeStartet={arbeidssoekerperiodeStartet}

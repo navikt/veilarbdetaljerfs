@@ -6,7 +6,7 @@ metadata:
   labels:
     team: obo
 spec:
-  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2024.11.12_09.35-97ae4c05891f
+  image: europe-north1-docker.pkg.dev/nais-management-233d/poao/poao-frontend:2025.08.25_08.52-2e34d1784892
   port: 8080
   ingresses:
     - https://veilarbdetaljer.intern.dev.nav.no
@@ -33,10 +33,6 @@ spec:
       destinations:
         - id: elastic
         - id: loki
-  gcp:
-    buckets:
-      - name: obo-veilarbdetaljerfs-dev
-        cascadingDelete: false
   env:
     - name: JSON_CONFIG
       value: >
@@ -55,8 +51,5 @@ spec:
             "corp": {
             "policy": "cross-origin"
              }
-          },
-          "gcs": {
-            "bucketName": "obo-veilarbdetaljerfs-dev"
           }
         }

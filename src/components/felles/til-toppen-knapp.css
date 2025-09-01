@@ -1,8 +1,8 @@
 #til-toppen-knapp {
     position: fixed;
-    right: var(--a-spacing-6);
-    bottom: var(--a-spacing-6);
-    padding: var(--a-spacing-2);
+    right: var(--a-space-24);
+    bottom: var(--a-space-24);
+    padding: var(--a-space-8);
     border: 2px solid var(--a-border-action);
     box-shadow: var(--a-shadow-medium);
 

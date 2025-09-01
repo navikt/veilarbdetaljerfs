@@ -1,47 +1,47 @@
 name: 'dev: Last opp statiske filer til Google Cloud Storage'
 on:
-    workflow_dispatch:
-    push:
-        branches:
-            - main
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
-    CI: true
-    TZ: Europe/Amsterdam
+  CI: true
+  TZ: Europe/Amsterdam
 
 permissions:
-    id-token: 'write'
+  id-token: 'write'
 
 jobs:
-    upload-dev:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Setup node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-                  cache: npm
-                  registry-url: "https://npm.pkg.github.com"
-            - name: Install dependencies
-              run: npm ci
-              env:
-                NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-            #      - name: Run tests
-            #        run: npm run test
-            - name: Build application
-              run: npm run build:dev
-              env:
-                  PUBLIC_URL: https://veilarbdetaljer.intern.dev.nav.no
-            - name: Upload to Nav CDN
-              uses: nais/deploy/actions/cdn-upload/v2@master
-              with:
-                team: obo
-                source: ./dist
-                destination: dev/veilarbdetaljerfs
+  upload-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      #      - name: Run tests
+      #        run: npm run test
+      - name: Build application
+        run: npm run build:dev
+        env:
+          PUBLIC_URL: https://veilarbdetaljer.intern.dev.nav.no
+      - name: Upload to Nav CDN
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: obo
+          source: ./dist
+          destination: dev/veilarbdetaljerfs
 
-            - name: Set special cache for asset-manifest.json
-              shell: bash
-              run: |
-                gcloud storage objects update gs://${BUCKET_NAME}/obo/dev/veilarbdetaljerfs/dist/asset-manifest.json --cache-control="public, max-age=120, stale-while-revalidate=1800, stale-if-error=600"
+      - name: Set special cache for asset-manifest.json
+        shell: bash
+        run: |
+          gcloud storage objects update gs://${BUCKET_NAME}/obo/dev/veilarbdetaljerfs/dist/asset-manifest.json --cache-control="public, max-age=120, stale-while-revalidate=1800, stale-if-error=600"

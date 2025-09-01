@@ -1,6 +1,6 @@
 @import '@navikt/ds-css' layer(aksel);
 .veilarbdetaljerfs {
-    padding-top: var(--a-spacing-3);
+    padding-top: var(--a-space-12);
     height: 100%;
     background-color: var(--a-bg-subtle);
     font-family: var(--a-font-family);
@@ -18,26 +18,26 @@
 
 .main_grid {
     column-count: 2;
-    padding: 0 var(--a-spacing-10) var(--a-spacing-10);
+    padding: 0 var(--a-space-40) var(--a-space-40);
 }
 
 .overblikk_chips {
-    margin-left: var(--a-spacing-10);
-    margin-bottom: var(--a-spacing-5);
+    margin-left: var(--a-space-40);
+    margin-bottom: var(--a-space-20);
     display: flex;
     align-items: center;
-    gap: var(--a-spacing-2);
+    gap: var(--a-space-8);
 }
 
 .underinformasjon {
-    margin-bottom: var(--a-spacing-4);
+    margin-bottom: var(--a-space-16);
 }
 
 .informasjonsbolk_tittel {
     display: flex;
     align-items: center;
-    gap: var(--a-spacing-2);
-    margin-bottom: var(--a-spacing-1);
+    gap: var(--a-space-8);
+    margin-bottom: var(--a-space-4);
 }
 
 .kilde_tekst {
