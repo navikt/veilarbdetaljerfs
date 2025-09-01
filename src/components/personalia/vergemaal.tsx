@@ -1,8 +1,6 @@
 import {
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
-    VergemaalEllerFullmaktOmfangType,
-    VergemaalEllerFullmaktTjenesteoppaveType,
     Vergemal,
     Vergetype
 } from '../../data/api/datatyper/verge';
@@ -35,44 +33,14 @@ function vergetypeBeskrivelse(vergeType: Vergetype) {
     }
 }
 
-function vergeEllerFullmaktOmfangBeskrivelse(omfangType: VergemaalEllerFullmaktOmfangType) {
-    switch (omfangType) {
-        case VergemaalEllerFullmaktOmfangType.UTLENDINGSSAKER:
-            return 'Ivareta personens interesser innenfor det personlige og økonomiske området herunder utlendingssaken (kun for EMA)';
-        case VergemaalEllerFullmaktOmfangType.PERSONLIGE_INTERESSER:
-            return 'Ivareta personens interesser innenfor det personlige området';
-        case VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER:
-            return 'Ivareta personens interesser innenfor det økonomiske området';
-        case VergemaalEllerFullmaktOmfangType.PERSONLIGE_OG_OEKONOMISKE_INTERESSER:
-            return 'Ivareta personens interesser innenfor det personlige og økonomiske området';
-        default:
-            return '';
-    }
-}
-
-function vergeEllerfullmaktTjenesteomraadeBeskrivelse(tjenesteomraade: VergemaalEllerFullmaktTjenesteoppaveType) {
-    switch (tjenesteomraade) {
-        case VergemaalEllerFullmaktTjenesteoppaveType.FAMILIE:
-            return 'Familie';
-        case VergemaalEllerFullmaktTjenesteoppaveType.ARBEID:
-            return 'Arbeid';
-        case VergemaalEllerFullmaktTjenesteoppaveType.HJELPEMIDLER:
-            return 'Hjelpemidler';
-        case VergemaalEllerFullmaktTjenesteoppaveType.PENSJON:
-            return 'Pensjon';
-        case VergemaalEllerFullmaktTjenesteoppaveType.SOSIALE_TJENESTER:
-            return 'Sosiale tjenester';
-        default:
-            return '';
-    }
-}
-
 function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig }) {
-    const { navn, motpartsPersonident, omfang, tjenesteomraade } = props.vergeEllerFullmektig;
+    const { navn, motpartsPersonident, tjenesteomraade } = props.vergeEllerFullmektig;
 
     const tjenesteoppgaveString = tjenesteomraade
-        .map((område) => vergeEllerfullmaktTjenesteomraadeBeskrivelse(område.tjenesteoppgave))
-        .join(', ');
+        .filter((område) => område.tjenestevirksomhet === 'nav')
+        .map((område) => område.tjenesteoppgave)
+        .join(', ')
+        .replace('sosialeTjenester', 'Sosiale tjenester');
 
     return (
         <div>
@@ -89,15 +57,6 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
                 )}
                 <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
-
-            {omfang && (
-                <div className="underinformasjon">
-                    <BodyShort size="small" className="body_header">
-                        Omfang
-                    </BodyShort>
-                    <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
-                </div>
-            )}
 
             {tjenesteomraade && (
                 <div className="underinformasjon">
@@ -153,7 +112,7 @@ function Vergemaal(props: Pick<Vergemal, 'vergemaalEllerFremtidsfullmakt'>) {
     }
 
     return (
-        <Informasjonsbolk header="Bruker er under vergemål" headerTypo="ingress">
+        <Informasjonsbolk header="Vergemål" headerTypo="ingress">
             {vergemaalListe}
         </Informasjonsbolk>
     );

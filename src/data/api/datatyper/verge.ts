@@ -11,21 +11,6 @@ export enum Vergetype {
     FORVALTNING_UTENFOR_VERGEMAAL = 'FORVALTNING_UTENFOR_VERGEMAAL'
 }
 
-export enum VergemaalEllerFullmaktOmfangType {
-    UTLENDINGSSAKER = 'UTLENDINGSSAKER',
-    PERSONLIGE_INTERESSER = 'PERSONLIGE_INTERESSER',
-    OEKONOMISKE_INTERESSER = 'OEKONOMISKE_INTERESSER',
-    PERSONLIGE_OG_OEKONOMISKE_INTERESSER = 'PERSONLIGE_OG_OEKONOMISKE_INTERESSER'
-}
-
-export enum VergemaalEllerFullmaktTjenesteoppaveType {
-    FAMILIE = 'FAMILIE',
-    ARBEID = 'ARBEID',
-    HJELPEMIDLER = 'HJELPEMIDLER',
-    PENSJON = 'PENSJON',
-    SOSIALE_TJENESTER = 'SOSIALE_TJENESTER'
-}
-
 export interface VergeNavn {
     fornavn: string;
     mellomnavn: StringOrNothing;
@@ -35,12 +20,11 @@ export interface VergeNavn {
 export interface VergeEllerFullmektig {
     navn: VergeNavn | null;
     motpartsPersonident: StringOrNothing;
-    omfang: VergemaalEllerFullmaktOmfangType | null;
     tjenesteomraade: Tjenesteomraade[];
 }
 
 export interface Tjenesteomraade {
-    tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType;
+    tjenesteoppgave: string;
     tjenestevirksomhet: string;
 }
 

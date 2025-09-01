@@ -8,12 +8,7 @@ import {
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
-import {
-    VergemaalEllerFullmaktOmfangType,
-    VergemaalEllerFullmaktTjenesteoppaveType,
-    Vergemal,
-    Vergetype
-} from '../../api/datatyper/verge';
+import { Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import {
@@ -528,27 +523,26 @@ const mockVerge: Vergemal = {
                     etternavn: 'etternavn'
                 },
                 motpartsPersonident: '1234567890',
-                omfang: VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER,
                 tjenesteomraade: [
                     {
-                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.ARBEID,
-                        tjenestevirksomhet: 'Nav'
+                        tjenesteoppgave: 'arbeid',
+                        tjenestevirksomhet: 'nav'
                     },
                     {
-                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.FAMILIE,
-                        tjenestevirksomhet: 'Nav'
+                        tjenesteoppgave: 'familie',
+                        tjenestevirksomhet: 'nav'
                     },
                     {
-                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.HJELPEMIDLER,
-                        tjenestevirksomhet: 'Nav'
+                        tjenesteoppgave: 'hjelpemidler',
+                        tjenestevirksomhet: 'nav'
                     },
                     {
-                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.PENSJON,
-                        tjenestevirksomhet: 'Nav'
+                        tjenesteoppgave: 'pensjon',
+                        tjenestevirksomhet: 'nav'
                     },
                     {
-                        tjenesteoppgave: VergemaalEllerFullmaktTjenesteoppaveType.SOSIALE_TJENESTER,
-                        tjenestevirksomhet: 'Nav'
+                        tjenesteoppgave: 'sosialeTjenester',
+                        tjenestevirksomhet: 'nav'
                     }
                 ]
             },
