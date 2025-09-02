@@ -1,12 +1,11 @@
 import {
-    Vergetype,
-    Vergemal,
     VergeEllerFullmektig,
     VergemaalEllerFremtidsfullmakt,
-    VergemaalEllerFullmaktOmfangType
+    Vergemal,
+    Vergetype
 } from '../../data/api/datatyper/verge';
 import { BodyShort } from '@navikt/ds-react';
-import { formaterDato } from '../../utils/formater';
+import { formaterDato, formateStringInUpperAndLowerCase } from '../../utils/formater';
 import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNotEmptyArray, isNullOrUndefined } from '../../utils/felles-typer';
 import EMDASH from '../../utils/emdash';
@@ -34,23 +33,14 @@ function vergetypeBeskrivelse(vergeType: Vergetype) {
     }
 }
 
-function vergeEllerFullmaktOmfangBeskrivelse(omfangType: VergemaalEllerFullmaktOmfangType) {
-    switch (omfangType) {
-        case VergemaalEllerFullmaktOmfangType.UTLENDINGSSAKER:
-            return 'Ivareta personens interesser innenfor det personlige og økonomiske området herunder utlendingssaken (kun for EMA)';
-        case VergemaalEllerFullmaktOmfangType.PERSONLIGE_INTERESSER:
-            return 'Ivareta personens interesser innenfor det personlige området';
-        case VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER:
-            return 'Ivareta personens interesser innenfor det økonomiske området';
-        case VergemaalEllerFullmaktOmfangType.PERSONLIGE_OG_OEKONOMISKE_INTERESSER:
-            return 'Ivareta personens interesser innenfor det personlige og økonomiske området';
-        default:
-            return '';
-    }
-}
-
 function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig }) {
-    const { navn, motpartsPersonident, omfang } = props.vergeEllerFullmektig;
+    const { navn, motpartsPersonident, tjenesteomraade } = props.vergeEllerFullmektig;
+
+    const tjenesteoppgaveString = tjenesteomraade
+        .filter((område) => område.tjenestevirksomhet === 'nav')
+        .map((område) => område.tjenesteoppgave)
+        .join(', ')
+        .replace('sosialeTjenester', 'Sosiale tjenester');
 
     return (
         <div>
@@ -67,19 +57,22 @@ function VergeEllerFullmakt(props: { vergeEllerFullmektig: VergeEllerFullmektig 
                 )}
                 <BodyShort size="small">{motpartsPersonident}</BodyShort>
             </div>
-            <div className="underinformasjon">
-                <BodyShort size="small" className="body_header">
-                    Omfang
-                </BodyShort>
-                <BodyShort size="small">{vergeEllerFullmaktOmfangBeskrivelse(omfang)}</BodyShort>
-            </div>
+
+            {tjenesteomraade.length > 0 && (
+                <div className="underinformasjon">
+                    <BodyShort size="small" className="body_header">
+                        {tjenesteomraade.length > 1 ? 'Tjenesteområder' : 'Tjenesteområde'}
+                    </BodyShort>
+                    <BodyShort size="small">{formateStringInUpperAndLowerCase(tjenesteoppgaveString)}</BodyShort>
+                </div>
+            )}
         </div>
     );
 }
 
 function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
     const { type, embete, vergeEllerFullmektig, folkeregistermetadata } = props.vergemaal;
-    const { ajourholdstidspunkt, gyldighetstidspunkt } = folkeregistermetadata;
+    const { gyldighetstidspunkt, opphoerstidspunkt } = folkeregistermetadata;
 
     if (!isNullOrUndefined(props)) {
         return (
@@ -91,8 +84,8 @@ function Verge(props: { vergemaal: VergemaalEllerFremtidsfullmakt }) {
                 </BodyShort>
                 <BodyShort size="small">{embete}</BodyShort>
                 <BodyShort size="small" className="typografi_dato">
-                    {`${ajourholdstidspunkt && formaterDato(ajourholdstidspunkt)} - ${
-                        gyldighetstidspunkt ? formaterDato(gyldighetstidspunkt) : ''
+                    {`${gyldighetstidspunkt && formaterDato(gyldighetstidspunkt)} - ${
+                        opphoerstidspunkt ? formaterDato(opphoerstidspunkt) : ''
                     }`}
                 </BodyShort>
             </div>
@@ -119,7 +112,7 @@ function Vergemaal(props: Pick<Vergemal, 'vergemaalEllerFremtidsfullmakt'>) {
     }
 
     return (
-        <Informasjonsbolk header="Bruker er under vergemål" headerTypo="ingress">
+        <Informasjonsbolk header="Vergemål" headerTypo="ingress">
             {vergemaalListe}
         </Informasjonsbolk>
     );

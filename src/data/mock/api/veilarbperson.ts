@@ -8,7 +8,7 @@ import {
 } from '../../api/datatyper/arenaperson';
 import { AktorId } from '../../api/datatyper/aktor-id';
 import { Gradering, PersonaliaInfo, RelasjonsBosted, SivilstandType } from '../../api/datatyper/personalia';
-import { VergemaalEllerFullmaktOmfangType, Vergemal, Vergetype } from '../../api/datatyper/verge';
+import { Vergemal, Vergetype } from '../../api/datatyper/verge';
 import { TilrettelagtKommunikasjonData } from '../../api/datatyper/tilrettelagtKommunikasjon';
 import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import {
@@ -532,11 +532,33 @@ const mockVerge: Vergemal = {
                     etternavn: 'etternavn'
                 },
                 motpartsPersonident: '1234567890',
-                omfang: VergemaalEllerFullmaktOmfangType.OEKONOMISKE_INTERESSER
+                tjenesteomraade: [
+                    {
+                        tjenesteoppgave: 'arbeid',
+                        tjenestevirksomhet: 'nav'
+                    },
+                    {
+                        tjenesteoppgave: 'familie',
+                        tjenestevirksomhet: 'nav'
+                    },
+                    {
+                        tjenesteoppgave: 'hjelpemidler',
+                        tjenestevirksomhet: 'nav'
+                    },
+                    {
+                        tjenesteoppgave: 'pensjon',
+                        tjenestevirksomhet: 'nav'
+                    },
+                    {
+                        tjenesteoppgave: 'sosialeTjenester',
+                        tjenestevirksomhet: 'nav'
+                    }
+                ]
             },
             folkeregistermetadata: {
-                ajourholdstidspunkt: '2021-03-02T13:00:42',
-                gyldighetstidspunkt: null
+                ajourholdstidspunkt: '2025-03-02T13:00:42',
+                gyldighetstidspunkt: '2021-03-02T13:00:42',
+                opphoerstidspunkt: '2024-02-02T13:00:42'
             }
         }
     ]
