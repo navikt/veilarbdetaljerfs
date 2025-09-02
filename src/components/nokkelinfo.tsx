@@ -11,7 +11,7 @@ import {
     useVeileder,
     useYtelser
 } from '../data/api/fetch';
-import { PersonsBarn } from '../data/api/datatyper/personalia';
+import { Gradering, PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
@@ -113,15 +113,29 @@ const Nokkelinfoinnhold = () => {
     const datoRegistrert: StringOrNothing =
         opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
     const MAX_ALDER_BARN = 21;
-    const barnUnder21: PersonsBarn[] =
-        (personData?.barn &&
-            personData?.barn.filter(
-                (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
-            )) ||
-        [];
 
-    const barnNavn: string =
-        barnUnder21.length > 0 ? barnUnder21.map((barn) => `${barn.fornavn} (${finnAlder(barn)})`).join(', ') : EMDASH;
+    /** Returnerer tekststreng med navn og alder for barn.
+     *  Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
+     *  Dersom barnet er dødt viser vi navn og (DØD) bak i steden for alder. */
+    const finnNavnOgAlderForBarn = (barn: PersonsBarn) => {
+        if (barn.gradering === Gradering.UGRADERT || barn.dodsdato) {
+            return `${barn.fornavn} (${finnAlder(barn)})`;
+        }
+        return 'Barn (adressebeskyttelse)';
+    };
+
+    const finnBarnUnder21 = (alleBarn: PersonsBarn[]) => {
+        return alleBarn.filter((barn) => kalkulerAlder(new Date(barn.fodselsdato)) < MAX_ALDER_BARN);
+    };
+
+    const navnOgAlderPaBarnUnder21 = () => {
+        const barnUnder21 = (personData?.barn && finnBarnUnder21(personData.barn)) || [];
+
+        if (barnUnder21.length <= 0) {
+            return EMDASH;
+        }
+        return barnUnder21.map((barn) => finnNavnOgAlderForBarn(barn)).join(', ');
+    };
 
     const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined): StringOrNothing => {
         switch (errorStatus) {
@@ -135,7 +149,7 @@ const Nokkelinfoinnhold = () => {
     return (
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
-            <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
+            <EnkeltInformasjon header="Barn under 21 år" value={navnOgAlderPaBarnUnder21()} />
             <InnsatsGruppe
                 innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
                 fattetDato={gjeldende14aVedtak?.fattetDato}
