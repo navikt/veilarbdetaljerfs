@@ -11,13 +11,12 @@ import {
     useVeileder,
     useYtelser
 } from '../data/api/fetch';
-import { Gradering, PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst } from '../utils/text-mapper';
 import { formaterDato, formaterTelefonnummer, formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
-import { finnAlder, kalkulerAlder } from '../utils/date-utils';
+import { finnBarnUnderEnBestemtAlder, finnNavnOgAlderTekstForBarn } from '../utils/barn-utils.ts';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
@@ -114,27 +113,13 @@ const Nokkelinfoinnhold = () => {
         opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
     const MAX_ALDER_BARN = 21;
 
-    /** Returnerer tekststreng med navn og alder for barn.
-     *  Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
-     *  Dersom barnet er dødt viser vi navn og (DØD) bak i steden for alder. */
-    const finnNavnOgAlderForBarn = (barn: PersonsBarn) => {
-        if (barn.gradering === Gradering.UGRADERT || barn.dodsdato) {
-            return `${barn.fornavn} (${finnAlder(barn)})`;
-        }
-        return 'Barn (adressebeskyttelse)';
-    };
-
-    const finnBarnUnder21 = (alleBarn: PersonsBarn[]) => {
-        return alleBarn.filter((barn) => kalkulerAlder(new Date(barn.fodselsdato)) < MAX_ALDER_BARN);
-    };
-
     const navnOgAlderPaBarnUnder21 = () => {
-        const barnUnder21 = (personData?.barn && finnBarnUnder21(personData.barn)) || [];
+        const barnUnder21 = (personData?.barn && finnBarnUnderEnBestemtAlder(personData.barn, MAX_ALDER_BARN)) || [];
 
         if (barnUnder21.length <= 0) {
             return EMDASH;
         }
-        return barnUnder21.map((barn) => finnNavnOgAlderForBarn(barn)).join(', ');
+        return barnUnder21.map((barn) => finnNavnOgAlderTekstForBarn(barn)).join(', ');
     };
 
     const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined): StringOrNothing => {

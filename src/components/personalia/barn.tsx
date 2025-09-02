@@ -1,4 +1,4 @@
-import { finnAlder } from '../../utils/date-utils';
+import { finnAlderTekstForBarn } from '../../utils/barn-utils.ts';
 import { Gradering, PersonaliaInfo, PersonsBarn } from '../../data/api/datatyper/personalia';
 import { formateStringInUpperAndLowerCase } from '../../utils/formater';
 import { graderingBeskrivelseBarn, hentBorMedBarnBeskrivelse } from '../../utils/konstanter';
@@ -21,7 +21,7 @@ function BorSammen(props: { barn: PersonsBarn }) {
 
 function EnkeltBarn(props: { barn: PersonsBarn }) {
     const { fornavn, fodselsdato, gradering, erEgenAnsatt, harVeilederTilgang } = props.barn;
-    const alder = finnAlder(props.barn);
+    const alder = finnAlderTekstForBarn(props.barn);
     const graderingTekst = gradering && gradering !== Gradering.UGRADERT ? graderingBeskrivelseBarn(gradering) : null;
 
     return (
