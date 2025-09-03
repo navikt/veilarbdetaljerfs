@@ -360,6 +360,15 @@ const personalia: PersonaliaInfo = {
     dodsdato: null,
     barn: [
         {
+            fornavn: 'Georg',
+            fodselsdato: '2000-01-12',
+            gradering: Gradering.UGRADERT,
+            erEgenAnsatt: false,
+            harVeilederTilgang: false,
+            dodsdato: null,
+            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED
+        },
+        {
             fornavn: 'Bruce',
             fodselsdato: '2016-04-17',
             gradering: Gradering.UKJENT,

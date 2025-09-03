@@ -11,13 +11,12 @@ import {
     useVeileder,
     useYtelser
 } from '../data/api/fetch';
-import { PersonsBarn } from '../data/api/datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
 import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst } from '../utils/text-mapper';
 import { formaterDato, formaterTelefonnummer, formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
-import { finnAlder, kalkulerAlder } from '../utils/date-utils';
+import { finnBarnUnderEnBestemtAlder, finnNavnOgAlderTekstForBarn } from '../utils/barn-utils.ts';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
 import EMDASH from '../utils/emdash';
 import './nokkelinfo.css';
@@ -113,15 +112,15 @@ const Nokkelinfoinnhold = () => {
     const datoRegistrert: StringOrNothing =
         opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
     const MAX_ALDER_BARN = 21;
-    const barnUnder21: PersonsBarn[] =
-        (personData?.barn &&
-            personData?.barn.filter(
-                (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
-            )) ||
-        [];
 
-    const barnNavn: string =
-        barnUnder21.length > 0 ? barnUnder21.map((barn) => `${barn.fornavn} (${finnAlder(barn)})`).join(', ') : EMDASH;
+    const navnOgAlderPaBarnUnder21 = () => {
+        const barnUnder21 = (personData?.barn && finnBarnUnderEnBestemtAlder(personData.barn, MAX_ALDER_BARN)) || [];
+
+        if (barnUnder21.length <= 0) {
+            return EMDASH;
+        }
+        return barnUnder21.map((barn) => finnNavnOgAlderTekstForBarn(barn)).join(', ');
+    };
 
     const mapErrorCvOgJobbonsker = (errorStatus: number | null | undefined): StringOrNothing => {
         switch (errorStatus) {
@@ -135,7 +134,7 @@ const Nokkelinfoinnhold = () => {
     return (
         <span className="nokkelinfo_container" style={{ whiteSpace: 'pre-line' }}>
             <EnkeltInformasjonMedCopy header="Telefonnummer" value={formaterTelefonnummer(telefon)} />
-            <EnkeltInformasjon header="Barn under 21 år" value={barnNavn} />
+            <EnkeltInformasjon header="Barn under 21 år" value={navnOgAlderPaBarnUnder21()} />
             <InnsatsGruppe
                 innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
                 fattetDato={gjeldende14aVedtak?.fattetDato}

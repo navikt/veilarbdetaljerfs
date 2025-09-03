@@ -2,7 +2,7 @@ import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
-import { kalkulerAlder } from '../utils/date-utils';
+import { kalkulerAlder } from '../utils/barn-utils.ts';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
 import { VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/verge';
