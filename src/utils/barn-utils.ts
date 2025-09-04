@@ -22,7 +22,7 @@ export function finnAlderTekstForBarn(personalia: { dodsdato: StringOrNothing; f
  * Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
  * */
 export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
-    if (barn.gradering === Gradering.UGRADERT || barn.dodsdato) {
+    if (barn.gradering === Gradering.UGRADERT || barn.dodsdato || barn.harVeilederTilgang) {
         return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
     }
     return 'Barn (adressebeskyttelse)';
