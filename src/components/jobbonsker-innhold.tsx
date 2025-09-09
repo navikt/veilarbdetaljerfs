@@ -78,7 +78,7 @@ const Jobbonskerinnhold = () => {
                 <List as="ul" size="small">
                     <List.Item>
                         Bruker må informeres om Navs behandlingsgrunnlag før veileder får tilgang. Be bruker gå inn på
-                        nav.no og oppdatere CV-en sin.
+                        nav.no/min-cv og oppdatere CV-en sin.
                     </List.Item>
                 </List>
             </Alert>
