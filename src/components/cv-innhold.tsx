@@ -2,7 +2,7 @@ import { useAppStore } from '../stores/app-store';
 import { LastNedCV } from './cv/last-ned-cv';
 import { RedigerCV } from './cv/rediger-cv';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
-import { Alert, Link, List, HStack } from '@navikt/ds-react';
+import { Alert, HStack, Link, List } from '@navikt/ds-react';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import SistEndret from './felles/sist-endret';
 import Sammendrag from './cv/sammendrag';
@@ -16,10 +16,9 @@ import Forerkort from './cv/forerkort';
 import Sprak from './cv/sprak';
 import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
-import { CvIkkeSynligInfo } from './cv/cv-ikke-synlig-info';
-import './fellesStyling.css';
 import { byggCvUrl } from '../utils';
 import { trackAmplitude } from '../amplitude/amplitude';
+import './fellesStyling.css';
 
 const Cvinnhold = () => {
     const { fnr } = useAppStore();
@@ -129,7 +128,6 @@ const Cvinnhold = () => {
                     <Godkjenninger godkjenninger={godkjenninger} />
                     <AndreGodkjenninger andreGodkjenninger={andreGodkjenninger} />
                 </div>
-                <CvIkkeSynligInfo />
             </>
         );
     }
