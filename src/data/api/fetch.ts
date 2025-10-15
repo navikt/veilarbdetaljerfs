@@ -153,7 +153,7 @@ export const useOverblikkFilter = () => {
 };
 export const useCvOgJobbonsker = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<ArenaPerson, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBPERSON_HENT_CV_OG_JOBBPROFIL, { fnr: fnr ?? null })
     );
 
@@ -162,7 +162,7 @@ export const useCvOgJobbonsker = (fnr?: string) => {
 
 export const useUnderOppfolging = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<UnderOppfolgingData, ErrorMessage>(
-        fnr ? endepunkter.VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING : null,
+        fnr ? [endepunkter.VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING, { fnr: fnr ?? null })
     );
 
@@ -171,7 +171,7 @@ export const useUnderOppfolging = (fnr?: string) => {
 
 export const useOppfolging = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingData, ErrorMessage>(
-        fnr ? endepunkter.VEILARBOPPFOLGING_HENT_STATUS : null,
+        fnr ? [endepunkter.VEILARBOPPFOLGING_HENT_STATUS, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBOPPFOLGING_HENT_STATUS, { fnr: fnr ?? null })
     );
 
@@ -180,7 +180,7 @@ export const useOppfolging = (fnr?: string) => {
 
 export const useOppfolgingsstatus = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
-        fnr ? endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS : null,
+        fnr ? [endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, { fnr: fnr ?? null })
     );
 
@@ -188,14 +188,14 @@ export const useOppfolgingsstatus = (fnr?: string) => {
 };
 
 export const useHarTilgangTilBruker = (fnr?: string) => {
-    return useSWR<boolean, ErrorMessage>(fnr ? endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER : null, () =>
+    return useSWR<boolean, ErrorMessage>(fnr ? [endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER, fnr] : null, () =>
         fetchWithPost(endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER, { fnr: fnr ?? null })
     );
 };
 
 export const usePersonalia = (fnr: string, behandlingsnummer: string) => {
     const { data, error, isLoading } = useSWR<PersonaliaInfo, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_PERSON : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_PERSON, fnr] : null,
         () =>
             fetchWithPost(endepunkter.VEILARBPERSON_HENT_PERSON, {
                 fnr: fnr ?? null,
@@ -208,7 +208,7 @@ export const usePersonalia = (fnr: string, behandlingsnummer: string) => {
 
 export const useOpplysningerOmArbeidssoekerMedProfilering = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OpplysningerOmArbeidssokerMedProfilering, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING, fnr] : null,
         () =>
             fetchWithPost(endepunkter.VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING, {
                 fnr: fnr ?? null
@@ -220,14 +220,14 @@ export const useOpplysningerOmArbeidssoekerMedProfilering = (fnr?: string) => {
 
 export const useGjeldende14aVedtak = (fnr?: string) => {
     return useSWR<Gjeldende14aVedtak, ErrorMessage>(
-        fnr ? endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK : null,
+        fnr ? [endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK, { fnr: fnr ?? null })
     );
 };
 
 export const useTolk = (fnr: string, behandlingsnummer: string) => {
     const { data, error, isLoading } = useSWR<TilrettelagtKommunikasjonData, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_TOLK : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_TOLK, fnr] : null,
         () =>
             fetchWithPost(endepunkter.VEILARBPERSON_HENT_TOLK, {
                 fnr: fnr ?? null,
@@ -240,7 +240,7 @@ export const useTolk = (fnr: string, behandlingsnummer: string) => {
 
 export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => {
     const { data, error, isLoading } = useSWR<Vergemal, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT, fnr] : null,
         () =>
             fetchWithPost(endepunkter.VEILARBPERSON_HENT_VERGEOGFULLMAKT, {
                 fnr: fnr ?? null,
@@ -253,7 +253,7 @@ export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => 
 
 export const useFullmakt = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<FullmaktData, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_FULLMAKT : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_FULLMAKT, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBPERSON_HENT_FULLMAKT, { fnr: fnr ?? null })
     );
 
@@ -262,7 +262,7 @@ export const useFullmakt = (fnr?: string) => {
 
 export const useYtelser = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
-        fnr ? endepunkter.VEILARBARENA_HENT_YTELSER : null,
+        fnr ? [endepunkter.VEILARBARENA_HENT_YTELSER, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBARENA_HENT_YTELSER, { fnr: fnr ?? null })
     );
 
@@ -271,7 +271,7 @@ export const useYtelser = (fnr?: string) => {
 
 export const useAktorId = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<AktorId, ErrorMessage>(
-        fnr ? endepunkter.VEILARBPERSON_HENT_AKTORID : null,
+        fnr ? [endepunkter.VEILARBPERSON_HENT_AKTORID, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBPERSON_HENT_AKTORID, { fnr: fnr ?? null })
     );
 
