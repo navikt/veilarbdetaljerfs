@@ -35,7 +35,7 @@ const App = (props: AppProps) => {
 
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
-            const lagretData = overblikkFilter.data.overblikkVisning;
+            const lagretData = overblikkFilter.data.overblikkVisning.filter((navn: string) => navn !== 'Ytelser');
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setValgteInformasjonsbokser(lagretData);
         }
