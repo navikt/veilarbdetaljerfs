@@ -25,9 +25,18 @@ const App = (props: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
     const informasjonsboksAlternativer: string[] = useMemo(
-        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser (Arena)'],
+        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'],
         []
     );
+
+    /** For å slippe å oppdatere storage i nettlesarane til alle brukarane
+     * endrar vi berre visningsteksten på Ytelser-chip og boks i staden. */
+    const finnVisningstekstForAlternativ = (alternativ: string) => {
+        if (alternativ === 'Ytelser') {
+            return 'Ytelser (Arena)';
+        }
+        return alternativ;
+    };
 
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
@@ -53,7 +62,7 @@ const App = (props: AppProps) => {
                 return <Personaliainnhold />;
             case 'Registrering':
                 return <Registreringsinnhold />;
-            case 'Ytelser (Arena)':
+            case 'Ytelser':
                 return <Ytelsesinnhold />;
             default:
                 return null;
@@ -102,7 +111,7 @@ const App = (props: AppProps) => {
                                             }}
                                             variant="neutral"
                                         >
-                                            {alternativ}
+                                            {finnVisningstekstForAlternativ(alternativ)}
                                         </Chips.Toggle>
                                     ))}
 
@@ -136,7 +145,7 @@ const App = (props: AppProps) => {
                                                 }}
                                                 variant="neutral"
                                             >
-                                                {alternativ}
+                                                {finnVisningstekstForAlternativ(alternativ)}
                                             </Chips.Toggle>
                                         ))}
                                 </Chips>
@@ -221,7 +230,7 @@ const App = (props: AppProps) => {
                                         id={`${valgtInformasjonsboks}-panel`}
                                     >
                                         <Heading spacing level="2" size="medium" className="panel_header">
-                                            {valgtInformasjonsboks}
+                                            {finnVisningstekstForAlternativ(valgtInformasjonsboks)}
                                         </Heading>
                                         {mapNavnTilKomponent(valgtInformasjonsboks)}
                                     </Box>
