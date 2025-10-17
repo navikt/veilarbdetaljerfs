@@ -5,7 +5,7 @@ import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } 
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
 
 const chips: overblikkVisningResponse = {
-    overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia']
+    overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser (Arena)', 'Personalia']
 };
 
 const lagredeInformasjonsbokser = new LiveStorage<string[]>('lagredeInformasjonsbokser', chips.overblikkVisning);

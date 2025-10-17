@@ -25,7 +25,7 @@ const App = (props: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
     const informasjonsboksAlternativer: string[] = useMemo(
-        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'],
+        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser (Arena)'],
         []
     );
 
@@ -36,9 +36,10 @@ const App = (props: AppProps) => {
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
             const lagretData = overblikkFilter.data.overblikkVisning;
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setValgteInformasjonsbokser(lagretData);
         }
-    }, [informasjonsboksAlternativer, overblikkFilter.data]);
+    }, [overblikkFilter.data]);
 
     const mapNavnTilKomponent = (navn: string) => {
         switch (navn) {
@@ -52,7 +53,7 @@ const App = (props: AppProps) => {
                 return <Personaliainnhold />;
             case 'Registrering':
                 return <Registreringsinnhold />;
-            case 'Ytelser':
+            case 'Ytelser (Arena)':
                 return <Ytelsesinnhold />;
             default:
                 return null;

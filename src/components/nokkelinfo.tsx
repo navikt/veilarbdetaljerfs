@@ -153,7 +153,7 @@ const Nokkelinfoinnhold = () => {
                 value={formaterDato(datoRegistrert)}
                 tilleggsinfo={datoRegistrert ? 'Arbeidssøkerregisteret' : null}
             />
-            <EnkeltInformasjon header="Aktive ytelse(r)" value={getVedtakForVisning(ytelserData?.vedtak)} />
+            <EnkeltInformasjon header="Aktive ytelser (Arena)" value={getVedtakForVisning(ytelserData?.vedtak)} />
         </span>
     );
 };
