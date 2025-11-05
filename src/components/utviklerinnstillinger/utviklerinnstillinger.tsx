@@ -1,4 +1,4 @@
-import { ChangeEvent, Reducer, useReducer, useRef, useState } from 'react';
+import { ChangeEvent, Reducer, useEffect, useReducer, useRef, useState } from 'react';
 import { BodyShort, Button, Checkbox, CheckboxGroup, HStack, Popover, Select, VStack } from '@navikt/ds-react';
 import './utviklerinnstillinger.css';
 import {
@@ -125,6 +125,13 @@ const utviklerInnstillingerReducer: Reducer<UtviklerInnstillingerSpesifikk, Utvi
 export const Utviklerinnstillinger = () => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [openState, setOpenState] = useState(false);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (buttonRef.current) {
+            setAnchorEl(buttonRef.current);
+        }
+    }, []);
 
     const [lagredeUtviklerInnstillinger] = useState<UtviklerInnstillingerSpesifikk | null>(hentUtviklerInnstillinger);
     const [utviklerInnstillinger, utviklerInnstillingerDispatch] = useReducer(
@@ -169,7 +176,7 @@ export const Utviklerinnstillinger = () => {
                         });
                     }
                 }}
-                anchorEl={buttonRef.current}
+                anchorEl={anchorEl}
             >
                 <Popover.Content>
                     <VStack gap="space-16">
