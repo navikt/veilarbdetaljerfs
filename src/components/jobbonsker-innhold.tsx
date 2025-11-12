@@ -8,7 +8,6 @@ import { formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { DobbeltInformasjon } from './felles/dobbelinfo';
 import { useAktorId, useCvOgJobbonsker, useUnderOppfolging } from '../data/api/fetch';
 import { byggCvUrl } from '../utils';
-import { trackAmplitude } from '../amplitude/amplitude';
 
 const asciiTilNorsk = (tekst: string) => {
     switch (tekst) {
@@ -90,17 +89,7 @@ const Jobbonskerinnhold = () => {
             <Alert inline variant="info" size="small">
                 Ingen jobbønsker registrert.{' '}
                 {erManuell && aktorId && (
-                    <Link
-                        href={endreCvUrl}
-                        target="_blank"
-                        rel="noopener"
-                        onClick={() => {
-                            trackAmplitude({
-                                name: 'navigere',
-                                data: { lenketekst: 'Registrer her', destinasjon: 'Registrere jobbønsker' }
-                            });
-                        }}
-                    >
+                    <Link href={endreCvUrl} target="_blank" rel="noopener">
                         Registrer her
                     </Link>
                 )}
