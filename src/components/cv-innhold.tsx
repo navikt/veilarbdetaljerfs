@@ -17,7 +17,6 @@ import Sprak from './cv/sprak';
 import Kompetanser from './cv/kompetanser';
 import Fagdokumentasjoner from './cv/fagdokumentasjoner';
 import { byggCvUrl } from '../utils';
-import { trackAmplitude } from '../amplitude/amplitude';
 import './fellesStyling.css';
 
 const Cvinnhold = () => {
@@ -70,17 +69,7 @@ const Cvinnhold = () => {
             <Alert inline variant="info" size="small">
                 Ingen CV registrert.{' '}
                 {erManuell && aktorId && (
-                    <Link
-                        href={endreCvUrl}
-                        target="_blank"
-                        rel="noopener"
-                        onClick={() => {
-                            trackAmplitude({
-                                name: 'navigere',
-                                data: { lenketekst: 'Registrer her', destinasjon: 'Registrer CV' }
-                            });
-                        }}
-                    >
+                    <Link href={endreCvUrl} target="_blank" rel="noopener">
                         Registrer her
                     </Link>
                 )}
