@@ -3,7 +3,6 @@ import { Button, Modal } from '@navikt/ds-react';
 import PersonverninformasjonManuell from './arbeidssoekerregistrering/personverninformasjon-manuell';
 import { PrinterSmallIcon } from '@navikt/aksel-icons';
 import { PrintKnappModal } from './print-knapp-modal';
-import { trackAmplitude } from '../../amplitude/amplitude';
 
 function erOrdinaer(type: string) {
     return type === 'ORDINAER';
@@ -16,7 +15,6 @@ interface Props {
 function PersonverninformasjonUtskrift({ type }: Props) {
     const [visPrintModal, setVisPrintModal] = useState<boolean>(false);
     const handleBtnClick = () => {
-        trackAmplitude({ name: 'modal åpnet', data: { tekst: 'Personverninformasjon, rettigheter og plikter' } });
         setVisPrintModal(true);
     };
     return (

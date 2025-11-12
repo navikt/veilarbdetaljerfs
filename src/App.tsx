@@ -11,7 +11,6 @@ import TilToppenKnapp from './components/felles/til-toppen-knapp';
 import PersonverninformasjonManuell from './components/registrering/arbeidssoekerregistrering/personverninformasjon-manuell';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
-import { trackAmplitude } from './amplitude/amplitude';
 import { Alert, Box, Button, Chips, Heading } from '@navikt/ds-react';
 import '../index.css';
 import { Tilgangssjekk } from './Tilgangssjekk';
@@ -95,19 +94,6 @@ const App = (props: AppProps) => {
                                                 setValgteInformasjonsbokser(
                                                     valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                                 );
-                                                trackAmplitude(
-                                                    {
-                                                        name: 'filtervalg',
-                                                        data: {
-                                                            kategori: alternativ,
-                                                            filternavn: 'oyblikksvisning'
-                                                        }
-                                                    },
-                                                    {
-                                                        harTidligereLagret: !!overblikkFilter.data?.overblikkVisning,
-                                                        valgt: false
-                                                    }
-                                                );
                                             }}
                                             variant="neutral"
                                         >
@@ -128,20 +114,6 @@ const App = (props: AppProps) => {
                                                         ...prevState,
                                                         alternativ
                                                     ]);
-                                                    trackAmplitude(
-                                                        {
-                                                            name: 'filtervalg',
-                                                            data: {
-                                                                kategori: alternativ,
-                                                                filternavn: 'oyblikksvisning'
-                                                            }
-                                                        },
-                                                        {
-                                                            harTidligereLagret:
-                                                                !!overblikkFilter.data?.overblikkVisning,
-                                                            valgt: true
-                                                        }
-                                                    );
                                                 }}
                                                 variant="neutral"
                                             >
@@ -154,13 +126,6 @@ const App = (props: AppProps) => {
                                         setVisLagreInfo(false);
                                         setVisLagreFeil(false);
                                         setValgteInformasjonsbokser(informasjonsboksAlternativer);
-                                        trackAmplitude(
-                                            {
-                                                name: 'filtervalg',
-                                                data: { kategori: 'nullstill', filternavn: 'oyblikksvisning' }
-                                            },
-                                            { harTidligereLagret: !!overblikkFilter.data?.overblikkVisning }
-                                        );
                                     }}
                                     size="small"
                                     variant="tertiary"
@@ -172,19 +137,6 @@ const App = (props: AppProps) => {
                                     onClick={() => {
                                         sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
                                             () => {
-                                                trackAmplitude(
-                                                    {
-                                                        name: 'filtervalg',
-                                                        data: {
-                                                            kategori: 'lagret visning',
-                                                            filternavn: 'oyblikksvisning'
-                                                        }
-                                                    },
-                                                    {
-                                                        valgt: valgteInformasjonsbokser,
-                                                        harTidligereLagret: !!overblikkFilter.data?.overblikkVisning
-                                                    }
-                                                );
                                                 overblikkFilter.reFetch().then(
                                                     () => {
                                                         setVisLagreFeil(false);
