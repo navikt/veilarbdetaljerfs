@@ -37,3 +37,7 @@ export function lagPersonforvalterLenke(aktoerIdEllerFnr: string) {
     //Personforvalteren skal takle både aktørid og fnr.
     return `https://pdl-web.${finnInternNavDomeneGammelt()}/endreperson?aktoerId=${aktoerIdEllerFnr}`;
 }
+
+export function lagModiaPersonoversiktLenke() {
+    return `https://modiapersonoversikt.${finnInternNavDomene()}/person/ytelser`;
+}

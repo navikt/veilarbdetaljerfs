@@ -1,4 +1,4 @@
-import { Alert } from '@navikt/ds-react';
+import { Alert, Link } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { Errormelding, Laster } from './felles/minikomponenter';
 import EMDASH from '../utils/emdash';
@@ -7,11 +7,13 @@ import { isNotEmptyArray } from '../utils/felles-typer';
 import { useYtelser } from '../data/api/fetch';
 import Informasjonsbolk from './felles/informasjonsbolk';
 import { formaterDato } from '../utils/formater.ts';
+import { lagModiaPersonoversiktLenke } from '../utils';
 
 const Ytelsesinnhold = () => {
     const { fnr } = useAppStore();
 
     const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
+    const modiaPersonoversiktLenke = lagModiaPersonoversiktLenke();
 
     if (ytelserLoading) {
         return <Laster />;
@@ -20,7 +22,7 @@ const Ytelsesinnhold = () => {
     if (!ytelserData || !isNotEmptyArray(ytelserData?.vedtak)) {
         return (
             <Alert inline variant="info" size="small">
-                Ingen ytelser registrert.
+                Ingen Arena-ytelser registrert.
             </Alert>
         );
     }
@@ -32,6 +34,12 @@ const Ytelsesinnhold = () => {
     return (
         <>
             <span className="info_container">
+                <Alert variant="info" size="small">
+                    Viser kun ytelsesvedtak gjort i Arena (AAP, tiltakspenger, og dagpenger).{' '}
+                    <Link href={modiaPersonoversiktLenke} target="_blank" rel="noopener">
+                        Sjekk modia personoversikt.
+                    </Link>
+                </Alert>
                 {ytelserData?.vedtak.map((vedtaket, index) => (
                     <div key={index}>
                         <Informasjonsbolk header={vedtaket.type || EMDASH} headerTypo="ingress">
