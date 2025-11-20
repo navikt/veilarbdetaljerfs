@@ -8,6 +8,10 @@
     margin-bottom: var(--a-space-16);
 }
 
+.alert_container {
+    margin-bottom: var(--a-space-16);
+}
+
 .info_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
