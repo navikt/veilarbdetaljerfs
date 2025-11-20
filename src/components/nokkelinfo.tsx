@@ -139,7 +139,11 @@ const Nokkelinfoinnhold = () => {
                 innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
                 fattetDato={gjeldende14aVedtak?.fattetDato}
             />
-            <Hovedmaal hovedmal={gjeldende14aVedtak?.hovedmal} fattetDato={gjeldende14aVedtak?.fattetDato} />
+            <Hovedmaal
+                hovedmal={gjeldende14aVedtak?.hovedmal}
+                fattetDato={gjeldende14aVedtak?.fattetDato}
+                harGjeldendeOppfolgingsvedtak={!!gjeldende14aVedtak}
+            />
             <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
             <EnkeltInformasjon header="Tilrettelagt kommunikasjon" value={hentTolkTekst(taletolk)} />
             <EnkeltInformasjon header="Sivilstand" value={formatStringInUpperAndLowerCaseUnderscore(sivilstatus)} />

@@ -10,8 +10,9 @@ import { EnkeltInformasjon } from './felles/enkeltInfo.tsx';
 interface Props {
     hovedmal: StringOrNothing;
     fattetDato: StringOrNothing;
+    harGjeldendeOppfolgingsvedtak: boolean;
 }
-export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
+export const Hovedmaal = ({ hovedmal, fattetDato, harGjeldendeOppfolgingsvedtak }: Props) => {
     const { data: kodeverk14a, isLoading: kodeverk14aLoading, error: kodeverk14aError } = useKodeverk14a();
 
     if (kodeverk14aLoading) {
@@ -35,12 +36,24 @@ export const Hovedmaal = ({ hovedmal, fattetDato }: Props) => {
         }
     };
 
-    return hovedmal ? (
-        <DobbeltInformasjon
-            header="Hovedmål (gjeldende § 14 a-vedtak)"
-            values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
-        />
-    ) : (
-        <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value={'Har ikke et gjeldende § 14 a-vedtak'} />
+    // Har hovedmål så vi mapper det til riktig visningstekst
+    if (hovedmal) {
+        return (
+            <DobbeltInformasjon
+                header="Hovedmål (gjeldende § 14 a-vedtak)"
+                values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
+            />
+        );
+    }
+
+    // Har ikke hovedmål, men har gjeldende oppfølgingsvedtak.
+    // Hovedmål vil være `null` dersom personen har et gjeldende oppfølgingsvedtak med innsatsgruppen lik
+    // `LITEN_MULIGHET_TIL_A_JOBBE`, så dette er en forventet tilstand.
+    if (harGjeldendeOppfolgingsvedtak) {
+        return <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value={EMDASH} />;
+    }
+
+    return (
+        <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value="Har ikke et gjeldende § 14 a-vedtak" />
     );
 };
