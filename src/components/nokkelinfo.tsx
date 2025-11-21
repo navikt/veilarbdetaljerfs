@@ -24,6 +24,7 @@ import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
 import { ErrorAlertMedFeilkode } from './felles/error-alert-med-feilkode.tsx';
+import { ModiaPersonoversiktLenke } from './modia-personoversikt-lenke.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -157,7 +158,11 @@ const Nokkelinfoinnhold = () => {
                 value={formaterDato(datoRegistrert)}
                 tilleggsinfo={datoRegistrert ? 'Arbeidssøkerregisteret' : null}
             />
-            <EnkeltInformasjon header="Aktive ytelser (Arena)" value={getVedtakForVisning(ytelserData?.vedtak)} />
+            <EnkeltInformasjon
+                header="Aktive ytelser (Arena)"
+                value={getVedtakForVisning(ytelserData?.vedtak)}
+                lenkeinfo={<ModiaPersonoversiktLenke />}
+            />
         </span>
     );
 };
