@@ -45,7 +45,7 @@ export const Hovedmaal = ({ hovedmal, fattetDato, harGjeldendeOppfolgingsvedtak 
         );
     }
 
-    // Om det gjeldande vedtaket har ein innsatsgruppe-type det det ikkje vert sett hovedmål, til dømes `LITEN_MULIGHET_TIL_A_JOBBE`
+    // Om det gjeldande vedtaket har ein innsatsgruppe-type der det ikkje vert sett hovedmål, til dømes `LITEN_MULIGHET_TIL_A_JOBBE`
     if (!hovedmal) {
         return <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value={EMDASH} />;
     }
