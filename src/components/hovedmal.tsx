@@ -1,5 +1,5 @@
 import { OrNothing, StringOrNothing } from '../utils/felles-typer.ts';
-import { HovedmalType, Hovedmal } from '../data/api/datatyper/kodeverk14aData.ts';
+import { Hovedmal, HovedmalType } from '../data/api/datatyper/kodeverk14aData.ts';
 import EMDASH from '../utils/emdash.ts';
 import { Errormelding, Laster } from './felles/minikomponenter.tsx';
 import { useKodeverk14a } from '../data/api/fetch.ts';
@@ -36,24 +36,24 @@ export const Hovedmaal = ({ hovedmal, fattetDato, harGjeldendeOppfolgingsvedtak 
         }
     };
 
-    // Har hovedmål så vi mapper det til riktig visningstekst
-    if (hovedmal) {
+    if (!harGjeldendeOppfolgingsvedtak) {
         return (
-            <DobbeltInformasjon
+            <EnkeltInformasjon
                 header="Hovedmål (gjeldende § 14 a-vedtak)"
-                values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
+                value="Har ikke et gjeldende § 14 a-vedtak"
             />
         );
     }
 
-    // Har ikke hovedmål, men har gjeldende oppfølgingsvedtak.
-    // Hovedmål vil være `null` dersom personen har et gjeldende oppfølgingsvedtak med innsatsgruppen lik
-    // `LITEN_MULIGHET_TIL_A_JOBBE`, så dette er en forventet tilstand.
-    if (harGjeldendeOppfolgingsvedtak) {
+    // Om det gjeldande vedtaket har ein innsatsgruppe-type der det ikkje vert sett hovedmål, til dømes `LITEN_MULIGHET_TIL_A_JOBBE`
+    if (!hovedmal) {
         return <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value={EMDASH} />;
     }
 
     return (
-        <EnkeltInformasjon header="Hovedmål (gjeldende § 14 a-vedtak)" value="Har ikke et gjeldende § 14 a-vedtak" />
+        <DobbeltInformasjon
+            header="Hovedmål (gjeldende § 14 a-vedtak)"
+            values={[hentBeskrivelseTilHovedmal(hovedmal), `Vedtaksdato: ${formaterDato(fattetDato)}`]}
+        />
     );
 };
