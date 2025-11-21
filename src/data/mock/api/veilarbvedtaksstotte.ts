@@ -55,10 +55,26 @@ const kodeverkdata: Kodeverk14a = {
     ]
 };
 
-const gjeldende14aVekdak = {
-    innsatsgruppe: 'LITEN_MULIGHET_TIL_A_JOBBE',
-    hovedmal: 'SKAFFE_ARBEID',
-    fattetDato: '2021-01-01'
+const randomGjeldende14aVedtak = () => {
+    const etUtvalgVedtak = [
+        {
+            innsatsgruppe: Innsatsgruppe.LITEN_MULIGHET_TIL_A_JOBBE,
+            hovedmal: null,
+            fattetDato: '2021-01-01'
+        },
+        {
+            innsatsgruppe: Innsatsgruppe.GODE_MULIGHETER,
+            hovedmal: Hovedmal.BEHOLDE_ARBEID,
+            fattetDato: '2021-01-01'
+        },
+        {
+            innsatsgruppe: Innsatsgruppe.TRENGER_VEILEDNING,
+            hovedmal: Hovedmal.SKAFFE_ARBEID,
+            fattetDato: '2021-01-01'
+        }
+    ];
+
+    return etUtvalgVedtak[Math.floor(Math.random() * etUtvalgVedtak.length)];
 };
 
 export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
@@ -73,7 +89,7 @@ export const veilarbvedtaksstotteHandlers: RequestHandler[] = [
             return simulerEndepunktResponsKonfigurasjon;
         }
 
-        return HttpResponse.json(gjeldende14aVekdak, {
+        return HttpResponse.json(randomGjeldende14aVedtak(), {
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     }),
