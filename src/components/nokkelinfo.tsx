@@ -99,7 +99,7 @@ const Nokkelinfoinnhold = () => {
             .filter((korrelasjonId) => korrelasjonId !== null);
 
         return (
-            <ErrorAlertMedFeilkode feilkoder={feilkoder} aktiverSporing>
+            <ErrorAlertMedFeilkode feilkoder={feilkoder} aktiverSporing={true}>
                 Noe gikk galt! Prøv igjen om noen minutter.
             </ErrorAlertMedFeilkode>
         );
