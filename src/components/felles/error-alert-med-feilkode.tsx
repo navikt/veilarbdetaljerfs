@@ -1,8 +1,7 @@
-import { Alert, BodyShort, CopyButton, Link, List, ReadMore, VStack } from '@navikt/ds-react';
-import './alert-med-feilkode.css';
 import React from 'react';
+import { Alert, BodyShort, CopyButton, Link, List, ReadMore, VStack } from '@navikt/ds-react';
 import { ListItem } from '@navikt/ds-react/List';
-import { trackAmplitude } from '../../amplitude/amplitude.ts';
+import './alert-med-feilkode.css';
 
 /**
  * Props for {@link ErrorAlertMedFeilkode}
@@ -23,7 +22,35 @@ interface ErrorAlertMedFeilkodeProps {
  * * en liste med feilkoder som bruker kan legge ved når man melder inn feil, gitt at
  * {@link ErrorAlertMedFeilkodeProps.feilkoder} inneholder minst et element
  */
-export const ErrorAlertMedFeilkode = ({ feilkoder, children, aktiverSporing = false }: ErrorAlertMedFeilkodeProps) => {
+export const ErrorAlertMedFeilkode = ({ feilkoder, children }: ErrorAlertMedFeilkodeProps) => {
+    function loggKopierFeilkode() {
+        // TODO migrer logging til Umami
+        // if (aktiverSporing) {
+        //     trackAmplitude({
+        //         name: 'knapp klikket',
+        //         data: {
+        //             knapptekst: feilkoder.length > 1 ? `Kopier feilkoder` : `Kopier feilkode`
+        //         }
+        //     });
+        // } else {
+        //     return undefined;
+        // }
+    }
+
+    function loggLesMer() {
+        // TODO migrer logging til Umami
+        // if (aktiverSporing) {
+        //     trackAmplitude({
+        //         name: 'knapp klikket',
+        //         data: {
+        //             knapptekst: 'Melde fra om feil?'
+        //         }
+        //     });
+        // } else {
+        //     return undefined;
+        // }
+    }
+
     return (
         <Alert className="error-alert-med-feilkode__innhold" variant="error" size="small">
             <VStack gap="space-8">
@@ -31,17 +58,7 @@ export const ErrorAlertMedFeilkode = ({ feilkoder, children, aktiverSporing = fa
                 <ReadMore
                     className="error-alert-med-feilkode__read-more"
                     header="Melde fra om feil?"
-                    onClick={
-                        aktiverSporing
-                            ? () =>
-                                  trackAmplitude({
-                                      name: 'knapp klikket',
-                                      data: {
-                                          knapptekst: 'Melde fra om feil?'
-                                      }
-                                  })
-                            : undefined
-                    }
+                    onClick={loggLesMer}
                     size="small"
                 >
                     <VStack align="start" gap="space-4">
@@ -65,20 +82,7 @@ export const ErrorAlertMedFeilkode = ({ feilkoder, children, aktiverSporing = fa
                                 </List>
                                 <CopyButton
                                     copyText={feilkoder.join(', ')}
-                                    onClick={
-                                        aktiverSporing
-                                            ? () =>
-                                                  trackAmplitude({
-                                                      name: 'knapp klikket',
-                                                      data: {
-                                                          knapptekst:
-                                                              feilkoder.length > 1
-                                                                  ? `Kopier feilkoder`
-                                                                  : `Kopier feilkode`
-                                                      }
-                                                  })
-                                            : undefined
-                                    }
+                                    onClick={loggKopierFeilkode}
                                     size="small"
                                     text={feilkoder.length > 1 ? `Kopier feilkoder` : `Kopier feilkode`}
                                 />
