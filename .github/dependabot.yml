@@ -11,6 +11,10 @@ updates:
       interval: 'weekly'
     cooldown:
       default-days: 7
+    groups:
+      workflow-updates:
+        patterns:
+          - '*'
 
   - package-ecosystem: 'npm' # See documentation for possible values
     directory: '/' # Location of package manifests
