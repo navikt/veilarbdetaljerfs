@@ -9,8 +9,8 @@ import Informasjonsbolk from '../felles/informasjonsbolk';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 
 function BorSammen(props: { barn: PersonsBarn }) {
-    const { dodsdato, relasjonsBosted } = props.barn;
-    if (dodsdato) {
+    const { erDod, relasjonsBosted } = props.barn;
+    if (erDod) {
         return null;
     }
 
@@ -20,8 +20,8 @@ function BorSammen(props: { barn: PersonsBarn }) {
 }
 
 function EnkeltBarn(props: { barn: PersonsBarn }) {
-    const { fornavn, fodselsdato, gradering, erEgenAnsatt, harVeilederTilgang } = props.barn;
-    const alder = finnAlderTekstForBarn(props.barn);
+    const { fornavn, fodselsdato, alder, erEgenAnsatt, harVeilederTilgang, gradering } = props.barn;
+    const alderTekst = finnAlderTekstForBarn(props.barn);
     const graderingTekst = gradering && gradering !== Gradering.UGRADERT ? graderingBeskrivelseBarn(gradering) : null;
 
     return (
@@ -43,7 +43,7 @@ function EnkeltBarn(props: { barn: PersonsBarn }) {
             ) : (
                 <div>
                     <BodyShort size="small" className="body_header">
-                        <b>{`Barn (${alder})`}</b>
+                        <b>{`Barn (${alderTekst})`}</b>
                     </BodyShort>
                     <BodyShort size="small">{formateStringInUpperAndLowerCase(fornavn)}</BodyShort>
                     <BodyShort size="small" className="typografi_dato">

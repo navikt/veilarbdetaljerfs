@@ -1,4 +1,3 @@
-import { StringOrNothing } from './felles-typer';
 import { Gradering, PersonsBarn } from '../data/api/datatyper/personalia.ts';
 
 /** Finner ut hvor gammel en person er i dag */
@@ -8,13 +7,12 @@ export function kalkulerAlder(fodselsdato: Date): number {
 }
 
 /** Returnerer alder på barn, eller 'DØD' dersom barnet ikke lever lenger. */
-export function finnAlderTekstForBarn(personalia: { dodsdato: StringOrNothing; fodselsdato: string }): string {
-    if (personalia.dodsdato) {
+export function finnAlderTekstForBarn(personalia: { alder: number, erDod: boolean }): string {
+    if (personalia.erDod) {
         return 'DØD';
     }
-    const alder = kalkulerAlder(new Date(personalia.fodselsdato));
 
-    return `${alder}`;
+    return `${personalia.alder}`;
 }
 
 /**
@@ -22,7 +20,7 @@ export function finnAlderTekstForBarn(personalia: { dodsdato: StringOrNothing; f
  * Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
  * */
 export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
-    if (barn.gradering === Gradering.UGRADERT || barn.dodsdato || barn.harVeilederTilgang) {
+    if (barn.gradering === Gradering.UGRADERT || barn.erDod || barn.harVeilederTilgang) {
         return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
     }
     return 'Barn (adressebeskyttelse)';
