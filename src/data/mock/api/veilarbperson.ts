@@ -361,12 +361,13 @@ const personalia: PersonaliaInfo = {
     barn: [
         {
             fornavn: 'Georg',
-            fodselsdato: '2000-01-12',
+            fodselsdato: '2000-05-12',
             gradering: Gradering.UGRADERT,
             erEgenAnsatt: false,
             harVeilederTilgang: false,
-            dodsdato: null,
-            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED
+            erDod: false,
+            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED,
+            alder: 25
         },
         {
             fornavn: 'Bruce',
@@ -374,8 +375,9 @@ const personalia: PersonaliaInfo = {
             gradering: Gradering.UKJENT,
             erEgenAnsatt: false,
             harVeilederTilgang: false,
-            dodsdato: null,
-            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED
+            erDod: false,
+            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED,
+            alder: 14
         },
         {
             fornavn: 'Harry',
@@ -383,17 +385,19 @@ const personalia: PersonaliaInfo = {
             gradering: Gradering.STRENGT_FORTROLIG,
             erEgenAnsatt: false,
             harVeilederTilgang: false,
-            dodsdato: null,
-            relasjonsBosted: RelasjonsBosted.SAMME_BOSTED
+            erDod: false,
+            relasjonsBosted: RelasjonsBosted.SAMME_BOSTED,
+            alder: 17
         },
         {
             fornavn: 'Satoshi',
-            fodselsdato: '2005-10-04',
+            fodselsdato: '2020-10-04',
             erEgenAnsatt: false,
             harVeilederTilgang: true,
             gradering: Gradering.UKJENT,
-            dodsdato: '2023-11-11',
-            relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED
+            erDod: true,
+            relasjonsBosted: RelasjonsBosted.UKJENT_BOSTED,
+            alder: 5
         },
         {
             fornavn: 'Mari',
@@ -401,8 +405,9 @@ const personalia: PersonaliaInfo = {
             erEgenAnsatt: false,
             harVeilederTilgang: true,
             gradering: Gradering.UGRADERT,
-            dodsdato: null,
-            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED
+            erDod: false,
+            relasjonsBosted: RelasjonsBosted.ANNET_BOSTED,
+            alder: 0
         }
     ],
     geografiskEnhet: {
