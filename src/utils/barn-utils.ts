@@ -7,7 +7,7 @@ export function kalkulerAlder(fodselsdato: Date): number {
 }
 
 /** Returnerer alder på barn, eller 'DØD' dersom barnet ikke lever lenger. */
-export function finnAlderTekstForBarn(personalia: { alder: number, erDod: boolean }): string {
+export function finnAlderTekstForBarn(personalia: { alder: number; erDod: boolean }): string {
     if (personalia.erDod) {
         return 'DØD';
     }

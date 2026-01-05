@@ -44,8 +44,6 @@ export interface PersonsBarn {
     harVeilederTilgang: boolean;
     gradering: Gradering;
     relasjonsBosted: RelasjonsBosted | null;
-
-
 }
 
 export interface Enhet {
