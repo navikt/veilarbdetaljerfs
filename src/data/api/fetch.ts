@@ -65,7 +65,7 @@ export const endepunkter = {
     VEILARBFILTER_OVERBLIKKVISNING: '/veilarbfilter/api/overblikkvisning',
     VEILARBPERSON_HENT_CV_OG_JOBBPROFIL: '/veilarbperson/api/v3/person/hent-cv_jobbprofil',
     VEILARBPERSON_HENT_TILGANGTILBRUKER: '/veilarbperson/api/v3/person/hent-tilgangTilBruker',
-    VEILARBPERSON_HENT_PERSON: '/veilarbperson/api/v3/hent-person',
+    VEILARBPERSON_HENT_PERSON: '/veilarbperson/api/v3/hent-person-tilgangsstyrt',
     VEILARBPERSON_HENT_SISTE_OPPLYSNINGER_OM_ARBEIDSSOEKER_MED_PROFILERING:
         '/veilarbperson/api/v3/person/hent-siste-opplysninger-om-arbeidssoeker-med-profilering',
     VEILARBPERSON_HENT_TOLK: '/veilarbperson/api/v3/person/hent-tolk',

@@ -38,11 +38,12 @@ export interface GrunnPersonalia {
 export interface PersonsBarn {
     fornavn: StringOrNothing;
     fodselsdato: string;
+    erDod: boolean;
+    alder: number;
     erEgenAnsatt: boolean;
-    dodsdato: StringOrNothing;
-    relasjonsBosted: RelasjonsBosted | null;
-    gradering: Gradering;
     harVeilederTilgang: boolean;
+    gradering: Gradering;
+    relasjonsBosted: RelasjonsBosted | null;
 }
 
 export interface Enhet {
