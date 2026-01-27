@@ -69,7 +69,7 @@ const App = (props: AppProps) => {
     };
 
     return (
-        <Theme theme="light">
+        <Theme theme="light" asChild>
             <main className="app veilarbdetaljerfs">
                 <SWRConfig
                     value={{
