@@ -1,11 +1,8 @@
 #til-toppen-knapp {
     position: fixed;
-    right: var(--a-space-24);
-    bottom: var(--a-space-24);
-    padding: var(--a-space-8);
-    border: 2px solid var(--a-border-action);
-    box-shadow: var(--a-shadow-medium);
-
+    right: var(--ax-space-24);
+    bottom: var(--ax-space-24);
+    padding: var(--ax-space-8);
     animation: fadeInAnimation 0.5s;
 }
 
@@ -21,7 +18,7 @@
 }
 
 #til-toppen-knapp:not(:hover):not(:active) {
-    background-color: var(--a-surface-default);
+    background-color: var(--ax-bg-default);
 }
 
 #til-toppen-knapp > span {

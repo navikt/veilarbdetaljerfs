@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Link, List } from '@navikt/ds-react';
+import { BodyLong, Box, Heading, Link, List } from '@navikt/ds-react';
 
 function PersonverninformasjonManuell() {
     return (
@@ -6,52 +6,68 @@ function PersonverninformasjonManuell() {
             <Heading level="1" size="large" spacing>
                 Registrer deg som arbeidssøker
             </Heading>
-            <List title="Rettigheter" size="small">
-                <List.Item>
-                    Du har rett til å registrere deg som arbeidssøker hos Nav hvis du oppfyller forutsetningene gitt i
-                    arbeidsmarkedslovens § 10 se{' '}
-                    <Link href="https://lovdata.no/dokument/NL/lov/2004-12-10-76/KAPITTEL_4#%C2%A710" target="_blank">
-                        https://lovdata.no/dokument/NL/lov/2004-12-10-76/KAPITTEL_4#%C2%A710
-                    </Link>
-                    .
-                </List.Item>
-                <List.Item>
-                    Du har krav på at Nav vurderer behovet ditt for veiledning med mål om å komme tilbake i arbeid. Du
-                    kan lese mer om dette i Nav-loven § 14 a på{' '}
-                    <Link href="https://lovdata.no/dokument/NL/lov/2006-06-16-20/KAPITTEL_3#%C2%A714a" target="_blank">
-                        https://lovdata.no/dokument/NL/lov/2006-06-16-20/KAPITTEL_3#%C2%A714a
-                    </Link>
-                    .
-                </List.Item>
-                <List.Item>
-                    Du kan søke om dagpenger eller andre ytelser når du har registrert deg som arbeidssøker.
-                </List.Item>
-            </List>
+            <Heading level="2" size="xsmall">
+                Rettigheter
+            </Heading>
+            <Box marginBlock="space-12 space-24" asChild>
+                <List size="small">
+                    <List.Item>
+                        Du har rett til å registrere deg som arbeidssøker hos Nav hvis du oppfyller forutsetningene gitt
+                        i arbeidsmarkedslovens § 10 se{' '}
+                        <Link
+                            href="https://lovdata.no/dokument/NL/lov/2004-12-10-76/KAPITTEL_4#%C2%A710"
+                            target="_blank"
+                        >
+                            https://lovdata.no/dokument/NL/lov/2004-12-10-76/KAPITTEL_4#%C2%A710
+                        </Link>
+                        .
+                    </List.Item>
+                    <List.Item>
+                        Du har krav på at Nav vurderer behovet ditt for veiledning med mål om å komme tilbake i arbeid.
+                        Du kan lese mer om dette i Nav-loven § 14 a på{' '}
+                        <Link
+                            href="https://lovdata.no/dokument/NL/lov/2006-06-16-20/KAPITTEL_3#%C2%A714a"
+                            target="_blank"
+                        >
+                            https://lovdata.no/dokument/NL/lov/2006-06-16-20/KAPITTEL_3#%C2%A714a
+                        </Link>
+                        .
+                    </List.Item>
+                    <List.Item>
+                        Du kan søke om dagpenger eller andre ytelser når du har registrert deg som arbeidssøker.
+                    </List.Item>
+                </List>
+            </Box>
 
-            <List title="Hva skjer etter at du har registrert deg?" size="small">
-                <List.Item>
-                    Etter at du har registrert deg vil opplysningene du har gitt om utdanning, livssituasjon og
-                    tidligere arbeidsforhold bli brukt til å vurdere hvilken hjelp du skal få fra Nav. Vi vurderer de
-                    opplysningene du har gitt oss opp mot de opplysningene vi har om andre arbeidssøkere i omtrent samme
-                    situasjon som deg. På bakgrunn av dette vil en veileder fatte et vedtak som sendes til deg. Vedtaket
-                    forteller hvordan Nav vurderer din situasjon i arbeidsmarkedet.
-                </List.Item>
-                <List.Item>
-                    Dersom du er uenig i Nav sin vurdering, har du mulighet til å gi tilbakemelding om dette.
-                </List.Item>
-                <List.Item>
-                    Avhengig av hvilken hjelp og ytelser du har krav på kan du få ulike plikter som Nav forventer at du
-                    følger opp.
-                </List.Item>
-                <List.Item>
-                    I den perioden du ønsker å være registrert som arbeidssøker hos Nav er det viktig at du leverer
-                    meldekort.
-                </List.Item>
-                <List.Item>
-                    Hvis det skjer endringer i livet ditt som påvirker din status som arbeidssøker må du ta kontakt med
-                    Nav. Da gjør vi en ny vurdering av ditt behov.
-                </List.Item>
-            </List>
+            <Heading level="2" size="xsmall">
+                Hva skjer etter at du har registrert deg?
+            </Heading>
+            <Box marginBlock="space-12 space-24" asChild>
+                <List size="small">
+                    <List.Item>
+                        Etter at du har registrert deg vil opplysningene du har gitt om utdanning, livssituasjon og
+                        tidligere arbeidsforhold bli brukt til å vurdere hvilken hjelp du skal få fra Nav. Vi vurderer
+                        de opplysningene du har gitt oss opp mot de opplysningene vi har om andre arbeidssøkere i
+                        omtrent samme situasjon som deg. På bakgrunn av dette vil en veileder fatte et vedtak som sendes
+                        til deg. Vedtaket forteller hvordan Nav vurderer din situasjon i arbeidsmarkedet.
+                    </List.Item>
+                    <List.Item>
+                        Dersom du er uenig i Nav sin vurdering, har du mulighet til å gi tilbakemelding om dette.
+                    </List.Item>
+                    <List.Item>
+                        Avhengig av hvilken hjelp og ytelser du har krav på kan du få ulike plikter som Nav forventer at
+                        du følger opp.
+                    </List.Item>
+                    <List.Item>
+                        I den perioden du ønsker å være registrert som arbeidssøker hos Nav er det viktig at du leverer
+                        meldekort.
+                    </List.Item>
+                    <List.Item>
+                        Hvis det skjer endringer i livet ditt som påvirker din status som arbeidssøker må du ta kontakt
+                        med Nav. Da gjør vi en ny vurdering av ditt behov.
+                    </List.Item>
+                </List>
+            </Box>
 
             <Heading level="2" size="xsmall" spacing>
                 Hvilke opplysninger henter vi inn og hva brukes de til?
@@ -60,12 +76,14 @@ function PersonverninformasjonManuell() {
                 Når du registrerer deg som arbeidssøker vurderer Nav opplysningene dine og foreslår oppfølging for deg.
                 For å vurdere hva slags tjenester du trenger må vi ha opplysninger om:
             </BodyLong>
-            <List size="small">
-                <List.Item>alderen din</List.Item>
-                <List.Item>du har vært i jobb</List.Item>
-                <List.Item>utdanningen din</List.Item>
-                <List.Item>eventuelle utfordringer</List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+                <List size="small">
+                    <List.Item>alderen din</List.Item>
+                    <List.Item>du har vært i jobb</List.Item>
+                    <List.Item>utdanningen din</List.Item>
+                    <List.Item>eventuelle utfordringer</List.Item>
+                </List>
+            </Box>
             <BodyLong size="small" spacing>
                 Vi vurderer de opplysningene du har gitt oss opp mot de opplysningene vi har om andre arbeidssøkere i
                 omtrent samme situasjon som deg. På bakgrunn av dette blir det laget et automatisk forslag til hvilke

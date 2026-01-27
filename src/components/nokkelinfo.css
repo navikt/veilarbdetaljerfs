@@ -1,18 +1,17 @@
 .nokkelinfo_panel {
-    margin: 0 var(--a-space-40) var(--a-space-40);
-    background-color: var(--a-surface-alt-3-moderate);
-    border-radius: var(--a-border-radius-large);
+    margin: 0 var(--ax-space-40) var(--ax-space-40);
+    background-color: var(--ax-bg-accent-moderate-pressed);
+    border-radius: var(--ax-radius-8);
     border-color: transparent;
-    box-shadow: var(--a-shadow-small);
 }
 
 .nokkelinfo_container {
     grid-row: row 2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: var(--a-space-20);
+    grid-gap: var(--ax-space-20);
     justify-content: space-evenly;
-    line-height: var(--a-font-line-height-medium);
+    line-height: var(--ax-font-line-height-medium);
 }
 
 @media only screen and (max-width: 1023px) {

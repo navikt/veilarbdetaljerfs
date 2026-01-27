@@ -1,5 +1,5 @@
 .utviklerinnstillinger {
-    bottom: var(--a-space-24);
-    left: var(--a-space-24);
+    bottom: var(--ax-space-24);
+    left: var(--ax-space-24);
     position: fixed;
 }

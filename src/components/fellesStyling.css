@@ -1,27 +1,27 @@
 .info_panel {
-    background: linear-gradient(to bottom, var(--a-surface-neutral-moderate) 55px, white 20px);
+    background: linear-gradient(to bottom, var(--ax-bg-neutral-moderate-pressed) 55px, var(--ax-bg-default) 20px);
     break-inside: avoid-column;
 }
 
 .panel_header {
     text-align: center;
-    margin-bottom: var(--a-space-16);
+    margin-bottom: var(--ax-space-16);
 }
 
 .alert_container {
-    margin-bottom: var(--a-space-16);
+    margin-bottom: var(--ax-space-16);
 }
 
 .info_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: var(--a-space-16);
+    grid-gap: var(--ax-space-16);
 }
 
 @media only screen and (max-width: 1279px) {
     .info_container {
         grid-template-columns: 1fr;
-        grid-gap: var(--a-space-8);
+        grid-gap: var(--ax-space-8);
     }
 }
 
@@ -30,11 +30,11 @@
 }
 
 .enkeltinfo_value {
-    padding-bottom: var(--a-space-8);
+    padding-bottom: var(--ax-space-8);
 }
 
 .copy_header {
-    font-weight: var(--a-font-weight-bold);
+    font-weight: var(--ax-font-weight-bold);
 }
 
 .copy_body {
@@ -43,19 +43,19 @@
 }
 
 .with_emdash {
-    margin-top: var(--a-space-12);
+    margin-top: var(--ax-space-12);
 }
 
 .panel_infoboks {
-    margin-top: var(--a-space-16);
+    margin-top: var(--ax-space-16);
 }
 
 #personalia_advarsel {
-    margin-bottom: var(--a-space-16);
+    margin-bottom: var(--ax-space-16);
 }
 
 .cv-lenker {
-    margin-bottom: var(--a-space-8);
+    margin-bottom: var(--ax-space-8);
 }
 
 .typografi_dato {
@@ -63,7 +63,7 @@
 }
 
 .registrering_dato {
-    color: var(--a-gray-600);
+    color: var(--ax-neutral-700);
     font-style: italic;
 }
 
@@ -82,9 +82,9 @@
 }
 
 .reservert-krr-info {
-    margin-bottom: var(--a-space-8);
+    margin-bottom: var(--ax-space-8);
 }
 
 .info-for-en-fullmakt:not(:last-of-type) {
-    margin-bottom: var(--a-space-32);
+    margin-bottom: var(--ax-space-32);
 }
