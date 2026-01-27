@@ -153,11 +153,12 @@ export const Utviklerinnstillinger = () => {
     return (
         <>
             <Button
+                data-color="neutral"
                 aria-expanded={openState}
                 className="utviklerinnstillinger"
                 onClick={() => setOpenState(!openState)}
                 ref={buttonRef}
-                variant="primary-neutral"
+                variant="primary"
             >
                 Åpne utviklerinnstillinger
             </Button>
@@ -257,12 +258,13 @@ export const Utviklerinnstillinger = () => {
                                 Lagre innstillinger
                             </Button>
                             <Button
+                                data-color="danger"
                                 onClick={() => {
                                     slettUtviklerinnstillinger();
                                     window.location.reload();
                                 }}
                                 size="small"
-                                variant="danger"
+                                variant="primary"
                             >
                                 Slett innstillinger
                             </Button>

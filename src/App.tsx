@@ -86,6 +86,7 @@ const App = (props: AppProps) => {
                                 <Chips size="small">
                                     {valgteInformasjonsbokser.map((alternativ) => (
                                         <Chips.Toggle
+                                            data-color="neutral"
                                             key={alternativ}
                                             selected={true}
                                             onClick={() => {
@@ -95,7 +96,6 @@ const App = (props: AppProps) => {
                                                     valgteInformasjonsbokser.filter((item) => item !== alternativ)
                                                 );
                                             }}
-                                            variant="neutral"
                                         >
                                             {finnVisningstekstForAlternativ(alternativ)}
                                         </Chips.Toggle>
@@ -105,6 +105,7 @@ const App = (props: AppProps) => {
                                         .filter((x) => !valgteInformasjonsbokser.includes(x))
                                         .map((alternativ) => (
                                             <Chips.Toggle
+                                                data-color="neutral"
                                                 key={alternativ}
                                                 selected={false}
                                                 onClick={() => {
@@ -115,7 +116,6 @@ const App = (props: AppProps) => {
                                                         alternativ
                                                     ]);
                                                 }}
-                                                variant="neutral"
                                             >
                                                 {finnVisningstekstForAlternativ(alternativ)}
                                             </Chips.Toggle>
@@ -175,8 +175,8 @@ const App = (props: AppProps) => {
                                 {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
                                     <Box
                                         borderRadius="8"
-                                        padding="4"
-                                        marginBlock="0 10"
+                                        padding="space-16"
+                                        marginBlock="auto space-32"
                                         className="info_panel"
                                         key={valgtInformasjonsboks}
                                         id={`${valgtInformasjonsboks}-panel`}
