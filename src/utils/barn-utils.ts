@@ -15,9 +15,9 @@ export function finnAlderTekstForBarn(personalia: { alder: number; erDod: boolea
  * */
 export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
     const adressebeskyttet =
-        barn.gradering.includes(Gradering.STRENGT_FORTROLIG) ||
-        barn.gradering.includes(Gradering.FORTROLIG) ||
-        barn.gradering.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
+        barn.gradering?.includes(Gradering.STRENGT_FORTROLIG) ||
+        barn.gradering?.includes(Gradering.FORTROLIG) ||
+        barn.gradering?.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
     // fornavn DØD
     if (barn.erDod) {
         return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
