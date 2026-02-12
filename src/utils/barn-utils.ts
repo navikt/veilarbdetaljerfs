@@ -20,18 +20,24 @@ export function finnAlderTekstForBarn(personalia: { alder: number; erDod: boolea
  * Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
  * */
 export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
-
-    const adressebeskyttet = barn.gradering.includes(Gradering.STRENGT_FORTROLIG) || barn.gradering.includes(Gradering.FORTROLIG) || barn.gradering.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
+    const adressebeskyttet =
+        barn.gradering.includes(Gradering.STRENGT_FORTROLIG) ||
+        barn.gradering.includes(Gradering.FORTROLIG) ||
+        barn.gradering.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
     // fornavn DØD
-    if (barn.erDod) { return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`}
+    if (barn.erDod) {
+        return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
+    }
     //'Barn (skjermet)' alder
     if (!adressebeskyttet && !barn.harVeilederTilgang && barn.erEgenAnsatt) {
-        return `'Barn (skjermet)' (${finnAlderTekstForBarn(barn)})`;}
+        return `'Barn (skjermet)' (${finnAlderTekstForBarn(barn)})`;
+    }
     //'Barn (adressebeskyttelse)'
-    if (adressebeskyttet && !barn.harVeilederTilgang ) {
-        return 'Barn (adressebeskyttelse)';}
+    if (adressebeskyttet && !barn.harVeilederTilgang) {
+        return 'Barn (adressebeskyttelse)';
+    }
     //Når veileder har tilgang
-        return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
+    return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
 };
 
 /** Returnerer alle barn som er under en viss alder. */

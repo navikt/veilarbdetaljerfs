@@ -21,9 +21,10 @@ function BorSammen(props: { barn: PersonsBarn }) {
 
 function EnkeltBarn(props: { barn: PersonsBarn }) {
     const { fornavn, fodselsdato, alder, erEgenAnsatt, harVeilederTilgang, gradering } = props.barn;
-    const adressebeskyttet = props.barn.gradering.includes(Gradering.STRENGT_FORTROLIG)
-                                || props.barn.gradering.includes(Gradering.FORTROLIG)
-                                || props.barn.gradering.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
+    const adressebeskyttet =
+        props.barn.gradering.includes(Gradering.STRENGT_FORTROLIG) ||
+        props.barn.gradering.includes(Gradering.FORTROLIG) ||
+        props.barn.gradering.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
     const alderTekst = finnAlderTekstForBarn(props.barn);
     const graderingTekst = adressebeskyttet ? graderingBeskrivelseBarn(gradering) : null;
 
