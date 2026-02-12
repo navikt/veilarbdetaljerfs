@@ -20,8 +20,10 @@ export function finnAlderTekstForBarn(personalia: { alder: number; erDod: boolea
  * Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
  * */
 export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
-    if (barn.gradering === Gradering.UGRADERT || barn.erDod || barn.harVeilederTilgang) {
-        return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
+    const barnErIkkeGradert = !(barn.gradering && barn.gradering !== Gradering.UGRADERT);
+
+    if (barnErIkkeGradert || barn.erDod || barn.harVeilederTilgang) {
+        return `${barn.fornavn} ${finnAlderTekstForBarn(barn)}`;
     }
     return 'Barn (adressebeskyttelse)';
 };
