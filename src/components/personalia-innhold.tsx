@@ -2,7 +2,6 @@ import { Alert } from '@navikt/ds-react';
 import { useAppStore } from '../stores/app-store';
 import { PersonaliaPartner, PersonaliaSivilstandNy, PersonsBarn } from '../data/api/datatyper/personalia';
 import { Errormelding, Laster } from './felles/minikomponenter';
-import { kalkulerAlder } from '../utils/barn-utils.ts';
 import Barn from './personalia/barn';
 import Sivilstand from './personalia/sivilstand';
 import { VergemaalEllerFremtidsfullmakt } from '../data/api/datatyper/verge';
@@ -27,13 +26,8 @@ const Personaliainnhold = () => {
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
-        (personData?.barn &&
-            personData?.barn.filter(
-                (enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN
-            )) ||
-        [];
-    const filtrertBarneListe =
-        barn && barn.filter((enkeltBarn) => kalkulerAlder(new Date(enkeltBarn.fodselsdato)) < MAX_ALDER_BARN);
+        (personData?.barn && personData?.barn.filter((enkeltBarn) => enkeltBarn.alder < MAX_ALDER_BARN)) || [];
+    const filtrertBarneListe = barn && barn.filter((enkeltBarn) => enkeltBarn.alder < MAX_ALDER_BARN);
 
     const partner: PersonaliaPartner | undefined = personData?.partner;
     const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personData?.sivilstandliste;

@@ -21,15 +21,19 @@ function BorSammen(props: { barn: PersonsBarn }) {
 
 function EnkeltBarn(props: { barn: PersonsBarn }) {
     const { fornavn, fodselsdato, alder, erEgenAnsatt, harVeilederTilgang, gradering } = props.barn;
+    const adressebeskyttet =
+        props.barn.gradering?.includes(Gradering.STRENGT_FORTROLIG) ||
+        props.barn.gradering?.includes(Gradering.FORTROLIG) ||
+        props.barn.gradering?.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
     const alderTekst = finnAlderTekstForBarn(props.barn);
-    const graderingTekst = gradering && gradering !== Gradering.UGRADERT ? graderingBeskrivelseBarn(gradering) : null;
+    const graderingTekst = adressebeskyttet ? graderingBeskrivelseBarn(gradering) : null;
 
     return (
         <div className="underinformasjon">
             {erEgenAnsatt && !harVeilederTilgang ? (
                 <div>
                     <BodyShort size="small" className="body_header">
-                        <b>{`Barn (${alder})`}</b>
+                        <b>{`Barn skjermet (${alder})`}</b>
                     </BodyShort>
                     <BorSammen barn={props.barn} />
                 </div>

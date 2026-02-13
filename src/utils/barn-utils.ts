@@ -1,11 +1,5 @@
 import { Gradering, PersonsBarn } from '../data/api/datatyper/personalia.ts';
 
-/** Finner ut hvor gammel en person er i dag */
-export function kalkulerAlder(fodselsdato: Date): number {
-    const diff = Date.now() - fodselsdato.getTime();
-    return new Date(diff).getUTCFullYear() - 1970;
-}
-
 /** Returnerer alder på barn, eller 'DØD' dersom barnet ikke lever lenger. */
 export function finnAlderTekstForBarn(personalia: { alder: number; erDod: boolean }): string {
     if (personalia.erDod) {
@@ -20,13 +14,27 @@ export function finnAlderTekstForBarn(personalia: { alder: number; erDod: boolea
  * Dersom barnet har adressebeskyttelse maskeres denne informasjonen.
  * */
 export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
-    if (barn.gradering === Gradering.UGRADERT || barn.erDod || barn.harVeilederTilgang) {
+    const adressebeskyttet =
+        barn.gradering?.includes(Gradering.STRENGT_FORTROLIG) ||
+        barn.gradering?.includes(Gradering.FORTROLIG) ||
+        barn.gradering?.includes(Gradering.STRENGT_FORTROLIG_UTLAND);
+    // fornavn DØD
+    if (barn.erDod) {
         return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
     }
-    return 'Barn (adressebeskyttelse)';
+    //'Barn (skjermet)' alder
+    if (!adressebeskyttet && !barn.harVeilederTilgang && barn.erEgenAnsatt) {
+        return `Barn (skjermet) (${finnAlderTekstForBarn(barn)})`;
+    }
+    //'Barn (adressebeskyttelse)'
+    if (adressebeskyttet && !barn.harVeilederTilgang) {
+        return 'Barn (adressebeskyttelse)';
+    }
+    //Når veileder har tilgang
+    return `${barn.fornavn} (${finnAlderTekstForBarn(barn)})`;
 };
 
 /** Returnerer alle barn som er under en viss alder. */
 export const finnBarnUnderEnBestemtAlder = (alleBarn: PersonsBarn[], maksalder: number) => {
-    return alleBarn.filter((barn) => kalkulerAlder(new Date(barn.fodselsdato)) < maksalder);
+    return alleBarn.filter((barn) => barn.alder < maksalder);
 };
