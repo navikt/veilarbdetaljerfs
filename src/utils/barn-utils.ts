@@ -24,7 +24,7 @@ export const finnNavnOgAlderTekstForBarn = (barn: PersonsBarn) => {
     }
     //'Barn (skjermet)' alder
     if (!adressebeskyttet && !barn.harVeilederTilgang && barn.erEgenAnsatt) {
-        return `'Barn (skjermet)' (${finnAlderTekstForBarn(barn)})`;
+        return `Barn (skjermet) (${finnAlderTekstForBarn(barn)})`;
     }
     //'Barn (adressebeskyttelse)'
     if (adressebeskyttet && !barn.harVeilederTilgang) {

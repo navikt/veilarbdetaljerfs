@@ -30,7 +30,7 @@ function EnkeltBarn(props: { barn: PersonsBarn }) {
 
     return (
         <div className="underinformasjon">
-            {erEgenAnsatt && !harVeilederTilgang && !adressebeskyttet ? (
+            {erEgenAnsatt && !harVeilederTilgang ? (
                 <div>
                     <BodyShort size="small" className="body_header">
                         <b>{`Barn skjermet (${alder})`}</b>

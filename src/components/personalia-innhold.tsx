@@ -26,13 +26,8 @@ const Personaliainnhold = () => {
 
     const MAX_ALDER_BARN = 21;
     const barn: PersonsBarn[] =
-        (personData?.barn &&
-            personData?.barn.filter(
-                (enkeltBarn) => enkeltBarn.alder < MAX_ALDER_BARN
-            )) ||
-        [];
-    const filtrertBarneListe =
-        barn && barn.filter((enkeltBarn) => enkeltBarn.alder < MAX_ALDER_BARN);
+        (personData?.barn && personData?.barn.filter((enkeltBarn) => enkeltBarn.alder < MAX_ALDER_BARN)) || [];
+    const filtrertBarneListe = barn && barn.filter((enkeltBarn) => enkeltBarn.alder < MAX_ALDER_BARN);
 
     const partner: PersonaliaPartner | undefined = personData?.partner;
     const sivilstandliste: PersonaliaSivilstandNy[] | undefined = personData?.sivilstandliste;
