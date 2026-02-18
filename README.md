@@ -1,6 +1,6 @@
 # Veilarbdetaljerfs / Overblikk
 
-Klientapplikasjon i Modia arbeidsrettet oppfølging som gir et overblikk over informasjon om en bruker under oppfølging. 
+Klientapplikasjon i Modia arbeidsrettet oppfølging som gir et overblikk over informasjon om en bruker under oppfølging.
 
 Applikasjonen ble startet som en del av et sommerprosjekt for studenter i Team OBO 2023, og erstattet det som den gangen het Detaljer. Nå heter den Overblikk, selv om repo-navn henger litt etter.
 
@@ -9,6 +9,7 @@ Testversjon av løsningen: https://navikt.github.io/veilarbdetaljerfs/
 ![Skjermutklipp av hvordan Overblikk ser ut i frontend.](readme_illustrasjon_overblikk.png)
 
 ## Komme i gang
+
 ### Installere pakker
 
 For å kunne hente ned @navikt/arbeidssokerregisteret-utils må du legge til en `.npmrc` fil i homemappen med følgende innhold:
@@ -17,6 +18,7 @@ For å kunne hente ned @navikt/arbeidssokerregisteret-utils må du legge til en 
 //npm.pkg.github.com/:_authToken=TOKEN
 @navikt:registry=https://npm.pkg.github.com
 ```
+
 [Se navikt/frontend](https://github.com/navikt/frontend?tab=readme-ov-file#installere-pakker-lokalt) for å se hvordan du kan generere et token på GitHub.
 
 ### Kjøre opp applikasjonen lokalt:
