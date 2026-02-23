@@ -15,6 +15,11 @@ import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerreg
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
 import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
+import {
+    oppfolgingsEnhetQueryDto,
+    OppfolgingsEnhetQueryDto,
+    veilarboppfolgingGraphqlQuery
+} from './veilarboppfolgingGraphql.ts';
 
 export interface ErrorMessage {
     error: Error | unknown;
@@ -58,7 +63,7 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
     profilering: Profilering | null;
 }
 
-export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
+export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr | OppfolgingsEnhetQueryDto;
 
 export const endepunkter = {
     VEILARBPERSON_EVENT: '/veilarbperson/api/logger/event',
@@ -75,6 +80,7 @@ export const endepunkter = {
     VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING: '/veilarboppfolging/api/v2/hent-underOppfolging',
     VEILARBOPPFOLGING_HENT_STATUS: '/veilarboppfolging/api/v3/oppfolging/hent-status',
     VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS: '/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
+    VELARBOPPFOLGING_GRAPHQL: '/veilarboppfolging/api/graphql',
     VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK: '/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak',
     VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL: '/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal',
     VEILARBARENA_HENT_YTELSER: '/veilarbarena/api/v2/arena/hent-ytelser',
@@ -182,6 +188,19 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
         fnr ? [endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, { fnr: fnr ?? null })
+    );
+
+    return { data, isLoading, error };
+};
+
+export const useOppfolgingsEnhet = (fnr?: string) => {
+    const { data, error, isLoading } = useSWR<OppfolgingsEnhetQueryDto, ErrorMessage>(
+        fnr ? [endepunkter.VELARBOPPFOLGING_GRAPHQL, fnr] : null,
+        () =>
+            fetchWithPost(
+                endepunkter.VELARBOPPFOLGING_GRAPHQL,
+                veilarboppfolgingGraphqlQuery(fnr ?? '', oppfolgingsEnhetQueryDto)
+            )
     );
 
     return { data, isLoading, error };

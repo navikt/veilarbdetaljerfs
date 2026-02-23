@@ -9,7 +9,13 @@ import {
     hentVeilederTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
-import { useGjeldende14aVedtak, useOppfolgingsstatus, usePersonalia, useVeileder } from '../data/api/fetch';
+import {
+    useGjeldende14aVedtak,
+    useOppfolgingsEnhet,
+    useOppfolgingsstatus,
+    usePersonalia,
+    useVeileder
+} from '../data/api/fetch';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
@@ -30,6 +36,12 @@ const Oppfolgingsinnhold = () => {
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
     const {
+        data: oppfolgingsEnhetQueryDto,
+        error: oppfolgingsEnhetQueryDtoError,
+        isLoading: oppfolgingsEnhetQueryDtoLoading
+    } = useOppfolgingsEnhet(fnr);
+
+    const {
         data: gjeldende14aVedtak,
         error: gjeldende14avedtakError,
         isLoading: gjeldende14avedtakLoading
@@ -37,13 +49,21 @@ const Oppfolgingsinnhold = () => {
 
     const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
 
-    if (oppfolgingsstatusLoading || personLoading || veilederLoading || gjeldende14avedtakLoading) {
+    if (
+        oppfolgingsstatusLoading ||
+        personLoading ||
+        veilederLoading ||
+        gjeldende14avedtakLoading ||
+        oppfolgingsEnhetQueryDtoLoading
+    ) {
         return <Laster />;
     }
 
     if (
         oppfolgingsstatusError?.status === 204 ||
         oppfolgingsstatusError?.status === 404 ||
+        oppfolgingsEnhetQueryDtoError?.status === 204 ||
+        oppfolgingsEnhetQueryDtoError?.status === 404 ||
         personError?.status === 204 ||
         personError?.status === 404 ||
         veilederError?.status === 204 ||
@@ -59,6 +79,7 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
+                <EnkeltInformasjon header="test oppfølgingsenhet" value={oppfolgingsEnhetQueryDto?.query} />
                 <InnsatsGruppe
                     innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
                     fattetDato={gjeldende14aVedtak?.fattetDato}
