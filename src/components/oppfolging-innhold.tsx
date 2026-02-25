@@ -6,6 +6,7 @@ import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
+    hentOppfolgingsEnhetTeksttest,
     hentVeilederTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
@@ -36,9 +37,9 @@ const Oppfolgingsinnhold = () => {
     } = useVeileder(oppfolgingsstatusData?.veilederId);
 
     const {
-        data: oppfolgingsEnhetQueryDto,
-        error: oppfolgingsEnhetQueryDtoError,
-        isLoading: oppfolgingsEnhetQueryDtoLoading
+        data: oppfolgingsEnhetData,
+        error: oppfolgingsEnhetError,
+        isLoading: oppfolgingsEnhetLoading
     } = useOppfolgingsEnhet(fnr);
 
     const {
@@ -54,7 +55,7 @@ const Oppfolgingsinnhold = () => {
         personLoading ||
         veilederLoading ||
         gjeldende14avedtakLoading ||
-        oppfolgingsEnhetQueryDtoLoading
+        oppfolgingsEnhetLoading
     ) {
         return <Laster />;
     }
@@ -62,8 +63,8 @@ const Oppfolgingsinnhold = () => {
     if (
         oppfolgingsstatusError?.status === 204 ||
         oppfolgingsstatusError?.status === 404 ||
-        oppfolgingsEnhetQueryDtoError?.status === 204 ||
-        oppfolgingsEnhetQueryDtoError?.status === 404 ||
+        oppfolgingsEnhetError?.status === 204 ||
+        oppfolgingsEnhetError?.status === 404 ||
         personError?.status === 204 ||
         personError?.status === 404 ||
         veilederError?.status === 204 ||
@@ -79,7 +80,10 @@ const Oppfolgingsinnhold = () => {
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
                 <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                <EnkeltInformasjon header="test oppfølgingsenhet" value={oppfolgingsEnhetQueryDto?.query} />
+                <EnkeltInformasjon
+                    header="test oppfølgingsenhet"
+                    value={hentOppfolgingsEnhetTeksttest(oppfolgingsEnhetData)}
+                />
                 <InnsatsGruppe
                     innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
                     fattetDato={gjeldende14aVedtak?.fattetDato}
