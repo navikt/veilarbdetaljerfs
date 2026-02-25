@@ -1,5 +1,5 @@
 import EMDASH from './emdash';
-import { OppfolgingsstatusData, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
+import { ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 import { PersonaliaInfo } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
@@ -42,24 +42,6 @@ export function profilertTilBeskrivelse(profilertTil: ProfilertTil) {
 }
 
 export function hentOppfolgingsEnhetTekst(
-    oppfolgingsstatus: OppfolgingsstatusData | null | undefined
-): StringOrNothing {
-    const enhetId = oppfolgingsstatus?.oppfolgingsenhet?.enhetId;
-    const navn = oppfolgingsstatus?.oppfolgingsenhet?.navn;
-
-    if (!enhetId && !navn) {
-        return EMDASH;
-    }
-    if (!enhetId) {
-        return `${navn}`;
-    }
-    if (!navn) {
-        return `${enhetId}`;
-    }
-    return `${enhetId} ${navn}`;
-}
-
-export function hentOppfolgingsEnhetTeksttest(
     oppfolgingsEnhetdata: OppfolgingsEnhetData | null | undefined
 ): StringOrNothing {
     const enhetId = oppfolgingsEnhetdata?.enhet?.id;

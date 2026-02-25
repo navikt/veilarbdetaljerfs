@@ -6,7 +6,6 @@ import { EnkeltInformasjon } from './felles/enkeltInfo';
 import {
     hentGeografiskEnhetTekst,
     hentOppfolgingsEnhetTekst,
-    hentOppfolgingsEnhetTeksttest,
     hentVeilederTekst,
     mapServicegruppeTilTekst
 } from '../utils/text-mapper';
@@ -79,11 +78,7 @@ const Oppfolgingsinnhold = () => {
         <>
             <span className="info_container">
                 <EnkeltInformasjon header="Geografisk enhet" value={hentGeografiskEnhetTekst(personData)} />
-                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsstatusData)} />
-                <EnkeltInformasjon
-                    header="test oppfølgingsenhet"
-                    value={hentOppfolgingsEnhetTeksttest(oppfolgingsEnhetData)}
-                />
+                <EnkeltInformasjon header="Oppfølgingsenhet" value={hentOppfolgingsEnhetTekst(oppfolgingsEnhetData)} />
                 <InnsatsGruppe
                     innsatsgruppe={gjeldende14aVedtak?.innsatsgruppe}
                     fattetDato={gjeldende14aVedtak?.fattetDato}

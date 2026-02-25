@@ -81,7 +81,7 @@ export const endepunkter = {
     VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING: '/veilarboppfolging/api/v2/hent-underOppfolging',
     VEILARBOPPFOLGING_HENT_STATUS: '/veilarboppfolging/api/v3/oppfolging/hent-status',
     VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS: '/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
-    VELARBOPPFOLGING_GRAPHQL: '/veilarboppfolging/api/graphql',
+    VEILARBOPPFOLGING_GRAPHQL: '/veilarboppfolging/api/graphql',
     VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK: '/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak',
     VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL: '/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal',
     VEILARBARENA_HENT_YTELSER: '/veilarbarena/api/v2/arena/hent-ytelser',
@@ -196,10 +196,10 @@ export const useOppfolgingsstatus = (fnr?: string) => {
 
 export const useOppfolgingsEnhet = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsenhetResponse, ErrorMessage>(
-        fnr ? [endepunkter.VELARBOPPFOLGING_GRAPHQL, fnr] : null,
+        fnr ? [endepunkter.VEILARBOPPFOLGING_GRAPHQL, fnr] : null,
         () =>
             fetchWithPost(
-                endepunkter.VELARBOPPFOLGING_GRAPHQL,
+                endepunkter.VEILARBOPPFOLGING_GRAPHQL,
                 veilarboppfolgingGraphqlQuery(fnr ?? '', hentOppfolgingsEnhetQuery)
             )
     );
