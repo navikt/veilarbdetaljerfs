@@ -1,5 +1,5 @@
 import EMDASH from './emdash';
-import { OppfolgingsstatusData, ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
+import { ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
 import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
 import { PersonaliaInfo } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
@@ -7,6 +7,7 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { VedtakType } from '../data/api/datatyper/ytelse';
 import { VEDTAKSSTATUSER } from './konstanter.ts';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
+import { OppfolgingsEnhetData } from '../data/api/veilarboppfolgingGraphql.ts';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -41,10 +42,10 @@ export function profilertTilBeskrivelse(profilertTil: ProfilertTil) {
 }
 
 export function hentOppfolgingsEnhetTekst(
-    oppfolgingsstatus: OppfolgingsstatusData | null | undefined
+    oppfolgingsEnhetdata: OppfolgingsEnhetData | null | undefined
 ): StringOrNothing {
-    const enhetId = oppfolgingsstatus?.oppfolgingsenhet?.enhetId;
-    const navn = oppfolgingsstatus?.oppfolgingsenhet?.navn;
+    const enhetId = oppfolgingsEnhetdata?.enhet?.id;
+    const navn = oppfolgingsEnhetdata?.enhet?.navn;
 
     if (!enhetId && !navn) {
         return EMDASH;

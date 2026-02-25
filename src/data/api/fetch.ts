@@ -15,6 +15,12 @@ import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerreg
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { OppfolgingData } from './datatyper/oppfolging.ts';
 import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
+import {
+    hentOppfolgingsEnhetQuery,
+    OppfolgingsEnhetQueryRequest,
+    OppfolgingsenhetResponse,
+    veilarboppfolgingGraphqlQuery
+} from './veilarboppfolgingGraphql.ts';
 
 export interface ErrorMessage {
     error: Error | unknown;
@@ -58,7 +64,7 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
     profilering: Profilering | null;
 }
 
-export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr;
+export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr | OppfolgingsEnhetQueryRequest;
 
 export const endepunkter = {
     VEILARBPERSON_EVENT: '/veilarbperson/api/logger/event',
@@ -75,6 +81,7 @@ export const endepunkter = {
     VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING: '/veilarboppfolging/api/v2/hent-underOppfolging',
     VEILARBOPPFOLGING_HENT_STATUS: '/veilarboppfolging/api/v3/oppfolging/hent-status',
     VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS: '/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
+    VEILARBOPPFOLGING_GRAPHQL: '/veilarboppfolging/api/graphql',
     VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK: '/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak',
     VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL: '/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal',
     VEILARBARENA_HENT_YTELSER: '/veilarbarena/api/v2/arena/hent-ytelser',
@@ -185,6 +192,19 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     );
 
     return { data, isLoading, error };
+};
+
+export const useOppfolgingsEnhet = (fnr?: string) => {
+    const { data, error, isLoading } = useSWR<OppfolgingsenhetResponse, ErrorMessage>(
+        fnr ? [endepunkter.VEILARBOPPFOLGING_GRAPHQL, fnr] : null,
+        () =>
+            fetchWithPost(
+                endepunkter.VEILARBOPPFOLGING_GRAPHQL,
+                veilarboppfolgingGraphqlQuery(fnr ?? '', hentOppfolgingsEnhetQuery)
+            )
+    );
+
+    return { data: data?.data?.oppfolgingsEnhet, isLoading, error };
 };
 
 export const useHarTilgangTilBruker = (fnr?: string) => {

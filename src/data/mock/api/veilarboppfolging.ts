@@ -37,6 +37,34 @@ const oppfolgingData: OppfolgingData = {
 };
 
 export const veilarboppfolgingHandlers: RequestHandler[] = [
+    http.post(endepunkter.VEILARBOPPFOLGING_GRAPHQL, async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
+            endepunkter.VEILARBOPPFOLGING_GRAPHQL
+        );
+
+        if (simulerEndepunktResponsKonfigurasjon !== null) {
+            return simulerEndepunktResponsKonfigurasjon;
+        }
+
+        return HttpResponse.json(
+            {
+                data: {
+                    oppfolgingsEnhet: {
+                        enhet: {
+                            id: '007',
+                            navn: 'Nav TestHeim',
+                            kilde: 'ARENA'
+                        }
+                    }
+                }
+            },
+            {
+                headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+            }
+        );
+    }),
     http.post(endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
