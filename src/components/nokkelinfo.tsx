@@ -1,4 +1,4 @@
-import { Heading, Panel } from '@navikt/ds-react';
+import { Heading, Box } from '@navikt/ds-react';
 import { Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
@@ -169,12 +169,12 @@ const Nokkelinfoinnhold = () => {
 
 const Nokkelinfo = () => {
     return (
-        <Panel border className="nokkelinfo_panel">
+        <Box padding="space-16" className="nokkelinfo_panel">
             <Heading spacing level="2" size="medium">
                 Nøkkelinformasjon
             </Heading>
             <Nokkelinfoinnhold />
-        </Panel>
+        </Box>
     );
 };
 
