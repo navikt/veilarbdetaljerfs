@@ -1,10 +1,13 @@
 import { UnderOppfolgingData } from '../../api/datatyper/underOppfolgingData';
 import { OppfolgingsstatusData } from '../../api/datatyper/oppfolgingsstatus';
-import { delay, http, HttpResponse, RequestHandler } from 'msw';
+import { delay, graphql, http, HttpResponse, RequestHandler } from 'msw';
 import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import { OppfolgingData } from '../../api/datatyper/oppfolging.ts';
 import { endepunkter } from '../../api/fetch.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
+import { OppfolgingsEnhetData } from '../../api/veilarboppfolgingGraphql.ts';
+
+const veilarboppfolgingGraphql = graphql.link(endepunkter.VEILARBOPPFOLGING_GRAPHQL);
 
 const oppfolging: UnderOppfolgingData = {
     erManuell: true,
@@ -36,35 +39,15 @@ const oppfolgingData: OppfolgingData = {
     underOppfolging: true
 };
 
+const oppfolgingsEnhet: OppfolgingsEnhetData = {
+    enhet: {
+        id: '007',
+        navn: 'Nav Testheim',
+        kilde: 'ARENA'
+    }
+};
+
 export const veilarboppfolgingHandlers: RequestHandler[] = [
-    http.post(endepunkter.VEILARBOPPFOLGING_GRAPHQL, async () => {
-        await delay(DEFAULT_DELAY_MILLISECONDS);
-
-        const simulerEndepunktResponsKonfigurasjon = hentSimulerEndepunktResponsKonfigurasjon(
-            endepunkter.VEILARBOPPFOLGING_GRAPHQL
-        );
-
-        if (simulerEndepunktResponsKonfigurasjon !== null) {
-            return simulerEndepunktResponsKonfigurasjon;
-        }
-
-        return HttpResponse.json(
-            {
-                data: {
-                    oppfolgingsEnhet: {
-                        enhet: {
-                            id: '007',
-                            navn: 'Nav TestHeim',
-                            kilde: 'ARENA'
-                        }
-                    }
-                }
-            },
-            {
-                headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
-            }
-        );
-    }),
     http.post(endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
@@ -108,6 +91,15 @@ export const veilarboppfolgingHandlers: RequestHandler[] = [
 
         return HttpResponse.json(oppfolgingData, {
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
+        });
+    }),
+    veilarboppfolgingGraphql.query('hentOppfolgingsEnhet', async () => {
+        await delay(DEFAULT_DELAY_MILLISECONDS);
+
+        return HttpResponse.json({
+            data: {
+                oppfolgingsEnhet: oppfolgingsEnhet
+            }
         });
     })
 ];
