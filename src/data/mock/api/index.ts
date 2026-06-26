@@ -4,7 +4,6 @@ import { veilarbveilederHandlers } from './veilarbveileder';
 import { veilarbfilterHandlers } from './veilarbfilter';
 import { HttpResponse, RequestHandler } from 'msw';
 import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
-import { veilarbarenaHandlers } from './veilarbarena.ts';
 import { Endepunkt } from '../../api/fetch.ts';
 import { hentUtviklerInnstillinger } from '../../../components/utviklerinnstillinger/utviklerinnstillinger.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
@@ -16,8 +15,7 @@ export const allHandlers: RequestHandler[] = [
     ...veilarbpersonHandlers,
     ...veilarboppfolgingHandlers,
     ...veilarbfilterHandlers,
-    ...veilarbvedtaksstotteHandlers,
-    ...veilarbarenaHandlers
+    ...veilarbvedtaksstotteHandlers
 ];
 
 export const hentSimulerEndepunktResponsKonfigurasjon = (endepunkt: Endepunkt) => {

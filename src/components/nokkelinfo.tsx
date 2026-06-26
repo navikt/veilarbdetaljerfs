@@ -1,4 +1,4 @@
-import { Heading, Box } from '@navikt/ds-react';
+import { Box, Heading } from '@navikt/ds-react';
 import { Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import {
@@ -8,13 +8,12 @@ import {
     useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
     useTolk,
-    useVeileder,
-    useYtelser
+    useVeileder
 } from '../data/api/fetch';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import { getVedtakForVisning, hentTolkTekst, hentVeilederTekst } from '../utils/text-mapper';
+import { hentTolkTekst, hentVeilederTekst } from '../utils/text-mapper';
 import { formaterDato, formaterTelefonnummer, formatStringInUpperAndLowerCaseUnderscore } from '../utils/formater';
 import { finnBarnUnderEnBestemtAlder, finnNavnOgAlderTekstForBarn } from '../utils/barn-utils.ts';
 import { EnkeltInformasjonMedCopy } from './felles/enkeltInfoMedCopy';
@@ -24,7 +23,7 @@ import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
 import { Hovedmaal } from './hovedmal.tsx';
 import { ErrorAlertMedFeilkode } from './felles/error-alert-med-feilkode.tsx';
-import { ModiaPersonoversiktLenke } from './modia-personoversikt-lenke.tsx';
+import { ModiaPersonoversiktTekstMedLenker } from './modia-personoversikt-tekst-og-lenker.tsx';
 
 const Nokkelinfoinnhold = () => {
     const { fnr } = useAppStore();
@@ -42,7 +41,6 @@ const Nokkelinfoinnhold = () => {
         isLoading: opplysningerOmArbedissoekerMedProfileringLoading
     } = useOpplysningerOmArbeidssoekerMedProfilering(fnr);
     const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr!, behandlingsnummer);
-    const { data: ytelserData, error: ytelserError, isLoading: ytelserLoading } = useYtelser(fnr);
     const {
         data: cvOgJobbonskerData,
         error: cvOgJobbonskerError,
@@ -63,7 +61,6 @@ const Nokkelinfoinnhold = () => {
         oppfolgingsstatusLoading ||
         personLoading ||
         tolkLoading ||
-        ytelserLoading ||
         cvOgJobbonskerLoading ||
         veilederLoading ||
         opplysningerOmArbedissoekerMedProfileringLoading ||
@@ -77,7 +74,6 @@ const Nokkelinfoinnhold = () => {
             oppfolgingsstatusError,
             personError,
             tolkError,
-            ytelserError,
             veilederError,
             opplysningerOmArbedissoekerMedProfileringError,
             gjeldende14aVedtakError
@@ -90,7 +86,6 @@ const Nokkelinfoinnhold = () => {
             oppfolgingsstatusError,
             personError,
             tolkError,
-            ytelserError,
             veilederError,
             opplysningerOmArbedissoekerMedProfileringError,
             gjeldende14aVedtakError
@@ -158,11 +153,7 @@ const Nokkelinfoinnhold = () => {
                 value={formaterDato(datoRegistrert)}
                 tilleggsinfo={datoRegistrert ? 'Arbeidssøkerregisteret' : null}
             />
-            <EnkeltInformasjon
-                header="Aktive ytelser (Arena)"
-                value={getVedtakForVisning(ytelserData?.vedtak)}
-                lenkeinfo={<ModiaPersonoversiktLenke />}
-            />
+            <EnkeltInformasjon header="Aktive ytelser" value={''} lenkeinfo={<ModiaPersonoversiktTekstMedLenker />} />
         </span>
     );
 };

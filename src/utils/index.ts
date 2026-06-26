@@ -38,6 +38,10 @@ export function lagPersonforvalterLenke(aktoerIdEllerFnr: string) {
     return `https://pdl-web.${finnInternNavDomeneGammelt()}/endreperson?aktoerId=${aktoerIdEllerFnr}`;
 }
 
-export function lagModiaPersonoversiktLenke() {
+export function lagModiaPersonoversiktYtelserLenke() {
     return `https://modiapersonoversikt.${finnInternNavDomene()}/person/ytelser`;
+}
+
+export function lagModiaPersonoversiktUtbetalingsLenke() {
+    return `https://modiapersonoversikt.${finnInternNavDomene()}/person/utbetaling`;
 }
