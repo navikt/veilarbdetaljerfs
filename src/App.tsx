@@ -28,15 +28,6 @@ const App = (props: AppProps) => {
         []
     );
 
-    /** For å slippe å oppdatere storage i nettlesarane til alle brukarane
-     * endrar vi berre visningsteksten på Ytelser-chip og boks i staden. */
-    const finnVisningstekstForAlternativ = (alternativ: string) => {
-        if (alternativ === 'Ytelser') {
-            return 'Ytelser (Arena)';
-        }
-        return alternativ;
-    };
-
     const [valgteInformasjonsbokser, setValgteInformasjonsbokser] = useState<string[]>(informasjonsboksAlternativer);
     const [visLagreInfo, setVisLagreInfo] = useState<boolean>(false);
     const [visLagreFeil, setVisLagreFeil] = useState<boolean>(false);
@@ -98,7 +89,7 @@ const App = (props: AppProps) => {
                                                     );
                                                 }}
                                             >
-                                                {finnVisningstekstForAlternativ(alternativ)}
+                                                {alternativ}
                                             </Chips.Toggle>
                                         ))}
 
@@ -118,7 +109,7 @@ const App = (props: AppProps) => {
                                                         ]);
                                                     }}
                                                 >
-                                                    {finnVisningstekstForAlternativ(alternativ)}
+                                                    {alternativ}
                                                 </Chips.Toggle>
                                             ))}
                                     </Chips>
@@ -183,7 +174,7 @@ const App = (props: AppProps) => {
                                             id={`${valgtInformasjonsboks}-panel`}
                                         >
                                             <Heading spacing level="2" size="medium" className="panel_header">
-                                                {finnVisningstekstForAlternativ(valgtInformasjonsboks)}
+                                                {valgtInformasjonsboks}
                                             </Heading>
                                             {mapNavnTilKomponent(valgtInformasjonsboks)}
                                         </Box>

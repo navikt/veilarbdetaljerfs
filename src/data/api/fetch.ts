@@ -4,7 +4,6 @@ import { PersonaliaInfo } from './datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunikasjon';
 import { StringOrNothing } from '../../utils/felles-typer';
 import { VeilederData } from './datatyper/veileder';
-import { YtelseData } from './datatyper/ytelse';
 import { Vergemal } from './datatyper/verge';
 import { ArenaPerson } from './datatyper/arenaperson';
 import { UnderOppfolgingData } from './datatyper/underOppfolgingData';
@@ -52,12 +51,6 @@ export interface Gjeldende14aVedtak {
     fattetDato: string;
 }
 
-export interface GjeldendeOppfolgingsperiode {
-    uuid: string;
-    startDato: string;
-    sluttDato: string;
-}
-
 export interface OpplysningerOmArbeidssokerMedProfilering {
     arbeidssoekerperiodeStartet?: string;
     opplysningerOmArbeidssoeker: OpplysningerOmArbeidssoker | null;
@@ -84,7 +77,6 @@ export const endepunkter = {
     VEILARBOPPFOLGING_GRAPHQL: '/veilarboppfolging/api/graphql',
     VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK: '/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak',
     VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL: '/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal',
-    VEILARBARENA_HENT_YTELSER: '/veilarbarena/api/v2/arena/hent-ytelser',
     VEILARBVEILEDER_VEILEDER: '/veilarbveileder/api/veileder/'
 } as const;
 export type Endepunkt = (typeof endepunkter)[keyof typeof endepunkter];
@@ -275,15 +267,6 @@ export const useFullmakt = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<FullmaktData, ErrorMessage>(
         fnr ? [endepunkter.VEILARBPERSON_HENT_FULLMAKT, fnr] : null,
         () => fetchWithPost(endepunkter.VEILARBPERSON_HENT_FULLMAKT, { fnr: fnr ?? null })
-    );
-
-    return { data, isLoading, error };
-};
-
-export const useYtelser = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<YtelseData, ErrorMessage>(
-        fnr ? [endepunkter.VEILARBARENA_HENT_YTELSER, fnr] : null,
-        () => fetchWithPost(endepunkter.VEILARBARENA_HENT_YTELSER, { fnr: fnr ?? null })
     );
 
     return { data, isLoading, error };
