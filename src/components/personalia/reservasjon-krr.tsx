@@ -1,20 +1,20 @@
 import { Alert, Loader } from '@navikt/ds-react';
 import { useAppStore } from '../../stores/app-store.ts';
-import { useOppfolging } from '../../data/api/fetch.ts';
+import { useErReservertIKrr } from '../../data/api/fetch.ts';
 
 export const ReservasjonKrr = () => {
     const { fnr } = useAppStore();
-    const { data, isLoading } = useOppfolging(fnr!);
+    const { data: reservertIKrr, isLoading } = useErReservertIKrr(fnr!);
 
     if (isLoading) {
         return <Loader size="small" />;
     }
 
-    const erReservertFraKrr = data?.reservasjonKRR || false;
+    const erReservertMotDigitalKommunikasjonIKrr = reservertIKrr || false;
 
-    return erReservertFraKrr ? (
+    return erReservertMotDigitalKommunikasjonIKrr ? (
         <Alert variant="info" className="reservert-krr-info" size="small">
-            Er reservert i Kontakt - og reservasjonsregisteret (KRR)
+            Er reservert mot digital kommunikasjon i Kontakt - og reservasjonsregisteret (KRR)
         </Alert>
     ) : null;
 };
