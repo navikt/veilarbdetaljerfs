@@ -18,9 +18,11 @@ import { Tilgangssjekk } from './Tilgangssjekk';
 export interface AppProps {
     fnr?: string;
     enhet?: string;
+    theme: AppTheme;
 }
+export type AppTheme = 'light' | 'dark';
 
-const App = (props: AppProps) => {
+const App = ({ fnr, theme }: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
     const informasjonsboksAlternativer: string[] = useMemo(
@@ -60,7 +62,7 @@ const App = (props: AppProps) => {
     };
 
     return (
-        <Theme theme="light" asChild>
+        <Theme theme={theme} asChild>
             <main className="app veilarbdetaljerfs">
                 <SWRConfig
                     value={{
@@ -71,8 +73,8 @@ const App = (props: AppProps) => {
                     }}
                 >
                     <div className="overblikk">
-                        <Tilgangssjekk fnr={props.fnr}>
-                            <StoreProvider fnr={props.fnr}>
+                        <Tilgangssjekk fnr={fnr}>
+                            <StoreProvider fnr={fnr}>
                                 <Nokkelinfo />
                                 <section className="overblikk_chips">
                                     <Chips size="small">

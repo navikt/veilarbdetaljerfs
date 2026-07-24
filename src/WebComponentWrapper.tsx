@@ -1,6 +1,6 @@
-import { createRoot } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client';
 import { WEB_COMPONENT_APPNAVN } from './utils/miljo-utils';
-import App from './App';
+import App, { type AppTheme } from './App';
 
 interface ViteAssetManifest {
     'index.html': {
@@ -11,12 +11,18 @@ interface ViteAssetManifest {
 export class Veilarbdetaljer extends HTMLElement {
     static FNR_PROP = 'data-fnr';
     readonly #root: HTMLDivElement;
+    readonly #shadowRoot: ShadowRoot;
+    #reactRoot: Root | null = null;
+    #themeObserver: MutationObserver | null = null;
+    #stylesLoaded = false;
 
     constructor() {
         super();
+        this.#shadowRoot = this.attachShadow({ mode: 'closed' });
         this.#root = document.createElement('div');
         this.#root.id = WEB_COMPONENT_APPNAVN;
         this.#root.style.height = '100%';
+        this.#shadowRoot.appendChild(this.#root);
     }
 
     static get observedAttributes() {
@@ -24,17 +30,38 @@ export class Veilarbdetaljer extends HTMLElement {
     }
 
     connectedCallback() {
-        const shadowRoot = this.attachShadow({ mode: 'closed' });
-        shadowRoot.appendChild(this.#root);
+        const mountApp = () => {
+            if (this.#reactRoot === null) {
+                this.#reactRoot = createRoot(this.#root);
+            }
+            this.renderApp();
+            this.observeThemeChanges();
+        };
 
-        this.loadStyles(shadowRoot)
+        if (this.#stylesLoaded) {
+            mountApp();
+            return;
+        }
+
+        this.loadStyles(this.#shadowRoot)
             .then(() => {
-                const fnr = this.getAttribute(Veilarbdetaljer.FNR_PROP) ?? undefined;
-                this.renderApp(fnr);
+                this.#stylesLoaded = true;
+                mountApp();
             })
             .catch((error) => {
                 this.displayError(error.message ?? error);
             });
+    }
+
+    attributeChangedCallback() {
+        this.renderApp();
+    }
+
+    disconnectedCallback() {
+        this.#themeObserver?.disconnect();
+        this.#reactRoot?.unmount();
+        this.#themeObserver = null;
+        this.#reactRoot = null;
     }
 
     async loadStyles(shadowRoot: ShadowRoot) {
@@ -53,14 +80,49 @@ export class Veilarbdetaljer extends HTMLElement {
         }
     }
 
-    renderApp(fnr?: string) {
-        const root = createRoot(this.#root);
-        root.render(<App fnr={fnr} />);
+    renderApp() {
+        const fnr = this.getAttribute(Veilarbdetaljer.FNR_PROP) ?? undefined;
+        const theme = getThemeFromBody();
+        this.#reactRoot?.render(<App fnr={fnr} theme={theme} />);
+    }
+
+    observeThemeChanges() {
+        if (document.body === null) {
+            return;
+        }
+
+        this.#themeObserver = new MutationObserver(() => this.renderApp());
+        this.#themeObserver.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class', 'data-theme']
+        });
     }
 
     displayError(error: string | Error) {
         this.#root.innerHTML = `<p>${error}</p>`;
     }
+}
+
+function getThemeFromBody(): AppTheme {
+    if (document.body === null) {
+        return 'light';
+    }
+
+    const dataTheme = document.body.getAttribute('data-theme');
+
+    if (dataTheme === 'dark') {
+        return 'dark';
+    }
+
+    if (dataTheme === 'light') {
+        return 'light';
+    }
+
+    if (document.body.classList.contains('dark')) {
+        return 'dark';
+    }
+
+    return 'light';
 }
 
 function joinPaths(...paths: (string | null | undefined)[]) {

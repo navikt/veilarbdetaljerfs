@@ -18,7 +18,7 @@ if (erLokalMode() || erDemoMode()) {
                                 id="veilarbpersonflatefs-root"
                                 alt="internflate bilde"
                             />
-                            <App fnr={'12118323058'} />
+                            <App fnr={'12118323058'} theme={'light'} />
                             {erLokalMode() && <Utviklerinnstillinger />}
                         </React.StrictMode>
                     );
