@@ -9,7 +9,8 @@ interface ViteAssetManifest {
 }
 
 export class Veilarbdetaljer extends HTMLElement {
-    static FNR_PROP = 'data-fnr';
+    public static readonly FNR_PROP = 'data-fnr';
+    public static readonly THEME_PROP = 'theme';
     readonly #root: HTMLDivElement;
 
     constructor() {
@@ -20,7 +21,7 @@ export class Veilarbdetaljer extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return [Veilarbdetaljer.FNR_PROP];
+        return [Veilarbdetaljer.FNR_PROP, Veilarbdetaljer.THEME_PROP];
     }
 
     connectedCallback() {
@@ -30,7 +31,8 @@ export class Veilarbdetaljer extends HTMLElement {
         this.loadStyles(shadowRoot)
             .then(() => {
                 const fnr = this.getAttribute(Veilarbdetaljer.FNR_PROP) ?? undefined;
-                this.renderApp(fnr);
+                const theme = this.getAttribute(Veilarbdetaljer.THEME_PROP) ?? undefined;
+                this.renderApp(fnr, theme);
             })
             .catch((error) => {
                 this.displayError(error.message ?? error);
@@ -53,9 +55,9 @@ export class Veilarbdetaljer extends HTMLElement {
         }
     }
 
-    renderApp(fnr?: string) {
+    renderApp(fnr?: string, theme?: string) {
         const root = createRoot(this.#root);
-        root.render(<App fnr={fnr} />);
+        root.render(<App fnr={fnr} theme={theme === 'dark' ? 'dark' : 'light'} />);
     }
 
     displayError(error: string | Error) {
