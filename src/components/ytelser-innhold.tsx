@@ -5,9 +5,9 @@ import { ModiaPersonoversiktTekstMedLenker } from './modia-personoversikt-tekst-
 const Ytelsesinnhold = () => {
     return (
         <InfoCard data-color="info">
-            <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
+            <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
                 <ModiaPersonoversiktTekstMedLenker />
-            </InfoCard.Message>
+            </InfoCard.Header>
         </InfoCard>
     );
 };
