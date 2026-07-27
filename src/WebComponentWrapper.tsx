@@ -9,8 +9,8 @@ interface ViteAssetManifest {
 }
 
 export class Veilarbdetaljer extends HTMLElement {
-    static FNR_PROP = 'data-fnr';
-    static THEME_PROP = 'theme';
+    public static readonly FNR_PROP = 'data-fnr';
+    public static readonly THEME_PROP = 'theme';
     readonly #root: HTMLDivElement;
 
     constructor() {
