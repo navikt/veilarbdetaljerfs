@@ -11,7 +11,7 @@ import TilToppenKnapp from './components/felles/til-toppen-knapp';
 import PersonverninformasjonManuell from './components/registrering/arbeidssoekerregistrering/personverninformasjon-manuell';
 import { sendOverblikkFilter, useOverblikkFilter } from './data/api/fetch';
 import { SWRConfig } from 'swr';
-import { Alert, Box, Button, Chips, Heading } from '@navikt/ds-react';
+import { Alert, Box, Button, Chips, Heading, Theme } from '@navikt/ds-react';
 import '../index.css';
 import { Tilgangssjekk } from './Tilgangssjekk';
 
@@ -81,96 +81,115 @@ const App = (props: AppProps) => {
                                             <Chips.Toggle
                                                 data-color="neutral"
                                                 key={alternativ}
-                                                selected={false}
+                                                selected={true}
                                                 onClick={() => {
                                                     setVisLagreInfo(false);
                                                     setVisLagreFeil(false);
-                                                    setValgteInformasjonsbokser((prevState) => [
-                                                        ...prevState,
-                                                        alternativ
-                                                    ]);
+                                                    setValgteInformasjonsbokser(
+                                                        valgteInformasjonsbokser.filter((item) => item !== alternativ)
+                                                    );
                                                 }}
                                             >
                                                 {alternativ}
                                             </Chips.Toggle>
                                         ))}
-                                </Chips>
-                                <Button
-                                    onClick={() => {
-                                        setVisLagreInfo(false);
-                                        setVisLagreFeil(false);
-                                        setValgteInformasjonsbokser(informasjonsboksAlternativer);
-                                    }}
-                                    size="small"
-                                    variant="tertiary"
-                                >
-                                    Nullstill visning
-                                </Button>
 
-                                <Button
-                                    onClick={() => {
-                                        sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
-                                            () => {
-                                                overblikkFilter.reFetch().then(
-                                                    () => {
-                                                        setVisLagreFeil(false);
-                                                        setVisLagreInfo(true);
-                                                    },
-                                                    () => {
+                                        {informasjonsboksAlternativer
+                                            .filter((x) => !valgteInformasjonsbokser.includes(x))
+                                            .map((alternativ) => (
+                                                <Chips.Toggle
+                                                    data-color="neutral"
+                                                    key={alternativ}
+                                                    selected={false}
+                                                    onClick={() => {
                                                         setVisLagreInfo(false);
-                                                        setVisLagreFeil(true);
-                                                    }
-                                                );
-                                            },
-                                            () => {
-                                                setVisLagreInfo(false);
-                                                setVisLagreFeil(true);
-                                            }
-                                        );
-                                    }}
-                                    size="small"
-                                    variant="secondary"
-                                >
-                                    Lagre visning for alle brukere
-                                </Button>
-                                {visLagreInfo ? (
-                                    <Alert variant="success" role="status" inline size="small">
-                                        Visning er lagret. Du vil se de samme boksene på alle brukere.
-                                    </Alert>
-                                ) : null}
-                                {visLagreFeil ? (
-                                    <Alert variant="error" role="status" inline size="small">
-                                        Kunne ikke lagre. Prøv på nytt senere.
-                                    </Alert>
-                                ) : null}
-                            </section>
-
-                            <section className="main_grid">
-                                {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
-                                    <Box
-                                        borderRadius="8"
-                                        padding="space-16"
-                                        marginBlock="auto space-32"
-                                        className="info_panel"
-                                        key={valgtInformasjonsboks}
-                                        id={`${valgtInformasjonsboks}-panel`}
+                                                        setVisLagreFeil(false);
+                                                        setValgteInformasjonsbokser((prevState) => [
+                                                            ...prevState,
+                                                            alternativ
+                                                        ]);
+                                                    }}
+                                                >
+                                                    {alternativ}
+                                                </Chips.Toggle>
+                                            ))}
+                                    </Chips>
+                                    <Button
+                                        onClick={() => {
+                                            setVisLagreInfo(false);
+                                            setVisLagreFeil(false);
+                                            setValgteInformasjonsbokser(informasjonsboksAlternativer);
+                                        }}
+                                        size="small"
+                                        variant="tertiary"
                                     >
-                                        <Heading spacing level="2" size="medium" className="panel_header">
-                                            {valgtInformasjonsboks}
-                                        </Heading>
-                                        {mapNavnTilKomponent(valgtInformasjonsboks)}
-                                    </Box>
-                                ))}
-                            </section>
-                        </StoreProvider>
-                    </Tilgangssjekk>
+                                        Nullstill visning
+                                    </Button>
+
+                                    <Button
+                                        onClick={() => {
+                                            sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
+                                                () => {
+                                                    overblikkFilter.reFetch().then(
+                                                        () => {
+                                                            setVisLagreFeil(false);
+                                                            setVisLagreInfo(true);
+                                                        },
+                                                        () => {
+                                                            setVisLagreInfo(false);
+                                                            setVisLagreFeil(true);
+                                                        }
+                                                    );
+                                                },
+                                                () => {
+                                                    setVisLagreInfo(false);
+                                                    setVisLagreFeil(true);
+                                                }
+                                            );
+                                        }}
+                                        size="small"
+                                        variant="secondary"
+                                    >
+                                        Lagre visning for alle brukere
+                                    </Button>
+                                    {visLagreInfo ? (
+                                        <Alert variant="success" role="status" inline size="small">
+                                            Visning er lagret. Du vil se de samme boksene på alle brukere.
+                                        </Alert>
+                                    ) : null}
+                                    {visLagreFeil ? (
+                                        <Alert variant="error" role="status" inline size="small">
+                                            Kunne ikke lagre. Prøv på nytt senere.
+                                        </Alert>
+                                    ) : null}
+                                </section>
+
+                                <section className="main_grid">
+                                    {valgteInformasjonsbokser.map((valgtInformasjonsboks) => (
+                                        <Box
+                                            borderRadius="8"
+                                            padding="space-16"
+                                            marginBlock="auto space-32"
+                                            className="info_panel"
+                                            key={valgtInformasjonsboks}
+                                            id={`${valgtInformasjonsboks}-panel`}
+                                        >
+                                            <Heading spacing level="2" size="medium" className="panel_header">
+                                                {valgtInformasjonsboks}
+                                            </Heading>
+                                            {mapNavnTilKomponent(valgtInformasjonsboks)}
+                                        </Box>
+                                    ))}
+                                </section>
+                            </StoreProvider>
+                        </Tilgangssjekk>
+                    </div>
+                </SWRConfig>
+                <TilToppenKnapp />
+                <div id="kun_til_printing">
+                    <PersonverninformasjonManuell />
                 </div>
-            </SWRConfig>
-            <TilToppenKnapp />
-            <div id="kun_til_printing">
-                <PersonverninformasjonManuell />
-            </div>
-          </main>
+            </main>
         </Theme>
     );
 };
