@@ -15,13 +15,15 @@ import { Alert, Box, Button, Chips, Heading, Theme } from '@navikt/ds-react';
 import '../index.css';
 import { Tilgangssjekk } from './Tilgangssjekk';
 
+export type AppTheme = 'light' | 'dark';
+
 export interface AppProps {
     fnr?: string;
     enhet?: string;
-    theme?: 'light' | 'dark';
+    theme: AppTheme;
 }
 
-const App = (props: AppProps) => {
+const App = ({ fnr, enhet, theme }: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
     const informasjonsboksAlternativer: string[] = useMemo(
@@ -61,7 +63,7 @@ const App = (props: AppProps) => {
     };
 
     return (
-        <Theme theme={props.theme ?? 'light'} asChild>
+        <Theme theme={theme}>
             <main className="app veilarbdetaljerfs">
                 <SWRConfig
                     value={{
@@ -72,8 +74,8 @@ const App = (props: AppProps) => {
                     }}
                 >
                     <div className="overblikk">
-                        <Tilgangssjekk fnr={props.fnr}>
-                            <StoreProvider fnr={props.fnr}>
+                        <Tilgangssjekk fnr={fnr}>
+                            <StoreProvider fnr={fnr} enhetId={enhet}>
                                 <Nokkelinfo />
                                 <section className="overblikk_chips">
                                     <Chips size="small">
