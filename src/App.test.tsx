@@ -4,6 +4,6 @@ import App from './App.tsx';
 
 describe('App test', () => {
     test('Applikasjonen rendrer uten feil', () => {
-        render(<App fnr={'12345678900'} theme={'light'} />);
+        render(<App fnr={'12345678900'} />);
     });
 });

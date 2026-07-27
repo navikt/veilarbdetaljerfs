@@ -1,6 +1,6 @@
 import { createRoot, type Root } from 'react-dom/client';
 import { WEB_COMPONENT_APPNAVN } from './utils/miljo-utils';
-import App, { type AppTheme } from './App';
+import App from './App';
 
 interface ViteAssetManifest {
     'index.html': {
@@ -13,7 +13,6 @@ export class Veilarbdetaljer extends HTMLElement {
     readonly #root: HTMLDivElement;
     readonly #shadowRoot: ShadowRoot;
     #reactRoot: Root | null = null;
-    #themeObserver: MutationObserver | null = null;
     #stylesLoaded = false;
 
     constructor() {
@@ -35,7 +34,6 @@ export class Veilarbdetaljer extends HTMLElement {
                 this.#reactRoot = createRoot(this.#root);
             }
             this.renderApp();
-            this.observeThemeChanges();
         };
 
         if (this.#stylesLoaded) {
@@ -58,9 +56,7 @@ export class Veilarbdetaljer extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.#themeObserver?.disconnect();
         this.#reactRoot?.unmount();
-        this.#themeObserver = null;
         this.#reactRoot = null;
     }
 
@@ -82,47 +78,12 @@ export class Veilarbdetaljer extends HTMLElement {
 
     renderApp() {
         const fnr = this.getAttribute(Veilarbdetaljer.FNR_PROP) ?? undefined;
-        const theme = getThemeFromBody();
-        this.#reactRoot?.render(<App fnr={fnr} theme={theme} />);
-    }
-
-    observeThemeChanges() {
-        if (document.body === null) {
-            return;
-        }
-
-        this.#themeObserver = new MutationObserver(() => this.renderApp());
-        this.#themeObserver.observe(document.body, {
-            attributes: true,
-            attributeFilter: ['class', 'data-theme']
-        });
+        this.#reactRoot?.render(<App fnr={fnr} />);
     }
 
     displayError(error: string | Error) {
         this.#root.innerHTML = `<p>${error}</p>`;
     }
-}
-
-function getThemeFromBody(): AppTheme {
-    if (document.body === null) {
-        return 'light';
-    }
-
-    const dataTheme = document.body.getAttribute('data-theme');
-
-    if (dataTheme === 'dark') {
-        return 'dark';
-    }
-
-    if (dataTheme === 'light') {
-        return 'light';
-    }
-
-    if (document.body.classList.contains('dark')) {
-        return 'dark';
-    }
-
-    return 'light';
 }
 
 function joinPaths(...paths: (string | null | undefined)[]) {
