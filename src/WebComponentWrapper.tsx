@@ -61,7 +61,7 @@ export class Veilarbdetaljer extends HTMLElement {
         this.#isReady = false;
     }
 
-    async loadStyles(shadowRoot: ShadowRoot) {
+    private async loadStyles(shadowRoot: ShadowRoot) {
         const response = await fetch(joinPaths(import.meta.env.BASE_URL, 'asset-manifest.json'));
 
         if (!response.ok) {
