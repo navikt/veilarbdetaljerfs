@@ -78,7 +78,7 @@ export class Veilarbdetaljer extends HTMLElement {
         }
     }
 
-    renderApp() {
+    private renderApp() {
         if (!this.#reactRoot) {
             return;
         }
@@ -90,11 +90,11 @@ export class Veilarbdetaljer extends HTMLElement {
         this.#reactRoot.render(<App fnr={fnr} theme={theme} />);
     }
 
-    normalizeTheme(value: string | null): AppTheme {
+    private normalizeTheme(value: string | null): AppTheme {
         return value === 'dark' ? 'dark' : 'light';
     }
 
-    displayError(error: string) {
+    private displayError(error: string) {
         this.#container.textContent = error;
     }
 }
