@@ -1,4 +1,4 @@
-import { createRoot, type Root } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import { WEB_COMPONENT_APPNAVN } from './utils/miljo-utils';
 import App from './App';
 
@@ -8,86 +8,60 @@ interface ViteAssetManifest {
     };
 }
 
+type AppTheme = 'light' | 'dark';
+
 export class Veilarbdetaljer extends HTMLElement {
     public static readonly FNR_PROP = 'data-fnr';
     public static readonly THEME_PROP = 'theme';
-    public static readonly APP_THEME_PROP = 'app-theme';
-    public static readonly LEGACY_APP_THEME_PROP = 'apptheme';
 
-    readonly #root: HTMLDivElement;
-    readonly #shadowRoot: ShadowRoot;
-
-    #reactRoot: Root | null = null;
-    #stylesLoaded = false;
+    readonly #container: HTMLDivElement;
+    #reactRoot?: Root;
+    #isReady = false;
 
     constructor() {
         super();
 
-        this.#shadowRoot = this.attachShadow({ mode: 'closed' });
-
-        this.#root = document.createElement('div');
-        this.#root.id = WEB_COMPONENT_APPNAVN;
-        this.#root.style.height = '100%';
-
-        this.#shadowRoot.appendChild(this.#root);
+        this.#container = document.createElement('div');
+        this.#container.id = WEB_COMPONENT_APPNAVN;
+        this.#container.style.height = '100%';
     }
 
     static get observedAttributes() {
-        return [
-            Veilarbdetaljer.FNR_PROP,
-            Veilarbdetaljer.THEME_PROP,
-            Veilarbdetaljer.APP_THEME_PROP,
-            Veilarbdetaljer.LEGACY_APP_THEME_PROP
-        ];
+        return [Veilarbdetaljer.FNR_PROP, Veilarbdetaljer.THEME_PROP];
     }
 
     connectedCallback() {
-        const render = () => {
-            if (!this.#reactRoot) {
-                this.#reactRoot = createRoot(this.#root);
-            }
-            this.renderApp();
-        };
+        const shadowRoot = this.attachShadow({ mode: 'closed' });
+        shadowRoot.appendChild(this.#container);
 
-        if (this.#stylesLoaded) {
-            render();
+        this.loadStyles(shadowRoot)
+            .then(() => {
+                this.#reactRoot = createRoot(this.#container);
+                this.#isReady = true;
+                this.renderApp();
+            })
+            .catch((error) => {
+                this.displayError(error instanceof Error ? error.message : String(error));
+            });
+    }
+
+    attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+        if (oldValue === newValue || !this.#isReady) {
             return;
         }
 
-        void this.loadStyles()
-            .then(() => {
-                this.#stylesLoaded = true;
-                render();
-            })
-            .catch((error) => {
-                this.#root.textContent = error instanceof Error ? error.message : String(error);
-            });
+        if (name === Veilarbdetaljer.FNR_PROP || name === Veilarbdetaljer.THEME_PROP) {
+            this.renderApp();
+        }
     }
 
     disconnectedCallback() {
         this.#reactRoot?.unmount();
-        this.#reactRoot = null;
+        this.#reactRoot = undefined;
+        this.#isReady = false;
     }
 
-    attributeChangedCallback(_name: string, oldValue: string | null, newValue: string | null) {
-        if (oldValue !== newValue && this.#reactRoot) {
-            this.renderApp();
-        }
-    }
-
-    private renderApp() {
-        const fnr = this.getAttribute(Veilarbdetaljer.FNR_PROP) ?? undefined;
-
-        const themeAttr =
-            this.getAttribute(Veilarbdetaljer.THEME_PROP) ??
-            this.getAttribute(Veilarbdetaljer.APP_THEME_PROP) ??
-            this.getAttribute(Veilarbdetaljer.LEGACY_APP_THEME_PROP);
-        const theme = themeAttr === 'dark' ? 'dark' : 'light';
-
-        this.#reactRoot?.render(<App fnr={fnr} theme={theme} />);
-    }
-
-    private async loadStyles() {
+    private async loadStyles(shadowRoot: ShadowRoot) {
         const response = await fetch(joinPaths(import.meta.env.BASE_URL, 'asset-manifest.json'));
 
         if (!response.ok) {
@@ -100,9 +74,28 @@ export class Veilarbdetaljer extends HTMLElement {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = joinPaths(import.meta.env.BASE_URL, css);
-
-            this.#shadowRoot.appendChild(link);
+            shadowRoot.appendChild(link);
         }
+    }
+
+    private renderApp() {
+        if (!this.#reactRoot) {
+            return;
+        }
+
+        const fnr = this.getAttribute(Veilarbdetaljer.FNR_PROP) ?? undefined;
+
+        const theme = this.normalizeTheme(this.getAttribute(Veilarbdetaljer.THEME_PROP));
+
+        this.#reactRoot.render(<App fnr={fnr} theme={theme} />);
+    }
+
+    private normalizeTheme(value: string | null): AppTheme {
+        return value === 'dark' ? 'dark' : 'light';
+    }
+
+    private displayError(error: string) {
+        this.#container.textContent = error;
     }
 }
 
