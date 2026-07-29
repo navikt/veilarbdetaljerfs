@@ -42,13 +42,13 @@ const oppfolgingData: OppfolgingData = {
 const oppfolgingsEnhet: OppfolgingsData = {
     brukerStatus: {
         krr: {
-            reservertIKrr: false,
+            reservertIKrr: false
         }
     },
     oppfolgingsEnhet: {
         enhet: {
             id: '007',
-            navn: 'Nav Testheim',
+            navn: 'Nav Testheim'
         }
     }
 };

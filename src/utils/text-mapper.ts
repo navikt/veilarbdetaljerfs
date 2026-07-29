@@ -40,7 +40,9 @@ export function profilertTilBeskrivelse(profilertTil: ProfilertTil) {
     }
 }
 
-export function hentOppfolgingsEnhetTekst(oppfolgingsEnhetdata: { enhet: { id: string, navn: string } } | null | undefined): StringOrNothing {
+export function hentOppfolgingsEnhetTekst(
+    oppfolgingsEnhetdata: { enhet: { id: string; navn: string } } | null | undefined
+): StringOrNothing {
     const enhetId = oppfolgingsEnhetdata?.enhet?.id;
     const navn = oppfolgingsEnhetdata?.enhet?.navn;
 
