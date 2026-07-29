@@ -5,7 +5,6 @@ export interface OppfolgingsData {
         enhet: {
             id: string;
             navn: string;
-            kilde: string;
         };
     };
     brukerStatus: {
@@ -24,7 +23,6 @@ export const hentOppfolgingsEnhetQuery = `
             enhet {
                 id
                 navn
-                kilde
             }
         }
         brukerStatus(fnr: $fnr) {

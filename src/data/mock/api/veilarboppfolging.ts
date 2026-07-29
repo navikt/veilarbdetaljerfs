@@ -40,10 +40,16 @@ const oppfolgingData: OppfolgingData = {
 };
 
 const oppfolgingsEnhet: OppfolgingsData = {
-    enhet: {
-        id: '007',
-        navn: 'Nav Testheim',
-        kilde: 'ARENA'
+    brukerStatus: {
+        krr: {
+            reservertIKrr: false,
+        }
+    },
+    oppfolgingsEnhet: {
+        enhet: {
+            id: '007',
+            navn: 'Nav Testheim',
+        }
     }
 };
 
