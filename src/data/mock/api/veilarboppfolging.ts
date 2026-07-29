@@ -5,7 +5,7 @@ import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } 
 import { OppfolgingData } from '../../api/datatyper/oppfolging.ts';
 import { endepunkter } from '../../api/fetch.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
-import { OppfolgingsEnhetData } from '../../api/veilarboppfolgingGraphql.ts';
+import { OppfolgingsData } from '../../api/veilarboppfolgingGraphql.ts';
 
 const veilarboppfolgingGraphql = graphql.link(endepunkter.VEILARBOPPFOLGING_GRAPHQL);
 
@@ -39,11 +39,17 @@ const oppfolgingData: OppfolgingData = {
     underOppfolging: true
 };
 
-const oppfolgingsEnhet: OppfolgingsEnhetData = {
-    enhet: {
-        id: '007',
-        navn: 'Nav Testheim',
-        kilde: 'ARENA'
+const oppfolgingsEnhet: OppfolgingsData = {
+    brukerStatus: {
+        krr: {
+            reservertIKrr: false
+        }
+    },
+    oppfolgingsEnhet: {
+        enhet: {
+            id: '007',
+            navn: 'Nav Testheim'
+        }
     }
 };
 
@@ -98,6 +104,11 @@ export const veilarboppfolgingHandlers: RequestHandler[] = [
 
         return HttpResponse.json({
             data: {
+                brukerStatus: {
+                    krr: {
+                        reservertIKrr: true
+                    }
+                },
                 oppfolgingsEnhet: oppfolgingsEnhet
             }
         });

@@ -1,15 +1,21 @@
 import { GraphqlResponse } from './GraphqlUtils';
 
-export interface OppfolgingsEnhetData {
-    enhet: {
-        id: string;
-        navn: string;
-        kilde: string;
+export interface OppfolgingsData {
+    oppfolgingsEnhet: {
+        enhet: {
+            id: string;
+            navn: string;
+        };
+    };
+    brukerStatus: {
+        krr: {
+            reservertIKrr: boolean;
+        };
     };
 }
 
 export type OppfolgingsEnhetQueryRequest = ReturnType<typeof veilarboppfolgingGraphqlQuery>;
-export type OppfolgingsenhetResponse = GraphqlResponse<{ oppfolgingsEnhet: OppfolgingsEnhetData }>;
+export type OppfolgingsenhetResponse = GraphqlResponse<OppfolgingsData>;
 
 export const hentOppfolgingsEnhetQuery = `
     query hentOppfolgingsEnhet($fnr: String!) {
@@ -17,7 +23,11 @@ export const hentOppfolgingsEnhetQuery = `
             enhet {
                 id
                 navn
-                kilde
+            }
+        }
+        brukerStatus(fnr: $fnr) {
+            krr {
+                reservertIKrr
             }
         }
     }

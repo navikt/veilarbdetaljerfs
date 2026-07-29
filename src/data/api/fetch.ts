@@ -186,7 +186,7 @@ export const useOppfolgingsstatus = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useOppfolgingsEnhet = (fnr?: string) => {
+const useOppfolgingsData = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsenhetResponse, ErrorMessage>(
         fnr ? [endepunkter.VEILARBOPPFOLGING_GRAPHQL, fnr] : null,
         () =>
@@ -196,7 +196,15 @@ export const useOppfolgingsEnhet = (fnr?: string) => {
             )
     );
 
+    return { data, isLoading, error };
+};
+export const useOppfolgingsEnhet = (fnr?: string) => {
+    const { data, error, isLoading } = useOppfolgingsData(fnr);
     return { data: data?.data?.oppfolgingsEnhet, isLoading, error };
+};
+export const useErReservertIKrr = (fnr?: string) => {
+    const { data, error, isLoading } = useOppfolgingsData(fnr);
+    return { data: data?.data?.brukerStatus?.krr?.reservertIKrr, isLoading, error };
 };
 
 export const useHarTilgangTilBruker = (fnr?: string) => {

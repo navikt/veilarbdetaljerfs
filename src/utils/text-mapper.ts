@@ -7,7 +7,6 @@ import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelag
 import { VedtakType } from '../data/api/datatyper/ytelse';
 import { VEDTAKSSTATUSER } from './konstanter.ts';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-import { OppfolgingsEnhetData } from '../data/api/veilarboppfolgingGraphql.ts';
 
 export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
     switch (servicegruppe) {
@@ -42,7 +41,7 @@ export function profilertTilBeskrivelse(profilertTil: ProfilertTil) {
 }
 
 export function hentOppfolgingsEnhetTekst(
-    oppfolgingsEnhetdata: OppfolgingsEnhetData | null | undefined
+    oppfolgingsEnhetdata: { enhet: { id: string; navn: string } } | null | undefined
 ): StringOrNothing {
     const enhetId = oppfolgingsEnhetdata?.enhet?.id;
     const navn = oppfolgingsEnhetdata?.enhet?.navn;
