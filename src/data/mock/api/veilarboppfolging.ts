@@ -99,9 +99,9 @@ export const veilarboppfolgingHandlers: RequestHandler[] = [
         return HttpResponse.json({
             data: {
                 brukerStatus: {
-                  krr: {
-                      reservertIKrr: true
-                  }
+                    krr: {
+                        reservertIKrr: true
+                    }
                 },
                 oppfolgingsEnhet: oppfolgingsEnhet
             }

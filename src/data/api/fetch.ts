@@ -199,11 +199,11 @@ const useOppfolgingsData = (fnr?: string) => {
     return { data, isLoading, error };
 };
 export const useOppfolgingsEnhet = (fnr?: string) => {
-    const { data, error, isLoading } =  useOppfolgingsData(fnr);
+    const { data, error, isLoading } = useOppfolgingsData(fnr);
     return { data: data?.data?.oppfolgingsEnhet, isLoading, error };
 };
 export const useErReservertIKrr = (fnr?: string) => {
-    const { data, error, isLoading } =  useOppfolgingsData(fnr);
+    const { data, error, isLoading } = useOppfolgingsData(fnr);
     return { data: data?.data?.brukerStatus?.krr?.reservertIKrr, isLoading, error };
 };
 
