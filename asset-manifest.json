@@ -1,13 +1,13 @@
 {
-  "_graphql-C6KrxHkC.js": {
-    "file": "assets/graphql-C6KrxHkC.js",
+  "_graphql-DYaohzR_.js": {
+    "file": "assets/graphql-DYaohzR_.js",
     "name": "graphql",
     "imports": [
       "index.html"
     ]
   },
   "index.html": {
-    "file": "assets/index-k55IQ2fF.js",
+    "file": "assets/index-CCJFlTYw.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
@@ -19,16 +19,16 @@
     ]
   },
   "src/data/mock/index.ts": {
-    "file": "assets/mock-i3HV6iYe.js",
+    "file": "assets/mock-BNBR1xLG.js",
     "name": "mock",
     "src": "src/data/mock/index.ts",
     "isDynamicEntry": true,
     "imports": [
       "index.html",
-      "_graphql-C6KrxHkC.js"
+      "_graphql-DYaohzR_.js"
     ],
     "dynamicImports": [
-      "_graphql-C6KrxHkC.js"
+      "_graphql-DYaohzR_.js"
     ]
   }
 }
