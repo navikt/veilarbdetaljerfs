@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 
 interface Props {
     header: string;
-    value?: StringOrNothing;
+    value?: ReactNode;
     errorMessage?: StringOrNothing;
     tilleggsinfo?: StringOrNothing;
     lenkeinfo?: ReactNode;
