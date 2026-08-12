@@ -4,10 +4,10 @@ import { ModiaPersonoversiktTekstMedLenker } from './modia-personoversikt-tekst-
 
 const Ytelsesinnhold = () => {
     return (
-        <InfoCard data-color="info">
-            <InfoCard.Header icon={<InformationSquareIcon aria-hidden />}>
+        <InfoCard size="small" data-color="info">
+            <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
                 <ModiaPersonoversiktTekstMedLenker />
-            </InfoCard.Header>
+            </InfoCard.Message>
         </InfoCard>
     );
 };
