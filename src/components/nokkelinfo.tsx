@@ -4,11 +4,11 @@ import { useAppStore } from '../stores/app-store';
 import {
     useCvOgJobbonsker,
     useGjeldende14aVedtak,
-    useOppfolgingsstatus,
     useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
     useTolk,
-    useVeileder
+    useVeileder,
+    useVeilederTilordning
 } from '../data/api/fetch';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
@@ -30,10 +30,10 @@ const Nokkelinfoinnhold = () => {
     const behandlingsnummer = hentBehandlingsnummer();
 
     const {
-        data: oppfolgingsstatusData,
+        data: tilordnetVeileder,
         error: oppfolgingsstatusError,
         isLoading: oppfolgingsstatusLoading
-    } = useOppfolgingsstatus(fnr);
+    } = useVeilederTilordning(fnr);
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const {
         data: opplysningerOmArbedissoekerMedProfilering,
@@ -46,11 +46,7 @@ const Nokkelinfoinnhold = () => {
         error: cvOgJobbonskerError,
         isLoading: cvOgJobbonskerLoading
     } = useCvOgJobbonsker(fnr);
-    const {
-        data: veilederData,
-        error: veilederError,
-        isLoading: veilederLoading
-    } = useVeileder(oppfolgingsstatusData?.veilederId);
+    const { data: veilederData, error: veilederError, isLoading: veilederLoading } = useVeileder(tilordnetVeileder);
     const {
         data: gjeldende14aVedtak,
         error: gjeldende14aVedtakError,

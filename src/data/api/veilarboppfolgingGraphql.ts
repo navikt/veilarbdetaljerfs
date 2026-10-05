@@ -11,6 +11,9 @@ export interface OppfolgingsData {
         krr: {
             reservertIKrr: boolean;
         };
+        veilederTilordning: {
+            veilederIdent: string | null;
+        } | null;
     };
 }
 
@@ -28,6 +31,9 @@ export const hentOppfolgingsEnhetQuery = `
         brukerStatus(fnr: $fnr) {
             krr {
                 reservertIKrr
+            }
+            veilederTilordning {
+                veilederIdent
             }
         }
     }
