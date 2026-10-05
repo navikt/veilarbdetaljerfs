@@ -1,16 +1,13 @@
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import {
-    hentGeografiskEnhetTekst,
-    hentOppfolgingsEnhetTekst,
-    hentVeilederTekst,
-} from '../utils/text-mapper';
+import { hentGeografiskEnhetTekst, hentOppfolgingsEnhetTekst, hentVeilederTekst } from '../utils/text-mapper';
 import {
     useGjeldende14aVedtak,
     useOppfolgingsEnhet,
     usePersonalia,
-    useVeileder, useVeilederTilordning
+    useVeileder,
+    useVeilederTilordning
 } from '../data/api/fetch';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
@@ -27,11 +24,7 @@ const Oppfolgingsinnhold = () => {
     } = useVeilederTilordning(fnr);
 
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
-    const {
-        data: veilederData,
-        error: veilederError,
-        isLoading: veilederLoading
-    } = useVeileder(tilordnetVeileder);
+    const { data: veilederData, error: veilederError, isLoading: veilederLoading } = useVeileder(tilordnetVeileder);
 
     const {
         data: oppfolgingsEnhetData,

@@ -187,7 +187,7 @@ export const useErReservertIKrr = (fnr?: string) => {
 export const useVeilederTilordning = (fnr?: string) => {
     const { data, error, isLoading } = useOppfolgingsData(fnr);
     return { data: data?.data?.brukerStatus?.veilederTilordning?.veilederIdent, isLoading, error };
-}
+};
 
 export const useHarTilgangTilBruker = (fnr?: string) => {
     return useSWR<boolean, ErrorMessage>(fnr ? [endepunkter.VEILARBPERSON_HENT_TILGANGTILBRUKER, fnr] : null, () =>
