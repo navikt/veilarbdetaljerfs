@@ -1,5 +1,4 @@
 import { createPOSToptions, customResponseHeaders, GEToptions } from './datatyper/apiOptions';
-import { OppfolgingsstatusData } from './datatyper/oppfolgingsstatus';
 import { PersonaliaInfo } from './datatyper/personalia';
 import { TilrettelagtKommunikasjonData } from './datatyper/tilrettelagtKommunikasjon';
 import { StringOrNothing } from '../../utils/felles-typer';
@@ -12,7 +11,6 @@ import { FrontendEvent } from '../../utils/logger';
 import useSWR from 'swr';
 import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerregisteret-utils';
 import { FullmaktData } from './datatyper/fullmakt.ts';
-import { OppfolgingData } from './datatyper/oppfolging.ts';
 import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
 import {
     hentOppfolgingsEnhetQuery,
@@ -72,8 +70,6 @@ export const endepunkter = {
     VEILARBPERSON_HENT_FULLMAKT: '/veilarbperson/api/v3/person/hent-fullmakt',
     VEILARBPERSON_HENT_AKTORID: '/veilarbperson/api/v3/person/hent-aktorid',
     VEILARBOPPFOLGING_HENT_UNDER_OPPFOLGING: '/veilarboppfolging/api/v2/hent-underOppfolging',
-    VEILARBOPPFOLGING_HENT_STATUS: '/veilarboppfolging/api/v3/oppfolging/hent-status',
-    VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS: '/veilarboppfolging/api/v2/person/hent-oppfolgingsstatus',
     VEILARBOPPFOLGING_GRAPHQL: '/veilarboppfolging/api/graphql',
     VEILARBVEDTAKSSTOTTE_HENT_GJELDENDE_14A_VEDTAK: '/veilarbvedtaksstotte/api/hent-gjeldende-14a-vedtak',
     VEILARBVEDTAKSSTOTTE_INNSATSGRUPPEOGHOVEDMAL: '/veilarbvedtaksstotte/open/api/v2/kodeverk/innsatsgruppeoghovedmal',
@@ -168,24 +164,6 @@ export const useUnderOppfolging = (fnr?: string) => {
     return { data, isLoading, error };
 };
 
-export const useOppfolging = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<OppfolgingData, ErrorMessage>(
-        fnr ? [endepunkter.VEILARBOPPFOLGING_HENT_STATUS, fnr] : null,
-        () => fetchWithPost(endepunkter.VEILARBOPPFOLGING_HENT_STATUS, { fnr: fnr ?? null })
-    );
-
-    return { data, isLoading, error };
-};
-
-export const useOppfolgingsstatus = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<OppfolgingsstatusData, ErrorMessage>(
-        fnr ? [endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, fnr] : null,
-        () => fetchWithPost(endepunkter.VEILARBOPPFOLGING_HENT_OPPFOLGINGSSTATUS, { fnr: fnr ?? null })
-    );
-
-    return { data, isLoading, error };
-};
-
 const useOppfolgingsData = (fnr?: string) => {
     const { data, error, isLoading } = useSWR<OppfolgingsenhetResponse, ErrorMessage>(
         fnr ? [endepunkter.VEILARBOPPFOLGING_GRAPHQL, fnr] : null,
@@ -205,6 +183,10 @@ export const useOppfolgingsEnhet = (fnr?: string) => {
 export const useErReservertIKrr = (fnr?: string) => {
     const { data, error, isLoading } = useOppfolgingsData(fnr);
     return { data: data?.data?.brukerStatus?.krr?.reservertIKrr, isLoading, error };
+};
+export const useVeilederTilordning = (fnr?: string) => {
+    const { data, error, isLoading } = useOppfolgingsData(fnr);
+    return { data: data?.data?.brukerStatus?.veilederTilordning?.veilederIdent, isLoading, error };
 };
 
 export const useHarTilgangTilBruker = (fnr?: string) => {

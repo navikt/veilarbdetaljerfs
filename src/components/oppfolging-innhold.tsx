@@ -1,20 +1,13 @@
 import { Errormelding, Laster } from './felles/minikomponenter';
 import { useAppStore } from '../stores/app-store';
-import { ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
-import { OrNothing } from '../utils/felles-typer';
 import { EnkeltInformasjon } from './felles/enkeltInfo';
-import {
-    hentGeografiskEnhetTekst,
-    hentOppfolgingsEnhetTekst,
-    hentVeilederTekst,
-    mapServicegruppeTilTekst
-} from '../utils/text-mapper';
+import { hentGeografiskEnhetTekst, hentOppfolgingsEnhetTekst, hentVeilederTekst } from '../utils/text-mapper';
 import {
     useGjeldende14aVedtak,
     useOppfolgingsEnhet,
-    useOppfolgingsstatus,
     usePersonalia,
-    useVeileder
+    useVeileder,
+    useVeilederTilordning
 } from '../data/api/fetch';
 import { hentBehandlingsnummer } from '../utils/konstanter.ts';
 import { InnsatsGruppe } from './innsatsgruppe.tsx';
@@ -23,17 +16,15 @@ import { Hovedmaal } from './hovedmal.tsx';
 const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
+
     const {
-        data: oppfolgingsstatusData,
-        error: oppfolgingsstatusError,
-        isLoading: oppfolgingsstatusLoading
-    } = useOppfolgingsstatus(fnr);
+        data: tilordnetVeileder,
+        error: tilordnetVeilederError,
+        isLoading: tilordnetVeilederLoading
+    } = useVeilederTilordning(fnr);
+
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
-    const {
-        data: veilederData,
-        error: veilederError,
-        isLoading: veilederLoading
-    } = useVeileder(oppfolgingsstatusData?.veilederId);
+    const { data: veilederData, error: veilederError, isLoading: veilederLoading } = useVeileder(tilordnetVeileder);
 
     const {
         data: oppfolgingsEnhetData,
@@ -47,10 +38,8 @@ const Oppfolgingsinnhold = () => {
         isLoading: gjeldende14avedtakLoading
     } = useGjeldende14aVedtak(fnr);
 
-    const serviceGruppe: OrNothing<ArenaServicegruppeKode> = oppfolgingsstatusData?.servicegruppe;
-
     if (
-        oppfolgingsstatusLoading ||
+        tilordnetVeilederLoading ||
         personLoading ||
         veilederLoading ||
         gjeldende14avedtakLoading ||
@@ -60,8 +49,8 @@ const Oppfolgingsinnhold = () => {
     }
 
     if (
-        oppfolgingsstatusError?.status === 204 ||
-        oppfolgingsstatusError?.status === 404 ||
+        tilordnetVeilederError?.status === 204 ||
+        tilordnetVeilederError?.status === 404 ||
         oppfolgingsEnhetError?.status === 204 ||
         oppfolgingsEnhetError?.status === 404 ||
         personError?.status === 204 ||
@@ -70,7 +59,7 @@ const Oppfolgingsinnhold = () => {
         veilederError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (oppfolgingsstatusError || personError || veilederError || gjeldende14avedtakError) {
+    } else if (tilordnetVeilederError || personError || veilederError || gjeldende14avedtakError) {
         return <Errormelding />;
     }
 
@@ -89,7 +78,6 @@ const Oppfolgingsinnhold = () => {
                     harGjeldendeOppfolgingsvedtak={!!gjeldende14aVedtak}
                 />
                 <EnkeltInformasjon header="Veileder" value={hentVeilederTekst(veilederData)} />
-                <EnkeltInformasjon header="Servicegruppe" value={mapServicegruppeTilTekst(serviceGruppe)} />
             </span>
         </>
     );
