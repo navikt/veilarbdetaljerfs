@@ -6,16 +6,7 @@ export interface OppfolgingEnhet {
 }
 export type ArenaFormidlingsgruppeKode = 'ARBS' | 'IARBS' | 'ISERV' | 'PARBS' | 'RARBS';
 export type ArenaServicegruppeKode =
-    | 'BATT'
-    | 'BFORM'
-    | 'BKART'
-    | 'IKVAL'
-    | 'IVURD'
-    | 'KAP11'
-    | 'OPPFI'
-    | 'VARIG'
-    | 'VURDI'
-    | 'VURDU';
+    'BATT' | 'BFORM' | 'BKART' | 'IKVAL' | 'IVURD' | 'KAP11' | 'OPPFI' | 'VARIG' | 'VURDI' | 'VURDU';
 export type ArenaHovedmalKode = 'OKEDELT' | 'SKAFFEA' | 'BEHOLDEA';
 
 export interface OppfolgingsstatusData {
