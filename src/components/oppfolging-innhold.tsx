@@ -17,49 +17,37 @@ const Oppfolgingsinnhold = () => {
     const { fnr } = useAppStore();
     const behandlingsnummer = hentBehandlingsnummer();
 
-    const {
-        data: tilordnetVeileder,
-        error: tilordnetVeilederError,
-        isLoading: tilordnetVeilederLoading
-    } = useVeilederTilordning(fnr);
-
+    // Hooken deler SWR-nøkkel med useOppfolgingsEnhet, så Error- og Loading-tilstand trenger bare hentes en gang.
+    const { data: tilordnetVeileder } = useVeilederTilordning(fnr);
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const { data: veilederData, error: veilederError, isLoading: veilederLoading } = useVeileder(tilordnetVeileder);
 
     const {
         data: oppfolgingsEnhetData,
-        error: oppfolgingsEnhetError,
-        isLoading: oppfolgingsEnhetLoading
+        error: oppfolgingsdataError,
+        isLoading: oppfolgingsdataLoading
     } = useOppfolgingsEnhet(fnr);
 
     const {
         data: gjeldende14aVedtak,
-        error: gjeldende14avedtakError,
-        isLoading: gjeldende14avedtakLoading
+        error: gjeldende14aVedtakError,
+        isLoading: gjeldende14aVedtakLoading
     } = useGjeldende14aVedtak(fnr);
 
-    if (
-        tilordnetVeilederLoading ||
-        personLoading ||
-        veilederLoading ||
-        gjeldende14avedtakLoading ||
-        oppfolgingsEnhetLoading
-    ) {
+    if (oppfolgingsdataLoading || personLoading || veilederLoading || gjeldende14aVedtakLoading) {
         return <Laster />;
     }
 
     if (
-        tilordnetVeilederError?.status === 204 ||
-        tilordnetVeilederError?.status === 404 ||
-        oppfolgingsEnhetError?.status === 204 ||
-        oppfolgingsEnhetError?.status === 404 ||
+        oppfolgingsdataError?.status === 204 ||
+        oppfolgingsdataError?.status === 404 ||
         personError?.status === 204 ||
         personError?.status === 404 ||
         veilederError?.status === 204 ||
         veilederError?.status === 404
     ) {
         // Pass fordi 204 og 404 thrower error, vil ikke vise feilmelding, men lar komponentene håndtere hvis det ikke er noe data
-    } else if (tilordnetVeilederError || personError || veilederError || gjeldende14avedtakError) {
+    } else if (oppfolgingsdataError || personError || veilederError || gjeldende14aVedtakError) {
         return <Errormelding />;
     }
 

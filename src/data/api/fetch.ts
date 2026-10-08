@@ -13,9 +13,9 @@ import { OpplysningerOmArbeidssoker, Profilering } from '@navikt/arbeidssokerreg
 import { FullmaktData } from './datatyper/fullmakt.ts';
 import { Kodeverk14a } from './datatyper/kodeverk14aData.ts';
 import {
-    hentOppfolgingsEnhetQuery,
-    OppfolgingsEnhetQueryRequest,
-    OppfolgingsenhetResponse,
+    hentOppfolgingsdataQuery,
+    OppfolgingsdataQueryRequest,
+    OppfolgingsdataResponse,
     veilarboppfolgingGraphqlQuery
 } from './veilarboppfolgingGraphql.ts';
 
@@ -55,7 +55,7 @@ export interface OpplysningerOmArbeidssokerMedProfilering {
     profilering: Profilering | null;
 }
 
-export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr | OppfolgingsEnhetQueryRequest;
+export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest | Fnr | OppfolgingsdataQueryRequest;
 
 export const endepunkter = {
     VEILARBPERSON_EVENT: '/veilarbperson/api/logger/event',
@@ -165,12 +165,12 @@ export const useUnderOppfolging = (fnr?: string) => {
 };
 
 const useOppfolgingsData = (fnr?: string) => {
-    const { data, error, isLoading } = useSWR<OppfolgingsenhetResponse, ErrorMessage>(
+    const { data, error, isLoading } = useSWR<OppfolgingsdataResponse, ErrorMessage>(
         fnr ? [endepunkter.VEILARBOPPFOLGING_GRAPHQL, fnr] : null,
         () =>
             fetchWithPost(
                 endepunkter.VEILARBOPPFOLGING_GRAPHQL,
-                veilarboppfolgingGraphqlQuery(fnr ?? '', hentOppfolgingsEnhetQuery)
+                veilarboppfolgingGraphqlQuery(fnr ?? '', hentOppfolgingsdataQuery)
             )
     );
 
