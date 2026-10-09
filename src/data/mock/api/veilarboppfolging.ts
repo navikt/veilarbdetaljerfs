@@ -3,7 +3,7 @@ import { delay, graphql, http, HttpResponse, RequestHandler } from 'msw';
 import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import { endepunkter } from '../../api/fetch.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';
-import { OppfolgingsData } from '../../api/veilarboppfolgingGraphql.ts';
+import { Oppfolgingsdata } from '../../api/veilarboppfolgingGraphql.ts';
 
 const veilarboppfolgingGraphql = graphql.link(endepunkter.VEILARBOPPFOLGING_GRAPHQL);
 
@@ -12,7 +12,7 @@ const oppfolging: UnderOppfolgingData = {
     underOppfolging: true
 };
 
-const oppfolgingsEnhet: OppfolgingsData = {
+const oppfolgingsEnhet: Oppfolgingsdata = {
     brukerStatus: {
         krr: {
             reservertIKrr: false
@@ -45,7 +45,7 @@ export const veilarboppfolgingHandlers: RequestHandler[] = [
             headers: { [customResponseHeaders.NAV_CALL_ID]: crypto.randomUUID() }
         });
     }),
-    veilarboppfolgingGraphql.query('hentOppfolgingsEnhet', async () => {
+    veilarboppfolgingGraphql.query('hentOppfolgingsdata', async () => {
         await delay(DEFAULT_DELAY_MILLISECONDS);
 
         return HttpResponse.json({
