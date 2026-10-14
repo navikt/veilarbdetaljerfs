@@ -59,7 +59,7 @@ export type RequestTypes = FrontendEvent | overblikkVisningRequest | pdlRequest 
 
 export const endepunkter = {
     VEILARBPERSON_EVENT: '/veilarbperson/api/logger/event',
-    VEILARBFILTER_OVERBLIKKVISNING: '/veilarbfilter/api/overblikkvisning',
+    VEILARBVEILEDER_OVERBLIKKVISNING: '/veilarbveileder/api/overblikkvisning',
     VEILARBPERSON_HENT_CV_OG_JOBBPROFIL: '/veilarbperson/api/v3/person/hent-cv_jobbprofil',
     VEILARBPERSON_HENT_TILGANGTILBRUKER: '/veilarbperson/api/v3/person/hent-tilgangTilBruker',
     VEILARBPERSON_HENT_PERSON: '/veilarbperson/api/v3/hent-person-tilgangsstyrt',
@@ -127,14 +127,14 @@ export const sendEventTilVeilarbperson = async (event: FrontendEvent) => {
 };
 
 export const sendOverblikkFilter = async (request: overblikkVisningRequest) => {
-    const respons = await fetch(endepunkter.VEILARBFILTER_OVERBLIKKVISNING, createPOSToptions(request));
+    const respons = await fetch(endepunkter.VEILARBVEILEDER_OVERBLIKKVISNING, createPOSToptions(request));
 
     return handterRespons(respons);
 };
 
 export const useOverblikkFilter = () => {
     const { data, error, isLoading, mutate } = useSWR<overblikkVisningResponse, ErrorMessage>(
-        endepunkter.VEILARBFILTER_OVERBLIKKVISNING,
+        endepunkter.VEILARBVEILEDER_OVERBLIKKVISNING,
         fetcher,
         {
             shouldRetryOnError: false,
