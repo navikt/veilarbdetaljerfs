@@ -1,7 +1,6 @@
 import { veilarboppfolgingHandlers } from './veilarboppfolging';
 import { veilarbpersonHandlers } from './veilarbperson';
 import { veilarbveilederHandlers } from './veilarbveileder';
-import { veilarbfilterHandlers } from './veilarbfilter';
 import { HttpResponse, RequestHandler } from 'msw';
 import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
 import { Endepunkt } from '../../api/fetch.ts';
@@ -14,7 +13,6 @@ export const allHandlers: RequestHandler[] = [
     ...veilarbveilederHandlers,
     ...veilarbpersonHandlers,
     ...veilarboppfolgingHandlers,
-    ...veilarbfilterHandlers,
     ...veilarbvedtaksstotteHandlers
 ];
 
