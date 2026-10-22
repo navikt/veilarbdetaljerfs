@@ -271,10 +271,14 @@ export const useVergeOgFullmakt = (fnr?: string, behandlingsnummer?: string) => 
     return { data, isLoading, error };
 };
 
-export const useFullmakt = (fnr?: string) => {
+export const useFullmakt = (fnr?: string, behandlingsnummer?: string) => {
     const { data, error, isLoading } = useSWR<FullmaktData, ErrorMessage>(
-        fnr ? [endepunkter.VEILARBPERSON_HENT_FULLMAKT, fnr] : null,
-        () => fetchWithPost(endepunkter.VEILARBPERSON_HENT_FULLMAKT, { fnr: fnr ?? null })
+        fnr ? [endepunkter.VEILARBPERSON_HENT_FULLMAKT, fnr, behandlingsnummer] : null,
+        () =>
+            fetchWithPost(endepunkter.VEILARBPERSON_HENT_FULLMAKT, {
+                fnr: fnr ?? null,
+                behandlingsnummer: behandlingsnummer ?? null
+            })
     );
 
     return { data, isLoading, error };

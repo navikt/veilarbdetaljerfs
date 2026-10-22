@@ -6,6 +6,7 @@ import EMDASH from '../../utils/emdash';
 import { isNotEmptyArray } from '../../utils/felles-typer';
 import { useFullmakt } from '../../data/api/fetch.ts';
 import { useAppStore } from '../../stores/app-store.ts';
+import { hentBehandlingsnummer } from '../../utils/konstanter.ts';
 
 function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
     const { fullmaktsgiver, fullmaktsgiverNavn, fullmektig, fullmektigsNavn, omraade, gyldigFraOgMed, gyldigTilOgMed } =
@@ -50,7 +51,7 @@ function FullmektigEllerFullmaktsgiver(props: { fullmakt: Fullmakt }) {
 
 const FullmaktListe = () => {
     const { fnr } = useAppStore();
-    const fullmaktData = useFullmakt(fnr!).data;
+    const fullmaktData = useFullmakt(fnr!, hentBehandlingsnummer()).data;
     const harFullmaktData = fullmaktData !== undefined && isNotEmptyArray(fullmaktData.fullmakt);
     const fullmaktMedOppfolging = fullmaktData?.fullmakt?.filter((fullmakt) =>
         fullmakt.omraade.some((omraade) => omraade.tema === 'Oppfølging')
