@@ -6,32 +6,31 @@ import { Veilarbdetaljer } from './WebComponentWrapper.tsx';
 import { Utviklerinnstillinger } from './components/utviklerinnstillinger/utviklerinnstillinger.tsx';
 
 if (erLokalMode() || erDemoMode()) {
-    import('./data/mock/index.ts')
-        .then(({ worker }) => {
-            worker
-                .start({ serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` } })
-                .then(() => {
-                    createRoot(document.getElementById('root') as HTMLElement).render(
-                        <React.StrictMode>
-                            <img
-                                src={`${import.meta.env.BASE_URL}internflate20211122.png`}
-                                id="veilarbpersonflatefs-root"
-                                alt="internflate bilde"
-                            />
-                            <App fnr={'12118323058'} theme="light" />
-                            {erLokalMode() && <Utviklerinnstillinger />}
-                        </React.StrictMode>
-                    );
-                })
-                .catch((e: Error) => {
-                    // oxlint-disable-next-line no-console
-                    console.error('Unable to setup mocked API endpoints', e);
-                });
-        })
-        .catch((e) => {
+    try {
+        const { worker } = await import('./data/mock/index.ts');
+
+        try {
+            await worker.start({ serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` } });
+
+            createRoot(document.getElementById('root') as HTMLElement).render(
+                <React.StrictMode>
+                    <img
+                        src={`${import.meta.env.BASE_URL}internflate20211122.png`}
+                        id="veilarbpersonflatefs-root"
+                        alt="internflate bilde"
+                    />
+                    <App fnr={'12118323058'} theme="light" />
+                    {erLokalMode() && <Utviklerinnstillinger />}
+                </React.StrictMode>
+            );
+        } catch (error: unknown) {
             // oxlint-disable-next-line no-console
-            console.log('MSW - failed to import', e);
-        });
+            console.error('Unable to setup mocked API endpoints', error);
+        }
+    } catch (error: unknown) {
+        // oxlint-disable-next-line no-console
+        console.log('MSW - failed to import', error);
+    }
 } else {
     customElements.define(WEB_COMPONENT_APPNAVN, Veilarbdetaljer);
 }
