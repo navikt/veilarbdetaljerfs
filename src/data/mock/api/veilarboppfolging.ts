@@ -1,5 +1,8 @@
 import { UnderOppfolgingData } from '../../api/datatyper/underOppfolgingData';
-import { delay, graphql, http, HttpResponse, RequestHandler } from 'msw';
+import { RequestHandler } from 'msw';
+import { http, HttpResponse } from 'msw/http';
+import { graphql } from 'msw/graphql';
+import { delay } from 'msw/utils/delay';
 import { DEFAULT_DELAY_MILLISECONDS, hentSimulerEndepunktResponsKonfigurasjon } from './index.ts';
 import { endepunkter } from '../../api/fetch.ts';
 import { customResponseHeaders } from '../../api/datatyper/apiOptions.ts';

@@ -1,7 +1,8 @@
 import { veilarboppfolgingHandlers } from './veilarboppfolging';
 import { veilarbpersonHandlers } from './veilarbperson';
 import { veilarbveilederHandlers } from './veilarbveileder';
-import { HttpResponse, RequestHandler } from 'msw';
+import { RequestHandler } from 'msw';
+import { HttpResponse } from 'msw/http';
 import { veilarbvedtaksstotteHandlers } from './veilarbvedtaksstotte';
 import { Endepunkt } from '../../api/fetch.ts';
 import { hentUtviklerInnstillinger } from '../../../components/utviklerinnstillinger/utviklerinnstillinger.ts';
