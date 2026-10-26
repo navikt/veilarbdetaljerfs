@@ -27,7 +27,7 @@ const App = ({ fnr, enhet, theme }: AppProps) => {
     const overblikkFilter = useOverblikkFilter();
 
     const informasjonsboksAlternativer: string[] = useMemo(
-        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser'],
+        () => ['CV', 'Jobbønsker', 'Oppfølging', 'Personalia', 'Registrering', 'Ytelser (Arena)'],
         []
     );
 
@@ -39,7 +39,7 @@ const App = ({ fnr, enhet, theme }: AppProps) => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
             const lagretData = overblikkFilter.data.overblikkVisning;
             // oxlint-disable-next-line react/set-state-in-effect
-            setValgteInformasjonsbokser(lagretData);
+            setValgteInformasjonsbokser(lagretData.map((navn) => (navn === 'Ytelser' ? 'Ytelser (Arena)' : navn)));
         }
     }, [overblikkFilter.data]);
 
@@ -55,7 +55,7 @@ const App = ({ fnr, enhet, theme }: AppProps) => {
                 return <Personaliainnhold />;
             case 'Registrering':
                 return <Registreringsinnhold />;
-            case 'Ytelser':
+            case 'Ytelser (Arena)':
                 return <Ytelsesinnhold />;
             default:
                 return null;
