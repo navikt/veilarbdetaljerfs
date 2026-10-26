@@ -20,7 +20,7 @@ import {
 } from './veilarboppfolgingGraphql.ts';
 
 export interface ErrorMessage {
-    error: Error | unknown;
+    error: unknown;
     status?: number | null;
     info: StringOrNothing;
     korrelasjonId: string | null;

@@ -13,8 +13,9 @@ export const logMetrikk = (
     tags?: Record<string, unknown>
 ): void => {
     if (erLokalMode()) {
+        // oxlint-disable-next-line no-console
         console.log('Event', metrikkNavn, 'Fields:', fields, 'Tags:', tags);
     } else {
-        sendEventTilVeilarbperson({ name: `${metrikkNavn}`, fields, tags });
+        void sendEventTilVeilarbperson({ name: `${metrikkNavn}`, fields, tags });
     }
 };

@@ -52,7 +52,7 @@ export function formaterTelefonnummer(telefon: PersonaliaTelefon | undefined | s
     if (!telefon) {
         return EMDASH;
     }
-    let telefonNr = telefon?.toString();
+    let telefonNr = typeof telefon === 'string' ? telefon : telefon.telefonNr;
     let landkode = '';
 
     if (telefonNr?.startsWith('0047')) {
