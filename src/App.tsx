@@ -38,7 +38,7 @@ const App = ({ fnr, enhet, theme }: AppProps) => {
     useEffect(() => {
         if (overblikkFilter.data !== undefined && overblikkFilter.data.overblikkVisning !== undefined) {
             const lagretData = overblikkFilter.data.overblikkVisning;
-            // eslint-disable-next-line react-hooks/set-state-in-effect
+            // oxlint-disable-next-line react/set-state-in-effect
             setValgteInformasjonsbokser(lagretData);
         }
     }, [overblikkFilter.data]);

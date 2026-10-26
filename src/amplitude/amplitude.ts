@@ -23,6 +23,7 @@ export const maskereFodselsnummer = (data?: Record<string, unknown>) => {
     try {
         return JSON.parse(maskertObjekt);
     } catch {
+        // oxlint-disable-next-line no-console
         console.error('Kunne ikke maskere data korrekt før sending til Umami.');
     }
     return {};

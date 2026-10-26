@@ -24,10 +24,14 @@ if (erLokalMode() || erDemoMode()) {
                     );
                 })
                 .catch((e: Error) => {
+                    // oxlint-disable-next-line no-console
                     console.error('Unable to setup mocked API endpoints', e);
                 });
         })
-        .catch((e) => console.log('MSW - failed to import', e));
+        .catch((e) => {
+            // oxlint-disable-next-line no-console
+            console.log('MSW - failed to import', e);
+        });
 } else {
     customElements.define(WEB_COMPONENT_APPNAVN, Veilarbdetaljer);
 }
