@@ -1,6 +1,6 @@
 import { GraphqlResponse } from './GraphqlUtils';
 
-export interface OppfolgingsData {
+export interface Oppfolgingsdata {
     oppfolgingsEnhet: {
         enhet: {
             id: string;
@@ -11,14 +11,17 @@ export interface OppfolgingsData {
         krr: {
             reservertIKrr: boolean;
         };
+        veilederTilordning: {
+            veilederIdent: string | null;
+        } | null;
     };
 }
 
-export type OppfolgingsEnhetQueryRequest = ReturnType<typeof veilarboppfolgingGraphqlQuery>;
-export type OppfolgingsenhetResponse = GraphqlResponse<OppfolgingsData>;
+export type OppfolgingsdataQueryRequest = ReturnType<typeof veilarboppfolgingGraphqlQuery>;
+export type OppfolgingsdataResponse = GraphqlResponse<Oppfolgingsdata>;
 
-export const hentOppfolgingsEnhetQuery = `
-    query hentOppfolgingsEnhet($fnr: String!) {
+export const hentOppfolgingsdataQuery = `
+    query hentOppfolgingsdata($fnr: String!) {
         oppfolgingsEnhet(fnr: $fnr) {
             enhet {
                 id
@@ -28,6 +31,9 @@ export const hentOppfolgingsEnhetQuery = `
         brukerStatus(fnr: $fnr) {
             krr {
                 reservertIKrr
+            }
+            veilederTilordning {
+                veilederIdent
             }
         }
     }

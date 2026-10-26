@@ -4,11 +4,11 @@ import { useAppStore } from '../stores/app-store';
 import {
     useCvOgJobbonsker,
     useGjeldende14aVedtak,
-    useOppfolgingsstatus,
     useOpplysningerOmArbeidssoekerMedProfilering,
     usePersonalia,
     useTolk,
-    useVeileder
+    useVeileder,
+    useVeilederTilordning
 } from '../data/api/fetch';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { OrNothing, StringOrNothing } from '../utils/felles-typer';
@@ -30,15 +30,15 @@ const Nokkelinfoinnhold = () => {
     const behandlingsnummer = hentBehandlingsnummer();
 
     const {
-        data: oppfolgingsstatusData,
-        error: oppfolgingsstatusError,
-        isLoading: oppfolgingsstatusLoading
-    } = useOppfolgingsstatus(fnr);
+        data: tilordnetVeileder,
+        error: oppfolgingsdataError,
+        isLoading: oppfolgingsdataLoading
+    } = useVeilederTilordning(fnr);
     const { data: personData, error: personError, isLoading: personLoading } = usePersonalia(fnr!, behandlingsnummer);
     const {
-        data: opplysningerOmArbedissoekerMedProfilering,
-        error: opplysningerOmArbedissoekerMedProfileringError,
-        isLoading: opplysningerOmArbedissoekerMedProfileringLoading
+        data: opplysningerOmArbeidssoekerMedProfilering,
+        error: opplysningerOmArbeidssoekerMedProfileringError,
+        isLoading: opplysningerOmArbeidssoekerMedProfileringLoading
     } = useOpplysningerOmArbeidssoekerMedProfilering(fnr);
     const { data: tolkData, error: tolkError, isLoading: tolkLoading } = useTolk(fnr!, behandlingsnummer);
     const {
@@ -46,11 +46,7 @@ const Nokkelinfoinnhold = () => {
         error: cvOgJobbonskerError,
         isLoading: cvOgJobbonskerLoading
     } = useCvOgJobbonsker(fnr);
-    const {
-        data: veilederData,
-        error: veilederError,
-        isLoading: veilederLoading
-    } = useVeileder(oppfolgingsstatusData?.veilederId);
+    const { data: veilederData, error: veilederError, isLoading: veilederLoading } = useVeileder(tilordnetVeileder);
     const {
         data: gjeldende14aVedtak,
         error: gjeldende14aVedtakError,
@@ -58,12 +54,12 @@ const Nokkelinfoinnhold = () => {
     } = useGjeldende14aVedtak(fnr);
 
     if (
-        oppfolgingsstatusLoading ||
+        oppfolgingsdataLoading ||
         personLoading ||
         tolkLoading ||
         cvOgJobbonskerLoading ||
         veilederLoading ||
-        opplysningerOmArbedissoekerMedProfileringLoading ||
+        opplysningerOmArbeidssoekerMedProfileringLoading ||
         gjeldende14aVedtakLoading
     ) {
         return <Laster />;
@@ -71,11 +67,11 @@ const Nokkelinfoinnhold = () => {
 
     if (
         [
-            oppfolgingsstatusError,
+            oppfolgingsdataError,
             personError,
             tolkError,
             veilederError,
-            opplysningerOmArbedissoekerMedProfileringError,
+            opplysningerOmArbeidssoekerMedProfileringError,
             gjeldende14aVedtakError
         ].some((error) => {
             // HTTP 404 representerer manglande data og vi tolkar det difor ikkje som feil
@@ -83,11 +79,11 @@ const Nokkelinfoinnhold = () => {
         })
     ) {
         const feilkoder = [
-            oppfolgingsstatusError,
+            oppfolgingsdataError,
             personError,
             tolkError,
             veilederError,
-            opplysningerOmArbedissoekerMedProfileringError,
+            opplysningerOmArbeidssoekerMedProfileringError,
             gjeldende14aVedtakError
         ]
             .map((errorMessage) => errorMessage?.korrelasjonId ?? null)
@@ -106,7 +102,7 @@ const Nokkelinfoinnhold = () => {
     const jobbonsker: string = onsketYrkeTitles.length > 0 ? onsketYrkeTitles.join(', ') : EMDASH;
     const sivilstatus: StringOrNothing = personData?.sivilstandliste?.[0]?.sivilstand;
     const datoRegistrert: StringOrNothing =
-        opplysningerOmArbedissoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
+        opplysningerOmArbeidssoekerMedProfilering?.arbeidssoekerperiodeStartet ?? null;
     const MAX_ALDER_BARN = 21;
 
     const navnOgAlderPaBarnUnder21 = () => {
@@ -153,7 +149,7 @@ const Nokkelinfoinnhold = () => {
                 value={formaterDato(datoRegistrert)}
                 tilleggsinfo={datoRegistrert ? 'Arbeidssøkerregisteret' : null}
             />
-            <EnkeltInformasjon header="Aktive ytelser" value={''} lenkeinfo={<ModiaPersonoversiktTekstMedLenker />} />
+            <EnkeltInformasjon header="Aktive ytelser" value={<ModiaPersonoversiktTekstMedLenker />} />
         </span>
     );
 };

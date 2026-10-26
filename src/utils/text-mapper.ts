@@ -1,31 +1,11 @@
 import EMDASH from './emdash';
-import { ArenaServicegruppeKode } from '../data/api/datatyper/oppfolgingsstatus';
-import { OrNothing, StringOrNothing, isNullOrUndefined } from './felles-typer';
+import { StringOrNothing, isNullOrUndefined } from './felles-typer';
 import { PersonaliaInfo } from '../data/api/datatyper/personalia';
 import { VeilederData } from '../data/api/datatyper/veileder';
 import { TilrettelagtKommunikasjonData } from '../data/api/datatyper/tilrettelagtKommunikasjon';
 import { VedtakType } from '../data/api/datatyper/ytelse';
 import { VEDTAKSSTATUSER } from './konstanter.ts';
 import { ProfilertTil } from '@navikt/arbeidssokerregisteret-utils';
-
-export function mapServicegruppeTilTekst(servicegruppe: OrNothing<ArenaServicegruppeKode>): string {
-    switch (servicegruppe) {
-        case 'IVURD':
-            return 'Ikke vurdert';
-        case 'OPPFI':
-            return 'Helserelatert arbeidsrettet oppfølging i Nav';
-        case 'VURDI':
-            return 'Sykmeldt, oppfølging på arbeidsplassen';
-        case 'VURDU':
-            return 'Sykmeldt uten arbeidsgiver';
-        case 'BKART':
-            return 'Behov for arbeidsevnevurdering';
-        case 'KAP11':
-            return 'Rettigheter etter Ftrl. Kapittel 11';
-        default:
-            return EMDASH;
-    }
-}
 
 export function profilertTilBeskrivelse(profilertTil: ProfilertTil) {
     switch (profilertTil) {
