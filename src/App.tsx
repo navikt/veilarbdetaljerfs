@@ -130,7 +130,11 @@ const App = ({ fnr, enhet, theme }: AppProps) => {
 
                                     <Button
                                         onClick={() => {
-                                            sendOverblikkFilter({ overblikkVisning: valgteInformasjonsbokser }).then(
+                                            sendOverblikkFilter({
+                                                overblikkVisning: valgteInformasjonsbokser.map((navn) =>
+                                                    navn === 'Ytelser (Arena)' ? 'Ytelser' : navn
+                                                )
+                                            }).then(
                                                 () => {
                                                     overblikkFilter.reFetch().then(
                                                         () => {

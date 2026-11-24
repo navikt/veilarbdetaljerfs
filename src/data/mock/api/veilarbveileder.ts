@@ -17,7 +17,7 @@ const veileder: VeilederData = {
 };
 
 const chips: overblikkVisningResponse = {
-    overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser (Arena)', 'Personalia']
+    overblikkVisning: ['CV', 'Jobbønsker', 'Registrering', 'Oppfølging', 'Ytelser', 'Personalia']
 };
 
 type LagredeInformasjonsbokser = { value: string[] };
